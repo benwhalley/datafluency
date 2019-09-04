@@ -1,0 +1,95 @@
+---
+title: 'Research Methods in Practice 1'
+author: 'Ben Whalley, Ellie Lloyd, Maggie Brennan, and Andy Wills.'
+site: bookdown::bookdown_site
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+---
+
+```{r, include=F, echo=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, message=FALSE)
+```
+
+# {-}
+
+![Avocet. Image: wikimedia.](<media/Avocet_(PSF).png>)
+
+<!-- TODO FIXME change to cabbage drawing? -->
+
+# Overview {-}
+
+### Format of the sessions
+
+Each session will be .... XXX TODO explain
+
+-   I avoid lecturing... it doesn't work with this subject matter
+-   Focus is on learning by doing (it's cooking, not chemisty)
+-   First hour we work together
+-   Second hour is self-paced, or in groups
+-   Activities are variabe length, sometimes you will finish early
+-   Often there will be extension exercises or reading to follow-up
+
+### Lab diary
+
+-   Keep notes
+
+TODO EXPLAIN BLOG
+
+### Overview
+
+1. Beginners 1
+
+2. BeginneRs 2
+
+3. Visualisation and plotting 1
+
+4. Data handing 1: recap filter, select then melt, dcast
+
+5. Data handling 2: multiple files; introduce Rmd
+
+6. Regression 1: fitting lines
+
+7. Regression 2: making predictions
+
+8. Uncertainty and intervals
+
+9. Anova + Bayes factor
+
+(CHRISTMAS BREAK)
+
+10. Fitting curves
+
+11. Multiple regression
+
+12. Contrasts and tests: using `emmeans`
+
+13. Communicating regression and Anova
+
+14. Reproducing an analysis 1: groups work on example, start to finish.
+
+15. Reproducing an analysis 2: finding a suitable paper, data handling.
+
+16. Reproducing an analysis 3: reproducing the analysis.
+
+(Catchup/revision session)
+
+# Access to R
+
+Throughout the module we use R for data processing and analysis.
+
+If you are taking this course at Plymouth University, the easiest way to run the
+code examples here is to the school's RStudio Server.
+
+-   [Login to your account on the server here](https://rstudio.plymouth.ac.uk)
+-   To get an account on the server, or reset a password,
+    [contact the Psychology technical office](http://www.psy.plymouth.ac.uk/home/)
+
+#### Installing at home
+
+If you want to install R on your own machine, instructions are available here:
+
+-   <https://github.com/plymouthPsychology/installR/>
+
+Be sure to install the recommended packages or the examples given here won't
+work.

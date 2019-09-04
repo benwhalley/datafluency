@@ -1,0 +1,5 @@
+## Common problems
+
+### Common problems when trying to knit Rmd files {#common-rmd-problems}
+
+TODO FIXME

@@ -1,0 +1,35 @@
+# See https://docs.travis-ci.com/user/languages/r/
+dist: trusty
+sudo: true
+language: r
+
+cache:
+    packages: yes
+
+script:
+    - Rscript -e 'bookdown::render_book("index.rmd", "all")'
+
+r_binary_packages:
+    - tidyverse
+    - arm
+    - psych
+    - BayesFactor
+    - cowplot
+    - pander
+    - data.table
+    - lavaan
+
+# this is needed to use latest pivot_longer etc
+r_github_packages:
+    - tidyverse/tidyr
+
+deploy:
+    provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+    keep-history: false
+    local-dir: docs
+    target_branch: gh-pages
+    verbose: true
+
+warnings_are_errors: true

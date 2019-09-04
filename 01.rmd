@@ -1,0 +1,41 @@
+# BeginneRs {#beginners}
+
+> Working with data is a core skill for researchers, and increasingly important
+> in all professional careers.
+
+> There are many tools for manpulating, visualising and analysing data. R is
+> powerful, open-source tool which has gained wide acceptance among researchers
+> and in industry, and expertise with R is highly sought after by employers.
+
+> In this course we'll learn R as we go, building a little at a time. This and
+> the next session covers the basics (things you would learn as part of an
+> undergraduate statistics course at Plymouth). If some of this is familiar,
+> there will be extension exercises to enhance your knowledge.
+
+## Session 1
+
+Outline:
+
+-   R accounts handout and login TODO PLAN
+-   TODO ADD ANDY's initial worksheets
+
+```{r}
+library(webex)
+library(tidyverse)
+```
+
+Example of a question. `r 2+2`  
+What is your favourite letter? `r mcq(c("A", "B", "C", answer="D"))`
+
+```{r, results="asis"}
+mcq(c("A", "B", "C", answer="D")) %>% cat
+```
+
+Hints
+
+`r hide("Show hint")`
+
+To mimic the plot you will need to use a `geom_boxplot()` and also
+`facet_grid(~sex)`.
+
+`r unhide()`

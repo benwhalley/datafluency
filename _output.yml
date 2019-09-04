@@ -1,0 +1,16 @@
+bookdown::gitbook:
+    includes:
+        in_header: in_header.html
+    bibliography: references.bib
+    citation_package: biblatex
+    biblio-style: 'apalike'
+    number_sections: no
+    toc_depth: 2
+    split_by: section
+    config:
+        toc:
+            collapse: section
+            before: |
+                <li><a href="./">Research Methods in Detail</a></li>
+            after: |
+                <li><a href="./LICENCE" target="blank">Licence: GPL3</a></li>

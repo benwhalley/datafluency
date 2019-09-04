@@ -1,0 +1,30 @@
+book_filename: 'rmip'
+output_dir: docs
+delete_merged_file: true
+link-citations: true
+new_session: yes
+rmd_files:
+  [
+    "index.rmd",
+    "teachers-notes.rmd",
+    "assessment.rmd",
+
+    # PART
+    "01.rmd",
+    "02.rmd",
+    "03.rmd",
+    "04.rmd",
+    "05.rmd",
+    "06.rmd",
+    
+
+    # PART
+    "extras-common-problems.rmd",
+
+    # PART
+    "notes-and-resources.rmd",
+    "quiz.rmd",
+    
+    "references.rmd",
+
+]
