@@ -11,6 +11,6 @@ bookdown::gitbook:
         toc:
             collapse: section
             before: |
-                <li><a href="./">Research Methods in Detail</a></li>
+                <li><a href="./">Data Fluency</a></li>
             after: |
                 <li><a href="./LICENCE" target="blank">Licence: GPL3</a></li>

@@ -19,9 +19,9 @@ r_binary_packages:
     - data.table
     - lavaan
 
-# this is needed to use latest pivot_longer etc
 r_github_packages:
     - tidyverse/tidyr
+    - benwhalley/webex
 
 deploy:
     provider: pages

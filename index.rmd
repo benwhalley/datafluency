@@ -1,6 +1,6 @@
 ---
-title: 'Research Methods in Practice 1'
-author: 'Ben Whalley, Ellie Lloyd, Maggie Brennan, and Andy Wills.'
+title: 'Data Fluency'
+author: 'Ben Whalley and Chris Berry'
 site: bookdown::bookdown_site
 bibliography: [references.bib]
 biblio-style: apa6
