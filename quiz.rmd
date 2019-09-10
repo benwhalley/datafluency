@@ -1,8 +1,11 @@
 # Self-test Quizzes
 
-TODO ADD QUIZ ITEMS FOR ALL SESSIONS
+These self-test quiz questions can be used to test your knowledge each week.
+
+<!-- TODO ADD QUIZ ITEMS FOR ALL SESSIONS
 
 TODO ADD ANSWERS ON SEPARATE PAGES OR USE WEBEX
+ -->
 
 ## Causes and effects {#causes-quiz}
 
@@ -20,26 +23,28 @@ TODO ADD ANSWERS ON SEPARATE PAGES OR USE WEBEX
 
 ## Measurement {#measurement-quiz}
 
+TBC
+
+<!--
 -   When drawing diagrams, observations are drawn as `____` boxes, and latent
     variables are drawn as `____` boxes [square and rounded respectively]
 
 -   Something about diversity/construct validity TODO
 
 -   Something about ambiguity/discriminant validity TODO?
-
-TODO ADD MORE QUESTIONS
+ -->
+<!-- TODO ADD MORE QUESTIONS -->
 
 ## Data {#data-quiz}
 
-TODO
+TBC
+
+<!-- TODO -->
 
 ## Regression {#regression-quiz}
 
-TODO
+TBC
 
 ## Multiple regression quiz {#multiple-regression-quiz}
 
-TODO
-
-
-
+TBC

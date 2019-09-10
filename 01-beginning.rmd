@@ -39,3 +39,9 @@ To mimic the plot you will need to use a `geom_boxplot()` and also
 `facet_grid(~sex)`.
 
 `r unhide()`
+
+## Session 2
+
+TBC
+
+<!-- add from Andy -->

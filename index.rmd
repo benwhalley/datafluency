@@ -13,46 +13,47 @@ knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, messag
 
 # {-}
 
-![Avocet. Image: wikimedia.](<media/Avocet_(PSF).png>)
+![Mediaeval line plot, circa 1010. Image: [wikimedia](https://commons.wikimedia.org/wiki/File:Clm_14436_ecliptic_diagram.png)](media/Clm_14436_ecliptic_diagram.png)
 
-<!-- TODO FIXME change to cabbage drawing? -->
+<!-- change to cow? https://archive.org/details/cu31924074275912/page/n131 -->
 
 # Overview {-}
 
 ### Format of the sessions
 
-Each session will be .... XXX TODO explain
+We have 16 sessions, which work as follows:
 
--   I avoid lecturing... it doesn't work with this subject matter
--   Focus is on learning by doing (it's cooking, not chemisty)
--   First hour we work together
--   Second hour is self-paced, or in groups
--   Activities are variabe length, sometimes you will finish early
--   Often there will be extension exercises or reading to follow-up
+-   We avoid extended lectures. This doesn't work well with this subject matter.
+-   The focus is on learning by doing (this is more like cooking than chemisty).
+-   In the first hour of each session we will (mostly) work together.
+-   In the second hour your work will be self-paced, or in small groups.
+-   Activities in the workshops are variable in length, sometimes you will
+    finish early, other times you may be expected to complete the activities
+    outside of class.
 
 ### Lab diary
 
 -   Keep notes
 
-TODO EXPLAIN BLOG
+TODO EXPLAIN BLOG TASK
 
 ### Overview
 
-1. Beginners 1
+1. BeginneRs (1)
 
-2. BeginneRs 2
+2. BeginneRs (2)
 
-3. Visualisation and plotting 1
+3. Visualisation and plotting
 
-4. Data handing 1: recap filter, select then melt, dcast
+4. Data handing (1): recap filter, select then melt, dcast
 
-5. Data handling 2: multiple files; introduce Rmd
+5. Data handling (2): multiple files; introduce Rmd
 
 6. Regression 1: fitting lines
 
 7. Regression 2: making predictions
 
-8. Uncertainty and intervals
+8. Estimating uncertainty
 
 9. Anova + Bayes factor
 

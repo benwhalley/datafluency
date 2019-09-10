@@ -10,13 +10,16 @@ rmd_files:
     "assessment.rmd",
 
     # PART
-    "01.rmd",
-    "02.rmd",
-    "03.rmd",
-    "04.rmd",
-    "05.rmd",
-    "06.rmd",
-    
+    "01-beginning.rmd",
+    "02-plotting.rmd",
+    "03-data.rmd",
+    "04-regression.rmd",
+    "05-uncertainty.rmd",
+    "06-anova-bf.rmd",
+    "07-multiple-regression.rmd",
+    "08-testing.rmd",
+    "09-communicating.rmd",
+    "10-real.rmd",
 
     # PART
     "extras-common-problems.rmd",
