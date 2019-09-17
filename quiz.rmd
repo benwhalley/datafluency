@@ -9,7 +9,9 @@ TODO ADD ANSWERS ON SEPARATE PAGES OR USE WEBEX
 
 ## Causes and effects {#causes-quiz}
 
--   Your hypothesis is "sunburn hurts more if you are also hungover". Is this an
+TBC
+
+<!-- -   Your hypothesis is "sunburn hurts more if you are also hungover". Is this an
     example of mediation or moderation? [Moderation]
 -   How do we show correlation in causal diagrams? [a double headed arrow]
 -   Is effect modification the same as or different to stratification?
@@ -20,6 +22,7 @@ TODO ADD ANSWERS ON SEPARATE PAGES OR USE WEBEX
 -   What is another word for omitted variable bias [confounding]
 -   What technique can we use to rule out confounding entrirely?
 -   Why can't we always use experiments?
+ -->
 
 ## Measurement {#measurement-quiz}
 

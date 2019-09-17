@@ -1,0 +1,19 @@
+# Building models
+
+### In brief
+
+> Choosing variables ... TBC
+
+<!-- Chris Berry to add XXX -->
+
+## Session 1: Multiple regression
+
+In this section we cover variable selection in multiple regression, and issues
+in fitting linear models, including multicollinearity.
+
+<!-- TBC Chris to add previous content -->
+
+## Session 2: Anova and Bayes Factor
+
+In this session we discuss model selection in the context of Anova and the use
+of Bayes Factors to choose between theoretically interesting models.

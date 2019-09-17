@@ -35,45 +35,47 @@ We have 16 sessions, which work as follows:
 
 -   Keep notes
 
-TODO EXPLAIN BLOG TASK
+<!-- TODO EXPLAIN BLOG TASK -->
 
 ### Overview
 
-1. BeginneRs (1)
+-   BeginneRs 1: Getting started with RStudio
 
-2. BeginneRs (2)
+-   BeginneRs 2: Basic skills in R
 
-3. Visualisation and plotting
+-   Visualisation and plotting: Relationships, group differences, color.
 
-4. Data handing (1): recap filter, select then melt, dcast
+-   Data handing 1: Filtering, selecting and summarising.
 
-5. Data handling (2): multiple files; introduce Rmd
+-   Data handling 2: Working with multiple files; Rmarkdown.
 
-6. Regression 1: fitting lines
+-   Regression 1: Core concepts.
 
-7. Regression 2: making predictions
+-   Regression 2: Multiple regression.
 
-8. Estimating uncertainty
+-   Regression 3: Tests and variable/effect coding.
 
-9. Anova + Bayes factor
+-   Uncertainty and intervals: Confidence and prediction intervals.
 
 (CHRISTMAS BREAK)
 
-10. Fitting curves
+-   Fitting curves: Using polynomials.
 
-11. Multiple regression
+-   Building models 1: Choosing variables in multiple regression
 
-12. Contrasts and tests: using `emmeans`
+-   Building models 2: Anova and Bayes Factors
 
-13. Communicating regression and Anova
+-   Contrasts and tests: Using `emmeans`
 
-14. Reproducing an analysis 1: groups work on example, start to finish.
+-   Communicating regression and Anova
 
-15. Reproducing an analysis 2: finding a suitable paper, data handling.
+-   Reproducing an analysis 1: groups work on example, start to finish.
 
-16. Reproducing an analysis 3: reproducing the analysis.
+-   Reproducing an analysis 2: finding a suitable paper, data handling.
 
-(Catchup/revision session)
+-   Reproducing an analysis 3: reproducing the analysis.
+
+A catchup/revision session then follows, but no new material is introduced.
 
 # Access to R
 

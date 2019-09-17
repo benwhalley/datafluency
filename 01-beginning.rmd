@@ -12,36 +12,20 @@
 > undergraduate statistics course at Plymouth). If some of this is familiar,
 > there will be extension exercises to enhance your knowledge.
 
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, message=FALSE)
+library(tidyverse)
+library(webex)
+theme_set(theme_minimal())
+```
+
 ## Session 1
 
-Outline:
-
--   R accounts handout and login TODO PLAN
--   TODO ADD ANDY's initial worksheets
-
-```{r}
-library(webex)
-library(tidyverse)
-```
-
-Example of a question. `r 2+2`  
-What is your favourite letter? `r mcq(c("A", "B", "C", answer="D"))`
-
-```{r, results="asis"}
-mcq(c("A", "B", "C", answer="D")) %>% cat
-```
-
-Hints
-
-`r hide("Show hint")`
-
-To mimic the plot you will need to use a `geom_boxplot()` and also
-`facet_grid(~sex)`.
-
-`r unhide()`
+This session will introduce R and RStudio.
 
 ## Session 2
 
-TBC
+This session will develop some addition basic skills in loading and viewing
+data.
 
 <!-- add from Andy -->

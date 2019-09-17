@@ -15,7 +15,8 @@
 
 ## Sesssion 1
 
-TBC
+We will use the `dplyr` and `data.table` libraries to manipulate and reorganise
+data to solve common problems in experimental and applied research.
 
 <!-- recap filter, select then melt, dcast
 
@@ -25,7 +26,10 @@ making tables
 
 ## Session 2
 
-TBC
+We will use techniques to automate the processing of experimental data. We also
+introduce [Rmarkdown](https://rmarkdown.rstudio.com) to communicate and share
+our analyses with others, and cover best-practices for data handling and
+archive.
 
 <!-- Multiple files
 

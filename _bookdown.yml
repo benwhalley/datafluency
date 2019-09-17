@@ -15,17 +15,16 @@ rmd_files:
     "03-data.rmd",
     "04-regression.rmd",
     "05-uncertainty.rmd",
-    "06-anova-bf.rmd",
-    "07-multiple-regression.rmd",
-    "08-testing.rmd",
-    "09-communicating.rmd",
-    "10-real.rmd",
+    
+
+
+    "06-building-models.rmd",
+    "07-testing.rmd",
+    "08-communicating.rmd",
+    "9-real.rmd",
 
     # PART
     "extras-common-problems.rmd",
-
-    # PART
-    "notes-and-resources.rmd",
     "quiz.rmd",
     
     "references.rmd",

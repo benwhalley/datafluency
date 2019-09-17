@@ -1,5 +1,9 @@
 ## Common problems
 
-### Common problems when trying to knit Rmd files {#common-rmd-problems}
+### When trying to knit Rmd files {#common-rmd-problems}
 
+TBC
+
+<!--
 TODO FIXME
+ -->
