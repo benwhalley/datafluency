@@ -9,12 +9,18 @@
 
 ## Session 1: Reproducing a real paper
 
-TBC
+In this session we dissect a specific published paper, attempt to replicate the
+authors findings, and reflect on the challenges of reproducing findings given
+the current state of scientific publishing.
 
 ## Session 2: Reproducing a real paper
 
-TBC
+In this session we work in groups to identify a new published paper for which we
+might replicate the analysis. You will build on skills learnt in previous weeks
+to wrangle the published data into a suitable format, and decide which analyses
+to run.
 
 ## Session 3: Reproducing a real paper
 
-TBC
+We will finalise work on your replication, building towards the individual
+assessment.

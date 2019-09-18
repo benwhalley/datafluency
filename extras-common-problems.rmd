@@ -48,6 +48,9 @@ the people whose education level equal to "master".
 -   Have you used the `View()` function in your code? This only works when
     inside RStudio, not when knitting documents.
 
-<!--
-TODO FIXME
- -->
+-   Have you loaded your packages at the top of the file? If you try to call
+    functions from tidyverse or other packages without loading them first you
+    will get errors. Sometimes this is not apparent when working in an
+    interactive session, but creates an error when a package is loaded after it
+    is used in the code.
+

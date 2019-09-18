@@ -1,6 +1,6 @@
 # BeginneRs {#beginners}
 
-![Starting something new can feel awkward. Photo credit:  [1ksmiles.com](http://www.1ksmiles.com/wp-content/uploads/2014/03/standing-up-first-time-giraffe.jpg)](media/leggy.jpg)
+![Photo:  [1ksmiles.com](http://www.1ksmiles.com/wp-content/uploads/2014/03/standing-up-first-time-giraffe.jpg)](media/leggy.jpg)
 
 ### In brief
 
@@ -21,6 +21,7 @@
 knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, message=FALSE)
 library(tidyverse)
 library(webex)
+library(pander)
 theme_set(theme_minimal())
 ```
 
@@ -31,24 +32,6 @@ This material was adapted from
 
 All content on this site distributed under a
 [Creative Commons](https://creativecommons.org/) licence. CC-BY-SA 4.0.
-
-## Approach of this course
-
-Sometimes, psychology students learn statistics through a "bag of tricks"
-approach: Workshops might teach how to "do an Anova", or "how run a multiple
-regression". Or you might be given a checklist of things to do when analysing
-data of a particular type, but all without any bigger picture of what we are
-trying to achieve when we collect and analyse data.
-
-To provide a common thread to our teaching, research methods modules at Plymouth
-adopt the model for the work of data scientists proposed by
-[Wickham, 2017](http://r4ds.had.co.nz/introduction.html) (see figure):
-
-![Wickham's model of a data science workflow](media/data-science.png)
-
-In this module we do cover specific skills, but we hope you will also learn
-about this general approach to working with data, and integrate it into your own
-research.
 
 ## Getting started with RStudio {#getting-started-rstudio}
 
@@ -533,28 +516,28 @@ cpsdata %>%
 
 Here's what each part of this command means:
 
-`cpsdata` - The data frame containing the data. You created this in the last
-worksheet.
+-   `cpsdata` - The data frame containing the data. You created this in the last
+    worksheet.
 
-`%>%` - A pipe. As in the last worksheet, this pipe carries the data in
-`cpsdata` to the next part of the command, which does something with it.
+-   `%>%` - A pipe. As in the last worksheet, this pipe carries the data in
+    `cpsdata` to the next part of the command, which does something with it.
 
-`ggplot()` - This means 'draw me a graph'. All graphs we use in these worksheets
-use the _Grammar for Graphics_ (gg) plotting commands, so they'll all include
-the command `ggplot`.
+-   `ggplot()` - This means 'draw me a graph'. All graphs we use in these
+    worksheets use the _Grammar for Graphics_ (gg) plotting commands, so they'll
+    all include the command `ggplot`.
 
-`aes()` - Short for _aesthetics_ (what things look like). It means 'This is the
-sort of graph I want'.
+-   `aes()` - Short for _aesthetics_ (what things look like). It means 'This is
+    the sort of graph I want'.
 
-`income` - I want a graph of the data in the `income` column of `cpsdata`
+-   `income` - I want a graph of the data in the `income` column of `cpsdata`
 
-`color=sex` - I want you to give me two graphs on top of each other, in
-different colours. One colour for men, a different color for women. Use the
-`sex` column of `cpsdata` to work out who is male and who is female.
+-   `color=sex` - I want you to give me two graphs on top of each other, in
+    different colours. One colour for men, a different color for women. Use the
+    `sex` column of `cpsdata` to work out who is male and who is female.
 
-`geom_density()` - I want this graph to be a _density_ plot.
+-   `geom_density()` - I want this graph to be a _density_ plot.
 
-`aes(y=..scaled..)` - I want this density plot to be _scaled_ (see above).
+-   `aes(y=..scaled..)` - I want this density plot to be _scaled_ (see above).
 
 #### Discussion of output
 
@@ -562,21 +545,6 @@ Your graph will appear in the bottom-right window, and should look like the one
 above. You'll notice that the two lines seem basically on top of each other ...
 but they can't be because we know the two groups differ in mean income by over
 nine thousand dollars! We have a problem to solve...
-
-:::{.exercise}
-
-```{r, echo=F, include=F}
-meds <- cpsdata %>% group_by(sex)%>% summarise(med=median(income))%>% arrange(sex) %>% pull(med)
-```
-
-Previously, we calculated the mean salary of men and women.
-
-1. Why might it be a better idea to calculate the median?
-
-2. Adapt the commands above to calculate the median instead. What is the median
-   salary for women: `r fitb(meds[1])`, and for men: `r fitb(meds[2])`.
-
-:::
 
 ### Dealing with extreme data points {#extreme-data}
 
@@ -669,8 +637,209 @@ cpslow %>% group_by(native) %>% summarise(mean(income))
 cpslow %>% ggplot(aes(income, colour=factor(native))) + geom_density(aes(y=..scaled..))
 ```
 
+```{r, echo=F, include=F}
+meds <- cpsdata %>% group_by(sex)%>% summarise(med=median(income))%>% arrange(sex) %>% pull(med)%>% round()
+```
+
+Previously, we calculated the mean salary of men and women.
+
+1. Why might it be a better idea to calculate the median?
+
+`r hide("Show answer")`
+
+Because the data are strongly skewed, the median may be a better summary of the
+central tendency (the middle).
+
+`r unhide()`
+
+2. Adapt the commands above to calculate the median instead. What is the median
+   salary for women: `r fitb(meds[1])`, and for men: `r fitb(meds[2])`.
+
+`r hide("Show answers")`
+
+```{r}
+cpsdata %>% group_by(sex)%>% summarise(med=median(income))
+```
+
+`r unhide()`
+
 ### Extension exercise {.exercise}
 
 If you've some spare time and are looking for something a bit more challenging,
 try Exercise 2 on this slightly
 [more advanced worksheet](https://ajwills72.github.io/rminr/group-differences.html#ex2).
+
+<!--
+
+
+
+
+
+ -->
+
+## Undergraduate stats in R
+
+All of the statistics you will have learned at undergraduate level can be
+produced in R. Here we cover simple examples of:
+
+-   A t-test
+-   A correlation
+
+We'll run these on a example dataset which is built into R, called `mtcars`. We
+can look at this data using the glimpse function (which is loaded with
+`tidyverse`, so if you get an error make sure that is loaded too):
+
+```{r}
+mtcars %>% glimpse()
+```
+
+#### Explanation of the `glimpse` output
+
+`glimpse` produces a list of all variables in the dataset, tells us what type
+they are, and lists however many obserervations from the dataset that will fit
+on a single line.
+
+The type of all variables in `mtcars` is `dbl`. This is short for
+'double-precision number'; for now, just know that `dbl` means a _number_.
+
+Other types include :
+
+-   `int` --- short for 'integer' variable, so only contains whole numbers (e.g.
+    a participant id number)
+-   `chr` --- short for 'character variable', which will contain text (e.g. an
+    email address)
+-   `fct` --- short for 'factor'. i.e. a categorical variable (e.g. MCQ
+    responses)
+-   `ord` --- short for 'ordered'. This is variant of categorical variable where
+    the categories have a particular order (responses like "Wost" < "Better" <
+    "Best" could be stored as an `ord`)
+
+### Two sample t-test
+
+`mtcars` contains a variable called `mpg`, which is the miles per gallon each
+car will do, and another called `am` which is encodes whether it was a manual or
+automatic transmission (0=automatic, 1=manual).
+
+We can test if `mpg` differs between auto and manual cars with `t.test`:
+
+```{r}
+t.test(mpg ~ am, data=mtcars)
+```
+
+### Explanation
+
+The command contains three parts:
+
+-   `t.test`: Says what we want to do
+-   `mpg ~ am`: This is a 'formula', which tells `t.test` which variables to
+    analyse.
+-   `data=mtcars`: Which dataset we want to use for the analysis
+
+The formula is split into two parts by the [`~` symbol](#tilde). On the left is
+our outcome. On the right is the grouping variable, which we hope **predicts**
+the outcome.
+
+In the output you can see the test statistic, degrees of freedom and _p_ value.
+
+:::{#tilde .sidenote}
+
+The tilde symbol. Pronounced "tilder".
+
+In R, `~` almost always means **_"is predicted by"_**.
+
+:::
+
+### Correlations
+
+The `mtcars` data also contains variables for weight (`wt`) and power (`hp`,
+short for horsepower).
+
+We can select just these columns and save them to a smaller dataframe like this:
+
+```{r}
+carperformance <- mtcars %>% select(mpg, wt, hp)
+```
+
+#### Explanation of the commends
+
+On the far left we have the name of the new variable which we will create:
+`carperformance`.
+
+We can tell this will be a new variable because the `<-` symbol is just to the
+right, pointing at it.
+
+To work out what `carperformance` will contain, we look to the right of the `<-`
+There are two parts here, linked with the pipe symbol (`%>%`) which passes data
+from one command to the next, from left to right.
+
+First we see the `mtcars` data. Using a pipe we pass this to the `select`
+command, which selects the `mpg,`wt`, and`hp` columns.
+
+#### Explanation of the result
+
+When running the command you won't see any output --- but something **has**
+happened behind the scenes: A new object was created called `carperformance`
+which contained copies of the columns from `mtcars` we selected.
+
+We can see the first few rows of our new smaller dataframe like this:
+
+```{r}
+carperformance %>% head()
+```
+
+---
+
+To correlate the three columns in this dataset, we can use the `cor` function
+and round all the results to 2 decimal places:
+
+```{r}
+carperformance %>% cor() %>% round(2)
+```
+
+```{hint}
+Explain those commands...
+
+On the left we have the `carperformance` data.
+
+We pipe this to the `cor` function which calculates the correlation between each pair of columns and returns a special kind of table, called a matrix.
+
+To make the output simpler, we then pass the results to the `round` function, which rounds all the results to 2 decimal places.
+
+```
+
+The `cor` function is pretty bare-bones, and doesn't produce output we could
+easily use in a report or article. The `apaTables` package helps us with this:
+
+```{r}
+apaTables::apa.cor.table(carperformance, filename = "correlations.doc")
+```
+
+```{hint}
+Explain the double colons, `::`, in the code above...
+
+Sometimes we load a whole package, as we did when we wrote `library(tidyverse)` above. This is a good idea when we want to use lots of functions from that package.
+
+When we only want to use one function from a package we can type `nameofpackage::nameoffunction` and this lets us use the function without loading the package.
+
+This can be a good idea if the package or function is less well known, and you want to be explicit about which package it comes from. This can help future-you work out what your code is doing.
+
+```
+
+#### Explanation of the result
+
+We used the `apa.cor.table` function within the `apaTables` package to create a
+nicely-formatted correlation table, in APA format.
+
+We also specified a `filename`, and `apa.cor.table` created a
+[Word document with this name containing the formatted table (click to see the result)](correlations.doc).
+
+:::{.exercise}
+
+Use one of the other [built-in](#builtin) datasets to:
+
+-   Run a correlation between 2 variables.
+-   Compute a t-test, using appropriate variables from the data.
+
+Describe the results of the t-test in APA format.
+
+:::

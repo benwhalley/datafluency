@@ -12,11 +12,20 @@
 > Both technical strategies and research policies can mitigate this risk to some
 > degree, but research integrity is crucial.
 
-The first principle is that you must not fool yourself and you are the easiest
-person to fool.
-[Richard P. Feynman](http://calteches.library.caltech.edu/51/2/CargoCult.htm)
-
 ## Session 1: Planned contrasts with `emmeans`
 
 In this session we primarily cover the `emmeans` library and ways to test
 planned contrasts in an experimental design.
+
+<!--
+
+
+When performing statistical tests, I always keep in mind this quote from the
+famous scientist Richard Feynman:
+
+> The first principle is that you must not fool yourself and you are the easiest
+> person to fool.
+> [Feynman, 1974](http://calteches.library.caltech.edu/51/2/CargoCult.htm)
+
+
+ -->

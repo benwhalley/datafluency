@@ -8,22 +8,30 @@ library(pander)
 
 The assessment for PSYC753 includes 3 components:
 
--   A pass fail assessment which ensure you have acquired the core skills in
-    handling and visualising data.
+-   A pass fail assessment which will ensure you have acquired the core skills
+    in handling and visualising data.
 -   A structured data analysis and visualisation task, requiring short answers
     (50%)
 -   An authentic analysis assignment, where you will replicate the analysis of a
     published study (50%).
 
+**_For submission dates please check the DLE._** Don't rely on this website.
+
 ## Core skills test
 
-TBC
+Details of the core skills test will be released in week 13 via the DLE, and
+will be due around week 20 (early December).
 
 ## Analysis and visualisation task
 
-TBC
+Details of this task will be released in week 25 via the DLE (early January) and
+coursework will be due around week 31 (mid February).
 
 ## Authentic analysis assessment
+
+This task will be due around week 40.
+
+---
 
 Find an empirical paper for which the authors have freely-shared the dataset but
 not their analysis scripts. Ideally this will link to your research interests,

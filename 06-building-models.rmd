@@ -2,7 +2,13 @@
 
 ### In brief
 
-> Choosing variables ... TBC
+> Models need to be _appropriately complex_. That is, we want to make models
+> that represent our theories for the underlying causes of our data. Often this
+> means adding many variables to a regression model or Anova. But we won't
+> always be sure which variables to add. Adding multiple variables also brings
+> challenges. Where predictors are correlated (termed **multicollinearity** then
+> model results can be confusing. Where we would like to choose between
+> alternative models then Bayes Factors can be useful.
 
 <!-- Chris Berry to add XXX -->
 
