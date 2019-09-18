@@ -18,6 +18,7 @@ r_binary_packages:
     - pander
     - data.table
     - lavaan
+    - mice
 
 r_github_packages:
     - tidyverse/tidyr
