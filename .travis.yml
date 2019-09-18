@@ -9,6 +9,9 @@ cache:
 script:
     - Rscript -e 'bookdown::render_book("index.rmd", "all")'
 
+r_packages:
+    - apaTables
+
 r_binary_packages:
     - tidyverse
     - arm
@@ -19,7 +22,6 @@ r_binary_packages:
     - data.table
     - lavaan
     - mice
-    - apaTables
 
 r_github_packages:
     - tidyverse/tidyr
