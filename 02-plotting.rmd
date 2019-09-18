@@ -1,5 +1,7 @@
 # Visualisation and plotting {#visualisation}
 
+![Nothing new under the sun: Mediaeval line plot, circa 1010. Image: [wikimedia](https://commons.wikimedia.org/wiki/File:Clm_14436_ecliptic_diagram.png)](media/Clm_14436_ecliptic_diagram.png)
+
 ### In brief
 
 > Visualising data is a core skill for all quantitative researchers, and is one

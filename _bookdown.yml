@@ -21,9 +21,11 @@ rmd_files:
     "06-building-models.rmd",
     "07-testing.rmd",
     "08-communicating.rmd",
-    "9-real.rmd",
+    "09-real.rmd",
 
     # PART
+    "extras.rmd",
+    "extras-more-on-tibbles.rmd",
     "extras-common-problems.rmd",
     "quiz.rmd",
     

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, messag
 
 # {-}
 
-![Mediaeval line plot, circa 1010. Image: [wikimedia](https://commons.wikimedia.org/wiki/File:Clm_14436_ecliptic_diagram.png)](media/Clm_14436_ecliptic_diagram.png)
+![Image via [archive.org](https://archive.org/details/cu31924074275912/page/n131)](media/cow-small.png)
 
 <!-- change to cow? https://archive.org/details/cu31924074275912/page/n131 -->
 
