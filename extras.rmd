@@ -1,4 +1,4 @@
-# (PART) Extras
+# Extras
 
 ## Some reasons to use R {#reasons-to-use-r}
 
