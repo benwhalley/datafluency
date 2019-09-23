@@ -15,7 +15,7 @@ rmd_files:
     "03-data.rmd",
     "04-regression.rmd",
     "05-uncertainty.rmd",
-    
+
 
 
     "06-building-models.rmd",
@@ -26,9 +26,10 @@ rmd_files:
     # PART
     "extras.rmd",
     "extras-common-problems.rmd",
+    "extras-sample-n.rmd",
     "extras-more-on-tibbles.rmd",
     "quiz.rmd",
-    
+
     "references.rmd",
 
 ]

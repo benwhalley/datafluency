@@ -17,9 +17,6 @@ knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, messag
 
 ![](media/bunny.jpg)
 
-
-<!-- change to cow? https://archive.org/details/cu31924074275912/page/n131 -->
-
 # Overview {-}
 
 From the module aims:
