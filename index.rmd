@@ -13,7 +13,10 @@ knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, messag
 
 # {-}
 
-![Image via [archive.org](https://archive.org/details/cu31924074275912/page/n131)](media/cow-small.png)
+<!-- ![Image via [archive.org](https://archive.org/details/cu31924074275912/page/n131)](media/cow-small.png) -->
+
+![](media/bunny.jpg)
+
 
 <!-- change to cow? https://archive.org/details/cu31924074275912/page/n131 -->
 
@@ -30,7 +33,7 @@ From the module aims:
 > a contemporary approach, emphasising prediction and model evaluation is
 > introduced.
 
-In a nutshell: we want to give you the skills to analyse your data as indepdent
+In a nutshell: we want to give you the skills to analyse your data as independent
 researchers, and to give you confidence in working with data which will stand
 you in good stead in your future careers.
 
