@@ -23,7 +23,8 @@ If you've installed R on your own machine, and you get a message like:
 `Error in library(tidyverse) : there is no package called ‘tidyverse’`
 
 Have you installed this package? You need to install it before you can use it,
-see the [cheat sheet](cheat-sheet.html).
+see the [cheat sheet](https://ajwills72.github.io/rminr/cheat-sheet.html).
+<!-- TODO fix this and replace with datafluency cheat sheet -->
 
 ### Errors when loading data
 
@@ -53,4 +54,3 @@ the people whose education level equal to "master".
     will get errors. Sometimes this is not apparent when working in an
     interactive session, but creates an error when a package is loaded after it
     is used in the code.
-

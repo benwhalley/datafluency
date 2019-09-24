@@ -220,7 +220,7 @@ available on the web, such as
 [US Current Population Survey](https://thedataweb.rm.census.gov/ftp/cps_ftp.html). Here's how you
 get a copy of this data into RStudio so you can start looking at it.
 
-This video runs through the steps below:
+This video runs through the steps described below:
 
 <iframe src="https://player.vimeo.com/video/361993933" width="640" height="500" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
@@ -274,7 +274,7 @@ us what sort of data each column contains: `character` means the data is words (
 `double` means the data is a number (e.g. '42.78')
 ([more about the different types of variables](#more-on-tibbles)).
 
-If you get an error here, please see [common errors](common-errors.html).
+If you get an error here, please see [common errors](#common-problems).
 
 ## Inspecting data {#inspecting-data}
 
@@ -340,7 +340,7 @@ If you're happy with the output you've got, move on to the next section. If you 
 detailed explanation of this output, see [more on tibbles](more-on-tibbles.html). We'll cover this
 later anyway.
 
-If you get an error here, please see [common errors](common-errors.html).
+If you get an error here, please see [common errors](#common-problems).
 
 #### Explanation of the command
 
@@ -410,7 +410,7 @@ cpsdata %>% summarise(mean(hours, na.rm = TRUE))
 doesn't delete the `NA` entries in `cpsdata`, it just ignores them. So `na.rm = TRUE` means "ignore
 the missing data".
 
-If you get an error here, please see [common errors](common-errors.html).
+If you get an error here, please see [common errors](#common-problems).
 
 ### Patterns in missing data {#missing-data-patterns}
 
@@ -620,7 +620,7 @@ cpslow <- cpsdata %>% filter(income < 150000)
 ```
 
 We can take a look at this new _data frame_ by clicking on it in RStudio's _Environment_ window (see
-[video here](rstudio-environment-pane) if you're not sure how). By looking at the ID numbers, you
+[video here](#rstudio-environment-pane) if you're not sure how). By looking at the ID numbers, you
 can see that some people in our original sample have been taken out, because they earned at least
 150k.
 
