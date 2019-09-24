@@ -20,7 +20,7 @@ expand.grid(colour=colours, position=positions, words = words)
 
 Tidyverse contains a function which lets us sample raws from our design dataframe directly. First we make sure tidyverse is loaded:
 
-```{r, include=F}
+```{r, echo=T}
 library(tidyverse)
 ```
 

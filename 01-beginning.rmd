@@ -971,7 +971,7 @@ pander()
 
 R provides quick ways of creating combinations of variables, using a command called `expand.grid`.
 
-First, we need to create a list of each of the possible values for our possible categories:
+First, we need to create a list of each of the possible values for our categories:
 
 ```{r}
 colours=c("Red", "Green")
@@ -988,14 +988,14 @@ expand.grid(colour=colours, position=positions, words = words)
 **Explanation**: The `expand.grid` function has taken the items in the three input sequences
 (colours, positions and words) and created a dataframe which contains all the possible combinations.
 
-#### Task: create some experimental designs {.exercise}
+##### Task: create some experimental designs of your own {.exercise}
 
 1. Reproduce the experiment design above by copying and pasting
 
 2. Adapt the commands to allow for an experiment where the word position could be either top,
    bottom, left or right. How many different conditions would there be in this case?
 
-As a stretch task:
+As an optional stretch task:
 
 1. How would you create a design where the order of presentation of each word is also balanced? That
    is, where it's equally likely to see Nobble, Wobble or Bobble in the first, second or third
@@ -1003,7 +1003,7 @@ As a stretch task:
 
 ### Random samples
 
-In our example, each of these conditions is allocated between-participants which (as you'll learn
+In our example, each of the experimental conditions is allocated between-participants, which (as you'll learn
 elsewhere in the programme) means we need recruit quite a large number of participants. In this case
 we can imagine we might need at least 250 participants.
 
@@ -1027,7 +1027,7 @@ in a random order.
 
 ---
 
-If we want to take a larger sample, we have to add the text `replace=TRUE`:
+If we want to take a larger sample, longer than the input sequence, we have to add the text `replace=TRUE`:
 
 ```{r}
 sample(1:10, size = 20, replace=TRUE)
@@ -1055,7 +1055,7 @@ recruited:
 sample(1:12, size=250, replace=TRUE)
 ```
 
-So, we would allocate participants to our condition in this order as they are recruited.
+So, we would allocate participants to their condition in this order as they are recruited.
 
 Alternatively, we could simply run this every time a new participant showed up:
 
@@ -1063,11 +1063,14 @@ Alternatively, we could simply run this every time a new participant showed up:
 (new_allocation <- sample(1:12, size=1))
 ```
 
-#### Task: Randomise your own participants
+##### Task: Randomise your own participants {.exercise}
 
 1. Re-use the design you created above, and randomise 5 participants to conditions within it.
 
 2. Try and create a design which might work for your own study (either this year, based on your UG
    project, or on any other study you might like to run).
 
-3. [Read this extension, which shows how to sample from datasets as well as sequences](#sample_n)
+
+As an optional stretch task:
+
+1. [Read this extension, which shows how to sample from datasets as well as sequences](#sample_n)
