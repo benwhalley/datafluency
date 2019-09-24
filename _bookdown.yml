@@ -28,6 +28,7 @@ rmd_files:
     "extras-common-problems.rmd",
     "extras-sample-n.rmd",
     "extras-more-on-tibbles.rmd",
+    "extras-reading.rmd",
     "quiz.rmd",
 
     "references.rmd",

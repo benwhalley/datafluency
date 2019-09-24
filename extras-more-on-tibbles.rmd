@@ -1,4 +1,4 @@
-## More on Tibbles'
+## More on Tibbles {#more-on-tibbles}
 
 This material was adapted from
 [Andy Wills' RminR](https://ajwills72.github.io/rminr/).
@@ -9,7 +9,7 @@ library(tidyverse)
 cpsdata <- read_csv(url("http://www.willslab.org.uk/cps2.csv"))
 ```
 
-![Kitten that might be called Tibbles. Possibly.](pics/kitten.jpg)
+![Kitten that might be called Tibbles. Possibly. Image: [0x010C; CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=42929793)](pics/kitten.jpg)
 
 In the [Exploring Data](#exploring-data-brief) worksheet, you got the mean
 income of your sample like this:
@@ -53,8 +53,7 @@ those in this class.
 
 ---
 
-Here's another example. In the [Group Differences](XXX) worksheet of our
-undergraduate course, we calculate the mean income of your sample by sex like
+Here's another example. In the [Group Differences](#group-differences-briefly) worksheet, we calculate the mean income of your sample by sex like
 this:
 
 <!-- LINK THIS TO DATA HANDLING WORKSHOP INSTEAD -->
@@ -79,10 +78,3 @@ differences:
 
 This material is distributed under a
 [Creative Commons](https://creativecommons.org/) licence. CC-BY-SA 4.0.
-
-Kitten picture by 0x010C - Own work, CC BY-SA 4.0,
-https://commons.wikimedia.org/w/index.php?curid=42929793
-
----
-
-_version 0.2_
