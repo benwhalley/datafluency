@@ -67,9 +67,9 @@ We have 16 sessions, which work as follows:
 
 ## The most important thinkg of all
 
-The most important thinkg of all is to **do the practice**.
+The most important thing of all is to **practice**.
 
-These materials give lots of practice exercises. You NEED to work through them
+These materials provide lots of practice tasks. You **NEED** to work through them
 all to be able to pass the course effectively.
 
 ### Lab diary/R project archive
