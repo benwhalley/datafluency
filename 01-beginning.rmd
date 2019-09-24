@@ -647,15 +647,15 @@ philosophical, and political. Data cannot directly answer these kinds of questio
 provide information to inform the debate.
 
 As we'll see later, this type of graph is also crucial to inform our choice of statistical models
-(like regression or Anova): Without  a clear sense of what the data *look* like we can make
-bad decisions in our analyses.
+(like regression or Anova): Without a clear sense of what the data _look_ like we can make bad
+decisions in our analyses.
 
 ### Exercise {#grouping-data-exercise-1 .exercise}
 
 This exercise consolidates what you've learned so far.
 
-**The task is to further examine the sub-sample of participants who are living in the US, and earning
-less than $150k (`cpslow`).**
+**The task is to further examine the sub-sample of participants who are living in the US, and
+earning less than \$150k (`cpslow`).**
 
 Specifically, the question to answer is whether people born in the US earn more. In order to do
 this, you should calculate the mean income for each group, and produce a density plot with one line
@@ -716,20 +716,19 @@ cover simple examples of:
 -   A t-test
 -   A correlation
 
-
 :::{.exercise}
 
-If you have no memory of t-tests or correlations, you might want to take time to work through these expanded guides from our undergraduate course:
+If you have no memory of t-tests or correlations, you might want to take time to work through these
+expanded guides from our undergraduate course:
 
-- [Tests of group differences](https://ajwills72.github.io/rminr/group-differences.html)
-- [Relationships](https://ajwills72.github.io/rminr/corr.html)
+-   [Tests of group differences](https://ajwills72.github.io/rminr/group-differences.html)
+-   [Relationships](https://ajwills72.github.io/rminr/corr.html)
 
 :::
 
-
-We'll run these statistics on a example dataset which is built into R, called `mtcars`. We can look at this
-data using the glimpse function (this is loaded with `tidyverse`, so if you get an error make sure
-that is loaded too):
+We'll run these statistics on a example dataset which is built into R, called `mtcars`. We can look
+at this data using the glimpse function (this is loaded with `tidyverse`, so if you get an error
+make sure that is loaded too):
 
 ```{r}
 mtcars %>% glimpse()
@@ -883,7 +882,9 @@ Describe the results of the t-test in APA format.
 One trick you will need later in the course is making **sequences** of numbers.
 
 There are a few ways to do this, but the simplest is to write: `1:10`. That is, the number to start
-from (`1`), a colon (`:`) and the number to end with.
+from (`1`), a colon (`:`), and then the number to end with (`10`).
+
+Copy and paste these examples to see the output:
 
 ```{r}
 1:10
@@ -900,19 +901,22 @@ to 2:
 seq(from=2, to=10, by=2)
 ```
 
-You can set `by` to anything, including a decimal:
+You can set `by` to any number, including a decimal:
 
 ```{r}
 seq(0, 27, by=3)
 seq(0, 1, by=0.2)
 ```
 
-If your sequence doesn't have a simple pattern, you can also write it out by hand using the `c(..)`
-command:
+If your sequence doesn't have a simple pattern, you can also write out the numbers by hand using the
+`c(..)` command:
 
 ```{r}
 c(1,40,92,188)
 ```
+
+**Explanation**: `c(...)` is short for `combine`, so this command combines the numbers 1, 40, 92,
+188 into a new sequence. This is sometimes called a **vector** in R-speak.
 
 :::{.exercise}
 
@@ -921,15 +925,24 @@ Make some sequences which include:
 -   Even numbers from 10 to 20
 -   Numbers in the 8 times table less than 200
 -   20 evenly spaced numbers between zero and 1 (including zero and 1)
+-   The words "Wibble", "Wobble" and "Bobble"
 
 `r hide("Show answers")`
 
-```{r}
 
+
+We can use `seq` for numbers:
+
+```{r}
 seq(10,20,by=2)
 seq(0,200, 8)
 seq(0,1, by=1/19)
+```
 
+But we need to use c() for lists of words:
+
+```{r}
+c("Wibble", "Wobble", "Bobble")
 ```
 
 `r unhide()`
