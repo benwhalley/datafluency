@@ -282,7 +282,7 @@ dataset loaded.
 :::
 
 Next, we'll take a peek at these data. You can do this by clicking on the data in the _Environment_
-tab of RStudio, see [Using RStudio](using_rstudio.html).
+tab of RStudio, see [here](#rstudio-environment-pane).
 
 We can now see the data set (also known as a _data frame_). We can see that this data frame has 8
 columns and 10000 rows. Each row is one person, and each column provides some information about
@@ -615,9 +615,10 @@ thing on its right to the thing on its left, so the full command is:
 cpslow <- cpsdata %>% filter(income < 150000)
 ```
 
-We can take a look at this new _data frame_ by clicking on it in RStudio's _Environment_ window. By
-looking at the ID numbers, you can see that some people in our original sample have been taken out,
-because they earned at least 150k.
+We can take a look at this new _data frame_ by clicking on it in RStudio's _Environment_ window (see
+[video here](rstudio-environment-pane) if you're not sure how). By looking at the ID numbers, you
+can see that some people in our original sample have been taken out, because they earned at least
+150k.
 
 Now, we can plot these filtered data in the same way as before, by changing the name of the
 dataframe from `cpsdata` to `cpslow`.
@@ -632,11 +633,12 @@ If you've got it right, your graph will look like this:
 cpslow %>% ggplot(aes(income, colour=sex)) + geom_density(aes(y=..scaled..))
 ```
 
-At first glance, the two distributions of incomes still look similar. For example, the _modal_
-income -- the point where the graph is highest -- is at quite a low income, and that income is quite
-similar for both men and women. However, on closer inspection, you'll also see that the red line
-(females) is above the blue line (men) until about 25-50k, and below the blue line from then on.
-This means that more women than men earn less than 50k, and more men than women earn more than 50k.
+At first glance, the two distributions of incomes still look similar. For example, the
+[_modal_](<https://en.wikipedia.org/wiki/Mode_(statistics)>) income is at quite a low income, and
+that income is quite similar for both men and women. However, on closer inspection, you'll also see
+that the red line (females) is above the blue line (men) until about 25-50k, and below the blue line
+from then on. This means that more women than men earn less than 50k, and more men than women earn
+more than 50k.
 
 So, the gender pay gap is visible in this graph. The graph also illustrates that the difference in
 this sample is small, relative to the range of incomes. This doesn't mean that the gender pay gap is
@@ -645,15 +647,15 @@ philosophical, and political. Data cannot directly answer these kinds of questio
 provide information to inform the debate.
 
 As we'll see later, this type of graph is also crucial to inform our choice of statistical models
-(like regression or Anova): Without having a sense of what the underlying data look like we can make
-bad decisions in our later analyses.
+(like regression or Anova): Without  a clear sense of what the data *look* like we can make
+bad decisions in our analyses.
 
 ### Exercise {#grouping-data-exercise-1 .exercise}
 
-In this exercise, you'll consolidate what you've learned so far.
+This exercise consolidates what you've learned so far.
 
-**The task is to further exmaine this sample of participants who are living in the US, and earning
-less than \$150k (`cpslow`).**
+**The task is to further examine the sub-sample of participants who are living in the US, and earning
+less than $150k (`cpslow`).**
 
 Specifically, the question to answer is whether people born in the US earn more. In order to do
 this, you should calculate the mean income for each group, and produce a density plot with one line
@@ -685,7 +687,9 @@ Because the data are strongly skewed, the median may be a better summary of the 
 `r hide("Show answers")`
 
 ```{r}
-cpsdata %>% group_by(sex)%>% summarise(med=median(income))
+cpsdata %>%
+  group_by(sex) %>%
+  summarise(med=median(income))
 ```
 
 `r unhide()`
@@ -712,8 +716,19 @@ cover simple examples of:
 -   A t-test
 -   A correlation
 
-We'll run these on a example dataset which is built into R, called `mtcars`. We can look at this
-data using the glimpse function (which is loaded with `tidyverse`, so if you get an error make sure
+
+:::{.exercise}
+
+If you have no memory of t-tests or correlations, you might want to take time to work through these expanded guides from our undergraduate course:
+
+- [Tests of group differences](https://ajwills72.github.io/rminr/group-differences.html)
+- [Relationships](https://ajwills72.github.io/rminr/corr.html)
+
+:::
+
+
+We'll run these statistics on a example dataset which is built into R, called `mtcars`. We can look at this
+data using the glimpse function (this is loaded with `tidyverse`, so if you get an error make sure
 that is loaded too):
 
 ```{r}

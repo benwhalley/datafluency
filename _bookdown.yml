@@ -1,4 +1,4 @@
-book_filename: 'rmip'
+\book_filename: 'rmip'
 output_dir: docs
 delete_merged_file: true
 link-citations: true
@@ -28,6 +28,7 @@ rmd_files:
     "extras-common-problems.rmd",
     "extras-sample-n.rmd",
     "extras-more-on-tibbles.rmd",
+    "extras-other-tips.rmd",
     "extras-reading.rmd",
     "quiz.rmd",
 
