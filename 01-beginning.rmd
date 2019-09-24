@@ -108,10 +108,14 @@ That's it! You're all set to start learning how to analyse data in R.
 
 ## Exploring data (in brief) {#exploring-data-brief}
 
-### Before you start...
+
+::: {.exercise}
 
 Before starting this exercise, you should have had a brief introduction to using RStudio. If not,
-take a look at the [Using RStudio](getting-started-rstudio) worksheet.
+take a look at the [Using RStudio](#getting-started-rstudio) worksheet.
+
+:::
+
 
 ### Contents
 
