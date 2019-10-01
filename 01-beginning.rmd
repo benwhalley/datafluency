@@ -721,14 +721,14 @@ cover simple examples of:
 :::{.exercise}
 
 If you have no memory of t-tests or correlations, you might want to take time to work through these
-expanded guides from our undergraduate course:
+expanded guides from our undergraduate course at a later date:
 
 -   [Tests of group differences](https://ajwills72.github.io/rminr/group-differences.html)
 -   [Relationships](https://ajwills72.github.io/rminr/corr.html)
 
 :::
 
-We'll run these statistics on a example dataset which is built into R, called `mtcars`. We can look
+We'll run these statistics on an example dataset which is built into R, called `mtcars`. We can look
 at this data using the glimpse function (this is loaded with `tidyverse`, so if you get an error
 make sure that is loaded too):
 
@@ -796,7 +796,7 @@ We can select just these columns and save them to a smaller dataframe like this:
 carperformance <- mtcars %>% select(mpg, wt, hp)
 ```
 
-#### Explanation of the commends
+#### Explanation of the commands
 
 On the far left we have the name of the new variable which we will create: `carperformance`.
 
@@ -856,7 +856,7 @@ Sometimes we load a whole package, as we did when we wrote `library(tidyverse)` 
 
 When we only want to use one function from a package we can type `nameofpackage::nameoffunction` and this lets us use the function without loading the package.
 
-This can be a good idea if the package or function is less well known, and you want to be explicit about which package it comes from. This can help future-you work out what your code is doing.
+This can be a good idea if the package or function is less well known, and you want to be explicit about which package it comes from---it helps 'future-you' work out what your code is doing.
 
 ```
 
@@ -971,11 +971,11 @@ pander()
 
 R provides quick ways of creating combinations of variables, using a command called `expand.grid`.
 
-First, we need to create a list of each of the possible values for our categories:
+First, we need to create a sequence of each of the possible values for our categories:
 
 ```{r}
-colours=c("Red", "Green")
-positions=c("Top", "Bottom")
+colours = c("Red", "Green")
+positions = c("Top", "Bottom")
 words = c("Nobble", "Wobble", "Hobble")
 ```
 
@@ -986,7 +986,7 @@ expand.grid(colour=colours, position=positions, words = words)
 ```
 
 **Explanation**: The `expand.grid` function has taken the items in the three input sequences
-(colours, positions and words) and created a dataframe which contains all the possible combinations.
+(colours, positions and words) and created a dataframe which contains all the possible combinations. We could save these to a file if we wanted to use them as part of our experiment.
 
 #### Task: create some experimental designs of your own {.exercise}
 
