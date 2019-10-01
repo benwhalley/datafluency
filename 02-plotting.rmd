@@ -448,29 +448,28 @@ rtsubset  %>%
 ## Augmenting plots
 
 Ggplot is great because it sets sensible defaults for most things (axes, colours etc). When you are
-exploring your data these defaults typically suffice. However for publication you will often need to:
+exploring your data these defaults typically suffice. However for publication you will often need
+to:
 
-- Label axes
-- Add lines or text
-- Change plot colours etc.
+-   Label axes
+-   Add lines or text
+-   Change plot colours etc.
 
 Here we give examples of these.
 
-
 ### Labelling axes
 
-By default, ggplot uses variable names and the values in your data to label plots. Sometimes these are abbreviations, or otherwise need changing.
+By default, ggplot uses variable names and the values in your data to label plots. Sometimes these
+are abbreviations, or otherwise need changing.
 
-To relabel axes we simply add ` + xlab("TEXT")` or `+ ylab("TEXT")` to an existing plot:
+To relabel axes we simply add `+ xlab("TEXT")` or `+ ylab("TEXT")` to an existing plot:
 
 ```{r}
 mtcars %>% ggplot(aes(wt, mpg)) +
   geom_point() +
   xlab("Weight (1000s of lbs)") +
-  ylab("Fuel economy (miles per gallon)")  
+  ylab("Fuel economy (miles per gallon)")
 ```
-
-
 
 :::{.exercise}
 
@@ -478,10 +477,10 @@ Try adding axis labels to one of your existing plots.
 
 :::
 
-
 ### Changing the label of color/shape guidelines
 
-When adding the colour aesthetic, ggplot uses the variable name to label the plot legend. For example:
+When adding the colour aesthetic, ggplot uses the variable name to label the plot legend. For
+example:
 
 ```{r fig.width=3, fig.height=2}
 mtcars %>%
@@ -504,20 +503,22 @@ Try relabelling the colour legend of one of your existing plots.
 
 :::
 
-
-
 ### Adding lines
 
-Sometimes it can be helpful to add lines to a plot: for example to show a clinically meaningful cutoff, or the mean of the sample.
+Sometimes it can be helpful to add lines to a plot: for example to show a clinically meaningful
+cutoff, or the mean of the sample.
 
-For example, let's say we want to make a scatter plot of income in the `cps2` data, but adding a line showing the median income.
+For example, let's say we want to make a scatter plot of income in the `cps2` data, but adding a
+line showing the median income.
 
 ```{r}
 mean_income = cps2 %>% summarise(mean(income)) %>% pull(1)
 ```
 
-
-**Explanation**: First, we are defining a new variable to equal the mean income in the sample. We do this by using `summarise(mean(income))`. The part which reads `pull(1)` says "take the first column". We need to do this because `summarise()` creates a new table, rather than a single value  or sequence of values (which we need below).
+**Explanation**: First, we are defining a new variable to equal the mean income in the sample. We do
+this by using `summarise(mean(income))`. The part which reads `pull(1)` says "take the first
+column". We need to do this because `summarise()` creates a new table, rather than a single value or
+sequence of values (which we need below).
 
 ```{r}
 cps2 %>%
@@ -527,19 +528,17 @@ cps2 %>%
     geom_vline(xintercept = median_income, color="red")
 ```
 
-**Explanation**: We have regular density plot. This time we have added `geom_vline` which draws a vertical line. The `xintercept` is the place on the x axis where our line should cross.
-
+**Explanation**: We have regular density plot. This time we have added `geom_vline` which draws a
+vertical line. The `xintercept` is the place on the x axis where our line should cross.
 
 :::{.exercise}
 
 Add a `geom_vline` to a plot you have already created. This could be either:
 
-- A calculated value (e.g. `mean(var)`) or
-- A fixed value (e.g. `xintercept = 20`)
-
+-   A calculated value (e.g. `mean(var)`) or
+-   A fixed value (e.g. `xintercept = 20`)
 
 :::
-
 
 ### Publication-ready plots
 
@@ -550,15 +549,21 @@ you have time in the session.
 
 :::
 
-Some journals have specific requirements for submitting journals; common ones include submitting in particular formats (e.g. pdf or tiff), using particular fonts etc.
+Some journals have specific requirements for submitting journals; common ones include submitting in
+particular formats (e.g. pdf or tiff), using particular fonts etc.
 
 There are also some common types of plots which ggplot almost, but not quite, makes out of the box.
 
-When trying to go the last mile and polish plots for publication several additional packages may be useful. If you have time, you could work through some of the examples on this page
+When trying to go the last mile and polish plots for publication several additional packages may be
+useful. If you have time, you could work through some of the examples on this page
 
-- ggpubr: http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/78-perfect-scatter-plots-with-correlation-and-marginal-histograms/
+-   ggpubr:
+    http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/78-perfect-scatter-plots-with-correlation-and-marginal-histograms/
 
+As mentioned in the session, Edward Tufte's books have been influential in the field of data
+visualisation. His book 'The displayt of quantitative information' [@tufte2001visual] is a great
+resource and guide.
 
-As mentioned in the session, Edward Tufte's books have been influential in the field of data visualisation. His book 'The displayt of quantitative information' [@tufte2001visual] is a great resource and guide.
-
-- http://motioninsocial.com/tufte/ shows how to implement many of Tufte's ideas in ggplot. It would be a nice exercise to work through this, and attempt to plot some of your own data in this style.
+-   http://motioninsocial.com/tufte/ shows how to implement many of Tufte's ideas in ggplot. It
+    would be a nice exercise to work through this, and attempt to plot some of your own data in this
+    style.
