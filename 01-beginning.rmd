@@ -664,7 +664,7 @@ this, you should calculate the mean income for each group, and produce a density
 for each group. Below are the answers you are aiming for:
 
 ```{r ex1, echo=FALSE}
-cpslow %>% group_by(native) %>% summarise(mean(income))
+cpsdata %>% group_by(native) %>% summarise(mean(income))
 cpslow %>% ggplot(aes(income, colour=factor(native))) + geom_density(aes(y=..scaled..))
 ```
 
