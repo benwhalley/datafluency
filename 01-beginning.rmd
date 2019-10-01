@@ -870,24 +870,36 @@ We also specified a `filename`, and `apa.cor.table` created a
 
 :::{.exercise}
 
-Use one of the other [built-in](#builtin) datasets in R to:
 
--   Run a correlation between 2 variables.
--   Compute a t-test, using appropriate variables from the data.
 
-Describe the results of the t-test in APA format.
+- Use one of the other [built-in](#builtin) datasets in R to run a correlation between 2 variables.
+
+- Use the built-in `sleep` data.  Compute a t-test comparing the `extra` variable between groups. Describe the results of the [t-test in APA format](https://www.youtube.com/watch?v=fQI3Xr9xMBI).
 
 :::
 
 
 #### Built in datasets {#builtin}
 
-Some examples of built in data are:
+Some examples of built-in data are:
 
+- `sleep`
 - `iris`
 - `airquality`
 - `ChickWeight`
 - `diamonds`
+
+If you have loaded tidyverse you can access these by name, just like the `mtcars` data. For example::
+
+```{r}
+diamonds %>% glimpse()
+```
+
+You can find out more about each of them by typing:
+
+```{r}
+help(iris)
+```
 
 
 ## Sequences and designs
