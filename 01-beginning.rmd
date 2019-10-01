@@ -1082,12 +1082,12 @@ common types.
 
 ### Reading CSV data directly from a URL (place on the web)
 
-When you find data on the web, it can save time to read it straight into R, without worrying about
+When you find data on the web it can save time to read it straight into R, without worrying about
 downloading and uploading the files. If we do this, it's good to save a copy of the data in case the
 website disappears or the file is taken down.
 
-For example, if [we previously](#loading-data) downloaded data from
-<http://www.willslab.org.uk/cps2.csv>, and then used `read_csv()` on this downloaded copy. We can
+For example, [we previously](#loading-data) downloaded data from
+<http://www.willslab.org.uk/cps2.csv> and then used `read_csv()` on this downloaded copy. We can
 skip a few steps by loading it directly by writing:
 
 ```{r}
@@ -1149,7 +1149,7 @@ can be read with the `haven` package.
 For example, this paper in PlosOne provides a number of SAV files for the experiments reported:
 <https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0209900#sec039>
 
-```{r}
+```{r echo=F}
 download.file("https://doi.org/10.1371/journal.pone.0209900.s001", 'journal.pone.0209900.s001.sav')
 ```
 
@@ -1260,7 +1260,7 @@ Optional extension tasks:
 
 1. Plot the density of the RT variable in experiment 1.
 2. Describe the plot
-3. What pre-processing step might we want to use, before plotting (hint: in this experiments, most
+3. What pre-processing step might we want to use, before plotting (hint: in these experiments, most
    responses should happen within a second).
 
 `r hide("Show answer")`
