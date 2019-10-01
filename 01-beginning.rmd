@@ -870,7 +870,7 @@ We also specified a `filename`, and `apa.cor.table` created a
 
 :::{.exercise}
 
-Use one of the other [built-in](#builtin) datasets to:
+Use one of the other [built-in](#builtin) datasets in R to:
 
 -   Run a correlation between 2 variables.
 -   Compute a t-test, using appropriate variables from the data.
@@ -878,6 +878,17 @@ Use one of the other [built-in](#builtin) datasets to:
 Describe the results of the t-test in APA format.
 
 :::
+
+
+#### Built in datasets {#builtin}
+
+Some examples of built in data are:
+
+- `iris`
+- `airquality`
+- `ChickWeight`
+- `diamonds`
+
 
 ## Sequences and designs
 
