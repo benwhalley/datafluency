@@ -105,14 +105,14 @@ df <- read_csv('<URL>') # direct from the web
 
 SPSS:
 
-```{r}
+```{r , eval=F}
 library(haven)  # load haven first
 df_from_spss <- read_spss('filename.sav')
 ```
 
 Excel (note different sheets are loaded from same file):
 
-```{r}
+```{r, eval=F}
 expt1 <- read_excel('simple-excel-example.xlsx', sheet="Experiment 1")
 expt2 <- read_excel('simple-excel-example.xlsx', sheet="Experiment 2")
 ```
