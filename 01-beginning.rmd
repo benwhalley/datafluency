@@ -897,7 +897,7 @@ diamonds %>% glimpse()
 
 You can find out more about each of them by typing:
 
-```{r}
+```{r eval=F}
 help(iris)
 ```
 
@@ -1103,7 +1103,7 @@ As an optional stretch task:
 So far, we have read data from [CSV]() files. In this section we show how to import some other
 common types.
 
-### Reading CSV data directly from a URL (place on the web)
+### Reading CSV data directly from a URL (place on the web) {#read-data-from-url}
 
 When you find data on the web it can save time to read it straight into R, without worrying about
 downloading and uploading the files. If we do this, it's good to save a copy of the data in case the

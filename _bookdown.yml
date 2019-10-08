@@ -26,6 +26,7 @@ rmd_files:
     # PART
     "extras.rmd",
     "extras-common-problems.rmd",
+    "extras-gloss-and-cheat.rmd",
     "extras-sample-n.rmd",
     "extras-more-on-tibbles.rmd",
     "extras-other-tips.rmd",

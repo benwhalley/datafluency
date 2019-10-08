@@ -96,9 +96,9 @@ soon!
 
 -   Visualisation and plotting: Relationships, group differences, color.
 
--   Data handing 1: Filtering, selecting and summarising.
+-   Real world plotting
 
--   Data handling 2: Working with multiple files; Rmarkdown.
+-   Data handling: Working with multiple files; Rmarkdown.
 
 -   Regression 1: Core concepts.
 
