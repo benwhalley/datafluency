@@ -125,13 +125,19 @@ this:
 
 ```{r, eval=F, echo=T}
 gapminder::gapminder %>%
-  filter(<BLANK>==<BLANK>)  %>%
-  ggplot(aes(x=<BLANK>, y=<BLANK>, size=<BLANK>, color=<BLANK>)) + geom_point()
+  filter(BLANK==BLANK)  %>%
+  ggplot(aes(x=BLANK, y=BLANK, size=BLANK, color=BLANK)) + geom_point()
 ```
 
 I have removed some parts of the code. Your job is to edit the parts which say `<BLANK>` and replace
 them with the names of variables from the `gapminder::gapminder` dataset (you don't need to load
-this --- it's part of the `gapminder` package.
+this --- it's part of the `gapminder` package).
+
+Some hints:
+
+- The dataset is called `gapminder::gapminder` and you need to write that in full
+- Check the title of the figure above to work out which rows of the data you need to plot (and so define the filter)
+- All the `BLANK`s represent variable names
 
 ### Summary of the section
 
@@ -719,3 +725,102 @@ resource and guide.
 -   http://motioninsocial.com/tufte/ shows how to implement many of Tufte's ideas in ggplot. It
     would be a nice exercise to work through this, and attempt to plot some of your own data in this
     style.
+
+## Session 2: Real world plots
+
+So far we have learned about ggplot and worked through lots of examples. You might have noticed
+though: we focussed mostly on the technique and didn't really focus on what the data meant.
+
+In reality, you are normally presented with a dataset need to work creatively to explore patterns of
+results. Your decisions will be informed by:
+
+-   Your research questions
+-   Prior knowledge about the domain
+-   Prior knowledge about the research design and the data collection process
+-   What your learn about the data as you work (this is an interative process)
+
+---
+
+In this session we are going to work through a series of examples. Each time we will start with a
+scenario which describes the domain and data collection, and some research questions we may have
+had.
+
+You should work in groups of 3 to:
+
+-   Explore the dataset
+-   Develop one or two plots which illustrate key features of the data
+
+We will then join to form larger groups to discuss the process, and justify your decisions.
+
+
+### Scenario 1: Secret agent
+
+You are a secret agent, and have been sent a mystery dataset by one of your sources. She said it
+contains highly important information which will be of great interest to your superiors. Use your
+ggplot wizardry to recover this classified information.
+
+```{r, include=F}
+
+dino <- read_tsv('data/DatasaurusDozen.tsv')
+
+dino %>%
+  rename(group=dataset) %>%
+  mutate(group = as.numeric(factor(group))) %>%
+  write_csv('data/mystery.csv')
+
+df <- read_csv('data/mystery.csv')
+
+df  %>%  ggplot(aes(x, y )) + geom_point() + facet_wrap(~group)
+
+```
+
+
+
+
+### Scenario 2
+
+```{r, include=F, echo=F}
+# don't re-run... probs added to this file by hand
+# expand.grid(gender=c("Male", "Female"), department=LETTERS[1:6]) %>% mutate(p.admitted=NA, n.applicants=NA) %>% write_csv('data/berkley-setup.csv')
+
+b <- read_csv("data/berkley-setup.csv")
+set.seed(1234)
+berkley <-  b %>% expand(year = 1976:1998, gender, department) %>%
+  left_join(., b) %>%
+  mutate(
+    n.admitted = round(n.applicants * p.admitted),
+    # noise
+    # n.admitted = n.admitted - n.admitted*.05 + rpois(n(), n.admitted*.05),
+    n.applicants = n.applicants - round(n.applicants*.2) + rpois(n(), round(n.applicants*.2)),
+    percent.admitted = round(n.admitted / n.applicants * 100, 2)
+  ) %>%
+  select(-p.admitted)
+```
+
+
+```{r, include=F, echo=F}
+berkley  %>%
+  ggplot(aes(gender, n.admitted)) +
+  geom_boxplot()
+```
+
+```{r, include=F, echo=F}
+berkley  %>%
+  ggplot(aes(gender, percent.admitted)) +
+  geom_boxplot() +
+  facet_grid(~department)
+```
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(n.admitted, percent.admitted, colour=department, shape=gender)) +
+  geom_point()
+
+```
+
+```{r, include=F, echo=F}
+berkley  %>%
+  ggplot(aes(gender, percent.admitted)) +
+  geom_boxplot() +
+  facet_grid(~department)
+```
