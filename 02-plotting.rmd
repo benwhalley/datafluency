@@ -68,7 +68,7 @@ These features are carefully selected to highlight important features of the dat
 story. Although we need to have integrity in our plotting (we'll see bad examples later), this
 narrative aspect of a plot is important: we need to consider our audience.
 
-## `ggplot`\: Into the third (and fourth, and fifth...) dimension
+## Into the third (and fourth, and fifth...) dimension
 
 We can determine how complex a plot is by how many **dimensions** it has.
 
@@ -531,8 +531,8 @@ into the console) or use the [wikipedia page here](https://en.wikipedia.org/wiki
 
 :::{.exercise}
 
-Load this (simulated) dataset here: [dummy experiment data](data/expdata.csv) (either download it
-and upload to rstudio, or [read directly from this url](#read-data-from-url)).
+Load this (simulated) dataset here: [dummy experiment data](data/expdata.csv). Either download it
+and upload to rstudio, or read it directly from that url ([reminder of how]](#read-data-from-url)).
 
 -   Recreate the boxplot above
 -   Adjust it so that `stimuli` is the variale on the x-axis
@@ -552,19 +552,21 @@ expdata %>%
 
 **Explanation**: We used `Condition` and `RT` as our x and y axes, as before. This time we added
 `stat_summary()` instead of `geom_boxplot()`. By default this plots the mean and standard error (a
-measure of variability) in each group. You can ignore the warning about
+measure of variability) in each group, using a **point-range plot**. This is better than a bar chart because
+it avoids multiple a known bias in how we read them. You can ignore the warning about
 `No summary function supplied, defaulting to mean_se()` for now.
 
 :::{.exercise}
 
 As an extension exercise:
 
--   adapt your facetted boxplot from above to show the mean and standard error instead
--   can you combine both boxplot and summary in a single plot?
+-   Adapt your facetted boxplot from above to show the mean and standard error instead
+-   Can you combine both boxplot and summary in a single plot?
 
 :::
 
-## Polish
+## Spit and polish
+
 
 Ggplot is great because it sets sensible defaults for most things (axes, colours etc). When you are
 exploring your data these defaults typically suffice. However for publication you will often need to
@@ -597,6 +599,13 @@ Try adding axis labels to one of your existing plots.
 
 ### Changing the label of color/shape guidelines
 
+:::{.tip}
+
+If you are short of time you can treat the rest of this section like an extension exercise. It might be useful
+for your own work, but won't form part of the assessment.
+
+:::
+
 When adding the colour aesthetic, ggplot uses the variable name to label the plot legend. For
 example:
 
@@ -624,13 +633,6 @@ Try relabelling the colour legend of one of your existing plots.
 :::
 
 ### Adding lines
-
-:::{.tip}
-
-If you are short of time you can treat this section like an extension exercise. It might be useful
-for your own work, but won't form part of the assessment.
-
-:::
 
 Sometimes it can be helpful to add lines to a plot: for example to show a clinically meaningful
 cutoff, or the mean of a sample.
@@ -669,12 +671,6 @@ Add a `geom_vline` to a plot you have already created. This could be either:
 
 ### Saving plots to a file
 
-:::{.tip}
-
-If you are short of time you can treat this section like an extension exercise. It might be useful
-for your own work, but won't form part of the assessment.
-
-:::
 
 So far we have created plots in the RStudio web interface. This is fine when working interactively,
 but sometimes you will need to send a high-quality plot to someone (perhaps a journal).
@@ -704,12 +700,6 @@ You can see the output of the `ggsave` command by downloading the file here:
 
 ### Publication-ready plots
 
-:::{.tip}
-
-If you are short of time you can treat this section like an extension exercise. It might be useful
-for your own work, but won't form part of the assessment.
-
-:::
 
 Some journals have specific requirements for submitting journals; common ones include submitting in
 particular formats (e.g. pdf or tiff), using particular fonts etc.
