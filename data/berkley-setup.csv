@@ -1,0 +1,13 @@
+gender,department,p.admitted,n.applicants
+Male,A,0.62,825
+Female,A,0.82,108
+Male,B,0.63,560
+Female,B,0.68,25
+Male,C,0.37,325
+Female,C,0.34,593
+Male,D,0.33,417
+Female,D,0.35,375
+Male,E,0.28,191
+Female,E,0.24,393
+Male,F,0.6,373
+Female,F,0.7,341

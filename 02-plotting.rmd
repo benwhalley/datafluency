@@ -750,14 +750,14 @@ You should work in groups of 3 to:
 -   Explore the dataset
 -   Develop one or two plots which illustrate key features of the data
 
-We will then join to form larger groups to discuss the process, and justify your decisions.
+We will then join to form larger groups to share findings, and justify decisions made.
+
 
 
 ### Scenario 1: Secret agent
 
-You are a secret agent, and have been sent a mystery dataset by one of your sources. She said it
-contains highly important information which will be of great interest to your superiors. Use your
-ggplot wizardry to recover this classified information.
+You are a MI6 agent, and have been sent a mystery dataset by one of your spies. She said it
+contains highly important information which will be of great interest to your superiors. Use your ggplot wizardry to recover this classified information.
 
 ```{r, include=F}
 
@@ -774,10 +774,36 @@ df  %>%  ggplot(aes(x, y )) + geom_point() + facet_wrap(~group)
 
 ```
 
+The data are available to download here: [data/mystery.csv](data/mystery.csv)
 
 
 
 ### Scenario 2
+
+In the 1970s the University of California, Berkley, was concerned about the fairness of their admissions procedures. They collected data from across the university for a number of years, recording the:
+
+- Number of applicants
+- The department the student applied to
+- The students' gender
+- Number of students accepted
+- The percentage students of each gender who were accepted in each department
+
+A summary of these data are available at this link: [data/berkley.csv](data/berkley.csv).
+
+Your job is to:
+
+- Describe the pattern of applications
+- Decide if the university was fair in it's admissions procedures
+- Prepare a short presentation for the university governors which includes plots
+
+
+Techniques/commands you might want to use:
+
+- `filter`
+- `group_by` and `summarise`
+- `stat_summary` to plot means and standard errors or deviations
+
+
 
 ```{r, include=F, echo=F}
 # don't re-run... probs added to this file by hand
@@ -785,42 +811,58 @@ df  %>%  ggplot(aes(x, y )) + geom_point() + facet_wrap(~group)
 
 b <- read_csv("data/berkley-setup.csv")
 set.seed(1234)
-berkley <-  b %>% expand(year = 1976:1998, gender, department) %>%
+berkley <-  b %>% expand(year = 1976:1981, gender, department) %>%
   left_join(., b) %>%
+  group_by(year) %>%
   mutate(
-    n.admitted = round(n.applicants * p.admitted),
-    # noise
-    # n.admitted = n.admitted - n.admitted*.05 + rpois(n(), n.admitted*.05),
-    n.applicants = n.applicants - round(n.applicants*.2) + rpois(n(), round(n.applicants*.2)),
+    n.applicants = n.applicants + rpois(n(), round(n.applicants*.3)),
+    n.admitted = round(n.applicants * (p.admitted + runif(n(), -.1, .1))),
     percent.admitted = round(n.admitted / n.applicants * 100, 2)
   ) %>%
   select(-p.admitted)
-```
 
-
-```{r, include=F, echo=F}
-berkley  %>%
-  ggplot(aes(gender, n.admitted)) +
-  geom_boxplot()
-```
-
-```{r, include=F, echo=F}
-berkley  %>%
-  ggplot(aes(gender, percent.admitted)) +
-  geom_boxplot() +
-  facet_grid(~department)
+berkley %>% write_csv('data/berkley.csv')
+berkley <- read_csv('data/berkley.csv')
 ```
 
 ```{r, include=F, echo=F}
 berkley %>%
-  ggplot(aes(n.admitted, percent.admitted, colour=department, shape=gender)) +
-  geom_point()
-
+  ggplot(aes(gender, n.admitted)) +
+  stat_summary()
 ```
+
 
 ```{r, include=F, echo=F}
 berkley  %>%
   ggplot(aes(gender, percent.admitted)) +
-  geom_boxplot() +
+  stat_summary()
+```
+
+
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(gender, n.applicants, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)
+```
+
+
+```{r, include=F, echo=F, fig.height=2}
+berkley %>%
+  ggplot(aes(gender, n.admitted, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)
+```
+
+
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(gender, percent.admitted, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
   facet_grid(~department)
 ```
