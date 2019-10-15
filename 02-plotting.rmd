@@ -802,7 +802,7 @@ Techniques/commands you might want to use:
 - `filter`
 - `group_by` and `summarise`
 - `stat_summary` to plot means and standard errors or deviations
-
+- `facet_wrap(~VARNAME)` to split a plot by a categorical variable
 
 
 ```{r, include=F, echo=F}

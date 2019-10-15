@@ -31,7 +31,7 @@ rmd_files:
     "extras-more-on-tibbles.rmd",
     "extras-other-tips.rmd",
     "extras-reading.rmd",
-    "quiz.rmd",
+    # "quiz.rmd",
 
     "references.rmd",
 
