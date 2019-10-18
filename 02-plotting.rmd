@@ -135,9 +135,10 @@ this --- it's part of the `gapminder` package).
 
 Some hints:
 
-- The dataset is called `gapminder::gapminder` and you need to write that in full
-- Check the title of the figure above to work out which rows of the data you need to plot (and so define the filter)
-- All the `BLANK`s represent variable names
+-   The dataset is called `gapminder::gapminder` and you need to write that in full
+-   Check the title of the figure above to work out which rows of the data you need to plot (and so
+    define the filter)
+-   All the `BLANK`s represent variable names
 
 ### Summary of the section
 
@@ -558,8 +559,8 @@ expdata %>%
 
 **Explanation**: We used `Condition` and `RT` as our x and y axes, as before. This time we added
 `stat_summary()` instead of `geom_boxplot()`. By default this plots the mean and standard error (a
-measure of variability) in each group, using a **point-range plot**. This is better than a bar chart because
-it avoids multiple a known bias in how we read them. You can ignore the warning about
+measure of variability) in each group, using a **point-range plot**. This is better than a bar chart
+because it avoids multiple a known bias in how we read them. You can ignore the warning about
 `No summary function supplied, defaulting to mean_se()` for now.
 
 :::{.exercise}
@@ -572,7 +573,6 @@ As an extension exercise:
 :::
 
 ## Spit and polish
-
 
 Ggplot is great because it sets sensible defaults for most things (axes, colours etc). When you are
 exploring your data these defaults typically suffice. However for publication you will often need to
@@ -607,8 +607,8 @@ Try adding axis labels to one of your existing plots.
 
 :::{.tip}
 
-If you are short of time you can treat the rest of this section like an extension exercise. It might be useful
-for your own work, but won't form part of the assessment.
+If you are short of time you can treat the rest of this section like an extension exercise. It might
+be useful for your own work, but won't form part of the assessment.
 
 :::
 
@@ -677,7 +677,6 @@ Add a `geom_vline` to a plot you have already created. This could be either:
 
 ### Saving plots to a file
 
-
 So far we have created plots in the RStudio web interface. This is fine when working interactively,
 but sometimes you will need to send a high-quality plot to someone (perhaps a journal).
 
@@ -705,7 +704,6 @@ You can see the output of the `ggsave` command by downloading the file here:
 [myfunkyplot.pdf](myfunkyplot.pdf)
 
 ### Publication-ready plots
-
 
 Some journals have specific requirements for submitting journals; common ones include submitting in
 particular formats (e.g. pdf or tiff), using particular fonts etc.
@@ -752,12 +750,11 @@ You should work in groups of 3 to:
 
 We will then join to form larger groups to share findings, and justify decisions made.
 
-
-
 ### Scenario 1: Secret agent
 
-You are a MI6 agent, and have been sent a mystery dataset by one of your spies. She said it
-contains highly important information which will be of great interest to your superiors. Use your ggplot wizardry to recover this classified information.
+You are a MI6 agent, and have been sent a mystery dataset by one of your spies. She said it contains
+highly important information which will be of great interest to your superiors. Use your ggplot
+wizardry to recover this classified information.
 
 ```{r, include=F}
 
@@ -776,34 +773,34 @@ df  %>%  ggplot(aes(x, y )) + geom_point() + facet_wrap(~group)
 
 The data are available to download here: [data/mystery.csv](data/mystery.csv)
 
-
-
 ### Scenario 2
 
-In the 1970s the University of California, Berkley, was concerned about the fairness of their admissions procedures. They collected data from across the university for a number of years, recording the:
+In the 1970s the University of California, Berkley, was concerned about the fairness of their
+admissions procedures. They collected data from across the university for a number of years,
+recording the:
 
-- Number of applicants
-- The department the student applied to
-- The students' gender
-- Number of students accepted
-- The percentage students of each gender who were accepted in each department
+-   Number of applicants
+-   The department the student applied to
+-   The students' gender
+-   Number of students accepted
+-   The percentage students of each gender who were accepted in each department
 
 A summary of these data are available at this link: [data/berkley.csv](data/berkley.csv).
 
 Your job is to:
 
-- Describe the pattern of applications
-- Decide if the university was fair in it's admissions procedures
-- Prepare a short presentation for the university governors which includes plots
-
+-   Describe the pattern of applications
+-   Decide if the university was fair in it's admissions procedures
+-   Prepare a short presentation for the university governors which includes plots
 
 Techniques/commands you might want to use:
 
-- `filter`
-- `group_by` and `summarise`
-- `stat_summary` to plot means and standard errors or deviations
-- `facet_wrap(~VARNAME)` to split a plot by a categorical variable
+-   `filter`
+-   `group_by` and `summarise`
+-   `stat_summary` to plot means and standard errors or deviations
+-   `facet_wrap(~VARNAME)` to split a plot by a categorical variable
 
+form
 
 ```{r, include=F, echo=F}
 # don't re-run... probs added to this file by hand
@@ -831,14 +828,11 @@ berkley %>%
   stat_summary()
 ```
 
-
 ```{r, include=F, echo=F}
 berkley  %>%
   ggplot(aes(gender, percent.admitted)) +
   stat_summary()
 ```
-
-
 
 ```{r, include=F, echo=F}
 berkley %>%
@@ -848,7 +842,6 @@ berkley %>%
   facet_grid(~department)
 ```
 
-
 ```{r, include=F, echo=F, fig.height=2}
 berkley %>%
   ggplot(aes(gender, n.admitted, group=department)) +
@@ -856,8 +849,6 @@ berkley %>%
   stat_summary(geom="line", fun.data=mean_se) +
   facet_grid(~department)
 ```
-
-
 
 ```{r, include=F, echo=F}
 berkley %>%

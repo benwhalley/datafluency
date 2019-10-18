@@ -15,7 +15,7 @@ a dataset and the visual features (aesthetics) of the plot
 
  -->
 
-## Cheatsheet
+## Cheatsheet {#cheatsheet}
 
 This covers everything we have done to-date (or will soon), in abbreviated form. You will need to
 load tidyverse for most of these examples:
@@ -117,9 +117,140 @@ expt1 <- read_excel('simple-excel-example.xlsx', sheet="Experiment 1")
 expt2 <- read_excel('simple-excel-example.xlsx', sheet="Experiment 2")
 ```
 
+### 'Looking at' datasets
+
+If a dataset is large we don't want to look at it all at once.
+
+Show the first 3 rows for all variables:
+
+```{r}
+iris %>% head(3)
+```
+
+Show a list of all the **_columns_** with as many datapoints as fit in the window:
+
+```{r}
+iris %>% glimpse
+```
+
+Calculate some useful summaries of all variables in the dataset:
+
+```{r}
+library(skimr)
+iris %>% skim()
+```
+
+Check for patterns of [missing data](#missing-data):
+
+```{r message=F}
+library(mice)
+boys %>% md.pattern()
+```
+
+### Choosing columns and rows {#dplyr-cheat}
+
+#### Selecting columns
+
+```{r}
+mtcars %>% select(mpg, wt) %>% head()
+```
+
+Selecting columns which start with a particular string:
+
+```{r}
+iris %>% select(starts_with('Sepal')) %>% head
+```
+
+Selecting columns which match a name:
+
+```{r}
+iris %>% select(matches('Width')) %>% head
+```
+
+#### Renaming columns
+
+```{r}
+mtcars %>% select(wt) %>% rename(weight=wt) %>% head
+```
+
+:::{.tip}
+
+Try to avoid spaces or punctuation in your variable names if possible.
+
+:::
+
+If you do end up with spaces in your column names, you can still access them by putting 'backticks'
+around the name.
+
+```{r include=F}
+annoying_dataframe = tibble(`What is your favourite colour?` = c("Red", "Blue", "Green" ))
+```
+
+Our annoying dataframe is like this:
+
+```{r}
+annoying_dataframe  %>% head
+```
+
+Rename the column:
+
+```{r}
+annoying_dataframe %>%
+  rename('favourite_colour' = `What is your favourite colour?`) %>%
+  head
+```
+
+#### Filtering rows
+
+Select rows where a variable matches a particular number:
+
+```{r}
+gapminder::gapminder %>% filter(year==2002) %>% head
+```
+
+Select rows where a variable matches a particular string value (letters/words):
+
+```{r}
+iris %>% filter(Species=="setosa") %>% head
+```
+
+Select rows meeting (both of) 2 criteria:
+
+```{r}
+mtcars %>% filter(wt > 3 & cyl == 4)
+```
+
+Select rows meeting either one criteria OR another:
+
+```{r}
+mtcars %>% filter(wt > 3 | cyl == 4) %>% head
+```
+
+### Groups and summaries {#cheat-group-summary}
+
+Calculate statistics on a dataset:
+
+```{r}
+iris %>% summarise(mean(Sepal.Length), mean(Sepal.Width))
+```
+
+Give our summary variables specific names (these are bad names, don't do this!):
+
+```{r}
+iris %>% summarise(wibble=mean(Sepal.Length), wobble=mean(Sepal.Width))
+```
+
+Calculate summaries for groups in the a dataset:
+
+```{r}
+iris %>% group_by(Species) %>% summarise(mean(Sepal.Length), sd(Sepal.Length))
+```
+
 ### Plotting
 
-Density with colours
+Also see the [section on visualisation](#visualisation).
+
+Density plot with colours:
 
 ```{r}
 diamonds  %>%

@@ -1,5 +1,9 @@
 ## Common problems {#common-problems}
 
+```{r}
+library(tidyverse)
+```
+
 Some of this material was adapted from
 [Andy Wills' RminR](https://ajwills72.github.io/rminr/using_rstudio.html).
 
@@ -54,3 +58,27 @@ the people whose education level equal to "master".
     will get errors. Sometimes this is not apparent when working in an
     interactive session, but creates an error when a package is loaded after it
     is used in the code.
+
+
+
+### My variables have spaces of other special characters in their names!!!
+
+Try to avoid spaces or punctuation in your variable names if possible. If you do end up with spaces in your column names, you can still access them by putting 'backticks' around the name.
+
+```{r include=F}
+annoying_dataframe = tibble(`What is your favourite colour?` = c("Red", "Blue", "Green" ))
+```
+
+Our annoying dataframe might be like this:
+
+```{r}
+annoying_dataframe  %>% head
+```
+
+We can rename the column:
+
+```{r}
+annoying_dataframe %>%
+  rename('favourite_colour' = `What is your favourite colour?`) %>%
+  head
+```

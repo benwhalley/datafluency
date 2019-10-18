@@ -112,4 +112,7 @@ i.glyphicon.glyphicon-info-sign {
 iframe { margin-bottom: 2em;}
 
 .sourceCode {  }
-.sourceCode + pre { background-color:aliceblue !important;}
+.sourceCode + pre { background-color:#edf5f0 !important; border-radius: 1em;}
+
+
+.caption { font-size:80%; font-weight:bold; text-align: center; margin-bottom:2em;}
