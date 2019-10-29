@@ -1,5 +1,8 @@
 # Data handling {#data-handling}
 
+
+![](media/ropes.png)
+
 ```{r include=F}
 library(tidyverse)
 library(webex)
@@ -506,7 +509,7 @@ See this video for an example:
 :::
 
 
-## Final task (to be completed homework)
+## Final task (to be completed as homework)
 
 :::{.exercise}
 
