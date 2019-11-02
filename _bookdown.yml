@@ -29,6 +29,7 @@ rmd_files:
     "extras-gloss-and-cheat.rmd",
     "extras-sample-n.rmd",
     "extras-more-on-tibbles.rmd",
+    "extras-regression.rmd",
     "extras-other-tips.rmd",
     "extras-reading.rmd",
     # "quiz.rmd",

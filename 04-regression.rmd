@@ -1,46 +1,472 @@
 # Regression {#regression}
 
+```{r include=F,echo=F}
+library(tidyverse)
+library(webex)
+library(cowplot)
+theme_set(theme_minimal())
+
+```
+
+![](media/duck.jpg){width=40%}
+
 #### In brief
 
-> Regression is just a fancy term for drawing the 'best-fitting' line through a
-> scatter-plot, and summarising how well the line describes the data.
+> Regression is just a fancy term for drawing the 'best-fitting' line through a scatter-plot, and
+> summarising how well the line describes the data.
 
-> When doing regression in R, the relationship between an **_outcome_** and one
-> or more **_predictors_** is described using a **_formula_**. When a model is
-> '**_fitted_**' to a sample it becomes tool to make **_predictions_** for
-> future samples. It also allows us to quantify our **_uncertainty_** about
-> those predictions.
+> When doing regression in R, the relationship between an **_outcome_** and one or more
+> **_predictors_** is described using a **_formula_**. When a model is '**_fitted_**' to a sample it
+> becomes tool to make **_predictions_** for future samples. It also allows us to quantify our
+> **_uncertainty_** about those predictions.
 
-> **_Coefficients_** are numbers telling us how strong the relationshsips
-> between predictors and outcomes are. But the meaning of coefficients depend on
-> the study **_design_**, and the **_assumptions_** were are prepared to make.
-> Causal diagrams can help us choose models and interpret our results.
+> **_Coefficients_** are numbers telling us how strong the relationships between predictors and
+> outcomes are. But the meaning of coefficients depend on the study **_design_**, and the
+> **_assumptions_** were are prepared to make. Causal diagrams can help us choose models and
+> interpret our results.
 
-> Multiple regression is a technique which can describe the relationship between
-> **_one outcome_** and **_two or more predictors_**. We can also use multiple
-> regression to describe cases where two variable **_interact_**. That is, when
-> the effect of one predictor is increased or decreased by another. Multiple
-> regression is important because it allows us to make more realistic models and
+> Multiple regression is a technique which can describe the relationship between **_one outcome_**
+> and **_two or more predictors_**. We can also use multiple regression to describe cases where two
+> variable **_interact_**. That is, when the effect of one predictor is increased or decreased by
+> another. Multiple regression is important because it allows us to make more realistic models and
 > better predictions.
 
-> Like any sharp tool, regression should be used carefully. If our statistical
-> model doesn't match the underlying network of causes and effects, or if we
-> have used a biased sample, we can be misled.
+> Like any sharp tool, regression should be used carefully. If our statistical model doesn't match
+> the underlying network of causes and effects, or if we have used a biased sample, we can be
+> misled.
 
 ## Session 1
 
-We will revise core concepts for selecting and interpreting linear models. Some
-of the material may have been covered in undergraduate courses, but we will
-emphasise understanding and mastery of key ideas before we progress further.
+##### Teachers' note {.tip}
+
+Resources needed for session 1:
+
+-   [example-plots.pdf](regression-example-plots.pdf).
+-   [printable rulers](rulers_metric_narrow.pdf)
+-   Sharpies
+-   OHP transparencies
+
+### Overview
+
+In this session we will revise core concepts for selecting and interpreting linear models. Some of
+the material may have been covered in undergraduate courses, but we will emphasise understanding and
+mastery of core ideas before we develop these ideas to fit more complex models.
+
+### Fitting lines to data
+
+Regression (and most statistical modelling) is about 'fitting' lines to data. Our first exercise
+illustrates most of the key concepts without you needing to touch a computer.
+
+In this activity you will need to:
+
+-   Work in groups
+-   Use some example plots
+-   Decide how to draw lines on these plots which represent a 'good fit'
+
+### Study habits and academic outcomes
+
+For this activity I've provided some plots from a simulated dataset on study habits and academic
+outcomes.
+
+(If you're doing this exercise on your own at home, the example are available here:
+[example-plots.pdf](regression-example-plots.pdf).
+
+The data for the example include:
+
+-   MCQ test data (i.e. academic achievement)
+-   Responses to a study habits questionnaire (including a question on 'hours spent studying')
+
+In these examples, each plot only contains 10 of the data points from the larger sample (N=300).
+
+:::{.exercise}
+
+Your task is to describe the **_relationship between hours spent working and exam grades_** with
+lines (hand) drawn on the plots.
+
+1. In groups, take one of the printed graphs, and a plastic transparency.
+
+1. Put the transparency on top of the plot.
+
+As a group, draw 3 lines on the transparency in different colours:
+
+1. First, draw which you think is the 'best' line. That is, the line that describes the relationship
+   between study hours and exam grades the best.
+
+1. Second, discuss the pros and cons of fitting a straight vs. a curved line. If you initially drew
+   either a straight line, draw a curved line now in another colour (or vice versa).
+
+1. Finally, draw a **_really_** curvy line with multiple bends to get as close as you can to all the
+   data points in your sample scatter plot.
+
+---
+
+```{r, include=F}
+studyhabits <-  read_csv('data/studyhabitsandgrades.csv')
+```
+
+```{r, echo=F, fig.height=3, fig.width=6, fig.cap="Examples of straight and curved lines fit to the data."}
+set.seed(1234)
+ss <- studyhabits %>%
+    sample_n(10)
+
+a <- ss %>%
+    ggplot(aes(work_hours, grade)) + geom_point() + geom_smooth(se=F,  method="lm", formula = y~poly(x,5))
+
+b <- ss %>%
+    ggplot(aes(work_hours, grade)) + geom_point() + geom_smooth(se=F, method="lm", formula = y~poly(x,2))
+
+c <- ss %>%
+    ggplot(aes(work_hours, grade)) + geom_point() + geom_smooth(method="lm", se=F)
+
+plot_grid(c,b,a,
+          labels = c("Straight", "Curved", "Very curvy"),
+          ncol = 3, nrow = 1)
+```
+
+:::
+
+## How useful are the lines? {#how-useful-are-the-lines}
+
+You can think of the lines we drew in two ways: as **maps** and as **tools**:
+
+1. As a map, they **describe** the data we have, but they are also
+2. **tools** which **predict** new data we might collect
+
+In statistical language, the gaps between our line and the data points are called **_residuals_**.
+
+We can distinguish:
+
+1.  Residuals for the data we have now (how well does the line **_describe_** the data).
+2.  Residuals for new data we collect after drawing the line (how well does the line **_predict_**).
+
+Another common way to refer to residuals is as the **error** in a model. That is, the line describes
+a _model_ (idealised) relationship between variables. And if look at the residuals we have an
+estimate how how much _error_ there will be in our predictions when we use the model.
+
+:::{.exercise}
+
+In your group:
+
+-   Discuss how well/badly your lines 'fit' to the sample you have (in general terms)
+
+-   Using a ruler, measure (in mm) the residual for each datapoint on your current graph. Do this
+    separately for the straight and curvy lines. If you need to save time, only do this for the
+    first 5 data points.
+
+-   Add up the total length of the distances (residuals) for each line. Make a note of this for
+    later.
+
+-   Repeat the exercise at least 3 times, swapping your printout with another groups' plot. (Each
+    plots shows a different sample).
+
+When you have finished, discuss in your group:
+
+-   Do curved or straight lines have smaller residuals for the _original_ data that were used to
+    draw them?
+
+-   Do curved or straight lines have smaller residuals for _new_ data (i.e. after swapping?)
+
+-   What do you think is going on here? What can explain the pattern you see?
+
+---
+
+Only when you have discussed this thoroughly,
+[read an explanation of what is going on](#explanation-residuals).
+
+:::
+
+### Congratulations!
+
+You have successfully fit your first linear model! The next step is to formalise the process. We
+need a method that:
+
+-   Finds the line with the **_smallest_** residuals
+-   Is repeatable
+-   Is easy for computers to do (because we're lazy)
+
+For this we can use R!
+
+## Using R to run regressions
+
+Before we start, the study habits data are stored at this url:
+<https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv>
+
+Previously we have loaded data by:
+
+-   Downloading the csv to our computer
+-   Uploading it to RStudio server
+-   Opening it using `read_csv`
+
+##### A shortcut {#load-data-from-url}
+
+A quicker way is to combine these 3 steps: By providing `read_csv` with the url, we can open the
+data in a single step:
+
+```{r, eval=F}
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+**Explanation**: By providing a URL to `read_csv` we can open the data over the web.
+
+We should check the data look OK using `head` or `glimpse`:
+
+```{r, eval=F}
+studyhabits  %>% head()
+studyhabits  %>% glimpse()
+```
+
+**Explanation**: `head` shows the first 6 rows of the dataset. `glimpse` provides a list of all the
+columns and (if your window is wide enough) will also show the first few datapoints for each.
+
+## The first step is **always** plotting
+
+**Before** we start running analyses, we should always plot the data.
+
+:::{.exercise}
+
+Plot th studyhabits data in a few different ways to get a feel for the relationships between the
+variables. Specifically,
+
+1. Make a density plot to see the distribution of `grade` scores
+1. Add colour to this plot (or use another type of plot) to see how scores differ by gender
+1. Use a scatter plot to look at the relationship between `grade` and `work_hours`.
+1. Is the relationship between `grade` and `work_hours` the same for men and women?
+
+```{r, include=F, eval=F}
+studyhabits %>% ggplot(aes(grade, color=female)) + geom_density()
+studyhabits %>% ggplot(aes(work_hours, grade, color=female)) + geom_point( alpha=.3)
+```
+
+Interpret your plots:
+
+-   What relationship do we see between revision and grades?
+-   Do you estimate this a weak, moderate or strong relationship?
+
+:::
+
+## Automatic line-fitting {#automatic-line-fitting}
+
+To get R to fit a line to these data for us we will use a new function called `lm`. The letters l
+and m stand for _**l**inear **m**odel_.
+
+There are lots of ways to use `lm`, but the easiest to _picture_ is to get `ggplot` to do it for us:
+
+```{r, eval=F}
+studyhabits %>%
+  ggplot(aes(work_hours, grade)) +
+  geom_point() +
+  geom_smooth(method=lm)
+```
+
+```{r, echo=F}
+# cheat to add lines at zero
+studyhabits %>%
+  ggplot(aes(work_hours, grade)) +
+  geom_point() +
+  geom_smooth(method=lm) +
+  geom_vline(xintercept=0) +
+  geom_hline(yintercept=0)
+```
+
+**Explanation of the code**: We used `geom_point` to create a scatterplot. Then we used a plus
+symbol (`+`) and added `geom_smooth(method=lm)` to add the fitted line. By default, `geom_smooth`
+would try to fit a curvy line through your datapoints, but adding `method=lm` makes it a straight
+line.
+
+**Explanation of the resulting plot** The plot above is just like the scatter plots we drew before,
+but adds the blue fitted line. The blue line shows the 'line of best fit'. This is the line that
+**minimises the residuals** (the gaps between the line and the points). Ignore the shaded area for
+now [(explanation here if you are keen)](#explanation-shaded-area-geom-smooth).
+
+### Task: Plot relationships {#plot-relationships .exercise}
+
+Try plotting a line graph like this for yourself, with:
+
+-   The same variables (i.e. reproduce the plot with `work_hours` and `grade`)
+-   Different variables (from the `studyhabits` dataset)
+-   Without the `method=lm` part (to see a curvy line instead of straight)
+
+Note whether the slope of the line is positive (upward sloping) or negative (downward sloping).
+
+Now, add the `colour=female` inside the part which says `aes(...)`. Before you run it, predict what
+will happen.
+
+`r hide("show answer")`
+
+It should plot different lines for men and women. Something like this:
+
+```{r, echo=F}
+studyhabits %>%
+  ggplot(aes(work_hours, grade, colour=female)) +
+  geom_point() +
+  geom_smooth(method=lm)
+```
+
+`r unhide()`
+
+## Putting numbers to lines {#first-lm}
+
+The plot we made in the previous section is helpful, because we can _see_ the best-fit line.
+
+However also want to have a _single number to say how steep the line is_. That is, _a number to say
+how closely related the variables are_.
+
+To do this we can use the `lm` function directly.
+
+:::{.exercise}
+
+Before we start make sure you have loaded the studyhabits dataset:
+
+```{r, eval=F}
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+:::
+
+> In the next piece of code we fit the model.
+
+The first part is known as a model formula. The `~` symbol (it's called a 'tilde') just means "is
+predicted by", so you can read this part as saying "grade is predicted by work hours".
+
+```{r}
+first.model <- lm(grade ~ work_hours, data = studyhabits)
+first.model
+```
+
+**Explanation of the code**: We used the `lm` function to estimate the relation beteen grades and
+work hours.
+
+**Explanation of the output**: The output displays:
+
+-   The 'call' we made (i.e. what function we used, and what inputs we gave, so we can remember what
+    we did later on)
+-   The 'coefficients'. These are the numbers which represent the line on the graph above.
+
+##### Explanation of the coefficients {#lm-explain-coefs-1}
+
+```{r, include=F}
+cfs1 <- coefficients(first.model) %>% round(., 4)
+```
+
+In this example, we have two coefficients: the `(Intercept)` which is `r cfs1[1]` and the
+`work_hours` coefficient which is `r cfs1[2]`.
+
+**The best way to think about the coefficients is in relation to the plot we made**. In this version
+of the plot, however, I extended the line so it crosses zero on the x axis:
+
+```{r echo=F, fig.width=5, fig.height=4}
+
+source('extend-smooth-lines.R')
+
+studyhabits %>%
+  ggplot(aes(work_hours, grade)) +
+  geom_point(alpha=.8) +
+  geom_smooth(method="lm_left", fullrange=TRUE, se=F, linetype="dashed") +
+  geom_smooth(method=lm, se=F) +
+  geom_point(aes(x=0,y=0), alpha=0)
+
+```
+
+We can interpret the coefficients as points on the plot as follows:
+
+-   The `(Intercept)` is the point (on the y axis) where the blue dotted line crosses zero (on the
+    x-axis).
+-   The `work_hours` coefficient is how **steep** the slope of the line is. Specifically, is says
+    how many `grade` points the line will rise if we increase `work_hours` by 1.
+
+:::{.exercise}
+
+Before you move on:
+
+-   Compare the coefficients from the `lm` output to the plot above. Can you see how they relate? If
+    you're not 100% sure, ask now!
+
+:::
+
+## Making predictions (by hand) {#regresion-hand-predictions}
+
+A big advantage of using the coefficients alongside the plot is that we can easily **_make
+predictions for future cases_**.
+
+:::{.exercise}
+
+In a pair, do this now:
+
+Let's say we meet someone who works 30 hours per week. One way to predict would be by-eye, using the
+line on the plot.
+
+What grade would you expect them to get simply by 'eyeballing' the line?
+
+```{r echo=F}
+studyhabits %>%
+  ggplot(aes(work_hours, grade)) +
+  geom_point(alpha=.8) +
+  geom_smooth(method="lm_left", fullrange=TRUE, se=F, linetype="dashed") +
+  geom_smooth(method=lm, se=F) +
+  geom_point(aes(x=0,y=0), alpha=0)
+```
+
+:::
+
+We can do the same thing using the coefficients from `lm`, because we know that:
+
+<!-- see cfs1 definition above -->
+
+-   If someone worked for 0 hours per week then our prediction would be `r round(cfs1[1])`. We know
+    this because this is the intercept value (the point on the line when it is at zero on the
+    x-axis).
+-   For each extra hour we study the `work_hour`coefficient tells us that f, our `grade` will
+    increase by `r cfs1[2]`.
+
+-   So, if we study for 30 hours, our prediction is `r round(cfs1[1])` $+$ `r cfs1[2]` $\times$ 30
+
+:::{.exercise}
+
+In pairs again:
+
+-   Make predictions for people who study 5, 20 or 40 hours per week
+-   Compare these predictions to the plot above.
+-   Which of the predictions (for 5, 20 or 40 study hours) should we be most confident in? Why do
+    you think this is?
+
+:::
+
+[If you want to check your predictions, click here](#explanation-first-predictions)
+
+### Summary of today's session
+
+So far we have:
+
+- Seen that fitting straight lines to data can be a useful technique to:
+
+  -   **Describe** existing data we have and
+  -   **Predict** new data we collect
+
+
+- We used `lm` to add a fitted line to a ggplot. We used this to make 'eyeball' predictions for new
+data.
+
+- Then we used `lm` directly, using one variable (a column in a dataframe) to predict another
+variable.
+
+- We saw how the coefficients from `lm` can be interpreted in relation to the fitted-line plot.
+
+- We used the coefficients to make numeric predictions for new data.
+
+If you're not clear on any of these points it would be worth going over today's materials again, and
+attend the catchup session before the next workshop.
+
+In the next session we extend our use of `lm`, building more complex models, and using new R
+functions to make and visualise predictions from these models.
 
 ## Session 2
 
-We extend to examples requiring multiple regression, and interpretation of
-interaction coefficients. We also cover prediction from models.
+We extend to examples requiring multiple regression, and interpretation of interaction coefficients.
+We also cover prediction from models.
 
 ## Session 3
 
-We cover statistical testing for individual coefficients and for interactions
-using frequentist methods (regular _p_ values).
+We cover statistical testing for individual coefficients and for interactions using frequentist
+methods (regular _p_ values).
 
 <!-- Bayes or Frequentist? -->

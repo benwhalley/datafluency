@@ -3,6 +3,7 @@
 ```{r, include=F}
 library(tidyverse)
 library(webex)
+knitr::opts_chunk$set(cache=T)
 ```
 
 ![Nothing new under the sun: Mediaeval line plot, circa 1010. Image: [wikimedia](https://commons.wikimedia.org/wiki/File:Clm_14436_ecliptic_diagram.png)](media/Clm_14436_ecliptic_diagram.png)
@@ -254,7 +255,10 @@ Use the `iris` dataset which is built into R.
 
 ```{r, echo=F}
 iris %>%
-  ggplot(aes(Sepal.Length, Petal.Length)) + geom_point()  + geom_smooth() + facet_grid(~Species)
+  ggplot(aes(Sepal.Length, Petal.Length)) +
+  geom_point()  +
+  geom_smooth() +
+  facet_grid(~Species)
 ```
 
 Optional extension tasks:
