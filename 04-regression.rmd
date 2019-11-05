@@ -186,7 +186,7 @@ need a method that:
 
 For this we can use R!
 
-## Using R to run regressions
+## Using R for regression
 
 Before we start, the study habits data are stored at this url:
 <https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv>
@@ -224,7 +224,7 @@ columns and (if your window is wide enough) will also show the first few datapoi
 
 :::{.exercise}
 
-Plot th studyhabits data in a few different ways to get a feel for the relationships between the
+Plot the `studyhabits` data in a few different ways to get a feel for the relationships between the
 variables. Specifically,
 
 1. Make a density plot to see the distribution of `grade` scores
@@ -278,7 +278,7 @@ but adds the blue fitted line. The blue line shows the 'line of best fit'. This 
 **minimises the residuals** (the gaps between the line and the points). Ignore the shaded area for
 now [(explanation here if you are keen)](#explanation-shaded-area-geom-smooth).
 
-### Task: Plot relationships {#plot-relationships .exercise}
+### {#plot-relationships .exercise}
 
 Try plotting a line graph like this for yourself, with:
 
@@ -323,10 +323,9 @@ studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgr
 
 :::
 
-> In the next piece of code we fit the model.
-
-The first part is known as a model formula. The `~` symbol (it's called a 'tilde') just means "is
-predicted by", so you can read this part as saying "grade is predicted by work hours".
+In the next piece of code we fit the model. The first part is known as a model formula. The `~`
+symbol (it's called a 'tilde') just means "is predicted by", so you can read this part as saying
+"grade is predicted by work hours".
 
 ```{r}
 first.model <- lm(grade ~ work_hours, data = studyhabits)
@@ -433,25 +432,84 @@ In pairs again:
 
 [If you want to check your predictions, click here](#explanation-first-predictions)
 
+
+### Extension exercises
+
+:::{.exercise}
+
+If you have time, try to answer the following questions based on other datasets built into R.
+
+
+Using the mtcars data:
+
+- What do you predict the `mpg` would be for a car with 4 cylinders?
+- What is the difference in `mpg` between a car with 4 and 5 cylinders?
+- Is your prediction for a car with 4 cylinders the same as the _mean_ mpg for cars with 4 cylinders? Can you explain why?
+
+
+Using the iris dataset:
+
+- What is your prediction for `Sepal.Length` for specimens which are 2 or 4mm wide?
+- What is your prediction for a specimen which was 8mm wide? How confident are you about this prediction?
+
+
+Using the CPS data saved here <http://www.willslab.org.uk/cps2.csv>, what you
+
+- Is hours a good predictor of income in this dataset?
+- What is your predicted income for someone who works 40 hours per week?
+
+
+`r hide("Show answers")`
+
+The numeric answers for each question are shown below:
+
+```{r}
+library(broom)
+lm(mpg~cyl, data=mtcars)  %>%
+  augment(newdata=tibble(cyl=c(3,4,5,6)))
+```
+
+```{r}
+lm(Sepal.Length~Sepal.Width, data=iris) %>%
+  augment(newdata=tibble(Sepal.Width=c(2,4)))
+```
+
+```{r}
+cps<- read_csv('http://www.willslab.org.uk/cps2.csv')
+lm(income~hours, data=cps) %>%
+  augment(newdata=tibble(hours=40))
+```
+
+
+
+`r unhide()`
+
+
+
+
+
+:::
+
+
+
 ### Summary of today's session
 
 So far we have:
 
-- Seen that fitting straight lines to data can be a useful technique to:
+-   Seen that fitting straight lines to data can be a useful technique to:
 
-  -   **Describe** existing data we have and
-  -   **Predict** new data we collect
+    -   **Describe** existing data we have and
+    -   **Predict** new data we collect
 
+*   We used `lm` to add a fitted line to a ggplot. We used this to make 'eyeball' predictions for
+    new data.
 
-- We used `lm` to add a fitted line to a ggplot. We used this to make 'eyeball' predictions for new
-data.
+*   Then we used `lm` directly, using one variable (a column in a dataframe) to predict another
+    variable.
 
-- Then we used `lm` directly, using one variable (a column in a dataframe) to predict another
-variable.
+*   We saw how the coefficients from `lm` can be interpreted in relation to the fitted-line plot.
 
-- We saw how the coefficients from `lm` can be interpreted in relation to the fitted-line plot.
-
-- We used the coefficients to make numeric predictions for new data.
+*   We used the coefficients to make numeric predictions for new data.
 
 If you're not clear on any of these points it would be worth going over today's materials again, and
 attend the catchup session before the next workshop.
