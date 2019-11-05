@@ -495,6 +495,9 @@ augment(first.model, newdata=newsamples)
 **Explanation of the output**: We have a new data frame with predictions for a new sample who worked 30 hours.
 
 
+
+
+
 ### Extension exercises
 
 :::{.exercise}
