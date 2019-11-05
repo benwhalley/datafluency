@@ -12,6 +12,7 @@ script:
 r_packages:
     - apaTables
     - vegan
+    - broom
 
 r_binary_packages:
     - tidyverse
