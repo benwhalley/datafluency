@@ -444,7 +444,7 @@ Using the mtcars data:
 
 - What do you predict the `mpg` would be for a car with 4 cylinders?
 - What is the difference in `mpg` between a car with 4 and 5 cylinders?
-- Is your prediction for a car with 4 cylinders the same as the _mean_ mpg for cars with 4 cylinders? Can you explain why?
+- Is your prediction for a car with 4 cylinders the same as the _mean_ mpg for cars with 4 cylinders? Can you explain why/why not?
 
 
 Using the iris dataset:
@@ -504,7 +504,7 @@ So far we have:
 *   We used `lm` to add a fitted line to a ggplot. We used this to make 'eyeball' predictions for
     new data.
 
-*   Then we used `lm` directly, using one variable (a column in a dataframe) to predict another
+*   Then we used `lm` directly, using one variable (i.e. a column in a dataframe) to predict another
     variable.
 
 *   We saw how the coefficients from `lm` can be interpreted in relation to the fitted-line plot.
