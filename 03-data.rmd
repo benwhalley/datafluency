@@ -121,6 +121,7 @@ Let's say we want a single plot of all these variables, something like this:
 ```{r echo=F, message=F, warning=F}
 library(data.table)
 attitude %>%
+  as.data.table() %>%
   melt() %>%
   mutate(variable=Hmisc::capitalize(as.character(variable))) %>%
   ggplot(aes(variable, value)) +
@@ -159,7 +160,6 @@ attitude %>%
   select(rating, complaints, privileges) %>%
   head(2) %>%
   melt()
-
 ```
 
 The change works like like this:

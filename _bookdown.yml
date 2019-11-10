@@ -30,9 +30,9 @@ rmd_files:
     "extras-sample-n.rmd",
     "extras-more-on-tibbles.rmd",
     "extras-regression.rmd",
+    "extras-causes.rmd",
     "extras-other-tips.rmd",
     "extras-reading.rmd",
-    # "quiz.rmd",
 
     "references.rmd",
 

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, messag
 
 <!-- ![Image via [archive.org](https://archive.org/details/cu31924074275912/page/n131)](media/cow-small.png) -->
 
-![](media/bunny.jpg)
+![](media/bunny.jpg){width=40%}
 
 # Overview {-}
 
@@ -66,7 +66,7 @@ We have 16 sessions, which work as follows:
     finish early, other times you may be expected to complete the activities
     outside of class.
 
-## The most important thinkg of all
+## The most important thing of all
 
 The most important thing of all is to **practice**.
 
@@ -102,7 +102,7 @@ soon!
 
 -   Regression 1: Core concepts.
 
--   Regression 2: Multiple regression.
+-   Regression 2: Causes/Multiple regression.
 
 -   Regression 3: Tests and variable/effect coding.
 

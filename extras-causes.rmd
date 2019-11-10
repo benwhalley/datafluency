@@ -1,0 +1,59 @@
+## Cause and effect
+
+```{r, echo=F, include=F}
+library(tidyverse)
+library(DiagrammeR)
+```
+
+### Confounding {#confounding-explanation}
+
+The problem in the sample is that we missed out an important box: Smoking. This
+is an example of an **_omitted variable bias_**, often called **confounding\_**.
+
+Smoking causes cancer, and also makes it more likely that someone uses matches.
+Because smokers use more matches than non-smokers, using more matches is
+_associated with_ getting cancer, and we see this in the scatter plot. So,
+although the scatterplot suggests matches cause cancer, we know it's wrong to
+draw that conclusion.
+
+When running observational studies (rather than experiments) the hardest job is
+worrying about hidden variables that might influence our results in this way.
+
+
+### Experiments and confounding {#explanation-experiments-confounding}
+
+Good experiments make confounding impossible. To see how, consider this diagram
+based on the example above:
+
+```{r echo=F}
+grViz("
+    digraph {
+        Matches -> Cancer
+        Smoking -> Matches
+        Smoking -> Cancer
+        'Experimental Randomisation' -> Matches
+    }
+")
+```
+
+The digram represents an experiment in which we randomise our participants to
+two experimental conditions, and followed them up over 2 years. At the end we
+count how many participants in each group had cancer. The groups were:
+
+-   Experimental: Participants are asked to strike 20 matches per day
+-   Control: Participants are asked not to use matches
+
+In the diagram we can see there are no arrows pointing at the box marked
+`'Experimental Randomisation'`.
+
+This means the Randomisation is **_uncaused_**. When we say something is random,
+we mean there is no other variable which is causing it.
+
+
+### Using other evidence to make assumptions {#explanation-assumptions-can-help}
+
+It's important to use **observational** data wisely too. See @pearl2018book
+chapter 5 for a great example of this: R.A. Fisher (the godfather of
+experimental design) was wrong to dismiss the observational/correlational
+evidence that smoking was harmful. Careful observation research linked smoking
+with cancer and has saved millions of lives.
