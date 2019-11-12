@@ -593,8 +593,7 @@ functions to make and visualise predictions from these models.
 
 ### Drawing causal models {#causal-diagrams}
 
-
-- [Additional ppt slides drawn from the materials presented on this website are here](slides/causes-slides.pptx)
+-   [Additional ppt slides drawn from the materials presented on this website are here](slides/causes-slides.pptx)
 
 In this section we step back from learning specific techniques in R and think about _why_ we want to
 run statistical models at all.
@@ -712,7 +711,7 @@ That is, a correlation either implies:
 
 ---
 
-###  {#causes-task-make-a-diagram}
+### {#causes-task-make-a-diagram}
 
 :::{.exercise}
 
@@ -734,7 +733,6 @@ In groups:
 4.  Can you find examples of _mediation_ in your diagram? If you can't can you look more closely at
     one of the links and think about whether it is a _direct_ effect, or if something else could
     link these constructs.
-
 
 :::
 
@@ -801,18 +799,12 @@ In groups: Consider your diagram from the previous task:
 
 ![](media/names.png)
 
-
--------------------
-
-
-
+---
 
 #### Using diagrams to think about models {#first-confounding-task .exercise}
 
-
 (In the previous section we said that to represent a correlation in a causal diagram we use a double
 headed arrow like this: $\longleftrightarrow$)
-
 
 Consider this [scatter plot](cancerplot.pdf):
 
@@ -835,14 +827,18 @@ ggsave('cancerplot.pdf')
 p
 ```
 
-1.  Draw a causal diagram based ONLY on the data in the plot
+1.  Draw the best causal diagram you can based ONLY on the data in this plot. Your diagram should
+    have 2 boxes, and either zero or one arrow.
 
-2.  Redraw the diagram adding at least one extra variable to your diagram, and converting any
-    double-headed arrows ($\leftrightarrow$) to single-headed arrows.
+1.  Do you think the model is a good description of how the world works?
 
-3.  Discuss in your group what you think is happening here. Have you come across this idea before?
+1.  Redraw the diagram to make it **more plausible**, adding at least one extra variable (box) to
+    your diagram, and converting any double-headed arrows ($\leftrightarrow$) to single-headed
+    arrows.
 
-[See the explanation](#confounding-explanation)
+1.  Discuss in your group what you think is happening here. Have you come across this idea before?
+
+[Read an explanation](#confounding-explanation)
 
 ### Correlations, causation and experiments {#correlations-and-experiments}
 
@@ -947,9 +943,6 @@ Choose one of the papers above and:
 -   How has drawing out the diagram affected your understanding of the results?
 
 :::
-
-
-
 
 <!--
 
