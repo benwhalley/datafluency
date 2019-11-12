@@ -801,10 +801,18 @@ In groups: Consider your diagram from the previous task:
 
 ![](media/names.png)
 
-In the previous section we said that to represent a correlation in a causal diagram we use a double
-headed arrow like this: $\longleftrightarrow$
+
+-------------------
+
+
+
 
 #### Using diagrams to think about models {#first-confounding-task .exercise}
+
+
+(In the previous section we said that to represent a correlation in a causal diagram we use a double
+headed arrow like this: $\longleftrightarrow$)
+
 
 Consider this [scatter plot](cancerplot.pdf):
 
@@ -854,7 +862,7 @@ main ways:
 
 ### Accounting for confounders {#second-confounding-task}
 
-:::{exercise}
+:::{.exercise}
 
 In your groups, consider the original causal diagram you drew:
 
