@@ -593,6 +593,9 @@ functions to make and visualise predictions from these models.
 
 ### Drawing causal models {#causal-diagrams}
 
+
+- [Additional ppt slides drawn from the materials presented on this website are here](slides/causes-slides.pptx)
+
 In this section we step back from learning specific techniques in R and think about _why_ we want to
 run statistical models at all.
 
@@ -614,7 +617,7 @@ digraph mary {
   {node [shape=box];}
   Cause -> Effect
   }
-', height=100)
+', height=200)
 ```
 
 ##### No causation
@@ -649,7 +652,7 @@ digraph mary {
     {node [shape=box];}
     Cause -> Mediator -> Effect
   }
-", height=200)
+", height=300)
 ```
 
 ##### Correlation (as distinct from causation)
@@ -686,18 +689,18 @@ relationship. What we probably mean is one of two things:
 grViz('
 digraph {
     {node [shape=box];}
-    Sunshine -> Rainbows -> "Rainbows later" -> "Sunshine even later" -> "..."
+    Sunshine -> Rainbows -> "Sunshine later" -> "Rainbows even later" -> "..."
   }
 ', height=400)
 ```
 
-Or
+Or, perhaps:
 
 ```{r, echo=F}
 grViz('
 digraph {
-    "Low pressure weather system" -> Sunshine
-     "Low pressure weather system" -> Rainbows
+    Unicorns -> Sunshine
+     Unicorns -> Rainbows
    }
 ', height=200)
 ```
@@ -705,11 +708,13 @@ digraph {
 That is, a correlation either implies:
 
 -   An unmapped sequence of reciprocal causes
--   A common cause that is not in the model
+-   A common cause that is not explicitly in the model yet
 
 ---
 
-### Task {#causes-task-make-a-diagram}
+###  {#causes-task-make-a-diagram}
+
+:::{.exercise}
 
 In groups:
 
@@ -729,6 +734,9 @@ In groups:
 4.  Can you find examples of _mediation_ in your diagram? If you can't can you look more closely at
     one of the links and think about whether it is a _direct_ effect, or if something else could
     link these constructs.
+
+
+:::
 
 <!--
 
@@ -777,7 +785,7 @@ _effect_ of self esteem on grades depends on whether you are a woman.
 This pattern is called **_moderation_** or **_effect modification_**. Checking to see if a
 relationship is the same for different groups is also called **_stratification_**.
 
-#### Task {#diagram-task-moderation-followup .exercise}
+#### {#diagram-task-moderation-followup .exercise}
 
 In groups: Consider your diagram from the previous task:
 
@@ -932,7 +940,97 @@ Choose one of the papers above and:
 
 :::
 
+
+
+
 <!--
+
+
+
+```{r}
+grViz('
+digraph mary {
+  {node [shape=box];}
+  A -> Y
+  }
+')
+```
+
+```{r}
+grViz('
+digraph mary {
+  {node [shape=box];}
+  A -> Y
+  B -> Y
+  }
+')
+```
+
+```{r}
+grViz('
+digraph mary {
+  {node [shape=box];}
+  A -> Y
+  A -> B
+  B -> Y
+  }
+')
+```
+
+
+```{r}
+grViz('
+digraph mary {
+  {node [shape=box];}
+  A -> Y
+  A -> B
+  B -> Y
+  }
+')
+```
+
+
+```{r}
+grViz('
+    digraph {
+    A -> M [arrowhead=none];
+    M [style=invis fixedsize=true width=0 height=0]
+    B -> M
+    M -> Y
+    A -> B [style=invis];
+    A -> Y [style=invis];
+        subgraph{rank = same; A;M;Y }
+
+
+    }
+')
+```
+
+
+
+
+```{r}
+grViz('
+digraph mary {
+  {node [shape=box];}
+  A -> Y
+  U -> Y [style=dashed]
+  U -> A [style=dashed]
+  U [style=dashed]
+  }
+')
+```
+
+```{r}
+grViz('
+digraph mary {
+  {node [shape=box];}
+  A -> B -> A
+  }
+')
+```
+
+
 
 
 -->
