@@ -1035,6 +1035,24 @@ digraph mary {
 
 
 
+```{r, fig.width=3}
+mtcars %>% ggplot(aes(wt, mpg)) + geom_point() + geom_smooth()
+```
+
+
+
+
+```{r}
+grViz('
+digraph mary {
+  {node [shape=box];}
+  wt -> mpg [label=" U "]
+  }
+')
+```
+
+
+
 -->
 
 ## Session 3
