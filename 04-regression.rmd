@@ -889,8 +889,9 @@ grViz('
 ```
 
 In this case we would choose a t-test where 'hungover' is recorded as a binary variable. If
-'hungover' was recorded as categorical (e.g. not at all/a little/very) when we might use Anova, and
-if 'hungover' was recorded as continuous score (e.g. from 1 to 100) we might use regression.
+'hungover' was recorded as categorical (e.g. not at all/a little/very) we might use Anova instead
+(which is a special type of regression), or if 'hungover' was recorded as continuous score (e.g.
+from 1 to 100) we might use regression.
 
 Different types of model are needed to test **moderation** (interactions in Anova or regression, as
 we will see in future sessions), and **causal sequences** (mediation analysis, or path analysis;
