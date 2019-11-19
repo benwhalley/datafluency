@@ -972,7 +972,7 @@ c("Wibble", "Wobble", "Bobble")
 
 :::
 
-### Combinations of sequences
+### Combinations of sequences {#expand-grid}
 
 In designing experiments we often want to create combinations of different categories which
 represent conditions or stimuli.

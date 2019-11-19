@@ -17,10 +17,10 @@ rmd_files:
     "05-uncertainty.rmd",
 
 
-
-    "06-building-models.rmd",
-    "07-testing.rmd",
-    "08-communicating.rmd",
+    "06-fitting-curves.rmd",
+    "07-building-models.rmd",
+    "08-testing.rmd",
+    "09-communicating.rmd",
     "09-real.rmd",
 
     # PART
@@ -31,6 +31,7 @@ rmd_files:
     "extras-more-on-tibbles.rmd",
     "extras-regression.rmd",
     "extras-causes.rmd",
+    "extras-uncertainty.rmd",
     "extras-other-tips.rmd",
     "extras-reading.rmd",
 

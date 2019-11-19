@@ -108,3 +108,31 @@ We should be most confident about the prediction for 20 hours, because we have
 more data in the sample which is close to that value. Our line was estimated
 from data which didn't have many people who worked 5 or 40 hours, so we don't really
 know about those extremes.
+
+
+
+### Why don't we always use real data? {#explain-not-real-data}
+
+Real data is often quite complicated, and it is sometimes easier to simulate
+data which illustrates a particular teaching point as clearly as possible. It
+also lets us create multiple examples quickly.
+
+It _is_ important to use real data though, and this course includes a mix of
+both simulated and real data.
+
+
+
+### What is a formula? {#explain-formulae}
+
+In R, **formulas** describe the relationship between variables.  They are used widely, e.g. in ggplot, functions like `t.test`, and especially in model-fitting functions like `lm`.
+
+Formulas for regression will always describe the link between one *outcome* and one or more *predictor* variables.
+
+The outcome goes on the left, and predictors go on the right. They are separated by the tilde symbol: the `~`.  When you read `~` you can say in your head *"is predicted by"*.
+
+You can add multiple variables by separating them with a `+` symbol. So `outcome ~ age + gender` is a model where the outcome is predicted by age and gender. This doesn't add interaction terms.
+
+If you want to include interaction terms (e.g. to let slopes vary for different groups) then you use a `*` symbol instead of a plus. So `outcome ~ age * gender` means the outcome is predicted by age, gender, and the interaction of age and gender.
+
+
+There is a more technical explanation of all of the formula syntax here: <https://stat.ethz.ch/R-manual/R-devel/library/stats/html/formula.html>

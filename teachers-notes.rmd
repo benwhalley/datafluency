@@ -55,7 +55,7 @@ Timings:
 
 ### Session 7 (Causes and effects)
 
-Relates to: [second regression session including causal models](#regression2)
+Relates to: [second regression session including causal models](#regression-thinking-causes)
 
 
 ### Resources

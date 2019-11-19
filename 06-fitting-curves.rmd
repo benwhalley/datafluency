@@ -12,4 +12,4 @@
 
 ## Session 1
 
-TBC
+We will cover use of polynomials and other techniques to fit curved lines with multiple regression.
