@@ -1078,6 +1078,8 @@ digraph mary {
 
 ## Why use multiple regression? {#why-multiple-regression}
 
+- [Slides here](slides/multipleregression.pptx)
+
 Think back to our [last session on causes and effects](#regression-thinking-causes). When we drew
 causal diagrams of our research question we found cases where there were:
 
