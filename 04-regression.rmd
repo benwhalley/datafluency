@@ -92,7 +92,7 @@ As a group, draw 3 lines on the transparency in different colours:
 ---
 
 ```{r, include=F}
-studyhabits <-  read_csv('data/studyhabitsandgrades.csv')
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
 ```
 
 ```{r, echo=F, fig.height=3, fig.width=6, fig.cap="Examples of straight and curved lines fit to the data."}
@@ -1198,7 +1198,7 @@ First let's reload the example dataset on student grades and study habits:
 
 ```{r}
 library(tidyverse)
-studyhabits <-  read_csv('data/studyhabitsandgrades.csv')
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
 ```
 
 We know there is a link (in these data) between study hours and grades because we can see it in the
@@ -1241,7 +1241,7 @@ If you don't already have it loaded in RStudio, load the example dataset:
 <!-- this not run but included to make path appear correct for students -->
 
 ```{r eval=F}
-studyhabits <-  read_csv('studyhabitsandgrades.csv')
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
 ```
 
 As [we did for a single predictor regression](#first-lm), we can use `lm` to get numbers to describe the
