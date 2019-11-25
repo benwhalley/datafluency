@@ -76,11 +76,14 @@ We can determine how complex a plot is by how many **dimensions** it has.
 For example, this plot has one dimension representing how revolting particular fruits and vegatables
 are:
 
-```{r, echo=F}
-x <- c(2,6,7,8,9,14,39)
-names <- c("mango","pear","banana","grapefruit","orange","tomato","snozzcumber")
-vegan::linestack(x, names, side = "left")
+
 ```
+Mango    Pear                 Aubergine                         Snozzcumber
+|        |                    |                                 |
+—————————————————————————————————————————————————————————————————
+```
+
+
 
 Scatter plots are _more_ complex because they have two dimensions --- that is, they show two
 variables at once. The variables are represented by the position of each point on the X and Y axes:
