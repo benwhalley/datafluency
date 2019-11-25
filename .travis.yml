@@ -11,11 +11,13 @@ script:
 
 r_packages:
     - apaTables
+    - tidybayes
     - vegan
     - broom
 
 r_binary_packages:
     - tidyverse
+    - rstanarm
     - arm
     - psych
     - BayesFactor

@@ -326,7 +326,7 @@ gapminder::gapminder %>%
 However in other cases we might want to use colour to display a continuous variable. If we want to
 plot continuous data in colour, we need a scale like this:
 
-![A continuous colour scale](redyel.png)
+![A continuous colour scale](media/redyel.png)
 
 In the plot below the x and y axes show the relationship between fuel economy (mpg) and weight (wt,
 recorded in 1000s of lbs). Colours are used to add information about how powerful (hp, short for

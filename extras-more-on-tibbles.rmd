@@ -9,7 +9,7 @@ library(tidyverse)
 cpsdata <- read_csv(url("http://www.willslab.org.uk/cps2.csv"))
 ```
 
-![Kitten that might be called Tibbles. Possibly. Image: [0x010C; CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=42929793)](pics/kitten.jpg)
+![Kitten that might be called Tibbles. Possibly. Image: [0x010C; CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=42929793)](media/kitten.jpg)
 
 In the [Exploring Data](#exploring-data-brief) worksheet, you got the mean
 income of your sample like this:

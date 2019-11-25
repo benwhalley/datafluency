@@ -1,4 +1,4 @@
-\book_filename: 'rmip'
+book_filename: 'datafluency'
 output_dir: docs
 delete_merged_file: true
 link-citations: true
@@ -32,6 +32,7 @@ rmd_files:
     "extras-regression.rmd",
     "extras-causes.rmd",
     "extras-uncertainty.rmd",
+    "extras-bayes.rmd",
     "extras-other-tips.rmd",
     "extras-reading.rmd",
 

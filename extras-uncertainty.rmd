@@ -10,7 +10,7 @@ library(broom)
 
 If that seems quite a tricky thing to get your head around, you are not alone. There is a [long history of misinterpreting confidence intervals in psychology](http://www.ejwagenmakers.com/inpress/HoekstraEtAlPBR.pdf).
 
-![Thousands of monkeys helping Homer run thousands of replications of his analysis.](images/monkeys.jpg)
+![Thousands of monkeys helping Homer run thousands of replications of his analysis.](media/monkeys.jpg)
 
 It might help to know that in classical statistics, the probabilities that *p* values and intervals refer to are *attributes of the test procedure itself*... and don't refer to your hypothesis (for example, that there is a difference between experimental groups, or that there is a relationship between mother and child IQ scores). That is, the *p* value is the probability the test procedure will mislead you. It's NOT the probability your hypothesis is right or wrong.
 

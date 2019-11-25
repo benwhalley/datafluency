@@ -5,6 +5,7 @@ library(tidyverse)
 library(webex)
 library(cowplot)
 library(DiagrammeR)
+source('grvizpng.R')
 theme_set(theme_minimal())
 ```
 
@@ -91,7 +92,7 @@ As a group, draw 3 lines on the transparency in different colours:
 
 ---
 
-```{r, include=F}
+```{r, include=F, cache=T}
 studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
 ```
 
@@ -610,13 +611,14 @@ For the moment, make sure you understand the following diagrams.
 
 ##### Simple cause and effect
 
-```{r, echo=F}
-grViz('
+```{r, echo=F, cache=T}
+grVizPng('
 digraph mary {
   {node [shape=box];}
   Cause -> Effect
   }
-', height=200)
+', height=200) %>% knitr::include_graphics(.)
+
 ```
 
 ##### No causation
@@ -625,13 +627,15 @@ This diagram says footwear and exam grades AREN'T related AT ALL, because we did
 between them.
 
 ```{r, echo=F}
-grViz('
+grVizPng('
 digraph mary {
     {node [shape=box];}
     "Choice of footwear"
     "Exam grade"
   }
-', height=100, width=500)
+', height=100, width=500)%>% knitr::include_graphics(.)
+
+
 ```
 
 ##### Causal sequences
@@ -646,12 +650,12 @@ might ask:
 This pattern -- where variables are linked in a series -- is called **'mediation'**:
 
 ```{r, echo=F}
-grViz("
+grVizPng("
 digraph mary {
     {node [shape=box];}
     Cause -> Mediator -> Effect
   }
-", height=300)
+", height=300)%>% knitr::include_graphics(.)
 ```
 
 ##### Correlation (as distinct from causation)
@@ -661,13 +665,13 @@ which is the cause and which is the effect --- we can (temporarily) draw an arro
 like this:
 
 ```{r, echo=F}
-grViz("
+grVizPng("
 digraph mary {
     {node [shape=box];}
     Sunshine:s -> Rainbows:s [dir=both]
     {rank=same Sunshine, Rainbows}
   }
-", height=100, width=500)
+", height=100, width=500)%>% knitr::include_graphics(.)
 
 ```
 
@@ -685,23 +689,23 @@ When we draw a double headed arrow we are essentially expressing our ignorance a
 relationship. What we probably mean is one of two things:
 
 ```{r, echo=F}
-grViz('
+grVizPng('
 digraph {
     {node [shape=box];}
     Sunshine -> Rainbows -> "Sunshine later" -> "Rainbows even later" -> "..."
   }
-', height=400)
+', height=400)%>% knitr::include_graphics(.)
 ```
 
 Or, perhaps:
 
 ```{r, echo=F}
-grViz('
+grVizPng('
 digraph {
     Unicorns -> Sunshine
      Unicorns -> Rainbows
    }
-', height=200)
+', height=200)%>% knitr::include_graphics(.)
 ```
 
 That is, a correlation either implies:
@@ -760,7 +764,7 @@ Relations like this can be represented in different ways in the diagram. For the
 draw it like this:
 
 ```{r, echo=F}
-grViz('
+grVizPng('
     digraph {
     A -> M [arrowhead=none];
     M [style=invis fixedsize=true width=0 height=0]
@@ -774,7 +778,7 @@ grViz('
     B [label=Gender]
     Y [label=Grades]
     }
-', height=200)
+', height=200)%>% knitr::include_graphics(.)
 ```
 
 The arrow from gender points at the relationship between self esteem and grades. We mean that the
@@ -881,11 +885,11 @@ but are there nonetheless.
 For example, if we use a t-test we are implying a model like this:
 
 ```{r, echo=F}
-grViz('
+grVizPng('
     digraph {
     "hungover" -> grumpy [label=" + "]
   }
-', height=200)
+', height=200)%>% knitr::include_graphics(.)
 ```
 
 In this case we would choose a t-test where 'hungover' is recorded as a binary variable. If
@@ -919,11 +923,11 @@ with either a $+$, a $–$, a $\cup$ or a $\cap$.
 For example:
 
 ```{r, echo=F}
-grViz('
+grVizPng('
     digraph {
     "Studying R" -> happiness [label=" U "]
   }
-', height=200)
+', height=200)%>% knitr::include_graphics(.)
 ```
 
 ### Application to real examples
@@ -950,7 +954,7 @@ Choose one of the papers above and:
 
 
 ```{r}
-grViz('
+grVizPng('
 digraph mary {
   {node [shape=box];}
   A -> Y
@@ -959,7 +963,7 @@ digraph mary {
 ```
 
 ```{r}
-grViz('
+grVizPng('
 digraph mary {
   {node [shape=box];}
   A -> Y
@@ -969,7 +973,7 @@ digraph mary {
 ```
 
 ```{r}
-grViz('
+grVizPng('
 digraph mary {
   {node [shape=box];}
   A -> Y
@@ -981,7 +985,7 @@ digraph mary {
 
 
 ```{r}
-grViz('
+grVizPng('
 digraph mary {
   {node [shape=box];}
   A -> Y
@@ -993,7 +997,7 @@ digraph mary {
 
 
 ```{r}
-grViz('
+grVizPng('
     digraph {
     A -> M [arrowhead=none];
     M [style=invis fixedsize=true width=0 height=0]
@@ -1012,7 +1016,7 @@ grViz('
 
 
 ```{r}
-grViz('
+grVizPng('
 digraph mary {
   {node [shape=box];}
   A -> Y
@@ -1024,7 +1028,7 @@ digraph mary {
 ```
 
 ```{r}
-grViz('
+grVizPng('
 digraph mary {
   {node [shape=box];}
   A -> B -> A
@@ -1043,7 +1047,7 @@ mtcars %>% ggplot(aes(wt, mpg)) + geom_point() + geom_smooth()
 
 
 ```{r}
-grViz('
+grVizPng('
 digraph mary {
   {node [shape=box];}
   wt -> mpg [label=" U "]
@@ -1089,18 +1093,18 @@ causal diagrams of our research question we found cases where there were:
 We drew diagrams like this for those cases:
 
 ```{r, echo=F}
-grViz('
+grVizPng('
     digraph {
         A -> Y
         B -> Y
     }
-', height=200)
+', height=200)%>% knitr::include_graphics(.)
 ```
 
 And
 
 ```{r, echo=F}
-grViz("
+grVizPng("
     digraph {
     A -> M [arrowhead=none];
     M [style=invis fixedsize=true width=0 height=0]
@@ -1114,14 +1118,14 @@ grViz("
     B [label=Gender]
     Y [label=Salary]
     }
-", height=200)
+", height=200)%>% knitr::include_graphics(.)
 ```
 
 Another way to think about the diagram we say that effect modification is taking place is to draw it
 like this:
 
 ```{r, echo=F}
-grViz("
+grVizPng("
     digraph {
         A -> Y
         B -> Y
@@ -1131,21 +1135,21 @@ grViz("
         B [label=Male]
         Y [label=Salary]
     }
-", height=200)
+", height=200)%>% knitr::include_graphics(.)
 ```
 
 We also came across the idea of [confounding](#confounding-explanation). This is where we see a
 pattern like this:
 
 ```{r, echo=F}
-grViz("
+grVizPng("
     digraph {
         Smoking [style=dashed]
         Smoking -> Matches
         Smoking -> Cancer
         Matches -> Cancer [style=dashed]
     }
-", height=300)
+", height=300)%>% knitr::include_graphics(.)
 ```
 
 As we discussed, the problem is that if smoking causes us to use matches _and_ it causes cancer then
@@ -1196,7 +1200,7 @@ thing you should do is plot the data**.
 
 First let's reload the example dataset on student grades and study habits:
 
-```{r}
+```{r, cache=T}
 library(tidyverse)
 studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
 ```
