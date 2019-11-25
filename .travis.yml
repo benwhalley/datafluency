@@ -12,11 +12,11 @@ script:
 r_packages:
     - apaTables
     - tidybayes
+    - tidyverse
     - vegan
     - broom
 
 r_binary_packages:
-    - tidyverse
     - rstanarm
     - arm
     - psych
