@@ -10,13 +10,13 @@ script:
     - Rscript -e 'bookdown::render_book("index.rmd", "all")'
 
 r_packages:
+    - tidyverse
     - apaTables
+    - rstanarm
     - tidybayes
     - broom
 
 r_binary_packages:
-    - tidyverse
-    - rstanarm
     - arm
     - psych
     - BayesFactor
@@ -28,7 +28,6 @@ r_binary_packages:
     - Hmisc
 
 r_github_packages:
-    - tidyverse/tidyr
     - benwhalley/webex
 
 deploy:
