@@ -1,35 +1,16 @@
 # See https://docs.travis-ci.com/user/languages/r/
-dist: trusty
-sudo: true
-language: r
-
+# https://stackoverflow.com/questions/39009579/using-r-package-source-files-in-packrat-rather-than-cran-with-travis-ci/39338706#39338706
+language: R
+# dist: trusty
+sudo: false
 cache:
-    packages: yes
-
+  directories: $TRAVIS_BUILD_DIR/packrat/
+  packages: true
+install:
+  - R -e "0" --args --bootstrap-packrat
+warnings_are_errors: false
 script:
     - Rscript -e 'bookdown::render_book("index.rmd", "all")'
-
-r_packages:
-    - tidyverse
-    - apaTables
-    - rstanarm
-    - tidybayes
-    - broom
-
-r_binary_packages:
-    - arm
-    - psych
-    - BayesFactor
-    - cowplot
-    - pander
-    - data.table
-    - lavaan
-    - mice
-    - Hmisc
-
-r_github_packages:
-    - benwhalley/webex
-
 deploy:
     provider: pages
     skip-cleanup: true
@@ -38,5 +19,3 @@ deploy:
     local-dir: docs
     target_branch: gh-pages
     verbose: true
-
-warnings_are_errors: true

@@ -1,5 +1,7 @@
+
+.Rproj.user
 assessment-draft/*
-# Temporary files 
+
 ~*
 *~
 
@@ -40,18 +42,18 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
-libs/
+
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 
 # not needed when deplying to gh-pages branch, but useful locally
 _bookdown_files/
-docs/
+
 rmip.rds
 reg-plots-to-print/*
 
-# other stuff 
+# other stuff
 z_unused.rmd
 *.md
 .Rproj.user
