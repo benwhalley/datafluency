@@ -511,6 +511,7 @@ Another common requirement is to use plots to compare summary statistics for dif
 categories. For example, the classic plot in a psychology study looks like this:
 
 ```{r, echo=F, width=6, height=3}
+set.seed(1234)
 expdata <- expand.grid(Condition=LETTERS[1:3], stimuli=1:4, p=1:20) %>%
   mutate(RT = -200+rnorm(n(), 25 + 5*as.numeric(Condition=="A") + -4*as.numeric(stimuli==1), 6)^2, stimuli=factor(stimuli, labels=paste0("S", 1:4)))
 write_csv(expdata, 'data/expdata.csv')

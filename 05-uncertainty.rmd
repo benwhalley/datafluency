@@ -9,6 +9,8 @@ library(pander)
 theme_set(theme_minimal())
 ```
 
+![](media/error_bars_2x.png){width=50%}
+
 > Statistical require us to be explicit about our assumptions and help us make numerical predictions
 > for new data. They also let us **quantify our uncertainty** about these predictions. Quantifying
 > uncertainty is important for both practical and theoretical purposes. Practically, we might want
@@ -173,7 +175,7 @@ kidiq <- read_csv("http://bit.ly/arm-kids-iq")
 kidiq %>% glimpse()
 ```
 
-As we did in the regression section, we can create a model. Here we predict mo
+As we did in the regression section, we can create a model. Here we predict childrens' scores from mothers' IQ and schooling:
 
 ```{r}
 iqmodel <- lm(kid_score ~ mom_iq + mom_hs, data=kidiq)
@@ -210,9 +212,7 @@ predict(iqmodel, newdata = new.mother, interval = "confidence")
 The output is the prediction (`fit`) and the lower and upper bounds of the confidence interval. The
 95% interval is used by default.
 
-To be clear, **_the confidence interval is the range within which we think the true predicted value
-would be for a child whose mother had IQ=97 and who completed high school would be, if we collected
-many different samples and calculated this interval many times._**
+To be clear, **_the confidence interval is range which, if we calculated it 100 times from different samples, we  think the true value would would be within 95% of the time._**
 
 :::{.exercise}
 
@@ -241,15 +241,17 @@ Explain the answers
 
 To create a new tibble and predict scores for different mothers, repeat the code above but changing the values for `mom_iq` or `mom_hs`.
 
-Both the 2nd and 3rd answers are false because the confidence interval is the range within which we think the true average for mothers with IQ = 97 who completed high school would fall, if we repeated the study many times.
+Both the 2nd and 3rd answers are false because the confidence interval is the range within which we think the true average for mothers with IQ = 97 who completed high school would fall, if we repeated the study and calculated the CI many times.
 
-We can't make probability statements about the quality of the predictions we actually made using classical statistics: We can only say how we think the method used to make them will perform, if we repeat it many times.
+We can't make probability statements about the quality of the predictions we actually made using classical statistics: We can only say how we think the method used to make them will perform, if we repeated it many times.
 
 ```
 
 :::
 
 ### Prediction intervals
+
+Prediction intervals allow us to express uncertainty about future **individuals** we might sample, rather than the average value.
 
 We can repeat the process above to make the classical _prediction_ interval instead. We just change
 `interval = "confidence"` to `interval = "prediction"`
@@ -339,7 +341,7 @@ lots of extra output as the model fits, which you can ignore for now:
 
 ```{r, echo=F, message=F, warning=F, include=F}
 # code included here and below so we can exclude the output....
-iqmodel.bayes <- stan_glm(kid_score ~ mom_iq + mom_hs, data=kidiq)
+iqmodel.bayes <- stan_glm(kid_score ~ mom_iq + mom_hs, data=kidiq, iter=10000)
 ```
 
 ```{r, echo=T, eval=F}

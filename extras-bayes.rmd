@@ -37,7 +37,7 @@ However, when fitting complex models we do sometimes need to minimise the amount
 
 However, the short version is that we need to increase the number of simulations the software uses to calculate estimates and intervals. You can do this with rstanarm by setting the `iter` variable when you run the model. For example, this runs a simple model using 20,000 simulations, rather than the default of 4000:
 
-```{r}
+```{r, eval=F}
 stan_glm(mpg~wt, data=mtcars, iter=20000)
 ```
 

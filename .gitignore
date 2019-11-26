@@ -57,3 +57,5 @@ reg-plots-to-print/*
 z_unused.rmd
 *.md
 .Rproj.user
+packrat/lib*/
+packrat/src
