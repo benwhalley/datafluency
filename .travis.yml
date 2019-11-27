@@ -7,6 +7,8 @@ addons:
   apt:
     packages:
       - libv8-dev
+r_binary_packages:
+  - rstanarm
 install:
   - R -e "0" --args --bootstrap-packrat
   - R -e "packrat::restore(restart = FALSE)"
