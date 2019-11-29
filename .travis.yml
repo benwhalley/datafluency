@@ -10,8 +10,12 @@ addons:
 r_binary_packages:
   - rstan
   - rstanarm
+
 cache:
   packages: true
+
+r_github_packages:
+  benwhalley/webex
 
 r_packages:
   - tidyverse
