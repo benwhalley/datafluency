@@ -22,6 +22,11 @@ r_packages:
   - DiagrammeRsvg
   - DiagrammeR
   - apaTables
+  - rsvg
+  - car
+  - haven
+  - readxl
+  - RColorBrewer
   - tidybayes
   - broom
   - arm
