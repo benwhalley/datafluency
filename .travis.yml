@@ -10,14 +10,24 @@ addons:
 r_binary_packages:
   - rstan
   - rstanarm
-install:
-  - R -e "0" --args --bootstrap-packrat
-  - R -e "packrat::restore(restart = FALSE)"
 cache:
-  directories:
-    - $TRAVIS_BUILD_DIR/packrat/src
-    - $TRAVIS_BUILD_DIR/packrat/lib
   packages: true
+
+r_packages:
+  - tidyverse
+  - apaTables
+  - tidybayes
+  - broom
+  - arm
+  - psych
+  - BayesFactor
+  - cowplot
+  - pander
+  - data.table
+  - lavaan
+  - mice
+  - Hmisc
+
 warnings_are_errors: false
 script:
     - Rscript -e 'bookdown::render_book("index.rmd", "all")'
