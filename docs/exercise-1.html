@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Bayesian estimation of the | Data Fluency</title>
-  <meta name="description" content="Bayesian estimation of the | Data Fluency" />
+  <title>Exercise | Data Fluency</title>
+  <meta name="description" content="Exercise | Data Fluency" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Bayesian estimation of the | Data Fluency" />
+  <meta property="og:title" content="Exercise | Data Fluency" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bayesian estimation of the | Data Fluency" />
+  <meta name="twitter:title" content="Exercise | Data Fluency" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="regression-extra-explanations.html"/>
-<link rel="next" href="confidence-intervals-explanation.html"/>
+<link rel="prev" href="bayesian-approach.html"/>
+<link rel="next" href="summary-of-key-points-3.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -300,28 +300,151 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayesian-estimation-of-the" class="section level2">
-<h2>Bayesian estimation of the</h2>
-<div id="extra-bayes-explain" class="section level3">
-<h3>How does this all work?</h3>
-<p>Behind the scenes, the model is being used to <em>simulate</em> new data: <code>add_fitted_samples</code> does
-thousands of simulations for what the average prediction will be, and then the <code>mean_qi</code> function
-summarises them, giving us mean, and the 2.5 and 97.5th percentiles. That is, we say in 95% of the
-simulations the mean was between <code>conf.low</code> and <code>conf.high</code>.</p>
-<p>Because of the way the model was fitted, this is the same as making real probability statements
-about our prediction.</p>
-<p>It might be useful to know that these simulations are said to be <em>samples from the posterior
-distribution</em> — that is, the distribution of probabilities once we combined our data with our
-<em>prior probability</em>.</p>
-<div id="why-doesnt-this-work-on-my-laptop-or-at-home" class="section level5">
-<h5>Why doesn’t this work on my laptop or at home?</h5>
-<p>The <code>rstanarm</code> package is
-<a href="https://github.com/plymouthPsychology/installR">slightly fiddly to install</a>, and if you don’t get
-it right then this code won’t work.</p>
-<p>We’ve done it for you on university computers though, and on the RStudio server that you have login
-details for. So you if you want to run this at home use
-<a href="https://rstudio.plymouth.ac.uk/">RStudio server</a>.</p>
-
+<div id="exercise-1" class="section level2">
+<h2>Exercise</h2>
+<div class="exercise">
+<p><strong>Now you try incorporating polynomials to a regression, and do so by investigating the relationship between <code>age</code> and <code>anxiety</code> in <code>SurveyData</code>.</strong></p>
+<p><br />
+</p>
+<p>The column <code>anxiety</code> in <code>SurveyData</code> contains responses to the question:</p>
+<p><strong>“Overall, how anxious did you feel yesterday? Where 0 is ‘not at all anxious’ and 10 is ‘completely anxious’.”</strong></p>
+<ul>
+<li>Create a scatterplot of <code>age</code> vs. <code>anxiety</code>. Does there appear to be a linear or non-linear relationship?</li>
+</ul>
+<div class="solution">
+<button>
+Try to create the plot yourself first. Click to show the code
+</button>
+<p><img src="07-fitting-curves_files/figure-html/fig14-1.png" width="336" style="display: block; margin: auto;" /></p>
+</div>
+<p><br />
+What kind of relationship between <code>age</code> and <code>anxiety</code> do you think is present?<br />
+</p>
+<div class="solution">
+<button>
+Try yourself first, then click to see answer
+</button>
+<p>A slight <strong>bow</strong> is evident in the plot such that <code>age</code> and <code>anxiety</code> seem to follow an inverted U-shaped relationship.<br />
+Reported <code>anxiety</code> levels increase from 30 years to middle age (approx. 50 years) and then declines from 50 to 70 years. This mirrors the relationship with <code>age</code> and <code>happiness</code>. <code>anxiety</code> is greatest when <code>happiness</code> seems lowest.</p>
+</div>
+<p><br />
+<br />
+</p>
+<p><strong>Answer the following questions:</strong></p>
+<p><strong>Linear component</strong></p>
+<ul>
+<li>What percentage of the variance in <code>anxiety</code> is explained by a model with <code>age</code> as predictor?
+<span id="Q562177" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["1.19"]'/><span class="solvedme"></span></span> %</li>
+</ul>
+<p><br />
+</p>
+<p><strong>Quadratic component</strong></p>
+<ul>
+<li><p>What percentage of the variance in <code>anxiety</code> is explained by a model containing both linear and quadratic components of <code>age</code> as predictors?
+<span id="Q928483" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["5.63"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>What is the <em>increase</em> in <span class="math inline">\(R^2\)</span> if a quadratic component of <code>age</code> is added to the model?
+<span id="Q230466" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["4.44"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>Does this increase represent a statistically significant increase?
+<select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
+<li><p>What is the <em>F</em>-statistic comparing the model with a linear component vs. one with linear and quadratic components?
+<em>F</em>(1, 147) = <span id="Q221814" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["6.92"]'/><span class="solvedme"></span></span>, <em>p</em> = .009</p></li>
+</ul>
+<p><br />
+</p>
+<p><strong>Cubic component</strong></p>
+<ul>
+<li><p>What percentage of the variance in <code>anxiety</code> is explained by a model containing both linear, quadratic and cubic components of <code>age</code> as predictors?
+<span id="Q420216" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["7.02"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>What is the <em>increase</em> in <span class="math inline">\(R^2\)</span> if a cubic component of <code>age</code> is added to the model?
+<span id="Q333521" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["1.39"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>Does this increase represent a statistically significant increase? <select class='solveme' data-answer='["no"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
+<li><p>What is the <em>F</em>-statistic and <em>p</em>-value for the test of the model with a linear + quadratic component vs. linear + quadratic + cubic components?
+<em>F</em>(1, 146) = <span id="Q864808" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["2.18"]'/><span class="solvedme"></span></span>, <em>p</em> = <span id="Q177195" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["0.14"]'/><span class="solvedme"></span></span></p></li>
+</ul>
+<p><br />
+</p>
+<p><strong>Decision</strong>
+- On the basis of the model comparison with ANOVA, which model should be preferred?
+<select class='solveme' data-answer='["linear and quadratic components of age"]'> <option></option> <option>linear component of age only</option> <option>linear and quadratic components of age</option> <option>linear, quadratic, cubic components of age</option></select></p>
+<p><br />
+</p>
+<div class="solution">
+<button>
+Show me the code to do all of this
+</button>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="exercise-1.html#cb242-1"></a><span class="co"># fit a linear model, show results</span></span>
+<span id="cb242-2"><a href="exercise-1.html#cb242-2"></a>anx1 &lt;-<span class="st"> </span><span class="kw">lm</span>(anxiety <span class="op">~</span><span class="st"> </span>age, <span class="dt">data =</span> SurveyData)</span>
+<span id="cb242-3"><a href="exercise-1.html#cb242-3"></a><span class="kw">summary</span>(anx1)</span>
+<span id="cb242-4"><a href="exercise-1.html#cb242-4"></a></span>
+<span id="cb242-5"><a href="exercise-1.html#cb242-5"></a><span class="co"># fit a quadratic component, show results</span></span>
+<span id="cb242-6"><a href="exercise-1.html#cb242-6"></a>anx2 &lt;-<span class="st"> </span><span class="kw">lm</span>(anxiety <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(age,<span class="dv">2</span>), <span class="dt">data=</span>SurveyData)</span>
+<span id="cb242-7"><a href="exercise-1.html#cb242-7"></a><span class="kw">summary</span>(anx2)</span>
+<span id="cb242-8"><a href="exercise-1.html#cb242-8"></a></span>
+<span id="cb242-9"><a href="exercise-1.html#cb242-9"></a><span class="co"># compare linear and linear+quadratic models</span></span>
+<span id="cb242-10"><a href="exercise-1.html#cb242-10"></a><span class="kw">anova</span>(anx1, anx2)</span>
+<span id="cb242-11"><a href="exercise-1.html#cb242-11"></a></span>
+<span id="cb242-12"><a href="exercise-1.html#cb242-12"></a><span class="co"># fit a cubic component</span></span>
+<span id="cb242-13"><a href="exercise-1.html#cb242-13"></a>anx3 &lt;-<span class="st"> </span><span class="kw">lm</span>(anxiety <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(age,<span class="dv">3</span>), <span class="dt">data=</span>SurveyData)</span>
+<span id="cb242-14"><a href="exercise-1.html#cb242-14"></a><span class="kw">summary</span>(anx3)</span>
+<span id="cb242-15"><a href="exercise-1.html#cb242-15"></a></span>
+<span id="cb242-16"><a href="exercise-1.html#cb242-16"></a><span class="co"># compare (linear + quadratic) and (linear + quadratic + cubic) models</span></span>
+<span id="cb242-17"><a href="exercise-1.html#cb242-17"></a><span class="kw">anova</span>(anx2, anx3)</span></code></pre></div>
+</div>
+<p><br />
+</p>
+<p><strong>Now use Bayes Factors:</strong></p>
+<p>(Note: you do not need to re-add the quadratic and cubic components of age to <code>SurveyData</code>, as we did this before. These should still be in <code>SurveyData</code> as <code>age2</code> and <code>age3</code>.)</p>
+<p><br />
+</p>
+<ul>
+<li><p>The Bayes Factor comparing a model with linear and quadratic components vs. one with a linear component only is <span id="Q493319" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["5.48"]'/><span class="solvedme"></span></span></p></li>
+<li><p>This indicates that there is more evidence for which model? <select class='solveme' data-answer='["linear plus quadratic components"]'> <option></option> <option>linear component only</option> <option>linear plus quadratic components</option></select></p></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li><p>The Bayes Factor comparing a model with linear, quadratic and cubic components vs. one with linear and quadratic components only is <span id="Q429713" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["0.76"]'/><span class="solvedme"></span></span></p></li>
+<li><p>This indicates that there is more evidence for which model? <select class='solveme' data-answer='["linear plus quadratic component"]'> <option></option> <option>linear plus quadratic component</option> <option>linear, quadratic, and cubic components</option></select></p></li>
+</ul>
+<p><br />
+</p>
+<p>Do the comparisons of models with Bayes Factors agree with the conclusions made with anova? <select class='solveme' data-answer='["yes"]'> <option></option> <option>no</option> <option>yes</option></select></p>
+<div class="solution">
+<button>
+Show me the code to determine the Bayes Factors
+</button>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="exercise-1.html#cb243-1"></a><span class="kw">library</span>(BayesFactor)</span>
+<span id="cb243-2"><a href="exercise-1.html#cb243-2"></a></span>
+<span id="cb243-3"><a href="exercise-1.html#cb243-3"></a><span class="co"># BF for model anx1</span></span>
+<span id="cb243-4"><a href="exercise-1.html#cb243-4"></a>anx1BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(anxiety <span class="op">~</span><span class="st"> </span>age, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span>
+<span id="cb243-5"><a href="exercise-1.html#cb243-5"></a></span>
+<span id="cb243-6"><a href="exercise-1.html#cb243-6"></a><span class="co"># BF for model anx2</span></span>
+<span id="cb243-7"><a href="exercise-1.html#cb243-7"></a>anx2BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(anxiety <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span>
+<span id="cb243-8"><a href="exercise-1.html#cb243-8"></a></span>
+<span id="cb243-9"><a href="exercise-1.html#cb243-9"></a><span class="co"># BF for model anx3</span></span>
+<span id="cb243-10"><a href="exercise-1.html#cb243-10"></a>anx3BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(anxiety<span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2 <span class="op">+</span><span class="st"> </span>age3, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span>
+<span id="cb243-11"><a href="exercise-1.html#cb243-11"></a></span>
+<span id="cb243-12"><a href="exercise-1.html#cb243-12"></a><span class="co"># compare BFs for anx2 and anx1</span></span>
+<span id="cb243-13"><a href="exercise-1.html#cb243-13"></a>anx2BF <span class="op">/</span><span class="st"> </span>anx1BF</span>
+<span id="cb243-14"><a href="exercise-1.html#cb243-14"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb243-15"><a href="exercise-1.html#cb243-15"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb243-16"><a href="exercise-1.html#cb243-16"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] age <span class="op">+</span><span class="st"> </span>age2 <span class="op">:</span><span class="st"> </span><span class="fl">5.476443</span> ±<span class="dv">0</span>%</span>
+<span id="cb243-17"><a href="exercise-1.html#cb243-17"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb243-18"><a href="exercise-1.html#cb243-18"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb243-19"><a href="exercise-1.html#cb243-19"></a><span class="er">&gt;</span><span class="st">   </span>anxiety <span class="op">~</span><span class="st"> </span>age </span>
+<span id="cb243-20"><a href="exercise-1.html#cb243-20"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb243-21"><a href="exercise-1.html#cb243-21"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span>
+<span id="cb243-22"><a href="exercise-1.html#cb243-22"></a></span>
+<span id="cb243-23"><a href="exercise-1.html#cb243-23"></a><span class="co"># compare BFs for anx3 and anx2</span></span>
+<span id="cb243-24"><a href="exercise-1.html#cb243-24"></a>anx3BF <span class="op">/</span><span class="st"> </span>anx2BF</span>
+<span id="cb243-25"><a href="exercise-1.html#cb243-25"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb243-26"><a href="exercise-1.html#cb243-26"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb243-27"><a href="exercise-1.html#cb243-27"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] age <span class="op">+</span><span class="st"> </span>age2 <span class="op">+</span><span class="st"> </span>age3 <span class="op">:</span><span class="st"> </span><span class="fl">0.7556007</span> ±<span class="dv">0</span>%</span>
+<span id="cb243-28"><a href="exercise-1.html#cb243-28"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb243-29"><a href="exercise-1.html#cb243-29"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb243-30"><a href="exercise-1.html#cb243-30"></a><span class="er">&gt;</span><span class="st">   </span>anxiety <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2 </span>
+<span id="cb243-31"><a href="exercise-1.html#cb243-31"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb243-32"><a href="exercise-1.html#cb243-32"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -330,8 +453,8 @@ details for. So you if you want to run this at home use
           </div>
         </div>
       </div>
-<a href="regression-extra-explanations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="confidence-intervals-explanation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bayesian-approach.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary-of-key-points-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

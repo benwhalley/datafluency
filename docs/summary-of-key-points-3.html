@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Bayesian estimation of the | Data Fluency</title>
-  <meta name="description" content="Bayesian estimation of the | Data Fluency" />
+  <title>Summary of key points | Data Fluency</title>
+  <meta name="description" content="Summary of key points | Data Fluency" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Bayesian estimation of the | Data Fluency" />
+  <meta property="og:title" content="Summary of key points | Data Fluency" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bayesian estimation of the | Data Fluency" />
+  <meta name="twitter:title" content="Summary of key points | Data Fluency" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="regression-extra-explanations.html"/>
-<link rel="next" href="confidence-intervals-explanation.html"/>
+<link rel="prev" href="exercise-1.html"/>
+<link rel="next" href="testing.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -300,38 +300,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayesian-estimation-of-the" class="section level2">
-<h2>Bayesian estimation of the</h2>
-<div id="extra-bayes-explain" class="section level3">
-<h3>How does this all work?</h3>
-<p>Behind the scenes, the model is being used to <em>simulate</em> new data: <code>add_fitted_samples</code> does
-thousands of simulations for what the average prediction will be, and then the <code>mean_qi</code> function
-summarises them, giving us mean, and the 2.5 and 97.5th percentiles. That is, we say in 95% of the
-simulations the mean was between <code>conf.low</code> and <code>conf.high</code>.</p>
-<p>Because of the way the model was fitted, this is the same as making real probability statements
-about our prediction.</p>
-<p>It might be useful to know that these simulations are said to be <em>samples from the posterior
-distribution</em> — that is, the distribution of probabilities once we combined our data with our
-<em>prior probability</em>.</p>
-<div id="why-doesnt-this-work-on-my-laptop-or-at-home" class="section level5">
-<h5>Why doesn’t this work on my laptop or at home?</h5>
-<p>The <code>rstanarm</code> package is
-<a href="https://github.com/plymouthPsychology/installR">slightly fiddly to install</a>, and if you don’t get
-it right then this code won’t work.</p>
-<p>We’ve done it for you on university computers though, and on the RStudio server that you have login
-details for. So you if you want to run this at home use
-<a href="https://rstudio.plymouth.ac.uk/">RStudio server</a>.</p>
+<div id="summary-of-key-points-3" class="section level2">
+<h2>Summary of key points</h2>
+<ul>
+<li>Polynomial terms (e.g., <span class="math inline">\(x^2\)</span>, <span class="math inline">\(x^3\)</span>) can be added to regression models to fit curves in our data.</li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li><p><code>poly(predictor name, X)</code> can be used with <code>lm</code> to specify models with polynomial terms of the Xth order.</p>
+<ul>
+<li>The improvement in fit (<span class="math inline">\(R^2\)</span>) as a result of adding in a polynomial term can be tested using <code>anova(polynomial1, polynomial2)</code>.</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li><p>Bayes Factors can also be used to compare models with polynomial terms using <code>lmBF</code>.</p>
+<ul>
+<li>You must store the polynomial components in the dataset first before using <code>lmBF</code>. Use <code>poly(predictor name, X)[,"X"]</code>, where X is the order of the polynomial you will test (e.g., <code>poly(age, 3)[,"3"]</code>).</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li><p><strong>A note of caution</strong>: Although curves of any complexity can be fit, it may not always be meaningful or parsimonious to do so.</p>
+<ul>
+<li>Complex models may <em>overfit</em> the data and may not necessarily generalise to new datasets well.</li>
+<li>It is also important not to extrapolate beyond the range of data used to generate the model when making predictions from the model, as the same relationship may not be present.</li>
+</ul></li>
+</ul>
 
 </div>
-</div>
-</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="regression-extra-explanations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="confidence-intervals-explanation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exercise-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

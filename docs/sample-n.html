@@ -234,14 +234,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="final-exercise.html"><a href="final-exercise.html"><i class="fa fa-check"></i>Final exercise</a></li>
 <li class="chapter" data-level="" data-path="summary-of-key-points-1.html"><a href="summary-of-key-points-1.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="building-models-2.html"><a href="building-models-2.html"><i class="fa fa-check"></i>Building models 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="using-anova-and-bayes-factors-to-compare-models.html"><a href="using-anova-and-bayes-factors-to-compare-models.html"><i class="fa fa-check"></i>Using ANOVA and Bayes Factors to compare models</a></li>
+<li class="chapter" data-level="" data-path="comparing-models-using-anova.html"><a href="comparing-models-using-anova.html"><i class="fa fa-check"></i>Comparing models using ANOVA</a></li>
+<li class="chapter" data-level="" data-path="comparing-models-using-bayes-factors.html"><a href="comparing-models-using-bayes-factors.html"><i class="fa fa-check"></i>Comparing models using Bayes Factors</a></li>
+<li class="chapter" data-level="" data-path="exercise.html"><a href="exercise.html"><i class="fa fa-check"></i>Exercise</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points-2.html"><a href="summary-of-key-points-2.html"><i class="fa fa-check"></i>Summary of key points</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a>
 <ul>
 <li class="chapter" data-level="" data-path="using-polynomials-to-fit-curves.html"><a href="using-polynomials-to-fit-curves.html"><i class="fa fa-check"></i>Using polynomials to fit curves</a></li>
 <li class="chapter" data-level="" data-path="polynomials.html"><a href="polynomials.html"><i class="fa fa-check"></i>Polynomials</a></li>
 <li class="chapter" data-level="" data-path="identifying-polynomial-components.html"><a href="identifying-polynomial-components.html"><i class="fa fa-check"></i>Identifying polynomial components</a></li>
 <li class="chapter" data-level="" data-path="bayesian-approach.html"><a href="bayesian-approach.html"><i class="fa fa-check"></i>Bayesian approach</a></li>
-<li class="chapter" data-level="" data-path="exercise.html"><a href="exercise.html"><i class="fa fa-check"></i>Exercise</a></li>
-<li class="chapter" data-level="" data-path="summary-of-key-points-2.html"><a href="summary-of-key-points-2.html"><i class="fa fa-check"></i>Summary of key points</a></li>
+<li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points-3.html"><a href="summary-of-key-points-3.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
 <ul>
@@ -295,15 +303,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sample_n" class="section level2">
 <h2>More sampling</h2>
 <p>In the beginner session we used <code>sample</code> to shuffle a sequence of numbers, and make random samples:</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="sample-n.html#cb312-1"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1]  8  3 10  9  7</code></pre>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="sample-n.html#cb314-1"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>##  [1] 1 2 1 2 2 1 1 2 2 1</code></pre>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="sample-n.html#cb330-1"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1]  3  1 10  2  8</code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="sample-n.html#cb332-1"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>##  [1] 2 1 2 2 1 2 2 2 1 1</code></pre>
 <p>We also saw how to use <code>expand.grid</code> to create experimental designs:</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="sample-n.html#cb316-1"></a>colours=<span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Green&quot;</span>)</span>
-<span id="cb316-2"><a href="sample-n.html#cb316-2"></a>positions=<span class="kw">c</span>(<span class="st">&quot;Top&quot;</span>, <span class="st">&quot;Bottom&quot;</span>)</span>
-<span id="cb316-3"><a href="sample-n.html#cb316-3"></a>words =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Nobble&quot;</span>, <span class="st">&quot;Wobble&quot;</span>, <span class="st">&quot;Hobble&quot;</span>)</span>
-<span id="cb316-4"><a href="sample-n.html#cb316-4"></a><span class="kw">expand.grid</span>(<span class="dt">colour=</span>colours, <span class="dt">position=</span>positions, <span class="dt">words =</span> words)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="sample-n.html#cb334-1"></a>colours=<span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Green&quot;</span>)</span>
+<span id="cb334-2"><a href="sample-n.html#cb334-2"></a>positions=<span class="kw">c</span>(<span class="st">&quot;Top&quot;</span>, <span class="st">&quot;Bottom&quot;</span>)</span>
+<span id="cb334-3"><a href="sample-n.html#cb334-3"></a>words =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Nobble&quot;</span>, <span class="st">&quot;Wobble&quot;</span>, <span class="st">&quot;Hobble&quot;</span>)</span>
+<span id="cb334-4"><a href="sample-n.html#cb334-4"></a><span class="kw">expand.grid</span>(<span class="dt">colour=</span>colours, <span class="dt">position=</span>positions, <span class="dt">words =</span> words)</span></code></pre></div>
 <pre><code>##    colour position  words
 ## 1     Red      Top Nobble
 ## 2   Green      Top Nobble
@@ -319,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 12  Green   Bottom Hobble</code></pre>
 <hr />
 <p>Tidyverse contains a function which lets us sample raws from our design dataframe directly. First we make sure tidyverse is loaded:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="sample-n.html#cb318-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="sample-n.html#cb336-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
 ## ✔ tibble  2.1.3     ✔ dplyr   0.8.4
@@ -329,15 +337,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>And then we can use <code>sample_n</code></p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="sample-n.html#cb322-1"></a>design &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">colour=</span>colours, <span class="dt">position=</span>positions, <span class="dt">words =</span> words)</span>
-<span id="cb322-2"><a href="sample-n.html#cb322-2"></a>design <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">100</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="sample-n.html#cb340-1"></a>design &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">colour=</span>colours, <span class="dt">position=</span>positions, <span class="dt">words =</span> words)</span>
+<span id="cb340-2"><a href="sample-n.html#cb340-2"></a>design <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">100</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##   colour position  words
-## 1  Green   Bottom Hobble
-## 2  Green   Bottom Hobble
-## 3  Green      Top Nobble
-## 4  Green      Top Hobble
-## 5    Red      Top Wobble
-## 6    Red      Top Hobble</code></pre>
+## 1    Red      Top Nobble
+## 2    Red      Top Nobble
+## 3  Green   Bottom Hobble
+## 4  Green   Bottom Hobble
+## 5    Red      Top Nobble
+## 6  Green      Top Wobble</code></pre>
 <p><strong>Explanation</strong>: <code>sample_n</code> has randomly sampled rows from our design. In this case we sampled 100, but show only the first 6 (by using <code>head</code>).</p>
 
 </div>

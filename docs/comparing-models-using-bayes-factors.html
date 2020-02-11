@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Bayesian estimation of the | Data Fluency</title>
-  <meta name="description" content="Bayesian estimation of the | Data Fluency" />
+  <title>Comparing models using Bayes Factors | Data Fluency</title>
+  <meta name="description" content="Comparing models using Bayes Factors | Data Fluency" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Bayesian estimation of the | Data Fluency" />
+  <meta property="og:title" content="Comparing models using Bayes Factors | Data Fluency" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bayesian estimation of the | Data Fluency" />
+  <meta name="twitter:title" content="Comparing models using Bayes Factors | Data Fluency" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="regression-extra-explanations.html"/>
-<link rel="next" href="confidence-intervals-explanation.html"/>
+<link rel="prev" href="comparing-models-using-anova.html"/>
+<link rel="next" href="exercise.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -300,29 +300,166 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayesian-estimation-of-the" class="section level2">
-<h2>Bayesian estimation of the</h2>
-<div id="extra-bayes-explain" class="section level3">
-<h3>How does this all work?</h3>
-<p>Behind the scenes, the model is being used to <em>simulate</em> new data: <code>add_fitted_samples</code> does
-thousands of simulations for what the average prediction will be, and then the <code>mean_qi</code> function
-summarises them, giving us mean, and the 2.5 and 97.5th percentiles. That is, we say in 95% of the
-simulations the mean was between <code>conf.low</code> and <code>conf.high</code>.</p>
-<p>Because of the way the model was fitted, this is the same as making real probability statements
-about our prediction.</p>
-<p>It might be useful to know that these simulations are said to be <em>samples from the posterior
-distribution</em> — that is, the distribution of probabilities once we combined our data with our
-<em>prior probability</em>.</p>
-<div id="why-doesnt-this-work-on-my-laptop-or-at-home" class="section level5">
-<h5>Why doesn’t this work on my laptop or at home?</h5>
-<p>The <code>rstanarm</code> package is
-<a href="https://github.com/plymouthPsychology/installR">slightly fiddly to install</a>, and if you don’t get
-it right then this code won’t work.</p>
-<p>We’ve done it for you on university computers though, and on the RStudio server that you have login
-details for. So you if you want to run this at home use
-<a href="https://rstudio.plymouth.ac.uk/">RStudio server</a>.</p>
-
+<div id="comparing-models-using-bayes-factors" class="section level2">
+<h2>Comparing models using Bayes Factors</h2>
+<p>An alternative approach to using ANOVA to compare models is to use <strong>Bayes Factors</strong>.</p>
+<p><br />
+A <strong>Bayes Factor</strong> is the <strong>probability of obtaining the data under one model compared to another</strong>.</p>
+<p><br />
+For example, a Bayes Factor equal to 2 would tell us that the data are <em>twice</em> as likely under one model than another. A Bayes Factor equal to 0.5 would tell us that the data are <em>half</em> as likely under one model than another.</p>
+<p><br />
+Unlike classical tests of statistical significance (with <em>p</em>-values), Bayes Factors also allow us to <em>quantify</em> evidence for the null hypothesis. Very handy!</p>
+<p><br />
+To compute a Bayes Factor for a specific linear model, we use <code>lmBF</code> in the <code>BayesFactor</code> package (where <code>lm</code> stands for <em>linear model</em> and <code>BF</code> stands for <em>Bayes Factor</em>).</p>
+<p><br />
+First, we need to load the <code>BayesFactor</code> package:</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="comparing-models-using-bayes-factors.html#cb213-1"></a><span class="kw">library</span>(<span class="st">&#39;BayesFactor&#39;</span>)</span></code></pre></div>
+<p>We can use the <code>lmBF</code> function in the same way we use <code>lm</code>. The function will return a <strong>Bayes Factor</strong> for the model we specify.</p>
+<p><br />
+Let’s determine the Bayes Factor for <code>model1</code></p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="comparing-models-using-bayes-factors.html#cb214-1"></a>model1.BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(finalex <span class="op">~</span><span class="st"> </span>entrex, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(ExamData) )  </span></code></pre></div>
+<p><strong>Explanation of the code</strong>: The model is specified in exactly the same way as with <code>lm</code>. Due to a limitation of the package, however, we must convert <code>ExamData</code> from a tibble to a data frame using <code>as.data.frame</code>. Otherwise, the command works in the same way. The results are stored in <code>model1.BF</code>.</p>
+<p><br />
+To look at what’s stored in <code>model1.BF</code>:</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="comparing-models-using-bayes-factors.html#cb215-1"></a>model1.BF</span>
+<span id="cb215-2"><a href="comparing-models-using-bayes-factors.html#cb215-2"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb215-3"><a href="comparing-models-using-bayes-factors.html#cb215-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb215-4"><a href="comparing-models-using-bayes-factors.html#cb215-4"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] entrex <span class="op">:</span><span class="st"> </span><span class="fl">8310.846</span> ±<span class="fl">0.01</span>%</span>
+<span id="cb215-5"><a href="comparing-models-using-bayes-factors.html#cb215-5"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb215-6"><a href="comparing-models-using-bayes-factors.html#cb215-6"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb215-7"><a href="comparing-models-using-bayes-factors.html#cb215-7"></a><span class="er">&gt;</span><span class="st">   </span>Intercept only </span>
+<span id="cb215-8"><a href="comparing-models-using-bayes-factors.html#cb215-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb215-9"><a href="comparing-models-using-bayes-factors.html#cb215-9"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
+<p><strong>Explanation of the output</strong>:</p>
+<ul>
+<li><p>The Bayes Factor provided for the model with <code>entrex</code> is equal to <strong>8310.85</strong>.</p></li>
+<li><p>The <code>Against denominator: Intercept only</code> means that the model with <code>entrex</code> is being compared with a model that contains an <strong>intercept only</strong>. In an intercept-only model, the coefficient for <code>entrex</code> is equal to zero; that is, the regression line is a flat line (equal to the <em>mean</em> of <code>entrex</code>).</p></li>
+<li><p>The value of our Bayes Factor indicates that the model with <code>entrex</code> in is much more likely than a model that contains only an intercept (8310.85 times more likely, to be precise). We can therefore be confident that a model with <code>entrex</code> is preferable to the intercept only model (just as with our classical analysis). Happy days!</p></li>
+</ul>
+<p><br />
+Now let’s do the same for <code>model2</code>:</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="comparing-models-using-bayes-factors.html#cb216-1"></a><span class="co"># specify the model</span></span>
+<span id="cb216-2"><a href="comparing-models-using-bayes-factors.html#cb216-2"></a>model2.BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(finalex <span class="op">~</span><span class="st"> </span>entrex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>project, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(ExamData) )</span>
+<span id="cb216-3"><a href="comparing-models-using-bayes-factors.html#cb216-3"></a></span>
+<span id="cb216-4"><a href="comparing-models-using-bayes-factors.html#cb216-4"></a><span class="co"># show the Bayes Factor</span></span>
+<span id="cb216-5"><a href="comparing-models-using-bayes-factors.html#cb216-5"></a>model2.BF</span>
+<span id="cb216-6"><a href="comparing-models-using-bayes-factors.html#cb216-6"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb216-7"><a href="comparing-models-using-bayes-factors.html#cb216-7"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb216-8"><a href="comparing-models-using-bayes-factors.html#cb216-8"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] entrex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>project <span class="op">:</span><span class="st"> </span><span class="fl">2427.676</span> ±<span class="dv">0</span>%</span>
+<span id="cb216-9"><a href="comparing-models-using-bayes-factors.html#cb216-9"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb216-10"><a href="comparing-models-using-bayes-factors.html#cb216-10"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb216-11"><a href="comparing-models-using-bayes-factors.html#cb216-11"></a><span class="er">&gt;</span><span class="st">   </span>Intercept only </span>
+<span id="cb216-12"><a href="comparing-models-using-bayes-factors.html#cb216-12"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb216-13"><a href="comparing-models-using-bayes-factors.html#cb216-13"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
+<p><strong>Explanation:</strong> The Bayes Factor is equal to <strong>2427.68</strong>. Again, this indicates that the model with <code>entrex</code> and <code>age</code> is much more likely than a model with only the intercept in (this is not that surprising given the result for <code>model1.BF</code> above).</p>
+<p>But, what we want to know is whether <code>model2</code> (containing <code>entrex</code> and <code>age</code>) is <strong>more</strong> likely than <code>model1</code> (containing only <code>entrex</code>). We can determine this by <em>dividing</em> the Bayes Factor for <code>model2</code> by the Bayes Factor for <code>model1</code>:</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="comparing-models-using-bayes-factors.html#cb217-1"></a>model2.BF <span class="op">/</span><span class="st"> </span>model1.BF</span>
+<span id="cb217-2"><a href="comparing-models-using-bayes-factors.html#cb217-2"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb217-3"><a href="comparing-models-using-bayes-factors.html#cb217-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb217-4"><a href="comparing-models-using-bayes-factors.html#cb217-4"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] entrex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>project <span class="op">:</span><span class="st"> </span><span class="fl">0.2921093</span> ±<span class="fl">0.01</span>%</span>
+<span id="cb217-5"><a href="comparing-models-using-bayes-factors.html#cb217-5"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb217-6"><a href="comparing-models-using-bayes-factors.html#cb217-6"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb217-7"><a href="comparing-models-using-bayes-factors.html#cb217-7"></a><span class="er">&gt;</span><span class="st">   </span>finalex <span class="op">~</span><span class="st"> </span>entrex </span>
+<span id="cb217-8"><a href="comparing-models-using-bayes-factors.html#cb217-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb217-9"><a href="comparing-models-using-bayes-factors.html#cb217-9"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
+<p><strong>Explanation:</strong> The Bayes Factor for this comparison is 0.29. This means that <code>model2</code> is <strong><em>less than a third as likely</em></strong> than <code>model1</code>. So, <code>model2</code> is much <em>less</em> likely than <code>model1</code>. Not good news for <code>model2</code>!</p>
+<div class="tip">
+<p><strong>Interpreting the Bayes Factor</strong></p>
+<ul>
+<li><p>A Bayes Factor <strong>equal to 1</strong> tells us that probability of each model is the same.</p></li>
+<li><p>A Bayes Factor <strong>greater than 1</strong> means that <code>model2</code> is more likely than <code>model1</code>.</p></li>
+<li><p>A Bayes Factor <strong>less than 1</strong> means that <code>model1</code> is more likely than <code>model2</code>.</p></li>
+</ul>
+<p><strong>Thus, our Bayes Factor of 0.29 indicates that <code>model1</code> is more likely than <code>model2</code>.</strong></p>
 </div>
+<div class="tip">
+<p><strong>Reporting Bayes Factors</strong></p>
+<p><br />
+</p>
+<p><strong>Notation</strong></p>
+<p>We usually write the Bayes Factor in reports as <span class="math inline">\(BF_{10}\)</span> where:</p>
+<ul>
+<li><p>the subscript <strong>1</strong> in <span class="math inline">\(BF_{10}\)</span> denotes the less-constrained model (the alternative hypothesis). This is the model with <strong>more predictors</strong> (our <code>model2</code>).</p></li>
+<li><p>the subscript <strong>0</strong> in <span class="math inline">\(BF_{10}\)</span> denotes the more constrained or simpler model (i.e., the null hypothesis). This is the model with <strong>fewer predictors</strong> (our <code>model1</code>).</p></li>
+</ul>
+<p>(You can just write BF10 if you prefer.)</p>
+<p><br />
+</p>
+<p><strong>The Size of the Bayes Factor</strong></p>
+<ul>
+<li><p>If the Bayes Factor is <strong>greater than 3</strong> (i.e., <span class="math inline">\(BF_{10}\)</span> &gt; 3), we say that there is <strong>substantial evidence for <code>model2</code></strong> (the less constrained model).</p></li>
+<li><p>If the Bayes Factor is <strong>less than 0.33</strong> (i.e., <span class="math inline">\(BF_{10}\)</span> &lt; 0.33), we usually say that there is <strong>substantial evidence for <code>model1</code></strong> (the more constrained model).</p></li>
+<li><p>We say that intermediate values for the Bayes Factor (between 0.33 and 3) don’t offer strong evidence for either model.</p></li>
+</ul>
+</div>
+<p>Thus, because our Bayes Factor of 0.29 is less than 1, this indicates greater evidence for <code>model1</code> than <code>model2</code>. Furthermore, because the Bayes Factor is less than 0.33, we have <em>substantial</em> evidence for <code>model1</code> over <code>model2</code>.</p>
+<p><br />
+It’s becoming increasingly common to report the Bayes Factor alongside the results of a classical analysis. Thus, we could report our results as follows: “There was insufficient evidence that the addition of age and project to the model containing entrance exam resulted in an increase in <span class="math inline">\(R^2\)</span>, <em>F</em>(2, 29) = 1.96, <em>p</em> = .16; BF10 = 0.29.”</p>
+<div class="exercise">
+<p><strong>Now you try using Bayes Factors to compare models</strong></p>
+<p>To supplement the comparison of <code>model3</code> and <code>model1</code> that you did with <code>anova</code>, now compute the Bayes Factor for <code>model3</code> vs. <code>model1</code>.</p>
+<p><br />
+You’ll need the following steps:</p>
+<ul>
+<li><p>Model 1: Obtain the Bayes Factor for a model with <code>extrex</code> as a sole predictor of <code>finalex</code> (we did this already above; it’s stored in <code>model1.BF</code>)</p></li>
+<li><p>Model 2: Obtain the Bayes Factor for a model where <code>finalex</code> is predicted by <code>extrex</code> <em>and</em> <code>attendance</code> and store this in <code>model3.BF</code>.</p></li>
+<li><p>Compare the Bayes Factors in <code>model3.BF</code> and <code>model1.BF</code>.<br />
+</p></li>
+</ul>
+<div class="solution">
+<button>
+Try yourself first, then click here for the code
+</button>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="comparing-models-using-bayes-factors.html#cb218-1"></a><span class="co"># 1. show the BF for model1 vs. intercept only</span></span>
+<span id="cb218-2"><a href="comparing-models-using-bayes-factors.html#cb218-2"></a>model1.BF  </span>
+<span id="cb218-3"><a href="comparing-models-using-bayes-factors.html#cb218-3"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb218-4"><a href="comparing-models-using-bayes-factors.html#cb218-4"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb218-5"><a href="comparing-models-using-bayes-factors.html#cb218-5"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] entrex <span class="op">:</span><span class="st"> </span><span class="fl">8310.846</span> ±<span class="fl">0.01</span>%</span>
+<span id="cb218-6"><a href="comparing-models-using-bayes-factors.html#cb218-6"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb218-7"><a href="comparing-models-using-bayes-factors.html#cb218-7"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb218-8"><a href="comparing-models-using-bayes-factors.html#cb218-8"></a><span class="er">&gt;</span><span class="st">   </span>Intercept only </span>
+<span id="cb218-9"><a href="comparing-models-using-bayes-factors.html#cb218-9"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb218-10"><a href="comparing-models-using-bayes-factors.html#cb218-10"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span>
+<span id="cb218-11"><a href="comparing-models-using-bayes-factors.html#cb218-11"></a></span>
+<span id="cb218-12"><a href="comparing-models-using-bayes-factors.html#cb218-12"></a><span class="co"># 2. Obtain the BF for model3 vs. intercept only, then show it</span></span>
+<span id="cb218-13"><a href="comparing-models-using-bayes-factors.html#cb218-13"></a>model3.BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(finalex <span class="op">~</span><span class="st"> </span>entrex <span class="op">+</span><span class="st"> </span>attendance, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(ExamData) )</span>
+<span id="cb218-14"><a href="comparing-models-using-bayes-factors.html#cb218-14"></a></span>
+<span id="cb218-15"><a href="comparing-models-using-bayes-factors.html#cb218-15"></a>model3.BF</span>
+<span id="cb218-16"><a href="comparing-models-using-bayes-factors.html#cb218-16"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb218-17"><a href="comparing-models-using-bayes-factors.html#cb218-17"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb218-18"><a href="comparing-models-using-bayes-factors.html#cb218-18"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] entrex <span class="op">+</span><span class="st"> </span>attendance <span class="op">:</span><span class="st"> </span><span class="dv">2351114</span> ±<span class="dv">0</span>%</span>
+<span id="cb218-19"><a href="comparing-models-using-bayes-factors.html#cb218-19"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb218-20"><a href="comparing-models-using-bayes-factors.html#cb218-20"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb218-21"><a href="comparing-models-using-bayes-factors.html#cb218-21"></a><span class="er">&gt;</span><span class="st">   </span>Intercept only </span>
+<span id="cb218-22"><a href="comparing-models-using-bayes-factors.html#cb218-22"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb218-23"><a href="comparing-models-using-bayes-factors.html#cb218-23"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span>
+<span id="cb218-24"><a href="comparing-models-using-bayes-factors.html#cb218-24"></a></span>
+<span id="cb218-25"><a href="comparing-models-using-bayes-factors.html#cb218-25"></a><span class="co"># 3. Compare the BFs for model3 vs model1</span></span>
+<span id="cb218-26"><a href="comparing-models-using-bayes-factors.html#cb218-26"></a>model3.BF <span class="op">/</span><span class="st"> </span>model1.BF</span>
+<span id="cb218-27"><a href="comparing-models-using-bayes-factors.html#cb218-27"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb218-28"><a href="comparing-models-using-bayes-factors.html#cb218-28"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb218-29"><a href="comparing-models-using-bayes-factors.html#cb218-29"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] entrex <span class="op">+</span><span class="st"> </span>attendance <span class="op">:</span><span class="st"> </span><span class="fl">282.897</span> ±<span class="fl">0.01</span>%</span>
+<span id="cb218-30"><a href="comparing-models-using-bayes-factors.html#cb218-30"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb218-31"><a href="comparing-models-using-bayes-factors.html#cb218-31"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb218-32"><a href="comparing-models-using-bayes-factors.html#cb218-32"></a><span class="er">&gt;</span><span class="st">   </span>finalex <span class="op">~</span><span class="st"> </span>entrex </span>
+<span id="cb218-33"><a href="comparing-models-using-bayes-factors.html#cb218-33"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb218-34"><a href="comparing-models-using-bayes-factors.html#cb218-34"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
+</div>
+<p><br />
+<strong>Answer the following questions from the output:</strong></p>
+<p>How much more likely is a model with<code>entrex</code> than an intercept only model?</p>
+<ul>
+<li><span id="Q365136" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=7  style='width:7em;'  data-answer='["8310.85"]'/><span class="solvedme"></span></span> times more likely.</li>
+</ul>
+<p>How much more likely is a model with <code>entrex</code> and <code>attendance</code> than an intercept only model?</p>
+<ul>
+<li><span id="Q175766" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=7  style='width:7em;'  data-answer='["2351114"]'/><span class="solvedme"></span></span> times more likely.</li>
+</ul>
+<p>How much more likely is a model with <code>entrex</code> and <code>attendance</code> as predictors than a model with <code>entrex</code> alone?</p>
+<ul>
+<li><span id="Q868928" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=6  style='width:6em;'  data-answer='["282.90"]'/><span class="solvedme"></span></span> times more likely.</li>
+</ul>
+<p>There is <select class='solveme' data-answer='["strong"]'> <option></option> <option>insufficient</option> <option>strong</option></select> evidence that a model with <code>entrex</code> and <code>attendance</code> should be preferred over a model with <code>entrex</code> alone, given the data.</p>
 </div>
 </div>
             </section>
@@ -330,8 +467,8 @@ details for. So you if you want to run this at home use
           </div>
         </div>
       </div>
-<a href="regression-extra-explanations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="confidence-intervals-explanation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="comparing-models-using-anova.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exercise.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

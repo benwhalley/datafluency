@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Bayesian estimation of the | Data Fluency</title>
-  <meta name="description" content="Bayesian estimation of the | Data Fluency" />
+  <title>Using ANOVA and Bayes Factors to compare models | Data Fluency</title>
+  <meta name="description" content="Using ANOVA and Bayes Factors to compare models | Data Fluency" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Bayesian estimation of the | Data Fluency" />
+  <meta property="og:title" content="Using ANOVA and Bayes Factors to compare models | Data Fluency" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bayesian estimation of the | Data Fluency" />
+  <meta name="twitter:title" content="Using ANOVA and Bayes Factors to compare models | Data Fluency" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="regression-extra-explanations.html"/>
-<link rel="next" href="confidence-intervals-explanation.html"/>
+<link rel="prev" href="building-models-2.html"/>
+<link rel="next" href="comparing-models-using-anova.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -300,29 +300,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayesian-estimation-of-the" class="section level2">
-<h2>Bayesian estimation of the</h2>
-<div id="extra-bayes-explain" class="section level3">
-<h3>How does this all work?</h3>
-<p>Behind the scenes, the model is being used to <em>simulate</em> new data: <code>add_fitted_samples</code> does
-thousands of simulations for what the average prediction will be, and then the <code>mean_qi</code> function
-summarises them, giving us mean, and the 2.5 and 97.5th percentiles. That is, we say in 95% of the
-simulations the mean was between <code>conf.low</code> and <code>conf.high</code>.</p>
-<p>Because of the way the model was fitted, this is the same as making real probability statements
-about our prediction.</p>
-<p>It might be useful to know that these simulations are said to be <em>samples from the posterior
-distribution</em> — that is, the distribution of probabilities once we combined our data with our
-<em>prior probability</em>.</p>
-<div id="why-doesnt-this-work-on-my-laptop-or-at-home" class="section level5">
-<h5>Why doesn’t this work on my laptop or at home?</h5>
-<p>The <code>rstanarm</code> package is
-<a href="https://github.com/plymouthPsychology/installR">slightly fiddly to install</a>, and if you don’t get
-it right then this code won’t work.</p>
-<p>We’ve done it for you on university computers though, and on the RStudio server that you have login
-details for. So you if you want to run this at home use
-<a href="https://rstudio.plymouth.ac.uk/">RStudio server</a>.</p>
-
-</div>
+<div id="using-anova-and-bayes-factors-to-compare-models" class="section level2">
+<h2>Using ANOVA and Bayes Factors to compare models</h2>
+<ul>
+<li><a href="slides/regression2-chris.ppt"><strong>Slides from the session</strong></a> (available 25-01-2020)</li>
+</ul>
+<p><br />
+</p>
+<div id="overview-5" class="section level3">
+<h3>Overview</h3>
+<p>In the previous session, we saw that we can construct a linear model to predict an outcome variable (e.g., <em>final exam score</em> from <em>entrance exam score</em>). We also investigated how we can <em>improve</em> a model by adding several continuous predictors to it.</p>
+<p><br />
+How do we know if one model is <em>better</em> or should be <em>preferred</em> over another model? We touched on a common sense approach in the last session - we ideally want models that explain the variance in an outcome variable but each predictor in the model should make a sizable and relatively independent contribution to the model.</p>
+<p><br />
+</p>
+<p>Today we will cover a more formal approach to model comparison using:</p>
+<ul>
+<li><p><strong>ANOVA (Analysis of Variance)</strong> and</p></li>
+<li><p><strong>Bayes Factors</strong></p></li>
+</ul>
+<p><br />
+</p>
+<p>It’s important that you are comfortable with the material from the first <a href="building-models-1.html">Building Models 1 session</a> before proceeding today.</p>
 </div>
 </div>
             </section>
@@ -330,8 +329,8 @@ details for. So you if you want to run this at home use
           </div>
         </div>
       </div>
-<a href="regression-extra-explanations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="confidence-intervals-explanation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="building-models-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="comparing-models-using-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

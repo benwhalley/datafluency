@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="identifying-polynomial-components.html"/>
-<link rel="next" href="exercise.html"/>
+<link rel="next" href="exercise-1.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -234,14 +234,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="final-exercise.html"><a href="final-exercise.html"><i class="fa fa-check"></i>Final exercise</a></li>
 <li class="chapter" data-level="" data-path="summary-of-key-points-1.html"><a href="summary-of-key-points-1.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="building-models-2.html"><a href="building-models-2.html"><i class="fa fa-check"></i>Building models 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="using-anova-and-bayes-factors-to-compare-models.html"><a href="using-anova-and-bayes-factors-to-compare-models.html"><i class="fa fa-check"></i>Using ANOVA and Bayes Factors to compare models</a></li>
+<li class="chapter" data-level="" data-path="comparing-models-using-anova.html"><a href="comparing-models-using-anova.html"><i class="fa fa-check"></i>Comparing models using ANOVA</a></li>
+<li class="chapter" data-level="" data-path="comparing-models-using-bayes-factors.html"><a href="comparing-models-using-bayes-factors.html"><i class="fa fa-check"></i>Comparing models using Bayes Factors</a></li>
+<li class="chapter" data-level="" data-path="exercise.html"><a href="exercise.html"><i class="fa fa-check"></i>Exercise</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points-2.html"><a href="summary-of-key-points-2.html"><i class="fa fa-check"></i>Summary of key points</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a>
 <ul>
 <li class="chapter" data-level="" data-path="using-polynomials-to-fit-curves.html"><a href="using-polynomials-to-fit-curves.html"><i class="fa fa-check"></i>Using polynomials to fit curves</a></li>
 <li class="chapter" data-level="" data-path="polynomials.html"><a href="polynomials.html"><i class="fa fa-check"></i>Polynomials</a></li>
 <li class="chapter" data-level="" data-path="identifying-polynomial-components.html"><a href="identifying-polynomial-components.html"><i class="fa fa-check"></i>Identifying polynomial components</a></li>
 <li class="chapter" data-level="" data-path="bayesian-approach.html"><a href="bayesian-approach.html"><i class="fa fa-check"></i>Bayesian approach</a></li>
-<li class="chapter" data-level="" data-path="exercise.html"><a href="exercise.html"><i class="fa fa-check"></i>Exercise</a></li>
-<li class="chapter" data-level="" data-path="summary-of-key-points-2.html"><a href="summary-of-key-points-2.html"><i class="fa fa-check"></i>Summary of key points</a></li>
+<li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points-3.html"><a href="summary-of-key-points-3.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
 <ul>
@@ -303,41 +311,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><br />
 </p>
 <p>To add the quadratic component to <code>SurveyData</code>:</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="bayesian-approach.html#cb215-1"></a>SurveyData &lt;-</span>
-<span id="cb215-2"><a href="bayesian-approach.html#cb215-2"></a><span class="st">  </span>SurveyData <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( <span class="dt">age2 =</span> <span class="kw">poly</span>(age,<span class="dv">2</span>)[,<span class="st">&quot;2&quot;</span>] )</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="bayesian-approach.html#cb233-1"></a>SurveyData &lt;-</span>
+<span id="cb233-2"><a href="bayesian-approach.html#cb233-2"></a><span class="st">  </span>SurveyData <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( <span class="dt">age2 =</span> <span class="kw">poly</span>(age,<span class="dv">2</span>)[,<span class="st">&quot;2&quot;</span>] )</span></code></pre></div>
 <p><strong>Explanation of the code:</strong> The code takes <code>SurveyData</code>, then uses <code>mutate</code> to add a new variable <code>age2</code> to the dataset. <code>age2</code> contains the quadratic component of <code>age</code>, created by <code>poly(age,2)[,"2"]</code>.</p>
 <p><br />
 </p>
 <p>We can see the new variable <code>age2</code> when we look at <code>SurveyData</code> again:</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="bayesian-approach.html#cb216-1"></a>SurveyData <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span>
-<span id="cb216-2"><a href="bayesian-approach.html#cb216-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="co"># A tibble: 6 x 4</span></span>
-<span id="cb216-3"><a href="bayesian-approach.html#cb216-3"></a><span class="er">&gt;</span><span class="st">     </span>age happiness anxiety    age2</span>
-<span id="cb216-4"><a href="bayesian-approach.html#cb216-4"></a><span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
-<span id="cb216-5"><a href="bayesian-approach.html#cb216-5"></a><span class="er">&gt;</span><span class="st"> </span><span class="dv">1</span>  <span class="fl">66.0</span>      <span class="fl">7.85</span>    <span class="fl">2.33</span>  <span class="fl">0.0761</span></span>
-<span id="cb216-6"><a href="bayesian-approach.html#cb216-6"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>  <span class="fl">35.0</span>      <span class="fl">7.56</span>    <span class="fl">2.58</span>  <span class="fl">0.0483</span></span>
-<span id="cb216-7"><a href="bayesian-approach.html#cb216-7"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>  <span class="fl">58.6</span>      <span class="fl">7.59</span>    <span class="fl">3.43</span> <span class="fl">-0.0440</span></span>
-<span id="cb216-8"><a href="bayesian-approach.html#cb216-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>  <span class="fl">35.0</span>      <span class="fl">7.06</span>    <span class="fl">1.67</span>  <span class="fl">0.0481</span></span>
-<span id="cb216-9"><a href="bayesian-approach.html#cb216-9"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>  <span class="fl">60.2</span>      <span class="fl">7.96</span>    <span class="fl">2.13</span> <span class="fl">-0.0246</span></span>
-<span id="cb216-10"><a href="bayesian-approach.html#cb216-10"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>  <span class="fl">67.5</span>      <span class="fl">8.11</span>    <span class="fl">1.09</span>  <span class="fl">0.110</span></span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="bayesian-approach.html#cb234-1"></a>SurveyData <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span>
+<span id="cb234-2"><a href="bayesian-approach.html#cb234-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="co"># A tibble: 6 x 4</span></span>
+<span id="cb234-3"><a href="bayesian-approach.html#cb234-3"></a><span class="er">&gt;</span><span class="st">     </span>age happiness anxiety    age2</span>
+<span id="cb234-4"><a href="bayesian-approach.html#cb234-4"></a><span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb234-5"><a href="bayesian-approach.html#cb234-5"></a><span class="er">&gt;</span><span class="st"> </span><span class="dv">1</span>  <span class="fl">66.0</span>      <span class="fl">7.85</span>    <span class="fl">2.33</span>  <span class="fl">0.0761</span></span>
+<span id="cb234-6"><a href="bayesian-approach.html#cb234-6"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>  <span class="fl">35.0</span>      <span class="fl">7.56</span>    <span class="fl">2.58</span>  <span class="fl">0.0483</span></span>
+<span id="cb234-7"><a href="bayesian-approach.html#cb234-7"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>  <span class="fl">58.6</span>      <span class="fl">7.59</span>    <span class="fl">3.43</span> <span class="fl">-0.0440</span></span>
+<span id="cb234-8"><a href="bayesian-approach.html#cb234-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>  <span class="fl">35.0</span>      <span class="fl">7.06</span>    <span class="fl">1.67</span>  <span class="fl">0.0481</span></span>
+<span id="cb234-9"><a href="bayesian-approach.html#cb234-9"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>  <span class="fl">60.2</span>      <span class="fl">7.96</span>    <span class="fl">2.13</span> <span class="fl">-0.0246</span></span>
+<span id="cb234-10"><a href="bayesian-approach.html#cb234-10"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>  <span class="fl">67.5</span>      <span class="fl">8.11</span>    <span class="fl">1.09</span>  <span class="fl">0.110</span></span></code></pre></div>
 <p><br />
 </p>
 <p>Now create the variable for the <strong>cubic component</strong>:</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="bayesian-approach.html#cb217-1"></a>SurveyData &lt;-</span>
-<span id="cb217-2"><a href="bayesian-approach.html#cb217-2"></a><span class="st">  </span>SurveyData <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( <span class="dt">age3 =</span> <span class="kw">poly</span>(age,<span class="dv">3</span>)[,<span class="st">&quot;3&quot;</span>] )</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="bayesian-approach.html#cb235-1"></a>SurveyData &lt;-</span>
+<span id="cb235-2"><a href="bayesian-approach.html#cb235-2"></a><span class="st">  </span>SurveyData <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( <span class="dt">age3 =</span> <span class="kw">poly</span>(age,<span class="dv">3</span>)[,<span class="st">&quot;3&quot;</span>] )</span></code></pre></div>
 <p><strong>Explanation of the code:</strong> As before, the code takes <code>SurveyData</code>, then uses <code>mutate</code> to add a new variable <code>age3</code> to the dataset. <code>age3</code> contains the quadratic component of <code>age</code>, created by <code>poly(age,3)[,"3"]</code>.</p>
 <p><br />
 </p>
 <p>Again, we can see the new variable <code>age3</code> when we look at <code>SurveyData</code>:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="bayesian-approach.html#cb218-1"></a>SurveyData <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">head</span>()</span>
-<span id="cb218-2"><a href="bayesian-approach.html#cb218-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="co"># A tibble: 6 x 5</span></span>
-<span id="cb218-3"><a href="bayesian-approach.html#cb218-3"></a><span class="er">&gt;</span><span class="st">     </span>age happiness anxiety    age2     age3</span>
-<span id="cb218-4"><a href="bayesian-approach.html#cb218-4"></a><span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
-<span id="cb218-5"><a href="bayesian-approach.html#cb218-5"></a><span class="er">&gt;</span><span class="st"> </span><span class="dv">1</span>  <span class="fl">66.0</span>      <span class="fl">7.85</span>    <span class="fl">2.33</span>  <span class="fl">0.0761</span>  <span class="fl">0.00888</span></span>
-<span id="cb218-6"><a href="bayesian-approach.html#cb218-6"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>  <span class="fl">35.0</span>      <span class="fl">7.56</span>    <span class="fl">2.58</span>  <span class="fl">0.0483</span>  <span class="fl">0.0353</span> </span>
-<span id="cb218-7"><a href="bayesian-approach.html#cb218-7"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>  <span class="fl">58.6</span>      <span class="fl">7.59</span>    <span class="fl">3.43</span> <span class="fl">-0.0440</span> <span class="fl">-0.0988</span> </span>
-<span id="cb218-8"><a href="bayesian-approach.html#cb218-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>  <span class="fl">35.0</span>      <span class="fl">7.06</span>    <span class="fl">1.67</span>  <span class="fl">0.0481</span>  <span class="fl">0.0356</span> </span>
-<span id="cb218-9"><a href="bayesian-approach.html#cb218-9"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>  <span class="fl">60.2</span>      <span class="fl">7.96</span>    <span class="fl">2.13</span> <span class="fl">-0.0246</span> <span class="fl">-0.0974</span> </span>
-<span id="cb218-10"><a href="bayesian-approach.html#cb218-10"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>  <span class="fl">67.5</span>      <span class="fl">8.11</span>    <span class="fl">1.09</span>  <span class="fl">0.110</span>   <span class="fl">0.0707</span></span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="bayesian-approach.html#cb236-1"></a>SurveyData <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">head</span>()</span>
+<span id="cb236-2"><a href="bayesian-approach.html#cb236-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="co"># A tibble: 6 x 5</span></span>
+<span id="cb236-3"><a href="bayesian-approach.html#cb236-3"></a><span class="er">&gt;</span><span class="st">     </span>age happiness anxiety    age2     age3</span>
+<span id="cb236-4"><a href="bayesian-approach.html#cb236-4"></a><span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb236-5"><a href="bayesian-approach.html#cb236-5"></a><span class="er">&gt;</span><span class="st"> </span><span class="dv">1</span>  <span class="fl">66.0</span>      <span class="fl">7.85</span>    <span class="fl">2.33</span>  <span class="fl">0.0761</span>  <span class="fl">0.00888</span></span>
+<span id="cb236-6"><a href="bayesian-approach.html#cb236-6"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>  <span class="fl">35.0</span>      <span class="fl">7.56</span>    <span class="fl">2.58</span>  <span class="fl">0.0483</span>  <span class="fl">0.0353</span> </span>
+<span id="cb236-7"><a href="bayesian-approach.html#cb236-7"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>  <span class="fl">58.6</span>      <span class="fl">7.59</span>    <span class="fl">3.43</span> <span class="fl">-0.0440</span> <span class="fl">-0.0988</span> </span>
+<span id="cb236-8"><a href="bayesian-approach.html#cb236-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>  <span class="fl">35.0</span>      <span class="fl">7.06</span>    <span class="fl">1.67</span>  <span class="fl">0.0481</span>  <span class="fl">0.0356</span> </span>
+<span id="cb236-9"><a href="bayesian-approach.html#cb236-9"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>  <span class="fl">60.2</span>      <span class="fl">7.96</span>    <span class="fl">2.13</span> <span class="fl">-0.0246</span> <span class="fl">-0.0974</span> </span>
+<span id="cb236-10"><a href="bayesian-approach.html#cb236-10"></a><span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>  <span class="fl">67.5</span>      <span class="fl">8.11</span>    <span class="fl">1.09</span>  <span class="fl">0.110</span>   <span class="fl">0.0707</span></span></code></pre></div>
 <p><br />
 </p>
 </div>
@@ -348,25 +356,25 @@ First, make sure the BayesFactor package is loaded (<code>library(BayesFactor)</
 <p><br />
 </p>
 <p>To derive the Bayes Factor for <code>polynomial1</code>:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="bayesian-approach.html#cb219-1"></a>polynomial1BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(happiness <span class="op">~</span><span class="st"> </span>age, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="bayesian-approach.html#cb237-1"></a>polynomial1BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(happiness <span class="op">~</span><span class="st"> </span>age, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span></code></pre></div>
 <p><br />
 </p>
 <p>To derive the Bayes Factor for <code>polynomial2</code>:</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="bayesian-approach.html#cb220-1"></a><span class="co"># store the Bayes Factor for polynomial2</span></span>
-<span id="cb220-2"><a href="bayesian-approach.html#cb220-2"></a>polynomial2BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(happiness <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="bayesian-approach.html#cb238-1"></a><span class="co"># store the Bayes Factor for polynomial2</span></span>
+<span id="cb238-2"><a href="bayesian-approach.html#cb238-2"></a>polynomial2BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(happiness <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span></code></pre></div>
 <p><strong>Explanation:</strong> With <code>lmBF</code> we need to specify the polynomial equation with both linear and quadratic components separately, hence <code>happiness ~ age + age2</code>.</p>
 <p><br />
 </p>
 <p>The Bayes Factor comparing <code>polynomial2</code> and <code>polynomial1</code> is then:</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="bayesian-approach.html#cb221-1"></a>polynomial2BF <span class="op">/</span><span class="st"> </span>polynomial1BF</span>
-<span id="cb221-2"><a href="bayesian-approach.html#cb221-2"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
-<span id="cb221-3"><a href="bayesian-approach.html#cb221-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
-<span id="cb221-4"><a href="bayesian-approach.html#cb221-4"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] age <span class="op">+</span><span class="st"> </span>age2 <span class="op">:</span><span class="st"> </span><span class="fl">2.618277e+17</span> ±<span class="fl">0.01</span>%</span>
-<span id="cb221-5"><a href="bayesian-approach.html#cb221-5"></a><span class="op">&gt;</span><span class="st"> </span></span>
-<span id="cb221-6"><a href="bayesian-approach.html#cb221-6"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
-<span id="cb221-7"><a href="bayesian-approach.html#cb221-7"></a><span class="er">&gt;</span><span class="st">   </span>happiness <span class="op">~</span><span class="st"> </span>age </span>
-<span id="cb221-8"><a href="bayesian-approach.html#cb221-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
-<span id="cb221-9"><a href="bayesian-approach.html#cb221-9"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="bayesian-approach.html#cb239-1"></a>polynomial2BF <span class="op">/</span><span class="st"> </span>polynomial1BF</span>
+<span id="cb239-2"><a href="bayesian-approach.html#cb239-2"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb239-3"><a href="bayesian-approach.html#cb239-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb239-4"><a href="bayesian-approach.html#cb239-4"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] age <span class="op">+</span><span class="st"> </span>age2 <span class="op">:</span><span class="st"> </span><span class="fl">2.618277e+17</span> ±<span class="fl">0.01</span>%</span>
+<span id="cb239-5"><a href="bayesian-approach.html#cb239-5"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb239-6"><a href="bayesian-approach.html#cb239-6"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb239-7"><a href="bayesian-approach.html#cb239-7"></a><span class="er">&gt;</span><span class="st">   </span>happiness <span class="op">~</span><span class="st"> </span>age </span>
+<span id="cb239-8"><a href="bayesian-approach.html#cb239-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb239-9"><a href="bayesian-approach.html#cb239-9"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
 <div class="exercise">
 <p>How many more times likely is a model with a <strong>quadratic component</strong> of <code>age</code> than one with only a <strong>linear component</strong>?
 <select class='solveme' data-answer='["2.62e+17"]'> <option></option> <option>2.62</option> <option>2.62e-17</option> <option>2.62e+17</option></select></p>
@@ -382,20 +390,20 @@ Explain why
 <p><br />
 </p>
 <p>Next, determine the Bayes Factor for <code>polynomial3</code>:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="bayesian-approach.html#cb222-1"></a>polynomial3BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(happiness <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2 <span class="op">+</span><span class="st"> </span>age3, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="bayesian-approach.html#cb240-1"></a>polynomial3BF &lt;-<span class="st"> </span><span class="kw">lmBF</span>(happiness <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2 <span class="op">+</span><span class="st"> </span>age3, <span class="dt">data =</span> <span class="kw">as.data.frame</span>(SurveyData) )</span></code></pre></div>
 <p><strong>Explanation:</strong> Again, we need to specify the polynomial equation with linear, quadratic, and cubic components separately, hence <code>happiness ~ age + age2 + age3</code>.</p>
 <p><br />
 </p>
 <p>Compare <code>polynomial3BF</code> and <code>polynomial2BF</code>:</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="bayesian-approach.html#cb223-1"></a>polynomial3BF <span class="op">/</span><span class="st"> </span>polynomial2BF</span>
-<span id="cb223-2"><a href="bayesian-approach.html#cb223-2"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
-<span id="cb223-3"><a href="bayesian-approach.html#cb223-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
-<span id="cb223-4"><a href="bayesian-approach.html#cb223-4"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] age <span class="op">+</span><span class="st"> </span>age2 <span class="op">+</span><span class="st"> </span>age3 <span class="op">:</span><span class="st"> </span><span class="fl">0.1631281</span> ±<span class="dv">0</span>%</span>
-<span id="cb223-5"><a href="bayesian-approach.html#cb223-5"></a><span class="op">&gt;</span><span class="st"> </span></span>
-<span id="cb223-6"><a href="bayesian-approach.html#cb223-6"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
-<span id="cb223-7"><a href="bayesian-approach.html#cb223-7"></a><span class="er">&gt;</span><span class="st">   </span>happiness <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2 </span>
-<span id="cb223-8"><a href="bayesian-approach.html#cb223-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
-<span id="cb223-9"><a href="bayesian-approach.html#cb223-9"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="bayesian-approach.html#cb241-1"></a>polynomial3BF <span class="op">/</span><span class="st"> </span>polynomial2BF</span>
+<span id="cb241-2"><a href="bayesian-approach.html#cb241-2"></a><span class="op">&gt;</span><span class="st"> </span>Bayes factor analysis</span>
+<span id="cb241-3"><a href="bayesian-approach.html#cb241-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">--------------</span></span>
+<span id="cb241-4"><a href="bayesian-approach.html#cb241-4"></a><span class="er">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] age <span class="op">+</span><span class="st"> </span>age2 <span class="op">+</span><span class="st"> </span>age3 <span class="op">:</span><span class="st"> </span><span class="fl">0.1631281</span> ±<span class="dv">0</span>%</span>
+<span id="cb241-5"><a href="bayesian-approach.html#cb241-5"></a><span class="op">&gt;</span><span class="st"> </span></span>
+<span id="cb241-6"><a href="bayesian-approach.html#cb241-6"></a><span class="er">&gt;</span><span class="st"> </span>Against denominator<span class="op">:</span></span>
+<span id="cb241-7"><a href="bayesian-approach.html#cb241-7"></a><span class="er">&gt;</span><span class="st">   </span>happiness <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>age2 </span>
+<span id="cb241-8"><a href="bayesian-approach.html#cb241-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="op">---</span></span>
+<span id="cb241-9"><a href="bayesian-approach.html#cb241-9"></a><span class="er">&gt;</span><span class="st"> </span>Bayes factor type<span class="op">:</span><span class="st"> </span>BFlinearModel, JZS</span></code></pre></div>
 <div class="exercise">
 <p>How many more times likely is a model with a <strong>cubic component</strong> than one with only <strong>linear and quadratic components</strong>?
 <span id="Q436931" class="webex-fitb"><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["0.16"]'/><span class="solvedme"></span></span></p>
@@ -424,7 +432,7 @@ On the basis of the model comparison with Bayes Factors, which model should be p
         </div>
       </div>
 <a href="identifying-polynomial-components.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exercise.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exercise-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
