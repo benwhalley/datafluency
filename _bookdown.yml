@@ -17,8 +17,8 @@ rmd_files:
     "05-uncertainty.rmd",
 
 
-    "06-fitting-curves.rmd",
-    "07-building-models.rmd",
+    "06-building-models.rmd",
+    "07-fitting-curves.rmd",
     "08-testing.rmd",
     "09-communicating.rmd",
     "09-real.rmd",
