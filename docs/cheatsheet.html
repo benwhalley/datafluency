@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Cheatsheet | Data Fluency</title>
   <meta name="description" content="Cheatsheet | Data Fluency" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Cheatsheet | Data Fluency" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="common-problems.html">
-<link rel="next" href="sample-n.html">
+<link rel="prev" href="common-problems.html"/>
+<link rel="next" href="sample-n.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -64,27 +68,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -93,9 +96,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -144,7 +147,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li><a href="index.html#section"></a></li>
-<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a><ul>
+<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a>
+<ul>
 <li class="chapter" data-level="" data-path="approach-of-this-course.html"><a href="approach-of-this-course.html"><i class="fa fa-check"></i>Approach of this course</a></li>
 <li class="chapter" data-level="" data-path="format-of-the-sessions.html"><a href="format-of-the-sessions.html"><i class="fa fa-check"></i>Format of the sessions</a></li>
 <li class="chapter" data-level="" data-path="the-most-important-thing-of-all.html"><a href="the-most-important-thing-of-all.html"><i class="fa fa-check"></i>The most important thing of all</a></li>
@@ -154,12 +158,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="teachers-notes.html"><a href="teachers-notes.html"><i class="fa fa-check"></i>Teachers’ notes</a></li>
 <li class="chapter" data-level="" data-path="week-by-week-resources.html"><a href="week-by-week-resources.html"><i class="fa fa-check"></i>Week-by-week resources</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a><ul>
+<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a>
+<ul>
 <li class="chapter" data-level="" data-path="core-skills-test.html"><a href="core-skills-test.html"><i class="fa fa-check"></i>Core skills test</a></li>
 <li class="chapter" data-level="" data-path="analysis-and-visualisation-task.html"><a href="analysis-and-visualisation-task.html"><i class="fa fa-check"></i>Analysis and visualisation task</a></li>
 <li class="chapter" data-level="" data-path="assessment-authentic-analysis.html"><a href="assessment-authentic-analysis.html"><i class="fa fa-check"></i>Authentic analysis assessment</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a><ul>
+<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-started-rstudio.html"><a href="getting-started-rstudio.html"><i class="fa fa-check"></i>Getting started with RStudio</a></li>
 <li class="chapter" data-level="" data-path="exploring-data-brief.html"><a href="exploring-data-brief.html"><i class="fa fa-check"></i>Exploring data (in brief)</a></li>
 <li class="chapter" data-level="" data-path="inspecting-data.html"><a href="inspecting-data.html"><i class="fa fa-check"></i>Inspecting data</a></li>
@@ -169,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sequences-and-designs.html"><a href="sequences-and-designs.html"><i class="fa fa-check"></i>Sequences and designs</a></li>
 <li class="chapter" data-level="" data-path="more-reading-data.html"><a href="more-reading-data.html"><i class="fa fa-check"></i>Reading data</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a><ul>
+<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a>
+<ul>
 <li class="chapter" data-level="" data-path="session1.html"><a href="session1.html"><i class="fa fa-check"></i>Session 1</a></li>
 <li class="chapter" data-level="" data-path="countries-200-years.html"><a href="countries-200-years.html"><i class="fa fa-check"></i>200 countries, 200 years…</a></li>
 <li class="chapter" data-level="" data-path="into-the-third-and-fourth-and-fifth-dimension.html"><a href="into-the-third-and-fourth-and-fifth-dimension.html"><i class="fa fa-check"></i>Into the third (and fourth, and fifth…) dimension</a></li>
@@ -180,7 +187,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="spit-and-polish.html"><a href="spit-and-polish.html"><i class="fa fa-check"></i>Spit and polish</a></li>
 <li class="chapter" data-level="" data-path="session-2-real-world-plots.html"><a href="session-2-real-world-plots.html"><i class="fa fa-check"></i>Session 2: Real world plots</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a><ul>
+<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a>
+<ul>
 <li class="chapter" data-level="" data-path="overview-1.html"><a href="overview-1.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="making-new-variables.html"><a href="making-new-variables.html"><i class="fa fa-check"></i>Making new variables</a></li>
 <li class="chapter" data-level="" data-path="reshaping-melting.html"><a href="reshaping-melting.html"><i class="fa fa-check"></i>Reshaping (melting)</a></li>
@@ -189,7 +197,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="final-task-to-be-completed-as-homework.html"><a href="final-task-to-be-completed-as-homework.html"><i class="fa fa-check"></i>Final task (to be completed as homework)</a></li>
 <li class="chapter" data-level="" data-path="extension-exercises-and-reading.html"><a href="extension-exercises-and-reading.html"><i class="fa fa-check"></i>Extension exercises and reading</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a><ul>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1.html"><a href="session-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 <li class="chapter" data-level="" data-path="how-useful-are-the-lines.html"><a href="how-useful-are-the-lines.html"><i class="fa fa-check"></i>How useful are the lines?</a></li>
 <li class="chapter" data-level="" data-path="using-r-for-regression.html"><a href="using-r-for-regression.html"><i class="fa fa-check"></i>Using R for regression</a></li>
@@ -202,36 +211,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="tricky-relationships.html"><a href="tricky-relationships.html"><i class="fa fa-check"></i>‘Tricky’ relationships</a></li>
 <li class="chapter" data-level="" data-path="diagrams-and-models.html"><a href="diagrams-and-models.html"><i class="fa fa-check"></i>Diagrams and models</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple regression</a><ul>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-multiple-regression.html"><a href="why-multiple-regression.html"><i class="fa fa-check"></i>Why use multiple regression?</a></li>
 <li class="chapter" data-level="" data-path="regression-interaction.html"><a href="regression-interaction.html"><i class="fa fa-check"></i>Different relationships?</a></li>
 <li><a href="fit-multiple-regression.html#fit-multiple-regression">Using <code>lm</code> for multiple regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a><ul>
+<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a>
+<ul>
 <li class="chapter" data-level="" data-path="overview-3.html"><a href="overview-3.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="calculating-intervals.html"><a href="calculating-intervals.html"><i class="fa fa-check"></i>Calculating intervals</a></li>
-<li class="chapter" data-level="" data-path="recap-on-intervals.html"><a href="recap-on-intervals.html"><i class="fa fa-check"></i>Recap on intervals</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points.html"><a href="summary-of-key-points.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 <li class="chapter" data-level="" data-path="beyond-intervals-extension-exercises.html"><a href="beyond-intervals-extension-exercises.html"><i class="fa fa-check"></i>Beyond intervals (extension exercises)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a><ul>
+<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-1.html"><a href="session-1-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a><ul>
+<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-multiple-regression.html"><a href="session-1-multiple-regression.html"><i class="fa fa-check"></i>Session 1: Multiple regression</a></li>
 <li class="chapter" data-level="" data-path="session-2-anova-and-bayes-factor.html"><a href="session-2-anova-and-bayes-factor.html"><i class="fa fa-check"></i>Session 2: Anova and Bayes Factor</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a><ul>
+<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
+<ul>
 <li><a href="session-1-planned-contrasts-with-emmeans.html#session-1-planned-contrasts-with-emmeans">Session 1: Planned contrasts with <code>emmeans</code></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a><ul>
+<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-communicating-anova-and-regression.html"><a href="session-1-communicating-anova-and-regression.html"><i class="fa fa-check"></i>Session 1: Communicating Anova and Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a><ul>
+<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-reproducing-a-real-paper.html"><a href="session-2-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 2: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-3-reproducing-a-real-paper.html"><a href="session-3-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 3: Reproducing a real paper</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a><ul>
+<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
+<ul>
 <li class="chapter" data-level="" data-path="keyboard-shortcuts.html"><a href="keyboard-shortcuts.html"><i class="fa fa-check"></i>Keyboard shortcuts</a></li>
 <li class="chapter" data-level="" data-path="common-problems.html"><a href="common-problems.html"><i class="fa fa-check"></i>Common problems</a></li>
 <li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html"><i class="fa fa-check"></i>Cheatsheet</a></li>
@@ -269,43 +286,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Cheatsheet</h2>
 <p>This covers everything we have done to-date (or will soon), in abbreviated form. You will need to
 load tidyverse for most of these examples:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="cheatsheet.html#cb204-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <div id="basics" class="section level3">
 <h3>Basics</h3>
 <p>Assign a value to a name (variable):</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">meaningoflife &lt;-<span class="st"> </span><span class="dv">43</span></a></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="cheatsheet.html#cb205-1"></a>meaningoflife &lt;-<span class="st"> </span><span class="dv">43</span></span></code></pre></div>
 <p>Simple arithmetic</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1"><span class="dv">2</span><span class="op">+</span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="cheatsheet.html#cb206-1"></a><span class="dv">2</span><span class="op">+</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="dv">2</span><span class="op">*</span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="cheatsheet.html#cb208-1"></a><span class="dv">2</span><span class="op">*</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="dv">2</span><span class="op">^</span><span class="dv">3</span> <span class="co"># 2 cubed</span></a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="cheatsheet.html#cb210-1"></a><span class="dv">2</span><span class="op">^</span><span class="dv">3</span> <span class="co"># 2 cubed</span></span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <p>Compare values:</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span>  <span class="co"># note the doubled = sign</span></a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="cheatsheet.html#cb212-1"></a><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span>  <span class="co"># note the doubled = sign</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="dv">2</span> <span class="op">!=</span><span class="st"> </span><span class="dv">4</span>  <span class="co"># 2 is not equal to 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="cheatsheet.html#cb214-1"></a><span class="dv">2</span> <span class="op">!=</span><span class="st"> </span><span class="dv">4</span>  <span class="co"># 2 is not equal to 4</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="dv">2</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="cheatsheet.html#cb216-1"></a><span class="dv">2</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="dv">2</span> <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="cheatsheet.html#cb218-1"></a><span class="dv">2</span> <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="sequences" class="section level3">
 <h3>Sequences</h3>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="cheatsheet.html#cb220-1"></a><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="cheatsheet.html#cb222-1"></a><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>, <span class="dt">by=</span><span class="dv">7</span>) <span class="co"># 7 times table</span></a></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="cheatsheet.html#cb224-1"></a><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>, <span class="dt">by=</span><span class="dv">7</span>) <span class="co"># 7 times table</span></span></code></pre></div>
 <pre><code>##  [1]  1  8 15 22 29 36 43 50 57 64 71 78 85 92 99</code></pre>
 <p>For strings use <code>c()</code></p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">c</span>(<span class="st">&quot;Wibble&quot;</span>, <span class="st">&quot;Wobble&quot;</span>, <span class="st">&quot;Nobble&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="cheatsheet.html#cb226-1"></a><span class="kw">c</span>(<span class="st">&quot;Wibble&quot;</span>, <span class="st">&quot;Wobble&quot;</span>, <span class="st">&quot;Nobble&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Wibble&quot; &quot;Wobble&quot; &quot;Nobble&quot;</code></pre>
 <p>Combinations of sequences:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="kw">expand.grid</span>(</a>
-<a class="sourceLine" id="cb226-2" data-line-number="2">   <span class="dt">colour=</span><span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Green&quot;</span>),</a>
-<a class="sourceLine" id="cb226-3" data-line-number="3">   <span class="dt">position=</span><span class="kw">c</span>(<span class="st">&quot;Top&quot;</span>, <span class="st">&quot;Bottom&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="cheatsheet.html#cb228-1"></a><span class="kw">expand.grid</span>(</span>
+<span id="cb228-2"><a href="cheatsheet.html#cb228-2"></a>   <span class="dt">colour=</span><span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Green&quot;</span>),</span>
+<span id="cb228-3"><a href="cheatsheet.html#cb228-3"></a>   <span class="dt">position=</span><span class="kw">c</span>(<span class="st">&quot;Top&quot;</span>, <span class="st">&quot;Bottom&quot;</span>))</span></code></pre></div>
 <pre><code>##   colour position
 ## 1    Red      Top
 ## 2  Green      Top
@@ -315,90 +332,200 @@ load tidyverse for most of these examples:</p>
 <div id="randomness" class="section level3">
 <h3>Randomness</h3>
 <p>A random sample:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a></code></pre></div>
-<pre><code>##  [1] 15  6 19 14 20  3  8 17 11  9  5  7 13 12 18 10 16  4  1  2</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="cheatsheet.html#cb230-1"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##  [1] 14 10  8 12  2  4  3 15 17  7 11  1 20 18  6 16  9 13 19  5</code></pre>
 <p>Random-normal numbers:</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">20</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##  [1] -3.7952267  4.8683738  4.6984375 -0.8800375  1.2974794 -1.6752237
-##  [7]  2.5161847 -2.5556002  3.3304257  1.5532047  8.8085297 -8.4015330
-## [13] -2.2055632 -2.4745594  0.5550829 -0.7291749  1.0516393  6.4439260
-## [19] -1.8301321 11.6920189</code></pre>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">5</span>)  <span class="co"># equivalent to line above(but this is a different sample!)</span></a></code></pre></div>
-<pre><code>##  [1]   6.4675233   5.4288484  -4.2175173  -0.4905496   4.7903111
-##  [6]  -4.9039430   5.1881004   1.1173989   6.8109772  -5.6526077
-## [11]   2.7191760  -1.4444022   8.7797033   4.8643602   6.1564507
-## [16]  -0.9411961 -10.1979143  -1.1306625  -4.5603403   1.0981429</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="cheatsheet.html#cb232-1"></a><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">20</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##  [1]  -0.09433613   3.89177323  -6.00502264   4.78736249  -0.93985129
+##  [6]  -3.39189538   1.46107885   5.00503443 -10.01043799  -2.02950317
+## [11]  -0.93777785  -0.48575162   5.43025942   0.41851862   5.94034477
+## [16]  -0.12298829   8.52264570   0.17686288   6.41572572   6.83912403</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="cheatsheet.html#cb234-1"></a><span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">5</span>)  <span class="co"># equivalent to line above(but this is a different sample!)</span></span></code></pre></div>
+<pre><code>##  [1]  0.8418703  1.5286804  6.1413348  2.7241924  3.7354211  3.9537211
+##  [7] -3.1676548  6.4642689 -5.2935279 -9.4172606  8.4095836 -1.9157758
+## [13] -2.0902027 -5.9706702  7.1982241  7.6219220  0.7705742 -2.9484185
+## [19] -3.8024319 -4.3825453</code></pre>
 <p>Other types of random numbers:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">runif</span>(<span class="dv">10</span>)</a></code></pre></div>
-<pre><code>##  [1] 0.46432631 0.20948198 0.03213993 0.85821662 0.85084659 0.35337835
-##  [7] 0.87977201 0.74043834 0.17535316 0.21745350</code></pre>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span>.<span class="dv">5</span>) <span class="co"># like a coin toss where 1=heads</span></a></code></pre></div>
-<pre><code>##  [1] 0 0 1 0 0 0 0 0 1 1</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">prob=</span>.<span class="dv">5</span>) <span class="co"># like best of 5 coin tosses</span></a></code></pre></div>
-<pre><code>##  [1] 3 2 2 2 1 4 5 2 4 4</code></pre>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="cheatsheet.html#cb236-1"></a><span class="kw">runif</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1] 0.7863909 0.1221291 0.9563164 0.5965668 0.1708478 0.7767588 0.1418217
+##  [8] 0.7678322 0.8580861 0.4936911</code></pre>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="cheatsheet.html#cb238-1"></a><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span>.<span class="dv">5</span>) <span class="co"># like a coin toss where 1=heads</span></span></code></pre></div>
+<pre><code>##  [1] 0 0 0 0 1 1 1 1 0 1</code></pre>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="cheatsheet.html#cb240-1"></a><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">prob=</span>.<span class="dv">5</span>) <span class="co"># like best of 5 coin tosses</span></span></code></pre></div>
+<pre><code>##  [1] 4 2 4 4 2 3 2 3 1 2</code></pre>
 </div>
 <div id="loading-data-1" class="section level3">
 <h3>Loading data</h3>
 <p>CSV:</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;filename.csv&#39;</span>) <span class="co"># from a file on your server account</span></a>
-<a class="sourceLine" id="cb240-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;&lt;URL&gt;&#39;</span>) <span class="co"># direct from the web</span></a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="cheatsheet.html#cb242-1"></a>df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;filename.csv&#39;</span>) <span class="co"># from a file on your server account</span></span>
+<span id="cb242-2"><a href="cheatsheet.html#cb242-2"></a>df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;&lt;URL&gt;&#39;</span>) <span class="co"># direct from the web</span></span></code></pre></div>
 <p>SPSS:</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1"><span class="kw">library</span>(haven)  <span class="co"># load haven first</span></a>
-<a class="sourceLine" id="cb241-2" data-line-number="2">df_from_spss &lt;-<span class="st"> </span><span class="kw">read_spss</span>(<span class="st">&#39;filename.sav&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="cheatsheet.html#cb243-1"></a><span class="kw">library</span>(haven)  <span class="co"># load haven first</span></span>
+<span id="cb243-2"><a href="cheatsheet.html#cb243-2"></a>df_from_spss &lt;-<span class="st"> </span><span class="kw">read_spss</span>(<span class="st">&#39;filename.sav&#39;</span>)</span></code></pre></div>
 <p>Excel (note different sheets are loaded from same file):</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">expt1 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;simple-excel-example.xlsx&#39;</span>, <span class="dt">sheet=</span><span class="st">&quot;Experiment 1&quot;</span>)</a>
-<a class="sourceLine" id="cb242-2" data-line-number="2">expt2 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;simple-excel-example.xlsx&#39;</span>, <span class="dt">sheet=</span><span class="st">&quot;Experiment 2&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="cheatsheet.html#cb244-1"></a>expt1 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;simple-excel-example.xlsx&#39;</span>, <span class="dt">sheet=</span><span class="st">&quot;Experiment 1&quot;</span>)</span>
+<span id="cb244-2"><a href="cheatsheet.html#cb244-2"></a>expt2 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;simple-excel-example.xlsx&#39;</span>, <span class="dt">sheet=</span><span class="st">&quot;Experiment 2&quot;</span>)</span></code></pre></div>
 </div>
 <div id="looking-at-datasets" class="section level3">
 <h3>‘Looking at’ datasets</h3>
 <p>If a dataset is large we don’t want to look at it all at once.</p>
 <p>Show the first 3 rows for all variables:</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="cheatsheet.html#cb245-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
 ## 3          4.7         3.2          1.3         0.2  setosa</code></pre>
 <p>Show a list of all the <strong><em>columns</em></strong> with as many datapoints as fit in the window:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span>glimpse</a></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="cheatsheet.html#cb247-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span>glimpse</span></code></pre></div>
 <pre><code>## Observations: 150
 ## Variables: 5
-## $ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5…
-## $ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3…
-## $ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1…
-## $ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0…
-## $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, set…</code></pre>
+## $ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4…
+## $ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3…
+## $ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1…
+## $ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0…
+## $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, …</code></pre>
 <p>Calculate some useful summaries of all variables in the dataset:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" data-line-number="1"><span class="kw">library</span>(skimr)</a></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;skimr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter</code></pre>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">skim</span>()</a></code></pre></div>
-<pre><code>## Skim summary statistics
-##  n obs: 150 
-##  n variables: 5 
-## 
-## ── Variable type:factor ───────────────────────────────────────────────────
-##  variable missing complete   n n_unique                       top_counts
-##   Species       0      150 150        3 set: 50, ver: 50, vir: 50, NA: 0
-##  ordered
-##    FALSE
-## 
-## ── Variable type:numeric ──────────────────────────────────────────────────
-##      variable missing complete   n mean   sd  p0 p25  p50 p75 p100
-##  Petal.Length       0      150 150 3.76 1.77 1   1.6 4.35 5.1  6.9
-##   Petal.Width       0      150 150 1.2  0.76 0.1 0.3 1.3  1.8  2.5
-##  Sepal.Length       0      150 150 5.84 0.83 4.3 5.1 5.8  6.4  7.9
-##   Sepal.Width       0      150 150 3.06 0.44 2   2.8 3    3.3  4.4
-##      hist
-##  ▇▁▁▂▅▅▃▁
-##  ▇▁▁▅▃▃▂▂
-##  ▂▇▅▇▆▅▂▂
-##  ▁▂▅▇▃▂▁▁</code></pre>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="cheatsheet.html#cb249-1"></a><span class="kw">library</span>(skimr)</span>
+<span id="cb249-2"><a href="cheatsheet.html#cb249-2"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">skim</span>()</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-17">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">Piped data</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">150</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">factor</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">4</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">ordered</th>
+<th align="right">n_unique</th>
+<th align="center">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Species</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">3</td>
+<td align="center">set: 50, ver: 50, vir: 50</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sepal.Length</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.84</td>
+<td align="right">0.83</td>
+<td align="right">4.3</td>
+<td align="right">5.1</td>
+<td align="right">5.80</td>
+<td align="right">6.4</td>
+<td align="right">7.9</td>
+<td align="left">▆▇▇▅▂</td>
+</tr>
+<tr class="even">
+<td align="left">Sepal.Width</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.06</td>
+<td align="right">0.44</td>
+<td align="right">2.0</td>
+<td align="right">2.8</td>
+<td align="right">3.00</td>
+<td align="right">3.3</td>
+<td align="right">4.4</td>
+<td align="left">▁▆▇▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Petal.Length</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.76</td>
+<td align="right">1.77</td>
+<td align="right">1.0</td>
+<td align="right">1.6</td>
+<td align="right">4.35</td>
+<td align="right">5.1</td>
+<td align="right">6.9</td>
+<td align="left">▇▁▆▇▂</td>
+</tr>
+<tr class="even">
+<td align="left">Petal.Width</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.20</td>
+<td align="right">0.76</td>
+<td align="right">0.1</td>
+<td align="right">0.3</td>
+<td align="right">1.30</td>
+<td align="right">1.8</td>
+<td align="right">2.5</td>
+<td align="left">▇▁▇▅▃</td>
+</tr>
+</tbody>
+</table>
 <p>Check for patterns of <a href="missing-data.html#missing-data">missing data</a>:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1"><span class="kw">library</span>(mice)</a>
-<a class="sourceLine" id="cb252-2" data-line-number="2">boys <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">md.pattern</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="cheatsheet.html#cb250-1"></a><span class="kw">library</span>(mice)</span>
+<span id="cb250-2"><a href="cheatsheet.html#cb250-2"></a>boys <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">md.pattern</span>()</span></code></pre></div>
 <p><img src="extras-gloss-and-cheat_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <pre><code>##     age reg wgt hgt bmi hc gen phb  tv     
 ## 223   1   1   1   1   1  1   1   1   1    0
@@ -420,7 +547,7 @@ load tidyverse for most of these examples:</p>
 <h3>Choosing columns and rows</h3>
 <div id="selecting-columns" class="section level4">
 <h4>Selecting columns</h4>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(mpg, wt) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="cheatsheet.html#cb252-1"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(mpg, wt) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>##                    mpg    wt
 ## Mazda RX4         21.0 2.620
 ## Mazda RX4 Wag     21.0 2.875
@@ -429,7 +556,7 @@ load tidyverse for most of these examples:</p>
 ## Hornet Sportabout 18.7 3.440
 ## Valiant           18.1 3.460</code></pre>
 <p>Selecting columns which start with a particular string:</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&#39;Sepal&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>head</a></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="cheatsheet.html#cb254-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&#39;Sepal&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width
 ## 1          5.1         3.5
 ## 2          4.9         3.0
@@ -438,7 +565,7 @@ load tidyverse for most of these examples:</p>
 ## 5          5.0         3.6
 ## 6          5.4         3.9</code></pre>
 <p>Selecting columns which match a name:</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&#39;Width&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>head</a></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="cheatsheet.html#cb256-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&#39;Width&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##   Sepal.Width Petal.Width
 ## 1         3.5         0.2
 ## 2         3.0         0.2
@@ -449,7 +576,7 @@ load tidyverse for most of these examples:</p>
 </div>
 <div id="renaming-columns" class="section level4">
 <h4>Renaming columns</h4>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(wt) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">weight=</span>wt) <span class="op">%&gt;%</span><span class="st"> </span>head</a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="cheatsheet.html#cb258-1"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(wt) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">weight=</span>wt) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##                   weight
 ## Mazda RX4          2.620
 ## Mazda RX4 Wag      2.875
@@ -463,7 +590,7 @@ load tidyverse for most of these examples:</p>
 <p>If you do end up with spaces in your column names, you can still access them by putting ‘backticks’
 around the name.</p>
 <p>Our annoying dataframe is like this:</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1">annoying_dataframe  <span class="op">%&gt;%</span><span class="st"> </span>head</a></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="cheatsheet.html#cb260-1"></a>annoying_dataframe  <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 1
 ##   `What is your favourite colour?`
 ##   &lt;chr&gt;                           
@@ -471,9 +598,9 @@ around the name.</p>
 ## 2 Blue                            
 ## 3 Green</code></pre>
 <p>Rename the column:</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">annoying_dataframe <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb264-2" data-line-number="2"><span class="st">  </span><span class="kw">rename</span>(<span class="st">&#39;favourite_colour&#39;</span> =<span class="st"> `</span><span class="dt">What is your favourite colour?</span><span class="st">`</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb264-3" data-line-number="3"><span class="st">  </span>head</a></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="cheatsheet.html#cb262-1"></a>annoying_dataframe <span class="op">%&gt;%</span></span>
+<span id="cb262-2"><a href="cheatsheet.html#cb262-2"></a><span class="st">  </span><span class="kw">rename</span>(<span class="st">&#39;favourite_colour&#39;</span> =<span class="st"> `</span><span class="dt">What is your favourite colour?</span><span class="st">`</span>) <span class="op">%&gt;%</span></span>
+<span id="cb262-3"><a href="cheatsheet.html#cb262-3"></a><span class="st">  </span>head</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 1
 ##   favourite_colour
 ##   &lt;chr&gt;           
@@ -484,7 +611,7 @@ around the name.</p>
 <div id="filtering-rows" class="section level4">
 <h4>Filtering rows</h4>
 <p>Select rows where a variable matches a particular number:</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1">gapminder<span class="op">::</span>gapminder <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(year<span class="op">==</span><span class="dv">2002</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</a></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="cheatsheet.html#cb264-1"></a>gapminder<span class="op">::</span>gapminder <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(year<span class="op">==</span><span class="dv">2002</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 6
 ##   country     continent  year lifeExp      pop gdpPercap
 ##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
@@ -495,7 +622,7 @@ around the name.</p>
 ## 5 Argentina   Americas   2002    74.3 38331121     8798.
 ## 6 Australia   Oceania    2002    80.4 19546792    30688.</code></pre>
 <p>Select rows where a variable matches a particular string value (letters/words):</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Species<span class="op">==</span><span class="st">&quot;setosa&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</a></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="cheatsheet.html#cb266-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Species<span class="op">==</span><span class="st">&quot;setosa&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -504,12 +631,12 @@ around the name.</p>
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 <p>Select rows meeting (both of) 2 criteria:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(wt <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>cyl <span class="op">==</span><span class="st"> </span><span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="cheatsheet.html#cb268-1"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(wt <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>cyl <span class="op">==</span><span class="st"> </span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##    mpg cyl  disp hp drat   wt qsec vs am gear carb
 ## 1 24.4   4 146.7 62 3.69 3.19 20.0  1  0    4    2
 ## 2 22.8   4 140.8 95 3.92 3.15 22.9  1  0    4    2</code></pre>
 <p>Select rows meeting either one criteria OR another:</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(wt <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>cyl <span class="op">==</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</a></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="cheatsheet.html#cb270-1"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(wt <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>cyl <span class="op">==</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## 1 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
 ## 2 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
@@ -522,15 +649,15 @@ around the name.</p>
 <div id="cheat-group-summary" class="section level3">
 <h3>Groups and summaries</h3>
 <p>Calculate statistics on a dataset:</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">mean</span>(Sepal.Length), <span class="kw">mean</span>(Sepal.Width))</a></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="cheatsheet.html#cb272-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">mean</span>(Sepal.Length), <span class="kw">mean</span>(Sepal.Width))</span></code></pre></div>
 <pre><code>##   mean(Sepal.Length) mean(Sepal.Width)
 ## 1           5.843333          3.057333</code></pre>
 <p>Give our summary variables specific names (these are bad names, don’t do this!):</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">wibble=</span><span class="kw">mean</span>(Sepal.Length), <span class="dt">wobble=</span><span class="kw">mean</span>(Sepal.Width))</a></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="cheatsheet.html#cb274-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">wibble=</span><span class="kw">mean</span>(Sepal.Length), <span class="dt">wobble=</span><span class="kw">mean</span>(Sepal.Width))</span></code></pre></div>
 <pre><code>##     wibble   wobble
 ## 1 5.843333 3.057333</code></pre>
 <p>Calculate summaries for groups in the a dataset:</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">mean</span>(Sepal.Length), <span class="kw">sd</span>(Sepal.Length))</a></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="cheatsheet.html#cb276-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">mean</span>(Sepal.Length), <span class="kw">sd</span>(Sepal.Length))</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   Species    `mean(Sepal.Length)` `sd(Sepal.Length)`
 ##   &lt;fct&gt;                     &lt;dbl&gt;              &lt;dbl&gt;
@@ -542,28 +669,28 @@ around the name.</p>
 <h3>Plotting</h3>
 <p>Also see the <a href="visualisation.html#visualisation">section on visualisation</a>.</p>
 <p>Density plot with colours:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1">diamonds  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb280-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>price, <span class="dt">y=</span>..scaled.., <span class="dt">color=</span><span class="kw">factor</span>(color))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb280-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="cheatsheet.html#cb278-1"></a>diamonds  <span class="op">%&gt;%</span></span>
+<span id="cb278-2"><a href="cheatsheet.html#cb278-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>price, <span class="dt">y=</span>..scaled.., <span class="dt">color=</span><span class="kw">factor</span>(color))) <span class="op">+</span></span>
+<span id="cb278-3"><a href="cheatsheet.html#cb278-3"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
 <p><img src="extras-gloss-and-cheat_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>Scatterplot, with facets:</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb281-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>carat, <span class="dt">y=</span>price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb281-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb281-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>color)</a></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="cheatsheet.html#cb279-1"></a>diamonds <span class="op">%&gt;%</span></span>
+<span id="cb279-2"><a href="cheatsheet.html#cb279-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>carat, <span class="dt">y=</span>price)) <span class="op">+</span></span>
+<span id="cb279-3"><a href="cheatsheet.html#cb279-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb279-4"><a href="cheatsheet.html#cb279-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>color)</span></code></pre></div>
 <p><img src="extras-gloss-and-cheat_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <p>Boxplot, with added line:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb282-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>cut, <span class="dt">y=</span>carat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb282-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb282-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span>.<span class="dv">5</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="cheatsheet.html#cb280-1"></a>diamonds <span class="op">%&gt;%</span></span>
+<span id="cb280-2"><a href="cheatsheet.html#cb280-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>cut, <span class="dt">y=</span>carat)) <span class="op">+</span></span>
+<span id="cb280-3"><a href="cheatsheet.html#cb280-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb280-4"><a href="cheatsheet.html#cb280-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span>.<span class="dv">5</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>)</span></code></pre></div>
 <p><img src="extras-gloss-and-cheat_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>Scatterplot with logarithmic scale on x axis, with point sizes scaled (to country-size <code>pop</code>):</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1">gapminder<span class="op">::</span>gapminder <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb283-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(year<span class="op">==</span><span class="dv">2002</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb283-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gdpPercap, lifeExp, <span class="dt">size=</span>pop)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb283-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb283-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_x_log10</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="cheatsheet.html#cb281-1"></a>gapminder<span class="op">::</span>gapminder <span class="op">%&gt;%</span></span>
+<span id="cb281-2"><a href="cheatsheet.html#cb281-2"></a><span class="st">  </span><span class="kw">filter</span>(year<span class="op">==</span><span class="dv">2002</span>) <span class="op">%&gt;%</span></span>
+<span id="cb281-3"><a href="cheatsheet.html#cb281-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gdpPercap, lifeExp, <span class="dt">size=</span>pop)) <span class="op">+</span></span>
+<span id="cb281-4"><a href="cheatsheet.html#cb281-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb281-5"><a href="cheatsheet.html#cb281-5"></a><span class="st">  </span><span class="kw">scale_x_log10</span>()</span></code></pre></div>
 <p><img src="extras-gloss-and-cheat_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 
 </div>
@@ -579,11 +706,13 @@ around the name.</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -591,12 +720,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -608,6 +736,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -626,8 +758,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

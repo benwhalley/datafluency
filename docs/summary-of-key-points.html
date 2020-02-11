@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Summary of key points | Data Fluency</title>
   <meta name="description" content="Summary of key points | Data Fluency" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Summary of key points | Data Fluency" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="calculating-intervals.html">
-<link rel="next" href="beyond-intervals-extension-exercises.html">
+<link rel="prev" href="calculating-intervals.html"/>
+<link rel="next" href="beyond-intervals-extension-exercises.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -64,27 +68,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -93,9 +96,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -143,7 +146,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Data Fluency</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#section"></a><ul>
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a>
+<ul>
 <li class="chapter" data-level="" data-path="approach-of-this-course.html"><a href="approach-of-this-course.html"><i class="fa fa-check"></i>Approach of this course</a></li>
 <li class="chapter" data-level="" data-path="format-of-the-sessions.html"><a href="format-of-the-sessions.html"><i class="fa fa-check"></i>Format of the sessions</a></li>
 <li class="chapter" data-level="" data-path="the-most-important-thing-of-all.html"><a href="the-most-important-thing-of-all.html"><i class="fa fa-check"></i>The most important thing of all</a></li>
@@ -153,12 +158,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="teachers-notes.html"><a href="teachers-notes.html"><i class="fa fa-check"></i>Teachers’ notes</a></li>
 <li class="chapter" data-level="" data-path="week-by-week-resources.html"><a href="week-by-week-resources.html"><i class="fa fa-check"></i>Week-by-week resources</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a><ul>
+<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a>
+<ul>
 <li class="chapter" data-level="" data-path="core-skills-test.html"><a href="core-skills-test.html"><i class="fa fa-check"></i>Core skills test</a></li>
 <li class="chapter" data-level="" data-path="analysis-and-visualisation-task.html"><a href="analysis-and-visualisation-task.html"><i class="fa fa-check"></i>Analysis and visualisation task</a></li>
 <li class="chapter" data-level="" data-path="assessment-authentic-analysis.html"><a href="assessment-authentic-analysis.html"><i class="fa fa-check"></i>Authentic analysis assessment</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a><ul>
+<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-started-rstudio.html"><a href="getting-started-rstudio.html"><i class="fa fa-check"></i>Getting started with RStudio</a></li>
 <li class="chapter" data-level="" data-path="exploring-data-brief.html"><a href="exploring-data-brief.html"><i class="fa fa-check"></i>Exploring data (in brief)</a></li>
 <li class="chapter" data-level="" data-path="inspecting-data.html"><a href="inspecting-data.html"><i class="fa fa-check"></i>Inspecting data</a></li>
@@ -168,9 +175,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sequences-and-designs.html"><a href="sequences-and-designs.html"><i class="fa fa-check"></i>Sequences and designs</a></li>
 <li class="chapter" data-level="" data-path="more-reading-data.html"><a href="more-reading-data.html"><i class="fa fa-check"></i>Reading data</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a><ul>
+<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a>
+<ul>
 <li class="chapter" data-level="" data-path="session1.html"><a href="session1.html"><i class="fa fa-check"></i>Session 1</a></li>
-<li class="chapter" data-level="" data-path="learning-outcomes.html"><a href="learning-outcomes.html"><i class="fa fa-check"></i>Learning outcomes</a></li>
 <li class="chapter" data-level="" data-path="countries-200-years.html"><a href="countries-200-years.html"><i class="fa fa-check"></i>200 countries, 200 years…</a></li>
 <li class="chapter" data-level="" data-path="into-the-third-and-fourth-and-fifth-dimension.html"><a href="into-the-third-and-fourth-and-fifth-dimension.html"><i class="fa fa-check"></i>Into the third (and fourth, and fifth…) dimension</a></li>
 <li class="chapter" data-level="" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i>Layers</a></li>
@@ -180,8 +187,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="spit-and-polish.html"><a href="spit-and-polish.html"><i class="fa fa-check"></i>Spit and polish</a></li>
 <li class="chapter" data-level="" data-path="session-2-real-world-plots.html"><a href="session-2-real-world-plots.html"><i class="fa fa-check"></i>Session 2: Real world plots</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a><ul>
-<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="overview-1.html"><a href="overview-1.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="making-new-variables.html"><a href="making-new-variables.html"><i class="fa fa-check"></i>Making new variables</a></li>
 <li class="chapter" data-level="" data-path="reshaping-melting.html"><a href="reshaping-melting.html"><i class="fa fa-check"></i>Reshaping (melting)</a></li>
 <li class="chapter" data-level="" data-path="reshaping-wide-casting.html"><a href="reshaping-wide-casting.html"><i class="fa fa-check"></i>Reshaping wide (casting)</a></li>
@@ -189,7 +197,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="final-task-to-be-completed-as-homework.html"><a href="final-task-to-be-completed-as-homework.html"><i class="fa fa-check"></i>Final task (to be completed as homework)</a></li>
 <li class="chapter" data-level="" data-path="extension-exercises-and-reading.html"><a href="extension-exercises-and-reading.html"><i class="fa fa-check"></i>Extension exercises and reading</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a><ul>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1.html"><a href="session-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 <li class="chapter" data-level="" data-path="how-useful-are-the-lines.html"><a href="how-useful-are-the-lines.html"><i class="fa fa-check"></i>How useful are the lines?</a></li>
 <li class="chapter" data-level="" data-path="using-r-for-regression.html"><a href="using-r-for-regression.html"><i class="fa fa-check"></i>Using R for regression</a></li>
@@ -201,38 +210,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="moderation-intro.html"><a href="moderation-intro.html"><i class="fa fa-check"></i>‘Effect modification’</a></li>
 <li class="chapter" data-level="" data-path="tricky-relationships.html"><a href="tricky-relationships.html"><i class="fa fa-check"></i>‘Tricky’ relationships</a></li>
 <li class="chapter" data-level="" data-path="diagrams-and-models.html"><a href="diagrams-and-models.html"><i class="fa fa-check"></i>Diagrams and models</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-multiple-regression.html"><a href="why-multiple-regression.html"><i class="fa fa-check"></i>Why use multiple regression?</a></li>
 <li class="chapter" data-level="" data-path="regression-interaction.html"><a href="regression-interaction.html"><i class="fa fa-check"></i>Different relationships?</a></li>
 <li><a href="fit-multiple-regression.html#fit-multiple-regression">Using <code>lm</code> for multiple regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a><ul>
-<li class="chapter" data-level="" data-path="overview-2.html"><a href="overview-2.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a>
+<ul>
+<li class="chapter" data-level="" data-path="overview-3.html"><a href="overview-3.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="calculating-intervals.html"><a href="calculating-intervals.html"><i class="fa fa-check"></i>Calculating intervals</a></li>
 <li class="chapter" data-level="" data-path="summary-of-key-points.html"><a href="summary-of-key-points.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 <li class="chapter" data-level="" data-path="beyond-intervals-extension-exercises.html"><a href="beyond-intervals-extension-exercises.html"><i class="fa fa-check"></i>Beyond intervals (extension exercises)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a><ul>
+<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-1.html"><a href="session-1-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a><ul>
+<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-multiple-regression.html"><a href="session-1-multiple-regression.html"><i class="fa fa-check"></i>Session 1: Multiple regression</a></li>
 <li class="chapter" data-level="" data-path="session-2-anova-and-bayes-factor.html"><a href="session-2-anova-and-bayes-factor.html"><i class="fa fa-check"></i>Session 2: Anova and Bayes Factor</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a><ul>
+<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
+<ul>
 <li><a href="session-1-planned-contrasts-with-emmeans.html#session-1-planned-contrasts-with-emmeans">Session 1: Planned contrasts with <code>emmeans</code></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a><ul>
+<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-communicating-anova-and-regression.html"><a href="session-1-communicating-anova-and-regression.html"><i class="fa fa-check"></i>Session 1: Communicating Anova and Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a><ul>
+<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-reproducing-a-real-paper.html"><a href="session-2-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 2: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-3-reproducing-a-real-paper.html"><a href="session-3-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 3: Reproducing a real paper</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a><ul>
+<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
+<ul>
 <li class="chapter" data-level="" data-path="keyboard-shortcuts.html"><a href="keyboard-shortcuts.html"><i class="fa fa-check"></i>Keyboard shortcuts</a></li>
 <li class="chapter" data-level="" data-path="common-problems.html"><a href="common-problems.html"><i class="fa fa-check"></i>Common problems</a></li>
-<li class="chapter" data-level="" data-path="glossary.html"><a href="glossary.html"><i class="fa fa-check"></i>Glossary</a></li>
 <li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html"><i class="fa fa-check"></i>Cheatsheet</a></li>
 <li class="chapter" data-level="" data-path="sample-n.html"><a href="sample-n.html"><i class="fa fa-check"></i>More sampling</a></li>
 <li class="chapter" data-level="" data-path="more-on-tibbles.html"><a href="more-on-tibbles.html"><i class="fa fa-check"></i>More on Tibbles</a></li>
@@ -312,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <button>
 Tell me how to do it!
 </button>
-<p>For the Classical intervals, use <code>predict(model, newdata=..., interval=&quot;...&quot;)</code></p>
+<p>For the Classical intervals, use <code>predict(model, newdata=..., interval="...")</code></p>
 <p>For the Bayesian intervals you need to use <code>add_predicted_samples</code> or <code>add_fitted_samples</code> to get the simulations, and then use <code>mean_qi</code> to get the 95% interval.</p>
 </div>
 <div class="solution">
@@ -320,37 +338,32 @@ Tell me how to do it!
 I give up, show me exactly how to do it…
 </button>
 <p>Classical:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(kid_score <span class="op">~</span><span class="st"> </span>mom_iq <span class="op">+</span><span class="st"> </span>mom_hs <span class="op">+</span><span class="st"> </span>mom_age, <span class="dt">data=</span>kidiq)</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">new.mother &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">mom_iq=</span><span class="dv">100</span>, <span class="dt">mom_hs=</span><span class="st">&quot;Completed&quot;</span>, <span class="dt">mom_age=</span><span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co"># prediction interval</span></a>
-<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="kw">predict</span>(model, <span class="dt">newdata=</span>new.mother, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="summary-of-key-points.html#cb185-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(kid_score <span class="op">~</span><span class="st"> </span>mom_iq <span class="op">+</span><span class="st"> </span>mom_hs <span class="op">+</span><span class="st"> </span>mom_age, <span class="dt">data=</span>kidiq)</span>
+<span id="cb185-2"><a href="summary-of-key-points.html#cb185-2"></a>new.mother &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">mom_iq=</span><span class="dv">100</span>, <span class="dt">mom_hs=</span><span class="st">&quot;Completed&quot;</span>, <span class="dt">mom_age=</span><span class="dv">30</span>)</span>
+<span id="cb185-3"><a href="summary-of-key-points.html#cb185-3"></a></span>
+<span id="cb185-4"><a href="summary-of-key-points.html#cb185-4"></a><span class="co"># prediction interval</span></span>
+<span id="cb185-5"><a href="summary-of-key-points.html#cb185-5"></a><span class="kw">predict</span>(model, <span class="dt">newdata=</span>new.mother, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
 <pre><code>##       fit      lwr      upr
 ## 1 89.6287 53.62501 125.6324</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># confidence interval</span></a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">predict</span>(model, <span class="dt">newdata=</span>new.mother, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="summary-of-key-points.html#cb187-1"></a><span class="co"># confidence interval</span></span>
+<span id="cb187-2"><a href="summary-of-key-points.html#cb187-2"></a><span class="kw">predict</span>(model, <span class="dt">newdata=</span>new.mother, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
 <pre><code>##       fit      lwr     upr
 ## 1 89.6287 84.72269 94.5347</code></pre>
 <p>Bayesian:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">new.mother =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">mom_iq=</span><span class="dv">100</span>, <span class="dt">mom_hs=</span><span class="st">&quot;Completed&quot;</span>, <span class="dt">mom_age=</span><span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="kw">add_predicted_draws</span>(model, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean_qi</span>()</a></code></pre></div>
-<pre><code>## Warning: unnest() has a new interface. See ?unnest for details.
-## Try `df %&gt;% unnest(c(.lower, .upper))`, with `mutate()` if needed</code></pre>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="summary-of-key-points.html#cb189-1"></a>new.mother =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">mom_iq=</span><span class="dv">100</span>, <span class="dt">mom_hs=</span><span class="st">&quot;Completed&quot;</span>, <span class="dt">mom_age=</span><span class="dv">30</span>)</span>
+<span id="cb189-2"><a href="summary-of-key-points.html#cb189-2"></a></span>
+<span id="cb189-3"><a href="summary-of-key-points.html#cb189-3"></a><span class="kw">add_predicted_draws</span>(model, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean_qi</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 10
 ## # Groups:   mom_iq, mom_hs, mom_age [1]
-##   mom_iq mom_hs mom_age  .row .prediction .lower .upper .width .point
-##    &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; 
-## 1    100 Compl…      30     1        90.0   53.7   127.   0.95 mean  
-## # … with 1 more variable: .interval &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">add_fitted_draws</span>(model, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean_qi</span>() <span class="co">#</span></a></code></pre></div>
-<pre><code>## Warning: unnest() has a new interface. See ?unnest for details.
-## Try `df %&gt;% unnest(c(.lower, .upper))`, with `mutate()` if needed</code></pre>
+##   mom_iq mom_hs  mom_age  .row .prediction .lower .upper .width .point .interval
+##    &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+## 1    100 Comple…      30     1        89.5   53.9   125.   0.95 mean   qi</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="summary-of-key-points.html#cb191-1"></a><span class="kw">add_fitted_draws</span>(model, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean_qi</span>() <span class="co">#</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 x 10
 ## # Groups:   mom_iq, mom_hs, mom_age [1]
-##   mom_iq mom_hs  mom_age  .row .value .lower .upper .width .point .interval
-##    &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-## 1    100 Comple…      30     1   89.6   84.5   94.6   0.95 mean   qi</code></pre>
+##   mom_iq mom_hs    mom_age  .row .value .lower .upper .width .point .interval
+##    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+## 1    100 Completed      30     1   89.7   84.8   94.5   0.95 mean   qi</code></pre>
 </div>
 </div>
 </div>
@@ -365,11 +378,13 @@ I give up, show me exactly how to do it…
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -377,12 +392,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -394,6 +408,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -412,8 +430,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

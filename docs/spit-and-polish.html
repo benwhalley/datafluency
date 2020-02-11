@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Spit and polish | Data Fluency</title>
   <meta name="description" content="Spit and polish | Data Fluency" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Spit and polish | Data Fluency" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="comparing-categories.html">
-<link rel="next" href="session-2-real-world-plots.html">
+<link rel="prev" href="comparing-categories.html"/>
+<link rel="next" href="session-2-real-world-plots.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -64,27 +68,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -93,9 +96,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -143,7 +146,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Data Fluency</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#section"></a><ul>
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a>
+<ul>
 <li class="chapter" data-level="" data-path="approach-of-this-course.html"><a href="approach-of-this-course.html"><i class="fa fa-check"></i>Approach of this course</a></li>
 <li class="chapter" data-level="" data-path="format-of-the-sessions.html"><a href="format-of-the-sessions.html"><i class="fa fa-check"></i>Format of the sessions</a></li>
 <li class="chapter" data-level="" data-path="the-most-important-thing-of-all.html"><a href="the-most-important-thing-of-all.html"><i class="fa fa-check"></i>The most important thing of all</a></li>
@@ -153,12 +158,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="teachers-notes.html"><a href="teachers-notes.html"><i class="fa fa-check"></i>Teachers’ notes</a></li>
 <li class="chapter" data-level="" data-path="week-by-week-resources.html"><a href="week-by-week-resources.html"><i class="fa fa-check"></i>Week-by-week resources</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a><ul>
+<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a>
+<ul>
 <li class="chapter" data-level="" data-path="core-skills-test.html"><a href="core-skills-test.html"><i class="fa fa-check"></i>Core skills test</a></li>
 <li class="chapter" data-level="" data-path="analysis-and-visualisation-task.html"><a href="analysis-and-visualisation-task.html"><i class="fa fa-check"></i>Analysis and visualisation task</a></li>
 <li class="chapter" data-level="" data-path="assessment-authentic-analysis.html"><a href="assessment-authentic-analysis.html"><i class="fa fa-check"></i>Authentic analysis assessment</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a><ul>
+<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-started-rstudio.html"><a href="getting-started-rstudio.html"><i class="fa fa-check"></i>Getting started with RStudio</a></li>
 <li class="chapter" data-level="" data-path="exploring-data-brief.html"><a href="exploring-data-brief.html"><i class="fa fa-check"></i>Exploring data (in brief)</a></li>
 <li class="chapter" data-level="" data-path="inspecting-data.html"><a href="inspecting-data.html"><i class="fa fa-check"></i>Inspecting data</a></li>
@@ -168,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sequences-and-designs.html"><a href="sequences-and-designs.html"><i class="fa fa-check"></i>Sequences and designs</a></li>
 <li class="chapter" data-level="" data-path="more-reading-data.html"><a href="more-reading-data.html"><i class="fa fa-check"></i>Reading data</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a><ul>
+<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a>
+<ul>
 <li class="chapter" data-level="" data-path="session1.html"><a href="session1.html"><i class="fa fa-check"></i>Session 1</a></li>
 <li class="chapter" data-level="" data-path="countries-200-years.html"><a href="countries-200-years.html"><i class="fa fa-check"></i>200 countries, 200 years…</a></li>
 <li class="chapter" data-level="" data-path="into-the-third-and-fourth-and-fifth-dimension.html"><a href="into-the-third-and-fourth-and-fifth-dimension.html"><i class="fa fa-check"></i>Into the third (and fourth, and fifth…) dimension</a></li>
@@ -179,8 +187,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="spit-and-polish.html"><a href="spit-and-polish.html"><i class="fa fa-check"></i>Spit and polish</a></li>
 <li class="chapter" data-level="" data-path="session-2-real-world-plots.html"><a href="session-2-real-world-plots.html"><i class="fa fa-check"></i>Session 2: Real world plots</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a><ul>
-<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="overview-1.html"><a href="overview-1.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="making-new-variables.html"><a href="making-new-variables.html"><i class="fa fa-check"></i>Making new variables</a></li>
 <li class="chapter" data-level="" data-path="reshaping-melting.html"><a href="reshaping-melting.html"><i class="fa fa-check"></i>Reshaping (melting)</a></li>
 <li class="chapter" data-level="" data-path="reshaping-wide-casting.html"><a href="reshaping-wide-casting.html"><i class="fa fa-check"></i>Reshaping wide (casting)</a></li>
@@ -188,7 +197,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="final-task-to-be-completed-as-homework.html"><a href="final-task-to-be-completed-as-homework.html"><i class="fa fa-check"></i>Final task (to be completed as homework)</a></li>
 <li class="chapter" data-level="" data-path="extension-exercises-and-reading.html"><a href="extension-exercises-and-reading.html"><i class="fa fa-check"></i>Extension exercises and reading</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a><ul>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1.html"><a href="session-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 <li class="chapter" data-level="" data-path="how-useful-are-the-lines.html"><a href="how-useful-are-the-lines.html"><i class="fa fa-check"></i>How useful are the lines?</a></li>
 <li class="chapter" data-level="" data-path="using-r-for-regression.html"><a href="using-r-for-regression.html"><i class="fa fa-check"></i>Using R for regression</a></li>
@@ -200,38 +210,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="moderation-intro.html"><a href="moderation-intro.html"><i class="fa fa-check"></i>‘Effect modification’</a></li>
 <li class="chapter" data-level="" data-path="tricky-relationships.html"><a href="tricky-relationships.html"><i class="fa fa-check"></i>‘Tricky’ relationships</a></li>
 <li class="chapter" data-level="" data-path="diagrams-and-models.html"><a href="diagrams-and-models.html"><i class="fa fa-check"></i>Diagrams and models</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-multiple-regression.html"><a href="why-multiple-regression.html"><i class="fa fa-check"></i>Why use multiple regression?</a></li>
 <li class="chapter" data-level="" data-path="regression-interaction.html"><a href="regression-interaction.html"><i class="fa fa-check"></i>Different relationships?</a></li>
 <li><a href="fit-multiple-regression.html#fit-multiple-regression">Using <code>lm</code> for multiple regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a><ul>
-<li class="chapter" data-level="" data-path="overview-2.html"><a href="overview-2.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a>
+<ul>
+<li class="chapter" data-level="" data-path="overview-3.html"><a href="overview-3.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="calculating-intervals.html"><a href="calculating-intervals.html"><i class="fa fa-check"></i>Calculating intervals</a></li>
 <li class="chapter" data-level="" data-path="summary-of-key-points.html"><a href="summary-of-key-points.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 <li class="chapter" data-level="" data-path="beyond-intervals-extension-exercises.html"><a href="beyond-intervals-extension-exercises.html"><i class="fa fa-check"></i>Beyond intervals (extension exercises)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a><ul>
+<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-1.html"><a href="session-1-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a><ul>
+<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-multiple-regression.html"><a href="session-1-multiple-regression.html"><i class="fa fa-check"></i>Session 1: Multiple regression</a></li>
 <li class="chapter" data-level="" data-path="session-2-anova-and-bayes-factor.html"><a href="session-2-anova-and-bayes-factor.html"><i class="fa fa-check"></i>Session 2: Anova and Bayes Factor</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a><ul>
+<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
+<ul>
 <li><a href="session-1-planned-contrasts-with-emmeans.html#session-1-planned-contrasts-with-emmeans">Session 1: Planned contrasts with <code>emmeans</code></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a><ul>
+<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-communicating-anova-and-regression.html"><a href="session-1-communicating-anova-and-regression.html"><i class="fa fa-check"></i>Session 1: Communicating Anova and Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a><ul>
+<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-reproducing-a-real-paper.html"><a href="session-2-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 2: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-3-reproducing-a-real-paper.html"><a href="session-3-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 3: Reproducing a real paper</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a><ul>
+<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
+<ul>
 <li class="chapter" data-level="" data-path="keyboard-shortcuts.html"><a href="keyboard-shortcuts.html"><i class="fa fa-check"></i>Keyboard shortcuts</a></li>
 <li class="chapter" data-level="" data-path="common-problems.html"><a href="common-problems.html"><i class="fa fa-check"></i>Common problems</a></li>
-<li class="chapter" data-level="" data-path="glossary.html"><a href="glossary.html"><i class="fa fa-check"></i>Glossary</a></li>
 <li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html"><i class="fa fa-check"></i>Cheatsheet</a></li>
 <li class="chapter" data-level="" data-path="sample-n.html"><a href="sample-n.html"><i class="fa fa-check"></i>More sampling</a></li>
 <li class="chapter" data-level="" data-path="more-on-tibbles.html"><a href="more-on-tibbles.html"><i class="fa fa-check"></i>More on Tibbles</a></li>
@@ -278,11 +297,11 @@ polish up your plots, perhaps including:</p>
 <h3>Labelling axes</h3>
 <p>By default, ggplot uses variable names and the values in your data to label plots. Sometimes these
 are abbreviations, or otherwise need changing.</p>
-<p>To relabel axes we simply add <code>+ xlab(&quot;TEXT&quot;)</code> or <code>+ ylab(&quot;TEXT&quot;)</code> to an existing plot:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Weight (1000s of lbs)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Fuel economy (miles per gallon)&quot;</span>)</a></code></pre></div>
+<p>To relabel axes we simply add <code>+ xlab("TEXT")</code> or <code>+ ylab("TEXT")</code> to an existing plot:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="spit-and-polish.html#cb72-1"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
+<span id="cb72-2"><a href="spit-and-polish.html#cb72-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb72-3"><a href="spit-and-polish.html#cb72-3"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Weight (1000s of lbs)&quot;</span>) <span class="op">+</span></span>
+<span id="cb72-4"><a href="spit-and-polish.html#cb72-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Fuel economy (miles per gallon)&quot;</span>)</span></code></pre></div>
 <p><img src="02-plotting_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <div class="exercise">
 <p>Try adding axis labels to one of your existing plots.</p>
@@ -296,17 +315,17 @@ be useful for your own work, but won’t form part of the assessment.</p>
 </div>
 <p>When adding the colour aesthetic, ggplot uses the variable name to label the plot legend. For
 example:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg, <span class="dt">colour=</span><span class="kw">factor</span>(cyl))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="spit-and-polish.html#cb73-1"></a>mtcars <span class="op">%&gt;%</span></span>
+<span id="cb73-2"><a href="spit-and-polish.html#cb73-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg, <span class="dt">colour=</span><span class="kw">factor</span>(cyl))) <span class="op">+</span></span>
+<span id="cb73-3"><a href="spit-and-polish.html#cb73-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="02-plotting_files/figure-html/unnamed-chunk-25-1.png" width="288" /></p>
 <p>The generated legend label sometimes looks ugly (like above) but this is easy to fix:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg, <span class="dt">colour=</span><span class="kw">factor</span>(cyl))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Cylinders&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="spit-and-polish.html#cb74-1"></a>mtcars <span class="op">%&gt;%</span></span>
+<span id="cb74-2"><a href="spit-and-polish.html#cb74-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg, <span class="dt">colour=</span><span class="kw">factor</span>(cyl))) <span class="op">+</span></span>
+<span id="cb74-3"><a href="spit-and-polish.html#cb74-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb74-4"><a href="spit-and-polish.html#cb74-4"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Cylinders&quot;</span>)</span></code></pre></div>
 <p><img src="02-plotting_files/figure-html/unnamed-chunk-26-1.png" width="288" /></p>
-<p><strong>Explanation</strong>: We added <code>labs(color=&quot;Cylinders&quot;)</code> to the plot to change the legend label.</p>
+<p><strong>Explanation</strong>: We added <code>labs(color="Cylinders")</code> to the plot to change the legend label.</p>
 <div class="exercise">
 <p>Try relabelling the colour legend of one of your existing plots.</p>
 </div>
@@ -317,24 +336,24 @@ example:</p>
 cutoff, or the mean of a sample.</p>
 <p>For example, let’s say we want to make a scatter plot of income in the <code>cps2</code> data, but adding a
 line showing the median income. First we calculate the median:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">median_income =<span class="st"> </span>cps2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">median</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="spit-and-polish.html#cb75-1"></a>median_income =<span class="st"> </span>cps2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">median</span>(income)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(<span class="dv">1</span>)</span></code></pre></div>
 <p><strong>Explanation</strong>: First, we are defining a new variable to equal the mean income in the sample. We do
 this by using <code>summarise(mean(income))</code>. The part which reads <code>pull(1)</code> says “take the first
 column”. We need to do this because <code>summarise()</code> creates a new table, rather than a single value or
 sequence of values (which we need below).</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">cps2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(income <span class="op">&lt;</span><span class="st"> </span><span class="dv">150000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(income, <span class="dt">y=</span>..scaled..)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> median_income, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="spit-and-polish.html#cb76-1"></a>cps2 <span class="op">%&gt;%</span></span>
+<span id="cb76-2"><a href="spit-and-polish.html#cb76-2"></a><span class="st">  </span><span class="kw">filter</span>(income <span class="op">&lt;</span><span class="st"> </span><span class="dv">150000</span>) <span class="op">%&gt;%</span></span>
+<span id="cb76-3"><a href="spit-and-polish.html#cb76-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(income, <span class="dt">y=</span>..scaled..)) <span class="op">+</span></span>
+<span id="cb76-4"><a href="spit-and-polish.html#cb76-4"></a><span class="st">    </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
+<span id="cb76-5"><a href="spit-and-polish.html#cb76-5"></a><span class="st">    </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> median_income, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="02-plotting_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p><strong>Explanation</strong>: We have regular density plot. This time we have added <code>geom_vline</code> which draws a
 vertical line. The <code>xintercept</code> is the place on the x axis where our line should cross.</p>
 <div class="exercise">
 <p>Add a <code>geom_vline</code> to a plot you have already created. This could be either:</p>
 <ul>
-<li>A calculated value (e.g. <code>mean(var)</code>) or</li>
-<li>A fixed value (e.g. <code>xintercept = 20</code>)</li>
+<li>A calculated value (e.g. <code>mean(var)</code>) or</li>
+<li>A fixed value (e.g. <code>xintercept = 20</code>)</li>
 </ul>
 </div>
 </div>
@@ -344,15 +363,15 @@ vertical line. The <code>xintercept</code> is the place on the x axis where our 
 but sometimes you will need to send a high-quality plot to someone (perhaps a journal).</p>
 <p>The <code>ggsave</code> function lets us do this.</p>
 <p>The first step is to make a plot, and save it (give it a name).</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">myfunkyplot &lt;-<span class="st"> </span>mtcars  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg, <span class="dt">color=</span><span class="kw">factor</span>(cyl))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="spit-and-polish.html#cb77-1"></a>myfunkyplot &lt;-<span class="st"> </span>mtcars  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg, <span class="dt">color=</span><span class="kw">factor</span>(cyl))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><strong>Explanation</strong>: We used the assignment operator <code>&lt;-</code> to save our plot to a new name
 (<code>myfunkyplot</code>). This means that when we run the code RStudio won’t geneate any output immediately,
 so we don’t see the plot yet.</p>
 <hr />
 <p>Next, we use <code>ggsave</code> to save the plot to a particular file:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">ggsave</span>(<span class="st">&#39;myfunkyplot.pdf&#39;</span>, myfunkyplot, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">height=</span><span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="spit-and-polish.html#cb78-1"></a><span class="kw">ggsave</span>(<span class="st">&#39;myfunkyplot.pdf&#39;</span>, myfunkyplot, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">height=</span><span class="dv">4</span>)</span></code></pre></div>
 <p>You can see the output of the <code>ggsave</code> command by downloading the file here:
-<a href="myfunkyplot.pdf" class="uri">myfunkyplot.pdf</a></p>
+<a href="myfunkyplot.pdf">myfunkyplot.pdf</a></p>
 </div>
 <div id="publication-ready-plots" class="section level3">
 <h3>Publication-ready plots</h3>
@@ -366,7 +385,7 @@ useful. If you have time, you could work through some of the examples on this pa
 <a href="http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/78-perfect-scatter-plots-with-correlation-and-marginal-histograms/" class="uri">http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/78-perfect-scatter-plots-with-correlation-and-marginal-histograms/</a></li>
 </ul>
 <p>As mentioned in the session, Edward Tufte’s books have been influential in the field of data
-visualisation. His book ‘The displayt of quantitative information’ <span class="citation">(Tufte <a href="#ref-tufte2001visual">2001</a>)</span> is a great
+visualisation. His book ‘The displayt of quantitative information’ <span class="citation">(Tufte <a href="#ref-tufte2001visual" role="doc-biblioref">2001</a>)</span> is a great
 resource and guide.</p>
 <ul>
 <li><a href="http://motioninsocial.com/tufte/" class="uri">http://motioninsocial.com/tufte/</a> shows how to implement many of Tufte’s ideas in ggplot. It
@@ -392,11 +411,13 @@ style.</li>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -404,12 +425,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -421,6 +441,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -439,8 +463,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

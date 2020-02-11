@@ -50,6 +50,20 @@ but this is not required.
 **If you are unsure about the scope of this assignment (e.g. don't know how much of a paper to try
 and replicate) then please check with the module leader early in the process.**
 
+To check if a paper will be suitable, you can answer these questions:
+
+1. Are the data available?
+2. Is the design between-groups? (answer must be yes)
+3. Are  measurements at more than 2 timepoints per-participant? (answer should be no; if the paper reports "mixed effects" models or repeat-measures Anova it will not be suitable)
+4. Is the outcome a continuous variable? (i.e. must not be a binary outcome)
+
+
+
+
+
+
+
+
 Your task is to:
 
 1. Imagine you were the author of the paper, just prior to collecting data for this study. Complete

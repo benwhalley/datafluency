@@ -51,7 +51,7 @@ women  %>% glimpse
 ## Observations: 15
 ## Variables: 2
 ## $ height <dbl> 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72
-## $ weight <dbl> 115, 117, 120, 123, 126, 129, 132, 135, 139, 142, 146, 15…
+## $ weight <dbl> 115, 117, 120, 123, 126, 129, 132, 135, 139, 142, 146, 150, 15…
 ```
 
 To calculate a BMI we first need to convert the heights to from inches to meters, and the weights
@@ -108,7 +108,7 @@ divided by their squared height (`^2` means _to the power of 2_ in R-speak).
 
 <img src="03-data_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
--   What is the median BMI in the sample? <span class='webex-fitb' id = 'Q105535' ><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["22.3"]'/><span class='solvedme'></span></span>
+-   What is the median BMI in the sample? <span class='webex-fitb' id = 'Q124643' ><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["22.3"]'/><span class='solvedme'></span></span>
 
 :::
 
@@ -237,6 +237,15 @@ attitude %>%
 ```
 
 ```
+## Warning in melt(., id.var = "person"): The melt generic in data.table has
+## been passed a data.frame and will attempt to redirect to the relevant reshape2
+## method; please note that reshape2 is deprecated, and this redirection is now
+## deprecated as well. To continue using melt methods from reshape2 while both
+## libraries are attached, e.g. melt.list, you can prepend the namespace like
+## reshape2::melt(.). In the next version, this warning will become an error.
+```
+
+```
 ##   person   variable value
 ## 1      1     rating    43
 ## 2      2     rating    63
@@ -263,6 +272,15 @@ produce these plots:
 
 
 ```
+## Warning in melt(.): The melt generic in data.table has been passed a data.frame
+## and will attempt to redirect to the relevant reshape2 method; please note that
+## reshape2 is deprecated, and this redirection is now deprecated as well. To
+## continue using melt methods from reshape2 while both libraries are attached,
+## e.g. melt.list, you can prepend the namespace like reshape2::melt(.). In the
+## next version, this warning will become an error.
+```
+
+```
 ## No id variables; using all as measure variables
 ```
 
@@ -283,6 +301,16 @@ As a tip, you will need to:
 Imagine we want a table of the mean score on each question in the attitude dataset. This would be
 fiddly if we just tried to use summarise before reshaping, but if we use `melt`, `group_by` and then
 `summarise` (in that order) it is easy to make a table like this:
+
+
+```
+## Warning in melt(.): The melt generic in data.table has been passed a data.frame
+## and will attempt to redirect to the relevant reshape2 method; please note that
+## reshape2 is deprecated, and this redirection is now deprecated as well. To
+## continue using melt methods from reshape2 while both libraries are attached,
+## e.g. melt.list, you can prepend the namespace like reshape2::melt(.). In the
+## next version, this warning will become an error.
+```
 
 
 ----------------------------
@@ -313,6 +341,15 @@ Use the `melt`, `group_by` and `summarise` commands (in that order) to reproduce
 
 Sometimes we have the opposite problem: We have long data, but want it in wide format. For example,
 we might want a table where it's easy to compare between different years, like this:
+
+
+```
+## Warning in data.table::dcast(., country ~ year): The dcast generic in data.table
+## has been passed a tbl_df and will attempt to redirect to the reshape2::dcast;
+## please note that reshape2 is deprecated, and this redirection is now deprecated
+## as well. Please do this redirection yourself like reshape2::dcast(.). In the
+## next version, this warning will become an error.
+```
 
 
 ------------------------------------------------
@@ -369,6 +406,14 @@ Then we add the `dcast` command:
 gapminder1990s %>%
   dcast(country~year) %>%
   head()
+```
+
+```
+## Warning in dcast(., country ~ year): The dcast generic in data.table has been
+## passed a tbl_df and will attempt to redirect to the reshape2::dcast; please
+## note that reshape2 is deprecated, and this redirection is now deprecated as
+## well. Please do this redirection yourself like reshape2::dcast(.). In the next
+## version, this warning will become an error.
 ```
 
 ```
@@ -719,12 +764,12 @@ repeatmeasuresdata %>% head
 ## # A tibble: 6 x 4
 ##   person  time_1 time_2 time_3
 ##    <int>   <dbl>  <dbl>  <dbl>
-## 1      1 -0.222   2.95    4.38
-## 2      2 -0.873   2.66    3.77
-## 3      3  0.406   1.62    2.06
-## 4      4  0.0212  0.491   3.27
-## 5      5 -0.508   2.45    4.05
-## 6      6  0.928   0.555   3.35
+## 1      1 -1.01    2.62    4.94
+## 2      2 -0.588   1.83    2.68
+## 3      3 -0.0610  1.75    3.63
+## 4      4  0.837   2.28    1.88
+## 5      5 -0.471   1.46    1.31
+## 6      6 -1.05   -0.873   1.73
 ```
 
 `repeatmeasuresdata` is in **wide** format. Each row contains data for one participant, and each
@@ -741,14 +786,23 @@ repeatmeasuresdata %>%
 ```
 
 ```
-##   person variable      value
-## 1      1   time_1 -0.2218042
-## 2      1   time_2  2.9482870
-## 3      1   time_3  4.3774906
-## 4      2   time_1 -0.8733733
-## 5      2   time_2  2.6581147
-## 6      2   time_3  3.7691508
-## 7      3   time_1  0.4057350
+## Warning in melt(., id.var = "person"): The melt generic in data.table has been
+## passed a tbl_df and will attempt to redirect to the relevant reshape2 method;
+## please note that reshape2 is deprecated, and this redirection is now deprecated
+## as well. To continue using melt methods from reshape2 while both libraries are
+## attached, e.g. melt.list, you can prepend the namespace like reshape2::melt(.).
+## In the next version, this warning will become an error.
+```
+
+```
+##   person variable       value
+## 1      1   time_1 -1.00998515
+## 2      1   time_2  2.62054254
+## 3      1   time_3  4.93623670
+## 4      2   time_1 -0.58761864
+## 5      2   time_2  1.82979509
+## 6      2   time_3  2.67619197
+## 7      3   time_1 -0.06102957
 ```
 
 The problem we have now is that `variable` contains text which describes at which time the
@@ -764,18 +818,29 @@ Rather than have a column with labels of the form 'time_1', it can create two co
 longrepeatmeasuresdata <- repeatmeasuresdata %>%
   melt(id.var = "person") %>%
   separate(variable, into = c("_", "time"))
+```
 
+```
+## Warning in melt(., id.var = "person"): The melt generic in data.table has been
+## passed a tbl_df and will attempt to redirect to the relevant reshape2 method;
+## please note that reshape2 is deprecated, and this redirection is now deprecated
+## as well. To continue using melt methods from reshape2 while both libraries are
+## attached, e.g. melt.list, you can prepend the namespace like reshape2::melt(.).
+## In the next version, this warning will become an error.
+```
+
+```r
 longrepeatmeasuresdata %>% head
 ```
 
 ```
 ##   person    _ time       value
-## 1      1 time    1 -0.22180419
-## 2      2 time    1 -0.87337330
-## 3      3 time    1  0.40573500
-## 4      4 time    1  0.02117031
-## 5      5 time    1 -0.50781521
-## 6      6 time    1  0.92811313
+## 1      1 time    1 -1.00998515
+## 2      2 time    1 -0.58761864
+## 3      3 time    1 -0.06102957
+## 4      4 time    1  0.83710819
+## 5      5 time    1 -0.47066375
+## 6      6 time    1 -1.05313079
 ```
 
 Now the data are in long format, we can plot the points over time:

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Calculating intervals | Data Fluency</title>
   <meta name="description" content="Calculating intervals | Data Fluency" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Calculating intervals | Data Fluency" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="overview-2.html">
-<link rel="next" href="summary-of-key-points.html">
+<link rel="prev" href="overview-3.html"/>
+<link rel="next" href="summary-of-key-points.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -64,27 +68,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -93,9 +96,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -143,7 +146,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Data Fluency</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#section"></a><ul>
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a>
+<ul>
 <li class="chapter" data-level="" data-path="approach-of-this-course.html"><a href="approach-of-this-course.html"><i class="fa fa-check"></i>Approach of this course</a></li>
 <li class="chapter" data-level="" data-path="format-of-the-sessions.html"><a href="format-of-the-sessions.html"><i class="fa fa-check"></i>Format of the sessions</a></li>
 <li class="chapter" data-level="" data-path="the-most-important-thing-of-all.html"><a href="the-most-important-thing-of-all.html"><i class="fa fa-check"></i>The most important thing of all</a></li>
@@ -153,12 +158,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="teachers-notes.html"><a href="teachers-notes.html"><i class="fa fa-check"></i>Teachers’ notes</a></li>
 <li class="chapter" data-level="" data-path="week-by-week-resources.html"><a href="week-by-week-resources.html"><i class="fa fa-check"></i>Week-by-week resources</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a><ul>
+<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a>
+<ul>
 <li class="chapter" data-level="" data-path="core-skills-test.html"><a href="core-skills-test.html"><i class="fa fa-check"></i>Core skills test</a></li>
 <li class="chapter" data-level="" data-path="analysis-and-visualisation-task.html"><a href="analysis-and-visualisation-task.html"><i class="fa fa-check"></i>Analysis and visualisation task</a></li>
 <li class="chapter" data-level="" data-path="assessment-authentic-analysis.html"><a href="assessment-authentic-analysis.html"><i class="fa fa-check"></i>Authentic analysis assessment</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a><ul>
+<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-started-rstudio.html"><a href="getting-started-rstudio.html"><i class="fa fa-check"></i>Getting started with RStudio</a></li>
 <li class="chapter" data-level="" data-path="exploring-data-brief.html"><a href="exploring-data-brief.html"><i class="fa fa-check"></i>Exploring data (in brief)</a></li>
 <li class="chapter" data-level="" data-path="inspecting-data.html"><a href="inspecting-data.html"><i class="fa fa-check"></i>Inspecting data</a></li>
@@ -168,9 +175,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sequences-and-designs.html"><a href="sequences-and-designs.html"><i class="fa fa-check"></i>Sequences and designs</a></li>
 <li class="chapter" data-level="" data-path="more-reading-data.html"><a href="more-reading-data.html"><i class="fa fa-check"></i>Reading data</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a><ul>
+<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a>
+<ul>
 <li class="chapter" data-level="" data-path="session1.html"><a href="session1.html"><i class="fa fa-check"></i>Session 1</a></li>
-<li class="chapter" data-level="" data-path="learning-outcomes.html"><a href="learning-outcomes.html"><i class="fa fa-check"></i>Learning outcomes</a></li>
 <li class="chapter" data-level="" data-path="countries-200-years.html"><a href="countries-200-years.html"><i class="fa fa-check"></i>200 countries, 200 years…</a></li>
 <li class="chapter" data-level="" data-path="into-the-third-and-fourth-and-fifth-dimension.html"><a href="into-the-third-and-fourth-and-fifth-dimension.html"><i class="fa fa-check"></i>Into the third (and fourth, and fifth…) dimension</a></li>
 <li class="chapter" data-level="" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i>Layers</a></li>
@@ -180,8 +187,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="spit-and-polish.html"><a href="spit-and-polish.html"><i class="fa fa-check"></i>Spit and polish</a></li>
 <li class="chapter" data-level="" data-path="session-2-real-world-plots.html"><a href="session-2-real-world-plots.html"><i class="fa fa-check"></i>Session 2: Real world plots</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a><ul>
-<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="overview-1.html"><a href="overview-1.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="making-new-variables.html"><a href="making-new-variables.html"><i class="fa fa-check"></i>Making new variables</a></li>
 <li class="chapter" data-level="" data-path="reshaping-melting.html"><a href="reshaping-melting.html"><i class="fa fa-check"></i>Reshaping (melting)</a></li>
 <li class="chapter" data-level="" data-path="reshaping-wide-casting.html"><a href="reshaping-wide-casting.html"><i class="fa fa-check"></i>Reshaping wide (casting)</a></li>
@@ -189,7 +197,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="final-task-to-be-completed-as-homework.html"><a href="final-task-to-be-completed-as-homework.html"><i class="fa fa-check"></i>Final task (to be completed as homework)</a></li>
 <li class="chapter" data-level="" data-path="extension-exercises-and-reading.html"><a href="extension-exercises-and-reading.html"><i class="fa fa-check"></i>Extension exercises and reading</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a><ul>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1.html"><a href="session-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 <li class="chapter" data-level="" data-path="how-useful-are-the-lines.html"><a href="how-useful-are-the-lines.html"><i class="fa fa-check"></i>How useful are the lines?</a></li>
 <li class="chapter" data-level="" data-path="using-r-for-regression.html"><a href="using-r-for-regression.html"><i class="fa fa-check"></i>Using R for regression</a></li>
@@ -201,38 +210,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="moderation-intro.html"><a href="moderation-intro.html"><i class="fa fa-check"></i>‘Effect modification’</a></li>
 <li class="chapter" data-level="" data-path="tricky-relationships.html"><a href="tricky-relationships.html"><i class="fa fa-check"></i>‘Tricky’ relationships</a></li>
 <li class="chapter" data-level="" data-path="diagrams-and-models.html"><a href="diagrams-and-models.html"><i class="fa fa-check"></i>Diagrams and models</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-multiple-regression.html"><a href="why-multiple-regression.html"><i class="fa fa-check"></i>Why use multiple regression?</a></li>
 <li class="chapter" data-level="" data-path="regression-interaction.html"><a href="regression-interaction.html"><i class="fa fa-check"></i>Different relationships?</a></li>
 <li><a href="fit-multiple-regression.html#fit-multiple-regression">Using <code>lm</code> for multiple regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a><ul>
-<li class="chapter" data-level="" data-path="overview-2.html"><a href="overview-2.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a>
+<ul>
+<li class="chapter" data-level="" data-path="overview-3.html"><a href="overview-3.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="calculating-intervals.html"><a href="calculating-intervals.html"><i class="fa fa-check"></i>Calculating intervals</a></li>
 <li class="chapter" data-level="" data-path="summary-of-key-points.html"><a href="summary-of-key-points.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 <li class="chapter" data-level="" data-path="beyond-intervals-extension-exercises.html"><a href="beyond-intervals-extension-exercises.html"><i class="fa fa-check"></i>Beyond intervals (extension exercises)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a><ul>
+<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-1.html"><a href="session-1-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a><ul>
+<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-multiple-regression.html"><a href="session-1-multiple-regression.html"><i class="fa fa-check"></i>Session 1: Multiple regression</a></li>
 <li class="chapter" data-level="" data-path="session-2-anova-and-bayes-factor.html"><a href="session-2-anova-and-bayes-factor.html"><i class="fa fa-check"></i>Session 2: Anova and Bayes Factor</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a><ul>
+<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
+<ul>
 <li><a href="session-1-planned-contrasts-with-emmeans.html#session-1-planned-contrasts-with-emmeans">Session 1: Planned contrasts with <code>emmeans</code></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a><ul>
+<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-communicating-anova-and-regression.html"><a href="session-1-communicating-anova-and-regression.html"><i class="fa fa-check"></i>Session 1: Communicating Anova and Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a><ul>
+<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-reproducing-a-real-paper.html"><a href="session-2-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 2: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-3-reproducing-a-real-paper.html"><a href="session-3-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 3: Reproducing a real paper</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a><ul>
+<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
+<ul>
 <li class="chapter" data-level="" data-path="keyboard-shortcuts.html"><a href="keyboard-shortcuts.html"><i class="fa fa-check"></i>Keyboard shortcuts</a></li>
 <li class="chapter" data-level="" data-path="common-problems.html"><a href="common-problems.html"><i class="fa fa-check"></i>Common problems</a></li>
-<li class="chapter" data-level="" data-path="glossary.html"><a href="glossary.html"><i class="fa fa-check"></i>Glossary</a></li>
 <li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html"><i class="fa fa-check"></i>Cheatsheet</a></li>
 <li class="chapter" data-level="" data-path="sample-n.html"><a href="sample-n.html"><i class="fa fa-check"></i>More sampling</a></li>
 <li class="chapter" data-level="" data-path="more-on-tibbles.html"><a href="more-on-tibbles.html"><i class="fa fa-check"></i>More on Tibbles</a></li>
@@ -275,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <hr />
 <p>To give us an example to work with, let’s load some data which records IQ test scores for 434
 children along with their mothers’ IQ scores, ages, and whether they completed high school.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">kidiq &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://bit.ly/arm-kids-iq&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="calculating-intervals.html#cb166-1"></a>kidiq &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://bit.ly/arm-kids-iq&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   kid_score = col_double(),
@@ -284,7 +302,7 @@ children along with their mothers’ IQ scores, ages, and whether they completed
 ##   mom_work = col_double(),
 ##   mom_age = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">kidiq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="calculating-intervals.html#cb168-1"></a>kidiq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>## Observations: 434
 ## Variables: 5
 ## $ kid_score &lt;dbl&gt; 65, 98, 85, 83, 115, 98, 69, 106, 102, 95, 91, 58, 84,…
@@ -292,9 +310,9 @@ children along with their mothers’ IQ scores, ages, and whether they completed
 ## $ mom_iq    &lt;dbl&gt; 121.118, 89.362, 115.443, 99.450, 92.746, 107.902, 138…
 ## $ mom_work  &lt;dbl&gt; 4, 4, 4, 3, 4, 1, 4, 3, 1, 1, 1, 4, 4, 4, 2, 1, 3, 3, …
 ## $ mom_age   &lt;dbl&gt; 27, 25, 27, 25, 27, 18, 20, 23, 24, 19, 23, 24, 27, 26…</code></pre>
-<p>As we did in the regression section, we can create a model. Here we predict mo</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">iqmodel &lt;-<span class="st"> </span><span class="kw">lm</span>(kid_score <span class="op">~</span><span class="st"> </span>mom_iq <span class="op">+</span><span class="st"> </span>mom_hs, <span class="dt">data=</span>kidiq)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">iqmodel</a></code></pre></div>
+<p>As we did in the regression section, we can create a model. Here we predict childrens’ scores from mothers’ IQ and schooling:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="calculating-intervals.html#cb170-1"></a>iqmodel &lt;-<span class="st"> </span><span class="kw">lm</span>(kid_score <span class="op">~</span><span class="st"> </span>mom_iq <span class="op">+</span><span class="st"> </span>mom_hs, <span class="dt">data=</span>kidiq)</span>
+<span id="cb170-2"><a href="calculating-intervals.html#cb170-2"></a>iqmodel</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = kid_score ~ mom_iq + mom_hs, data = kidiq)
@@ -315,16 +333,14 @@ make predictions for (like we did with augment).</li>
 </ol>
 <p>This code makes a new dataframe containing values of <code>mom_iq</code> and <code>mom_hs</code> which we’d like a
 prediction for; in this case, just one mother who completed high school:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">new.mother &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">mom_iq=</span><span class="dv">97</span>, <span class="dt">mom_hs=</span><span class="st">&quot;Completed&quot;</span>)</a></code></pre></div>
-<p>We make predictions like we have before, but now adding the argument: <code>interval = &quot;confidence&quot;</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">predict</span>(iqmodel, <span class="dt">newdata =</span> new.mother, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="calculating-intervals.html#cb172-1"></a>new.mother &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">mom_iq=</span><span class="dv">97</span>, <span class="dt">mom_hs=</span><span class="st">&quot;Completed&quot;</span>)</span></code></pre></div>
+<p>We make predictions like we have before, but now adding the argument: <code>interval = "confidence"</code>:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="calculating-intervals.html#cb173-1"></a><span class="kw">predict</span>(iqmodel, <span class="dt">newdata =</span> new.mother, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 86.38052 84.35293 88.40812</code></pre>
 <p>The output is the prediction (<code>fit</code>) and the lower and upper bounds of the confidence interval. The
 95% interval is used by default.</p>
-<p>To be clear, <strong><em>the confidence interval is the range within which we think the true predicted value
-would be for a child whose mother had IQ=97 and who completed high school would be, if we collected
-many different samples and calculated this interval many times.</em></strong></p>
+<p>To be clear, <strong><em>the confidence interval is range which, if we calculated it 100 times from different samples, we think the true value would would be within 95% of the time.</em></strong></p>
 <div class="exercise">
 <p>Use the <code>predict</code> function with <code>iqmodel</code> to answer the following questions:</p>
 <ul>
@@ -343,16 +359,17 @@ Explain the answers
 </button>
 <p>86 is the prediction from the output shown above.</p>
 <p>To create a new tibble and predict scores for different mothers, repeat the code above but changing the values for <code>mom_iq</code> or <code>mom_hs</code>.</p>
-<p>Both the 2nd and 3rd answers are false because the confidence interval is the range within which we think the true average for mothers with IQ = 97 who completed high school would fall, if we repeated the study many times.</p>
-<p>We can’t make probability statements about the quality of the predictions we actually made using classical statistics: We can only say how we think the method used to make them will perform, if we repeat it many times.</p>
+<p>Both the 2nd and 3rd answers are false because the confidence interval is the range within which we think the true average for mothers with IQ = 97 who completed high school would fall, if we repeated the study and calculated the CI many times.</p>
+<p>We can’t make probability statements about the quality of the predictions we actually made using classical statistics: We can only say how we think the method used to make them will perform, if we repeated it many times.</p>
 </div>
 </div>
 </div>
 <div id="prediction-intervals-1" class="section level3">
 <h3>Prediction intervals</h3>
+<p>Prediction intervals allow us to express uncertainty about future <strong>individuals</strong> we might sample, rather than the average value.</p>
 <p>We can repeat the process above to make the classical <em>prediction</em> interval instead. We just change
-<code>interval = &quot;confidence&quot;</code> to <code>interval = &quot;prediction&quot;</code></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">predict</span>(iqmodel, <span class="dt">newdata =</span> new.mother, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</a></code></pre></div>
+<code>interval = "confidence"</code> to <code>interval = "prediction"</code></p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="calculating-intervals.html#cb175-1"></a><span class="kw">predict</span>(iqmodel, <span class="dt">newdata =</span> new.mother, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 86.38052 50.67755 122.0835</code></pre>
 <p>So this is the prediction (<code>fit</code>) and the lower and upper bounds of the prediction interval (again,
@@ -413,18 +430,18 @@ predictions.</p>
 package:</p>
 <p>Then we just replace the <code>lm</code> function with <code>stan_glm</code>. Everything else remains the same apart from
 lots of extra output as the model fits, which you can ignore for now:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">library</span>(rstanarm) <span class="co"># load this first to make stan_glm available</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">iqmodel.bayes &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(kid_score <span class="op">~</span><span class="st"> </span>mom_iq <span class="op">+</span><span class="st"> </span>mom_hs, <span class="dt">data=</span>kidiq)</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="calculating-intervals.html#cb177-1"></a><span class="kw">library</span>(rstanarm) <span class="co"># load this first to make stan_glm available</span></span>
+<span id="cb177-2"><a href="calculating-intervals.html#cb177-2"></a>iqmodel.bayes &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(kid_score <span class="op">~</span><span class="st"> </span>mom_iq <span class="op">+</span><span class="st"> </span>mom_hs, <span class="dt">data=</span>kidiq)</span></code></pre></div>
 <p>The <code>rstanarm</code> package is a bit ‘chatty’ in it’s output, but if we just want to see the model
 coefficients we can use the <code>tidy</code> function in the <code>broom</code> package:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">library</span>(broom)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">tidy</span>(iqmodel.bayes)</a></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="calculating-intervals.html#cb178-1"></a><span class="kw">library</span>(broom)</span>
+<span id="cb178-2"><a href="calculating-intervals.html#cb178-2"></a><span class="kw">tidy</span>(iqmodel.bayes)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   term                   estimate std.error
 ##   &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept)              31.6      6.21  
-## 2 mom_iq                    0.563    0.0605
-## 3 mom_hsDid not complete   -5.89     2.31</code></pre>
+## 1 (Intercept)              31.7      6.34  
+## 2 mom_iq                    0.564    0.0611
+## 3 mom_hsDid not complete   -5.95     2.18</code></pre>
 <div class="exercise">
 <p>Try re-running our <code>iqmodel</code> using <code>stan_glm()</code> in place of <code>lm()</code>. Use the formula:
 <code>kid_score ~ mom_iq + mom_hs</code>.</p>
@@ -444,8 +461,8 @@ regression coefficients to more than a few decimal places is probably an example
 <h4>Bayesian credible intervals</h4>
 <p>When using <code>stan_glm</code>, rather than using <code>predict</code> or augment we can use the <code>add_fitted_samples</code>
 and <code>add_predicted_samples</code> functions to calculate Bayesian <em>credible</em> or <em>predictive</em> intervals.</p>
-<p>These samples can be for individuals (like <a href="overview-2.html#prediction-intervals">prediction intervals</a>) or for the
-predicted mean (like <a href="overview-2.html#confidence-intervals">confidence intervals</a>):</p>
+<p>These samples can be for individuals (like <a href="overview-3.html#prediction-intervals">prediction intervals</a>) or for the
+predicted mean (like <a href="overview-3.html#confidence-intervals">confidence intervals</a>):</p>
 <p>We calculate the credible interval in two steps:</p>
 <ol style="list-style-type: decimal">
 <li>Make predictions (samples) from the simulation used to fit the model; usually we make many
@@ -454,30 +471,26 @@ thousands of simulated predictions (the computer does it for us).</li>
 interest.</li>
 </ol>
 <p>The <code>tidybayes</code> package makes this almost automatic. First, make sure it’s loaded:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">library</span>(tidybayes)</a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="calculating-intervals.html#cb180-1"></a><span class="kw">library</span>(tidybayes)</span></code></pre></div>
 <p>If we want the <strong>credible interval</strong> for the mean of a sample we use the <code>add_fitted_draws</code> to make
 our thousands of simulations. Then we use the <code>mean_qi</code> function to summarise them. By default it
 gives the 95% credible interval:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">add_fitted_draws</span>(iqmodel.bayes, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">mean_qi</span>()</a></code></pre></div>
-<pre><code>## Warning: unnest() has a new interface. See ?unnest for details.
-## Try `df %&gt;% unnest(c(.lower, .upper))`, with `mutate()` if needed</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="calculating-intervals.html#cb181-1"></a><span class="kw">add_fitted_draws</span>(iqmodel.bayes, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span></span>
+<span id="cb181-2"><a href="calculating-intervals.html#cb181-2"></a><span class="st">  </span><span class="kw">mean_qi</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 9
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row .value .lower .upper .width .point .interval
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-## 1     97 Completed     1   86.4   84.3   88.4   0.95 mean   qi</code></pre>
+## 1     97 Completed     1   86.4   84.4   88.4   0.95 mean   qi</code></pre>
 <p>If we want to calculate the Bayesian <strong>prediction interval</strong>, we replace <code>add_fitted_draws</code> with
 <code>add_predicted_draws</code></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">add_predicted_draws</span>(iqmodel.bayes, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">mean_qi</span>()</a></code></pre></div>
-<pre><code>## Warning: unnest() has a new interface. See ?unnest for details.
-## Try `df %&gt;% unnest(c(.lower, .upper))`, with `mutate()` if needed</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="calculating-intervals.html#cb183-1"></a><span class="kw">add_predicted_draws</span>(iqmodel.bayes, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span></span>
+<span id="cb183-2"><a href="calculating-intervals.html#cb183-2"></a><span class="st">  </span><span class="kw">mean_qi</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 9
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row .prediction .lower .upper .width .point .interval
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-## 1     97 Completed     1        86.9   51.4   123.   0.95 mean   qi</code></pre>
+## 1     97 Completed     1        86.4   51.0   122.   0.95 mean   qi</code></pre>
 <div class="exercise">
 <p>Compare the Bayesian credible/prediction intervals with the classical confidence/prediction
 intervals. Hopefully they are not too different in this example.</p>
@@ -494,17 +507,19 @@ intervals. Hopefully they are not too different in this example.</p>
           </div>
         </div>
       </div>
-<a href="overview-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="overview-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="summary-of-key-points.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -512,12 +527,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -529,6 +543,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -547,8 +565,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

@@ -8,7 +8,7 @@ sample(1:10, size=5)
 ```
 
 ```
-## [1]  2  7  6  4 10
+## [1]  2 10  7  6  3
 ```
 
 ```r
@@ -16,7 +16,7 @@ sample(1:2, size=10, replace=TRUE)
 ```
 
 ```
-##  [1] 1 2 1 1 1 1 1 2 1 1
+##  [1] 2 1 1 1 2 2 2 1 1 2
 ```
 
 We also saw how to use `expand.grid` to create experimental designs:
@@ -55,18 +55,18 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
-## ✔ ggplot2 3.2.0           ✔ purrr   0.3.2      
-## ✔ tibble  2.1.3           ✔ dplyr   0.8.3      
-## ✔ tidyr   0.8.99.9000     ✔ stringr 1.4.0      
-## ✔ readr   1.3.1           ✔ forcats 0.4.0
+## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
+## ✔ tibble  2.1.3     ✔ dplyr   0.8.4
+## ✔ tidyr   1.0.2     ✔ stringr 1.4.0
+## ✔ readr   1.3.1     ✔ forcats 0.4.0
 ```
 
 ```
-## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -81,12 +81,12 @@ design %>% sample_n(100, replace=TRUE) %>% head
 
 ```
 ##   colour position  words
-## 1    Red   Bottom Hobble
-## 2  Green      Top Nobble
-## 3    Red   Bottom Wobble
-## 4    Red   Bottom Wobble
-## 5  Green      Top Wobble
-## 6    Red      Top Nobble
+## 1    Red      Top Hobble
+## 2  Green   Bottom Wobble
+## 3  Green   Bottom Wobble
+## 4  Green   Bottom Nobble
+## 5  Green   Bottom Nobble
+## 6    Red   Bottom Hobble
 ```
 
 

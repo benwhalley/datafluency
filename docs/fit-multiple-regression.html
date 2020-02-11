@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Using lm for multiple regression | Data Fluency</title>
   <meta name="description" content="Using lm for multiple regression | Data Fluency" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Using lm for multiple regression | Data Fluency" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="regression-interaction.html">
-<link rel="next" href="uncertainty.html">
+<link rel="prev" href="regression-interaction.html"/>
+<link rel="next" href="uncertainty.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -64,27 +68,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -93,9 +96,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -144,7 +147,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li><a href="index.html#section"></a></li>
-<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a><ul>
+<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a>
+<ul>
 <li class="chapter" data-level="" data-path="approach-of-this-course.html"><a href="approach-of-this-course.html"><i class="fa fa-check"></i>Approach of this course</a></li>
 <li class="chapter" data-level="" data-path="format-of-the-sessions.html"><a href="format-of-the-sessions.html"><i class="fa fa-check"></i>Format of the sessions</a></li>
 <li class="chapter" data-level="" data-path="the-most-important-thing-of-all.html"><a href="the-most-important-thing-of-all.html"><i class="fa fa-check"></i>The most important thing of all</a></li>
@@ -154,12 +158,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="teachers-notes.html"><a href="teachers-notes.html"><i class="fa fa-check"></i>Teachers’ notes</a></li>
 <li class="chapter" data-level="" data-path="week-by-week-resources.html"><a href="week-by-week-resources.html"><i class="fa fa-check"></i>Week-by-week resources</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a><ul>
+<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a>
+<ul>
 <li class="chapter" data-level="" data-path="core-skills-test.html"><a href="core-skills-test.html"><i class="fa fa-check"></i>Core skills test</a></li>
 <li class="chapter" data-level="" data-path="analysis-and-visualisation-task.html"><a href="analysis-and-visualisation-task.html"><i class="fa fa-check"></i>Analysis and visualisation task</a></li>
 <li class="chapter" data-level="" data-path="assessment-authentic-analysis.html"><a href="assessment-authentic-analysis.html"><i class="fa fa-check"></i>Authentic analysis assessment</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a><ul>
+<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-started-rstudio.html"><a href="getting-started-rstudio.html"><i class="fa fa-check"></i>Getting started with RStudio</a></li>
 <li class="chapter" data-level="" data-path="exploring-data-brief.html"><a href="exploring-data-brief.html"><i class="fa fa-check"></i>Exploring data (in brief)</a></li>
 <li class="chapter" data-level="" data-path="inspecting-data.html"><a href="inspecting-data.html"><i class="fa fa-check"></i>Inspecting data</a></li>
@@ -169,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="sequences-and-designs.html"><a href="sequences-and-designs.html"><i class="fa fa-check"></i>Sequences and designs</a></li>
 <li class="chapter" data-level="" data-path="more-reading-data.html"><a href="more-reading-data.html"><i class="fa fa-check"></i>Reading data</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a><ul>
+<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a>
+<ul>
 <li class="chapter" data-level="" data-path="session1.html"><a href="session1.html"><i class="fa fa-check"></i>Session 1</a></li>
 <li class="chapter" data-level="" data-path="countries-200-years.html"><a href="countries-200-years.html"><i class="fa fa-check"></i>200 countries, 200 years…</a></li>
 <li class="chapter" data-level="" data-path="into-the-third-and-fourth-and-fifth-dimension.html"><a href="into-the-third-and-fourth-and-fifth-dimension.html"><i class="fa fa-check"></i>Into the third (and fourth, and fifth…) dimension</a></li>
@@ -180,7 +187,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="spit-and-polish.html"><a href="spit-and-polish.html"><i class="fa fa-check"></i>Spit and polish</a></li>
 <li class="chapter" data-level="" data-path="session-2-real-world-plots.html"><a href="session-2-real-world-plots.html"><i class="fa fa-check"></i>Session 2: Real world plots</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a><ul>
+<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a>
+<ul>
 <li class="chapter" data-level="" data-path="overview-1.html"><a href="overview-1.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="making-new-variables.html"><a href="making-new-variables.html"><i class="fa fa-check"></i>Making new variables</a></li>
 <li class="chapter" data-level="" data-path="reshaping-melting.html"><a href="reshaping-melting.html"><i class="fa fa-check"></i>Reshaping (melting)</a></li>
@@ -189,7 +197,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="final-task-to-be-completed-as-homework.html"><a href="final-task-to-be-completed-as-homework.html"><i class="fa fa-check"></i>Final task (to be completed as homework)</a></li>
 <li class="chapter" data-level="" data-path="extension-exercises-and-reading.html"><a href="extension-exercises-and-reading.html"><i class="fa fa-check"></i>Extension exercises and reading</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a><ul>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1.html"><a href="session-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 <li class="chapter" data-level="" data-path="how-useful-are-the-lines.html"><a href="how-useful-are-the-lines.html"><i class="fa fa-check"></i>How useful are the lines?</a></li>
 <li class="chapter" data-level="" data-path="using-r-for-regression.html"><a href="using-r-for-regression.html"><i class="fa fa-check"></i>Using R for regression</a></li>
@@ -202,36 +211,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="tricky-relationships.html"><a href="tricky-relationships.html"><i class="fa fa-check"></i>‘Tricky’ relationships</a></li>
 <li class="chapter" data-level="" data-path="diagrams-and-models.html"><a href="diagrams-and-models.html"><i class="fa fa-check"></i>Diagrams and models</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple regression</a><ul>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple regression</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-multiple-regression.html"><a href="why-multiple-regression.html"><i class="fa fa-check"></i>Why use multiple regression?</a></li>
 <li class="chapter" data-level="" data-path="regression-interaction.html"><a href="regression-interaction.html"><i class="fa fa-check"></i>Different relationships?</a></li>
 <li><a href="fit-multiple-regression.html#fit-multiple-regression">Using <code>lm</code> for multiple regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a><ul>
+<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a>
+<ul>
 <li class="chapter" data-level="" data-path="overview-3.html"><a href="overview-3.html"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="calculating-intervals.html"><a href="calculating-intervals.html"><i class="fa fa-check"></i>Calculating intervals</a></li>
-<li class="chapter" data-level="" data-path="recap-on-intervals.html"><a href="recap-on-intervals.html"><i class="fa fa-check"></i>Recap on intervals</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points.html"><a href="summary-of-key-points.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 <li class="chapter" data-level="" data-path="beyond-intervals-extension-exercises.html"><a href="beyond-intervals-extension-exercises.html"><i class="fa fa-check"></i>Beyond intervals (extension exercises)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a><ul>
+<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-1.html"><a href="session-1-1.html"><i class="fa fa-check"></i>Session 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a><ul>
+<li class="chapter" data-level="" data-path="building-models.html"><a href="building-models.html"><i class="fa fa-check"></i>Building models</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-multiple-regression.html"><a href="session-1-multiple-regression.html"><i class="fa fa-check"></i>Session 1: Multiple regression</a></li>
 <li class="chapter" data-level="" data-path="session-2-anova-and-bayes-factor.html"><a href="session-2-anova-and-bayes-factor.html"><i class="fa fa-check"></i>Session 2: Anova and Bayes Factor</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a><ul>
+<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
+<ul>
 <li><a href="session-1-planned-contrasts-with-emmeans.html#session-1-planned-contrasts-with-emmeans">Session 1: Planned contrasts with <code>emmeans</code></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a><ul>
+<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-communicating-anova-and-regression.html"><a href="session-1-communicating-anova-and-regression.html"><i class="fa fa-check"></i>Session 1: Communicating Anova and Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a><ul>
+<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
+<ul>
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-reproducing-a-real-paper.html"><a href="session-2-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 2: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-3-reproducing-a-real-paper.html"><a href="session-3-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 3: Reproducing a real paper</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a><ul>
+<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
+<ul>
 <li class="chapter" data-level="" data-path="keyboard-shortcuts.html"><a href="keyboard-shortcuts.html"><i class="fa fa-check"></i>Keyboard shortcuts</a></li>
 <li class="chapter" data-level="" data-path="common-problems.html"><a href="common-problems.html"><i class="fa fa-check"></i>Common problems</a></li>
 <li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html"><i class="fa fa-check"></i>Cheatsheet</a></li>
@@ -269,11 +286,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Using <code>lm</code> for multiple regression</h2>
 <p>If you don’t already have it loaded in RStudio, load the example dataset:</p>
 <!-- this not run but included to make path appear correct for students -->
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1">studyhabits &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="fit-multiple-regression.html#cb150-1"></a>studyhabits &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv&#39;</span>)</span></code></pre></div>
 <p>As <a href="first-lm.html#first-lm">we did for a single predictor regression</a>, we can use <code>lm</code> to get numbers to describe the
 slopes of the lines.</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">second.model &lt;-<span class="st"> </span><span class="kw">lm</span>(grade <span class="op">~</span><span class="st"> </span>work_hours <span class="op">*</span><span class="st"> </span>female, <span class="dt">data =</span> studyhabits)</a>
-<a class="sourceLine" id="cb142-2" data-line-number="2">second.model</a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="fit-multiple-regression.html#cb151-1"></a>second.model &lt;-<span class="st"> </span><span class="kw">lm</span>(grade <span class="op">~</span><span class="st"> </span>work_hours <span class="op">*</span><span class="st"> </span>female, <span class="dt">data =</span> studyhabits)</span>
+<span id="cb151-2"><a href="fit-multiple-regression.html#cb151-2"></a>second.model</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = grade ~ work_hours * female, data = studyhabits)
@@ -382,18 +399,18 @@ variables we want predictions for</li>
 <p>Optionally, we can then plot the results.</p>
 <hr />
 <p>We have already fit the model we want to use, which was:</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">second.model<span class="op">$</span>call</a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="fit-multiple-regression.html#cb154-1"></a>second.model<span class="op">$</span>call</span></code></pre></div>
 <pre><code>## lm(formula = grade ~ work_hours * female, data = studyhabits)</code></pre>
 <p>Next we should load the broom package:</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="kw">library</span>(broom)</a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="fit-multiple-regression.html#cb156-1"></a><span class="kw">library</span>(broom)</span></code></pre></div>
 <p>And make a dataframe (a tibble is a kind of dataframe) with values of the predictor variables that would be of interest, or would provide good exemplars.</p>
 <p>For example, lets say we want predictions for men and women, who work either 20 or 40 hours each. We can write this out by hand:</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1">newdatatopredict =<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb148-2" data-line-number="2">  <span class="dt">female=</span><span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">TRUE</span>, <span class="ot">FALSE</span>,<span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb148-3" data-line-number="3">  <span class="dt">work_hours=</span><span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">40</span>, <span class="dv">20</span>,<span class="dv">40</span>)</a>
-<a class="sourceLine" id="cb148-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb148-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb148-6" data-line-number="6">newdatatopredict</a></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="fit-multiple-regression.html#cb157-1"></a>newdatatopredict =<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb157-2"><a href="fit-multiple-regression.html#cb157-2"></a>  <span class="dt">female=</span><span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">TRUE</span>, <span class="ot">FALSE</span>,<span class="ot">FALSE</span>),</span>
+<span id="cb157-3"><a href="fit-multiple-regression.html#cb157-3"></a>  <span class="dt">work_hours=</span><span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">40</span>, <span class="dv">20</span>,<span class="dv">40</span>)</span>
+<span id="cb157-4"><a href="fit-multiple-regression.html#cb157-4"></a>)</span>
+<span id="cb157-5"><a href="fit-multiple-regression.html#cb157-5"></a></span>
+<span id="cb157-6"><a href="fit-multiple-regression.html#cb157-6"></a>newdatatopredict</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 2
 ##   female work_hours
 ##   &lt;lgl&gt;       &lt;dbl&gt;
@@ -402,8 +419,8 @@ variables we want predictions for</li>
 ## 3 FALSE          20
 ## 4 FALSE          40</code></pre>
 <p>The last step is to pass the model and the new dataframe to <code>augment</code>:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1">second.model.predictions &lt;-<span class="st"> </span><span class="kw">augment</span>(second.model, <span class="dt">newdata=</span>newdatatopredict)</a>
-<a class="sourceLine" id="cb150-2" data-line-number="2">second.model.predictions</a></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="fit-multiple-regression.html#cb159-1"></a>second.model.predictions &lt;-<span class="st"> </span><span class="kw">augment</span>(second.model, <span class="dt">newdata=</span>newdatatopredict)</span>
+<span id="cb159-2"><a href="fit-multiple-regression.html#cb159-2"></a>second.model.predictions</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 4
 ##   female work_hours .fitted .se.fit
 ##   &lt;lgl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -412,9 +429,9 @@ variables we want predictions for</li>
 ## 3 FALSE          20    54.5    1.73
 ## 4 FALSE          40    91.0    8.67</code></pre>
 <p>And we can plot these new predictions using ggplot:</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1">second.model.predictions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb152-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(work_hours, .fitted, <span class="dt">color=</span>female)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb152-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="fit-multiple-regression.html#cb161-1"></a>second.model.predictions <span class="op">%&gt;%</span></span>
+<span id="cb161-2"><a href="fit-multiple-regression.html#cb161-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(work_hours, .fitted, <span class="dt">color=</span>female)) <span class="op">+</span></span>
+<span id="cb161-3"><a href="fit-multiple-regression.html#cb161-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="04-regression_files/figure-html/unnamed-chunk-61-1.png" width="288" /></p>
 <hr />
 <p>This basic plot is OK, but we can improve it by:</p>
@@ -426,14 +443,14 @@ variables we want predictions for</li>
 <p>To add lines to the plot we can use <code>geom_line()</code>. We have to add an additional argument called
 <code>group</code> to the <code>aes()</code> section of the plot. This tells <code>ggplot</code> which points should be connected by
 the lines:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1">second.model.predictions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb153-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(work_hours, .fitted, <span class="dt">color=</span>female, <span class="dt">group=</span>female)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb153-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb153-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="fit-multiple-regression.html#cb162-1"></a>second.model.predictions <span class="op">%&gt;%</span></span>
+<span id="cb162-2"><a href="fit-multiple-regression.html#cb162-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(work_hours, .fitted, <span class="dt">color=</span>female, <span class="dt">group=</span>female)) <span class="op">+</span></span>
+<span id="cb162-3"><a href="fit-multiple-regression.html#cb162-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb162-4"><a href="fit-multiple-regression.html#cb162-4"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
 <p><img src="04-regression_files/figure-html/unnamed-chunk-62-1.png" width="288" /></p>
 <p>Next we can add error bars. If we look at the datafram that <code>augment</code> produced, there is a column
 called <code>.se.fit</code>. This is short for <strong>standard error of the predicted value</strong>:</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1">second.model.predictions</a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="fit-multiple-regression.html#cb163-1"></a>second.model.predictions</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 4
 ##   female work_hours .fitted .se.fit
 ##   &lt;lgl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -444,17 +461,17 @@ called <code>.se.fit</code>. This is short for <strong>standard error of the pre
 <p>We can use a new <code>geom_</code> function with this column to add error bars to the plot. The
 <code>geom_errorbar</code> needs two additional bits of information inside the <code>aes()</code> section. These are
 <code>ymin</code> and <code>ymax</code>, which represent the bottom and top of the error bars, respectively:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1">second.model.predictions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb156-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(</a>
-<a class="sourceLine" id="cb156-3" data-line-number="3">    <span class="dt">x=</span>work_hours,</a>
-<a class="sourceLine" id="cb156-4" data-line-number="4">    <span class="dt">y=</span>.fitted,</a>
-<a class="sourceLine" id="cb156-5" data-line-number="5">    <span class="dt">ymin =</span>.fitted <span class="op">-</span><span class="st"> </span>.se.fit,</a>
-<a class="sourceLine" id="cb156-6" data-line-number="6">    <span class="dt">ymax =</span>.fitted <span class="op">+</span><span class="st"> </span>.se.fit,</a>
-<a class="sourceLine" id="cb156-7" data-line-number="7">    <span class="dt">color=</span>female,</a>
-<a class="sourceLine" id="cb156-8" data-line-number="8">    <span class="dt">group=</span>female)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb156-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb156-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb156-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">width=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="fit-multiple-regression.html#cb165-1"></a>second.model.predictions <span class="op">%&gt;%</span></span>
+<span id="cb165-2"><a href="fit-multiple-regression.html#cb165-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(</span>
+<span id="cb165-3"><a href="fit-multiple-regression.html#cb165-3"></a>    <span class="dt">x=</span>work_hours,</span>
+<span id="cb165-4"><a href="fit-multiple-regression.html#cb165-4"></a>    <span class="dt">y=</span>.fitted,</span>
+<span id="cb165-5"><a href="fit-multiple-regression.html#cb165-5"></a>    <span class="dt">ymin =</span>.fitted <span class="op">-</span><span class="st"> </span>.se.fit,</span>
+<span id="cb165-6"><a href="fit-multiple-regression.html#cb165-6"></a>    <span class="dt">ymax =</span>.fitted <span class="op">+</span><span class="st"> </span>.se.fit,</span>
+<span id="cb165-7"><a href="fit-multiple-regression.html#cb165-7"></a>    <span class="dt">color=</span>female,</span>
+<span id="cb165-8"><a href="fit-multiple-regression.html#cb165-8"></a>    <span class="dt">group=</span>female)) <span class="op">+</span></span>
+<span id="cb165-9"><a href="fit-multiple-regression.html#cb165-9"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb165-10"><a href="fit-multiple-regression.html#cb165-10"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb165-11"><a href="fit-multiple-regression.html#cb165-11"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">width=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="04-regression_files/figure-html/unnamed-chunk-64-1.png" width="288" /></p>
 <p><strong>Explanation of the code</strong>: We added the <code>geom_errorbar</code> function to our existing plot. We also
 added two new arguments to the <code>aes()</code> section: <code>ymin</code> and <code>ymax</code>. We set the <code>ymin</code> value to the
@@ -475,7 +492,7 @@ and women who work 20, 25, 30, 35, or 40 hours per week.</p></li>
 </ol>
 </div>
 <div class="exercise">
-<p>Data from a clinical trial of Functional Imagery Training <span class="citation">(Solbrig et al. <a href="#ref-solbrig2019functional">2019</a>, FIT)</span> are
+<p>Data from a clinical trial of Functional Imagery Training <span class="citation">(Solbrig et al. <a href="#ref-solbrig2019functional" role="doc-biblioref">2019</a>, FIT)</span> are
 available at <a href="https://zenodo.org/record/1120364/files/blind_data.csv" class="uri">https://zenodo.org/record/1120364/files/blind_data.csv</a>. In this file, <code>group</code>
 represents the treatment group (FIT=2, motivational interviewing=1). The <code>kg1</code> and <code>kg3</code> variables
 represent the patients’ weights in kilograms before and after treatment, respectively. Load these
@@ -524,21 +541,21 @@ fit %>% glimpse
 ```
 ## Observations: 121
 ## Variables: 15
-## $ kg1             <dbl> 83.0, 86.2, 69.0, 107.8, 107.0, 99.5, 80.0, 81.0…
-## $ kg2             <dbl> NA, NA, NA, 106.7, 105.4, 101.0, 79.0, 80.0, 57.…
-## $ kg3             <dbl> NA, NA, NA, 106.0, 105.9, 98.8, 78.0, 80.0, 60.0…
-## $ cm1             <dbl> 102.4, 99.0, 87.0, 117.0, 117.0, 110.0, 101.0, 9…
-## $ cm2             <dbl> NA, NA, NA, 119.0, 111.0, 110.0, 96.0, 99.0, 76.…
-## $ cm3             <dbl> NA, NA, NA, 116.0, 115.0, 109.0, 100.0, 99.0, 90…
-## $ group           <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-## $ gender          <chr> "f", "f", "f", "f", "f", "f", "f", "f", "f", "f"…
-## $ age             <dbl> 20, 23, 65, 44, 32, 33, 21, 27, 56, 50, 57, 34, …
-## $ height          <dbl> 1.62, 1.66, 1.61, 1.58, 1.70, 1.85, 1.60, 1.63, …
-## $ gqol1           <dbl> 60, 55, 77, 70, 60, 40, 60, 40, 60, 60, 60, 60, …
-## $ gqol2           <dbl> NA, NA, NA, 70, 65, 65, 70, 60, 62, 60, 70, 75, …
-## $ ceq_logical     <dbl> NA, 9, 9, 9, 8, 9, 9, 9, 9, 9, 8, 9, 9, 9, 9, 8,…
-## $ ceq_successfull <dbl> NA, 9, 9, 8, 9, 9, 9, 9, 8, 9, 8, 8, 9, 7, 9, 9,…
-## $ ceq_recommend   <dbl> NA, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 9, 9, 9, 9, 9,…
+## $ kg1             <dbl> 83.0, 86.2, 69.0, 107.8, 107.0, 99.5, 80.0, 81.0, 59.…
+## $ kg2             <dbl> NA, NA, NA, 106.7, 105.4, 101.0, 79.0, 80.0, 57.0, 92…
+## $ kg3             <dbl> NA, NA, NA, 106.0, 105.9, 98.8, 78.0, 80.0, 60.0, 92.…
+## $ cm1             <dbl> 102.4, 99.0, 87.0, 117.0, 117.0, 110.0, 101.0, 99.7, …
+## $ cm2             <dbl> NA, NA, NA, 119.0, 111.0, 110.0, 96.0, 99.0, 76.7, 10…
+## $ cm3             <dbl> NA, NA, NA, 116.0, 115.0, 109.0, 100.0, 99.0, 90.0, 1…
+## $ group           <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ gender          <chr> "f", "f", "f", "f", "f", "f", "f", "f", "f", "f", "m"…
+## $ age             <dbl> 20, 23, 65, 44, 32, 33, 21, 27, 56, 50, 57, 34, 25, 7…
+## $ height          <dbl> 1.62, 1.66, 1.61, 1.58, 1.70, 1.85, 1.60, 1.63, 1.50,…
+## $ gqol1           <dbl> 60, 55, 77, 70, 60, 40, 60, 40, 60, 60, 60, 60, 70, 7…
+## $ gqol2           <dbl> NA, NA, NA, 70, 65, 65, 70, 60, 62, 60, 70, 75, 85, 8…
+## $ ceq_logical     <dbl> NA, 9, 9, 9, 8, 9, 9, 9, 9, 9, 8, 9, 9, 9, 9, 8, 8, 9…
+## $ ceq_successfull <dbl> NA, 9, 9, 8, 9, 9, 9, 9, 8, 9, 8, 8, 9, 7, 9, 9, 9, 9…
+## $ ceq_recommend   <dbl> NA, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 9, 9, 9, 9, 9, 9, 9…
 ```
 
 ```r
@@ -587,7 +604,7 @@ augment(m1, newdata=expand.grid(group=c(1,2), gender=c("f", "m"))) %>%
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-solbrig2019functional">
-<p>Solbrig, Linda, Ben Whalley, David J Kavanagh, Jon May, Tracey Parkin, Ray Jones, and Jackie Andrade. 2019. “Functional Imagery Training Versus Motivational Interviewing for Weight Loss: A Randomised Controlled Trial of Brief Individual Interventions for Overweight and Obesity.” <em>International Journal of Obesity</em> 43 (4). Nature Publishing Group: 883. <a href="https://www.ncbi.nlm.nih.gov/pubmed/30185920" class="uri">https://www.ncbi.nlm.nih.gov/pubmed/30185920</a>.</p>
+<p>Solbrig, Linda, Ben Whalley, David J Kavanagh, Jon May, Tracey Parkin, Ray Jones, and Jackie Andrade. 2019. “Functional Imagery Training Versus Motivational Interviewing for Weight Loss: A Randomised Controlled Trial of Brief Individual Interventions for Overweight and Obesity.” <em>International Journal of Obesity</em> 43 (4): 883. <a href="https://www.ncbi.nlm.nih.gov/pubmed/30185920">https://www.ncbi.nlm.nih.gov/pubmed/30185920</a>.</p>
 </div>
 </div>
             </section>
@@ -601,11 +618,13 @@ augment(m1, newdata=expand.grid(group=c(1,2), gender=c("f", "m"))) %>%
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -613,12 +632,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -630,6 +648,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -648,8 +670,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

@@ -2,6 +2,9 @@
 
 
 
+
+![](media/error_bars_2x.png){width=50%}
+
 > Statistical require us to be explicit about our assumptions and help us make numerical predictions
 > for new data. They also let us **quantify our uncertainty** about these predictions. Quantifying
 > uncertainty is important for both practical and theoretical purposes. Practically, we might want
@@ -191,7 +194,7 @@ kidiq %>% glimpse()
 ## $ mom_age   <dbl> 27, 25, 27, 25, 27, 18, 20, 23, 24, 19, 23, 24, 27, 26…
 ```
 
-As we did in the regression section, we can create a model. Here we predict mo
+As we did in the regression section, we can create a model. Here we predict childrens' scores from mothers' IQ and schooling:
 
 
 ```r
@@ -246,9 +249,7 @@ predict(iqmodel, newdata = new.mother, interval = "confidence")
 The output is the prediction (`fit`) and the lower and upper bounds of the confidence interval. The
 95% interval is used by default.
 
-To be clear, **_the confidence interval is the range within which we think the true predicted value
-would be for a child whose mother had IQ=97 and who completed high school would be, if we collected
-many different samples and calculated this interval many times._**
+To be clear, **_the confidence interval is range which, if we calculated it 100 times from different samples, we  think the true value would would be within 95% of the time._**
 
 :::{.exercise}
 
@@ -275,9 +276,9 @@ Use the `predict` function with `iqmodel` to answer the following questions:
 
 To create a new tibble and predict scores for different mothers, repeat the code above but changing the values for `mom_iq` or `mom_hs`.
 
-Both the 2nd and 3rd answers are false because the confidence interval is the range within which we think the true average for mothers with IQ = 97 who completed high school would fall, if we repeated the study many times.
+Both the 2nd and 3rd answers are false because the confidence interval is the range within which we think the true average for mothers with IQ = 97 who completed high school would fall, if we repeated the study and calculated the CI many times.
 
-We can't make probability statements about the quality of the predictions we actually made using classical statistics: We can only say how we think the method used to make them will perform, if we repeat it many times.
+We can't make probability statements about the quality of the predictions we actually made using classical statistics: We can only say how we think the method used to make them will perform, if we repeated it many times.
 
 
 
@@ -287,6 +288,8 @@ We can't make probability statements about the quality of the predictions we act
 :::
 
 ### Prediction intervals
+
+Prediction intervals allow us to express uncertainty about future **individuals** we might sample, rather than the average value.
 
 We can repeat the process above to make the classical _prediction_ interval instead. We just change
 `interval = "confidence"` to `interval = "prediction"`
@@ -400,9 +403,9 @@ tidy(iqmodel.bayes)
 ## # A tibble: 3 x 3
 ##   term                   estimate std.error
 ##   <chr>                     <dbl>     <dbl>
-## 1 (Intercept)              31.6      6.21  
-## 2 mom_iq                    0.563    0.0605
-## 3 mom_hsDid not complete   -5.89     2.31
+## 1 (Intercept)              31.7      6.34  
+## 2 mom_iq                    0.564    0.0611
+## 3 mom_hsDid not complete   -5.95     2.18
 ```
 
 :::{.exercise}
@@ -462,16 +465,11 @@ add_fitted_draws(iqmodel.bayes, newdata=new.mother) %>%
 ```
 
 ```
-## Warning: unnest() has a new interface. See ?unnest for details.
-## Try `df %>% unnest(c(.lower, .upper))`, with `mutate()` if needed
-```
-
-```
 ## # A tibble: 1 x 9
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row .value .lower .upper .width .point .interval
 ##    <dbl> <chr>     <int>  <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
-## 1     97 Completed     1   86.4   84.3   88.4   0.95 mean   qi
+## 1     97 Completed     1   86.4   84.4   88.4   0.95 mean   qi
 ```
 
 If we want to calculate the Bayesian **prediction interval**, we replace `add_fitted_draws` with
@@ -484,16 +482,11 @@ add_predicted_draws(iqmodel.bayes, newdata=new.mother) %>%
 ```
 
 ```
-## Warning: unnest() has a new interface. See ?unnest for details.
-## Try `df %>% unnest(c(.lower, .upper))`, with `mutate()` if needed
-```
-
-```
 ## # A tibble: 1 x 9
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row .prediction .lower .upper .width .point .interval
 ##    <dbl> <chr>     <int>       <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
-## 1     97 Completed     1        86.9   51.4   123.   0.95 mean   qi
+## 1     97 Completed     1        86.4   51.0   122.   0.95 mean   qi
 ```
 
 :::{.exercise}
@@ -603,17 +596,11 @@ add_predicted_draws(model, newdata=new.mother) %>% mean_qi()
 ```
 
 ```
-## Warning: unnest() has a new interface. See ?unnest for details.
-## Try `df %>% unnest(c(.lower, .upper))`, with `mutate()` if needed
-```
-
-```
 ## # A tibble: 1 x 10
 ## # Groups:   mom_iq, mom_hs, mom_age [1]
-##   mom_iq mom_hs mom_age  .row .prediction .lower .upper .width .point
-##    <dbl> <chr>    <dbl> <int>       <dbl>  <dbl>  <dbl>  <dbl> <chr> 
-## 1    100 Compl…      30     1        90.0   53.7   127.   0.95 mean  
-## # … with 1 more variable: .interval <chr>
+##   mom_iq mom_hs  mom_age  .row .prediction .lower .upper .width .point .interval
+##    <dbl> <chr>     <dbl> <int>       <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
+## 1    100 Comple…      30     1        89.5   53.9   125.   0.95 mean   qi
 ```
 
 ```r
@@ -621,16 +608,11 @@ add_fitted_draws(model, newdata=new.mother) %>% mean_qi() #
 ```
 
 ```
-## Warning: unnest() has a new interface. See ?unnest for details.
-## Try `df %>% unnest(c(.lower, .upper))`, with `mutate()` if needed
-```
-
-```
 ## # A tibble: 1 x 10
 ## # Groups:   mom_iq, mom_hs, mom_age [1]
-##   mom_iq mom_hs  mom_age  .row .value .lower .upper .width .point .interval
-##    <dbl> <chr>     <dbl> <int>  <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
-## 1    100 Comple…      30     1   89.6   84.5   94.6   0.95 mean   qi
+##   mom_iq mom_hs    mom_age  .row .value .lower .upper .width .point .interval
+##    <dbl> <chr>       <dbl> <int>  <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
+## 1    100 Completed      30     1   89.7   84.8   94.5   0.95 mean   qi
 ```
 
 
@@ -740,7 +722,7 @@ add_predicted_draws(iqmodel.bayes, newdata=new.mother) %>%
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row `mean(.prediction < 60)`
 ##    <dbl> <chr>     <int>                    <dbl>
-## 1     97 Completed     1                    0.076
+## 1     97 Completed     1                   0.0712
 ```
 
 

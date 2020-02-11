@@ -94,7 +94,7 @@ mtcars %>%
 
 
 You should get something like:
-40.1, 54.0 and 72.4
+42.6, 55.1 and 71.9
 
 Don't worry about rounding errors... within 1 point is fine.
 
