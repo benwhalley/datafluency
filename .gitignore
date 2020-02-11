@@ -1,4 +1,4 @@
-
+.DS_Store
 .Rproj.user
 assessment-draft/*
 
@@ -6,7 +6,7 @@ assessment-draft/*
 *~
 
 *.rds
-*_files/
+*_files
 assessments-draft
 
 # History files

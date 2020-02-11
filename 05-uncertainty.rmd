@@ -9,6 +9,7 @@ library(pander)
 theme_set(theme_minimal())
 ```
 
+
 ![](media/error_bars_2x.png){width=50%}
 
 > Statistical require us to be explicit about our assumptions and help us make numerical predictions

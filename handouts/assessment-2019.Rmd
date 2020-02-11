@@ -1,36 +1,13 @@
-# Assessments
-
-```{r, echo=FALSE, message=FALSE, include=F, warnings=F}
-library(knitr)
-library(tidyverse)
-library(pander)
-```
-
-The assessment for PSYC753 includes 3 components:
-
--   A pass fail assessment which will ensure you have acquired the core skills in handling and
-    visualising data.
--   A structured data analysis and visualisation task, requiring short answers (50%)
--   An authentic analysis assignment, where you will replicate the analysis of a published study
-    (50%).
-
-**_For submission dates please check the DLE._** Don't rely on this website.
-
-## Core skills test
-
-Details of the core skills test will be released in week 13 via the DLE, and will be due around week
-20 (early December).
-
-## Analysis and visualisation task
-
-Details of this task will be released in week 25 via the DLE (early January) and coursework will be
-due around week 31 (mid February).
-
-## Authentic analysis assessment {#assessment-authentic-analysis}
-
-This task will be due around week 40.
-
 ---
+output:
+    pdf_document: 
+      latex_engine: xelatex
+---
+
+
+
+# Authentic analysis assessment {#assessment-authentic-analysis}
+
 
 Find an empirical paper for which the authors have freely-shared the dataset but not their analysis
 scripts. Ideally this will link to your research interests, or be similar to your project analysis,
@@ -60,10 +37,6 @@ To check if a paper will be suitable, you can answer these questions:
 2. Is the design between-groups? (answer must be yes)
 3. Are  measurements at more than 2 timepoints per-participant? (answer should be no; if the paper reports "mixed effects" models or repeat-measures Anova it will not be suitable)
 4. Is the outcome a continuous variable? (i.e. must not be a binary outcome)
-
-
-
-
 
 
 
