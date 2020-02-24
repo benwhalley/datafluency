@@ -13,6 +13,6 @@ bookdown::gitbook:
             before: |
                 <li><a href="./">Data Fluency</a></li>
             after: |
-                <li><a href="./LICENCE" target="blank">Licence: CC BY-SA 4</a></li>
+                <li><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank">Licence: CC BY-SA 4</a></li>
 
 bookdown::html_document2: default
