@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Session 2: Developing skills | Data Fluency</title>
+  <meta name="description" content="Session 2: Developing skills | Data Fluency" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Session 2: Developing skills | Data Fluency" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Session 2: Developing skills | Data Fluency" />
+  
+  
+  
+
+<meta name="author" content="Ben Whalley and Chris Berry" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="session-1-reproducing-a-real-paper.html"/>
+<link rel="next" href="session-3-comparisons-and-tests.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.5/grViz.js"></script>
+<link href="media/webex.css" rel="stylesheet" />
+<link href="media/psystats.css" rel="stylesheet" />
+<script src="media/webex.js"></script>
+<script src="media/psystats.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118343766-4"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-118343766-4');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Fluency</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a>
+<ul>
+<li class="chapter" data-level="" data-path="approach-of-this-course.html"><a href="approach-of-this-course.html"><i class="fa fa-check"></i>Approach of this course</a></li>
+<li class="chapter" data-level="" data-path="format-of-the-sessions.html"><a href="format-of-the-sessions.html"><i class="fa fa-check"></i>Format of the sessions</a></li>
+<li class="chapter" data-level="" data-path="the-most-important-thing-of-all.html"><a href="the-most-important-thing-of-all.html"><i class="fa fa-check"></i>The most important thing of all</a></li>
+<li class="chapter" data-level="" data-path="list-of-sessions.html"><a href="list-of-sessions.html"><i class="fa fa-check"></i>List of sessions</a></li>
+<li class="chapter" data-level="" data-path="access-to-r.html"><a href="access-to-r.html"><i class="fa fa-check"></i>Access to R</a></li>
+<li class="chapter" data-level="" data-path="reasons-to-use-r.html"><a href="reasons-to-use-r.html"><i class="fa fa-check"></i>Why do we use R?</a></li>
+<li class="chapter" data-level="" data-path="teachers-notes.html"><a href="teachers-notes.html"><i class="fa fa-check"></i>Teachers’ notes</a></li>
+<li class="chapter" data-level="" data-path="week-by-week-resources.html"><a href="week-by-week-resources.html"><i class="fa fa-check"></i>Week-by-week resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assessments.html"><a href="assessments.html"><i class="fa fa-check"></i>Assessments</a>
+<ul>
+<li class="chapter" data-level="" data-path="core-skills-test.html"><a href="core-skills-test.html"><i class="fa fa-check"></i>Core skills test</a></li>
+<li class="chapter" data-level="" data-path="data-analysis-and-visualisation-task.html"><a href="data-analysis-and-visualisation-task.html"><i class="fa fa-check"></i>Data analysis and visualisation task</a></li>
+<li class="chapter" data-level="" data-path="assessment-authentic-analysis.html"><a href="assessment-authentic-analysis.html"><i class="fa fa-check"></i>Authentic analysis assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="beginners.html"><a href="beginners.html"><i class="fa fa-check"></i>BeginneRs</a>
+<ul>
+<li class="chapter" data-level="" data-path="getting-started-rstudio.html"><a href="getting-started-rstudio.html"><i class="fa fa-check"></i>Getting started with RStudio</a></li>
+<li class="chapter" data-level="" data-path="exploring-data-brief.html"><a href="exploring-data-brief.html"><i class="fa fa-check"></i>Exploring data (in brief)</a></li>
+<li class="chapter" data-level="" data-path="inspecting-data.html"><a href="inspecting-data.html"><i class="fa fa-check"></i>Inspecting data</a></li>
+<li class="chapter" data-level="" data-path="missing-data.html"><a href="missing-data.html"><i class="fa fa-check"></i>Missing data</a></li>
+<li class="chapter" data-level="" data-path="group-differences-briefly.html"><a href="group-differences-briefly.html"><i class="fa fa-check"></i>Group differences (briefly)</a></li>
+<li class="chapter" data-level="" data-path="undergraduate-stats-in-r.html"><a href="undergraduate-stats-in-r.html"><i class="fa fa-check"></i>Undergraduate stats in R</a></li>
+<li class="chapter" data-level="" data-path="sequences-and-designs.html"><a href="sequences-and-designs.html"><i class="fa fa-check"></i>Sequences and designs</a></li>
+<li class="chapter" data-level="" data-path="more-reading-data.html"><a href="more-reading-data.html"><i class="fa fa-check"></i>Reading data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i>Visualisation and plotting</a>
+<ul>
+<li class="chapter" data-level="" data-path="session1.html"><a href="session1.html"><i class="fa fa-check"></i>Session 1</a></li>
+<li class="chapter" data-level="" data-path="countries-200-years.html"><a href="countries-200-years.html"><i class="fa fa-check"></i>200 countries, 200 years…</a></li>
+<li class="chapter" data-level="" data-path="into-the-third-and-fourth-and-fifth-dimension.html"><a href="into-the-third-and-fourth-and-fifth-dimension.html"><i class="fa fa-check"></i>Into the third (and fourth, and fifth…) dimension</a></li>
+<li class="chapter" data-level="" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i>Layers</a></li>
+<li class="chapter" data-level="" data-path="facets.html"><a href="facets.html"><i class="fa fa-check"></i>Facets</a></li>
+<li class="chapter" data-level="" data-path="ggplot-scales.html"><a href="ggplot-scales.html"><i class="fa fa-check"></i>Scales</a></li>
+<li class="chapter" data-level="" data-path="comparing-categories.html"><a href="comparing-categories.html"><i class="fa fa-check"></i>Comparing categories</a></li>
+<li class="chapter" data-level="" data-path="spit-and-polish.html"><a href="spit-and-polish.html"><i class="fa fa-check"></i>Spit and polish</a></li>
+<li class="chapter" data-level="" data-path="session-2-real-world-plots.html"><a href="session-2-real-world-plots.html"><i class="fa fa-check"></i>Session 2: Real world plots</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i>Data handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="overview-1.html"><a href="overview-1.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="making-new-variables.html"><a href="making-new-variables.html"><i class="fa fa-check"></i>Making new variables</a></li>
+<li class="chapter" data-level="" data-path="reshaping-melting.html"><a href="reshaping-melting.html"><i class="fa fa-check"></i>Reshaping (melting)</a></li>
+<li class="chapter" data-level="" data-path="reshaping-wide-casting.html"><a href="reshaping-wide-casting.html"><i class="fa fa-check"></i>Reshaping wide (casting)</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i>RMarkdown</a></li>
+<li class="chapter" data-level="" data-path="final-task-to-be-completed-as-homework.html"><a href="final-task-to-be-completed-as-homework.html"><i class="fa fa-check"></i>Final task (to be completed as homework)</a></li>
+<li class="chapter" data-level="" data-path="extension-exercises-and-reading.html"><a href="extension-exercises-and-reading.html"><i class="fa fa-check"></i>Extension exercises and reading</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i>Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="session-1.html"><a href="session-1.html"><i class="fa fa-check"></i>Session 1</a></li>
+<li class="chapter" data-level="" data-path="how-useful-are-the-lines.html"><a href="how-useful-are-the-lines.html"><i class="fa fa-check"></i>How useful are the lines?</a></li>
+<li class="chapter" data-level="" data-path="using-r-for-regression.html"><a href="using-r-for-regression.html"><i class="fa fa-check"></i>Using R for regression</a></li>
+<li><a href="the-first-step-is-always-plotting.html#the-first-step-is-always-plotting">The first step is <strong>always</strong> plotting</a></li>
+<li class="chapter" data-level="" data-path="automatic-line-fitting.html"><a href="automatic-line-fitting.html"><i class="fa fa-check"></i>Automatic line-fitting</a></li>
+<li class="chapter" data-level="" data-path="first-lm.html"><a href="first-lm.html"><i class="fa fa-check"></i>Putting numbers to lines</a></li>
+<li class="chapter" data-level="" data-path="regresion-hand-predictions.html"><a href="regresion-hand-predictions.html"><i class="fa fa-check"></i>Making predictions (by hand)</a></li>
+<li class="chapter" data-level="" data-path="regression-thinking-causes.html"><a href="regression-thinking-causes.html"><i class="fa fa-check"></i>Thinking about causes</a></li>
+<li class="chapter" data-level="" data-path="moderation-intro.html"><a href="moderation-intro.html"><i class="fa fa-check"></i>‘Effect modification’</a></li>
+<li class="chapter" data-level="" data-path="tricky-relationships.html"><a href="tricky-relationships.html"><i class="fa fa-check"></i>‘Tricky’ relationships</a></li>
+<li class="chapter" data-level="" data-path="diagrams-and-models.html"><a href="diagrams-and-models.html"><i class="fa fa-check"></i>Diagrams and models</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-multiple-regression.html"><a href="why-multiple-regression.html"><i class="fa fa-check"></i>Why use multiple regression?</a></li>
+<li class="chapter" data-level="" data-path="regression-interaction.html"><a href="regression-interaction.html"><i class="fa fa-check"></i>Different relationships?</a></li>
+<li><a href="fit-multiple-regression.html#fit-multiple-regression">Using <code>lm</code> for multiple regression</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i>Uncertainty</a>
+<ul>
+<li class="chapter" data-level="" data-path="overview-3.html"><a href="overview-3.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="calculating-intervals.html"><a href="calculating-intervals.html"><i class="fa fa-check"></i>Calculating intervals</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points.html"><a href="summary-of-key-points.html"><i class="fa fa-check"></i>Summary of key points</a></li>
+<li class="chapter" data-level="" data-path="beyond-intervals-extension-exercises.html"><a href="beyond-intervals-extension-exercises.html"><i class="fa fa-check"></i>Beyond intervals (extension exercises)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="building-models-1.html"><a href="building-models-1.html"><i class="fa fa-check"></i>Building models 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="multiple-regression-with-several-continuous-predictors.html"><a href="multiple-regression-with-several-continuous-predictors.html"><i class="fa fa-check"></i>Multiple regression with several continuous predictors</a></li>
+<li class="chapter" data-level="" data-path="analysing-the-model.html"><a href="analysing-the-model.html"><i class="fa fa-check"></i>Analysing the model</a></li>
+<li class="chapter" data-level="" data-path="conceptualising-the-variance-explained-by-predictors.html"><a href="conceptualising-the-variance-explained-by-predictors.html"><i class="fa fa-check"></i>Conceptualising the variance explained by predictors</a></li>
+<li class="chapter" data-level="" data-path="adding-predictor-variables-to-the-model.html"><a href="adding-predictor-variables-to-the-model.html"><i class="fa fa-check"></i>Adding predictor variables to the model</a></li>
+<li class="chapter" data-level="" data-path="multicollinearity.html"><a href="multicollinearity.html"><i class="fa fa-check"></i>Multicollinearity</a></li>
+<li class="chapter" data-level="" data-path="final-exercise.html"><a href="final-exercise.html"><i class="fa fa-check"></i>Final exercise</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points-1.html"><a href="summary-of-key-points-1.html"><i class="fa fa-check"></i>Summary of key points</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="building-models-2.html"><a href="building-models-2.html"><i class="fa fa-check"></i>Building models 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="using-anova-and-bayes-factors-to-compare-models.html"><a href="using-anova-and-bayes-factors-to-compare-models.html"><i class="fa fa-check"></i>Using ANOVA and Bayes Factors to compare models</a></li>
+<li class="chapter" data-level="" data-path="comparing-models-using-anova.html"><a href="comparing-models-using-anova.html"><i class="fa fa-check"></i>Comparing models using ANOVA</a></li>
+<li class="chapter" data-level="" data-path="comparing-models-using-bayes-factors.html"><a href="comparing-models-using-bayes-factors.html"><i class="fa fa-check"></i>Comparing models using Bayes Factors</a></li>
+<li class="chapter" data-level="" data-path="exercise.html"><a href="exercise.html"><i class="fa fa-check"></i>Exercise</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points-2.html"><a href="summary-of-key-points-2.html"><i class="fa fa-check"></i>Summary of key points</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="fitting-curves.html"><a href="fitting-curves.html"><i class="fa fa-check"></i>Fitting curves</a>
+<ul>
+<li class="chapter" data-level="" data-path="using-polynomials-to-fit-curves.html"><a href="using-polynomials-to-fit-curves.html"><i class="fa fa-check"></i>Using polynomials to fit curves</a></li>
+<li class="chapter" data-level="" data-path="polynomials.html"><a href="polynomials.html"><i class="fa fa-check"></i>Polynomials</a></li>
+<li class="chapter" data-level="" data-path="identifying-polynomial-components.html"><a href="identifying-polynomial-components.html"><i class="fa fa-check"></i>Identifying polynomial components</a></li>
+<li class="chapter" data-level="" data-path="bayesian-approach.html"><a href="bayesian-approach.html"><i class="fa fa-check"></i>Bayesian approach</a></li>
+<li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise</a></li>
+<li class="chapter" data-level="" data-path="summary-of-key-points-3.html"><a href="summary-of-key-points-3.html"><i class="fa fa-check"></i>Summary of key points</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
+<ul>
+<li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
+<li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
+<li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
+<ul>
+<li class="chapter" data-level="" data-path="keyboard-shortcuts.html"><a href="keyboard-shortcuts.html"><i class="fa fa-check"></i>Keyboard shortcuts</a></li>
+<li class="chapter" data-level="" data-path="common-problems.html"><a href="common-problems.html"><i class="fa fa-check"></i>Common problems</a></li>
+<li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html"><i class="fa fa-check"></i>Cheatsheet</a></li>
+<li class="chapter" data-level="" data-path="sample-n.html"><a href="sample-n.html"><i class="fa fa-check"></i>More sampling</a></li>
+<li class="chapter" data-level="" data-path="more-on-tibbles.html"><a href="more-on-tibbles.html"><i class="fa fa-check"></i>More on Tibbles</a></li>
+<li class="chapter" data-level="" data-path="regression-extra-explanations.html"><a href="regression-extra-explanations.html"><i class="fa fa-check"></i>Regression - extra explanations</a></li>
+<li class="chapter" data-level="" data-path="bayesian-estimation-of-the.html"><a href="bayesian-estimation-of-the.html"><i class="fa fa-check"></i>Bayesian estimation of the</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals-explanation.html"><a href="confidence-intervals-explanation.html"><i class="fa fa-check"></i>What do confidence intervals mean?</a></li>
+<li class="chapter" data-level="" data-path="bayesian-estimation-of-the-1.html"><a href="bayesian-estimation-of-the-1.html"><i class="fa fa-check"></i>Bayesian estimation of the</a></li>
+<li class="chapter" data-level="" data-path="other-tips.html"><a href="other-tips.html"><i class="fa fa-check"></i>Other tips</a></li>
+<li class="chapter" data-level="" data-path="wider-reading.html"><a href="wider-reading.html"><i class="fa fa-check"></i>Wider reading</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank">Licence: CC BY-SA 4</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Fluency</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="session-2-developing-skills" class="section level2">
+<h2>Session 2: Developing skills</h2>
+<p>In this session we will do additional work to build the skills you need to
+develop your own replication (responding to the gaps you have identified).
+You will build on skills learnt in previous weeks to wrangle the published
+data into a suitable format, plot the data, and decide
+which analyses to run for inferential tests.</p>
+<div id="what-is-ancova" class="section level3">
+<h3>What is Ancova?</h3>
+<div class="note">
+<p>Note: what follows are notes to support the talk I gave in-class. I don’t expect you to work through these materials like a worksheet because the content is broadly similar to what has gone before — it’s really the explanation that differs. There are specific exercises to complete at the end.</p>
+</div>
+<p>Anova is just a regular linear model (<code>lm</code>) with one or more categorical variables as predictors.</p>
+<p>The example dataset I described was as follows:</p>
+<blockquote>
+<p>A student dissertation project investigated the analgesic quality of music
+during an experimental pain stimulus. Music was selected to be either <em>liked</em>
+(or disliked) by participants and was either <em>familiar</em> or unfamiliar to them.
+Pain was rated without music (<code>no.music</code>) and with music (<code>with.music</code>) using a
+10cm visual analog scale anchored with the labels “no pain” and “worst pain
+ever”.</p>
+</blockquote>
+<p>I suggested we might run a linear model to predict pain scores when music was playing, including the two experimental variables:</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="session-2-developing-skills.html#cb244-1"></a><span class="co"># this library is useful to provide a summary of lm models, see below</span></span>
+<span id="cb244-2"><a href="session-2-developing-skills.html#cb244-2"></a><span class="kw">library</span>(pander)</span>
+<span id="cb244-3"><a href="session-2-developing-skills.html#cb244-3"></a></span>
+<span id="cb244-4"><a href="session-2-developing-skills.html#cb244-4"></a><span class="co"># read the data in</span></span>
+<span id="cb244-5"><a href="session-2-developing-skills.html#cb244-5"></a>painmusic &lt;-<span class="st">  </span><span class="kw">read_csv</span>(<span class="st">&#39;data/painmusic.csv&#39;</span>)</span>
+<span id="cb244-6"><a href="session-2-developing-skills.html#cb244-6"></a></span>
+<span id="cb244-7"><a href="session-2-developing-skills.html#cb244-7"></a><span class="co"># run a linear model</span></span>
+<span id="cb244-8"><a href="session-2-developing-skills.html#cb244-8"></a>m.withmusic &lt;-<span class="st"> </span><span class="kw">lm</span>(with.music <span class="op">~</span><span class="st"> </span>liked <span class="op">*</span><span class="st"> </span>familiar, <span class="dt">data=</span>painmusic)</span>
+<span id="cb244-9"><a href="session-2-developing-skills.html#cb244-9"></a></span>
+<span id="cb244-10"><a href="session-2-developing-skills.html#cb244-10"></a><span class="co"># show the output</span></span>
+<span id="cb244-11"><a href="session-2-developing-skills.html#cb244-11"></a>m.withmusic <span class="op">%&gt;%</span></span>
+<span id="cb244-12"><a href="session-2-developing-skills.html#cb244-12"></a><span class="st">  </span><span class="kw">pander</span>()</span></code></pre></div>
+<table>
+<caption>Fitting linear model: with.music ~ liked * familiar</caption>
+<colgroup>
+<col width="43%" />
+<col width="13%" />
+<col width="15%" />
+<col width="12%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>(Intercept)</strong></td>
+<td align="center">5.5</td>
+<td align="center">0.3851</td>
+<td align="center">14.28</td>
+<td align="center">1.243e-26</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>likedLiked</strong></td>
+<td align="center">-0.75</td>
+<td align="center">0.5446</td>
+<td align="center">-1.377</td>
+<td align="center">0.1713</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>familiarUnfamiliar</strong></td>
+<td align="center">0.3571</td>
+<td align="center">0.5446</td>
+<td align="center">0.6558</td>
+<td align="center">0.5133</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>likedLiked:familiarUnfamiliar</strong></td>
+<td align="center">0.1071</td>
+<td align="center">0.7701</td>
+<td align="center">0.1391</td>
+<td align="center">0.8896</td>
+</tr>
+</tbody>
+</table>
+<p>The issue with the output is that we have 4 coefficients which don’t map onto the questions we have. We want to know:</p>
+<ul>
+<li>Did familiarity make a difference</li>
+<li>Did liking make a difference</li>
+<li>Was there an <em>interaction</em> between familiarity and liking</li>
+</ul>
+<p>To test this using frequentist methods we can use the <code>car::Anova</code> function:</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="session-2-developing-skills.html#cb245-1"></a>car<span class="op">::</span><span class="kw">Anova</span>(m.withmusic, <span class="dt">type=</span><span class="dv">3</span>)</span>
+<span id="cb245-2"><a href="session-2-developing-skills.html#cb245-2"></a>Anova <span class="kw">Table</span> (Type III tests)</span>
+<span id="cb245-3"><a href="session-2-developing-skills.html#cb245-3"></a></span>
+<span id="cb245-4"><a href="session-2-developing-skills.html#cb245-4"></a>Response<span class="op">:</span><span class="st"> </span>with.music</span>
+<span id="cb245-5"><a href="session-2-developing-skills.html#cb245-5"></a>               Sum Sq  Df  F value <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb245-6"><a href="session-2-developing-skills.html#cb245-6"></a>(Intercept)    <span class="fl">847.00</span>   <span class="dv">1</span> <span class="fl">204.0086</span> <span class="op">&lt;</span><span class="fl">2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb245-7"><a href="session-2-developing-skills.html#cb245-7"></a>liked            <span class="fl">7.88</span>   <span class="dv">1</span>   <span class="fl">1.8968</span> <span class="fl">0.1713</span>    </span>
+<span id="cb245-8"><a href="session-2-developing-skills.html#cb245-8"></a>familiar         <span class="fl">1.79</span>   <span class="dv">1</span>   <span class="fl">0.4301</span> <span class="fl">0.5133</span>    </span>
+<span id="cb245-9"><a href="session-2-developing-skills.html#cb245-9"></a>liked<span class="op">:</span>familiar   <span class="fl">0.08</span>   <span class="dv">1</span>   <span class="fl">0.0194</span> <span class="fl">0.8896</span>    </span>
+<span id="cb245-10"><a href="session-2-developing-skills.html#cb245-10"></a>Residuals      <span class="fl">448.39</span> <span class="dv">108</span>                    </span>
+<span id="cb245-11"><a href="session-2-developing-skills.html#cb245-11"></a><span class="op">---</span></span>
+<span id="cb245-12"><a href="session-2-developing-skills.html#cb245-12"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<p>The <code>car::Anova</code> function is really just a special way of <strong>displaying</strong> results from a linear model. The important part is still the model formula, <code>with.music ~ liked * familiar</code>.</p>
+</div>
+<div id="why-use-caranova-and-not-anova" class="section level3">
+<h3>Why use <code>car::Anova()</code> and not <code>anova</code>?</h3>
+<p>For many years SPSS made things simple: it largely hid the fact that when reporting Anova tests you need to choose the way the sums of squares (and so F ratios) are calculated when interactions are included in a model.</p>
+<ul>
+<li><p>Note: this ONLY matters if your model has an interaction term (e.g. <code>y ~ A*B</code>).</p></li>
+<li><p>Sometimes people don’t report which they use.</p></li>
+<li><p>Because so many people used SPSS for so many years, most papers will report <strong><em>Type 3</em></strong> sums of squares. This is a good first guess.</p></li>
+<li><p>There are good reasons to use Type 2 instead though.</p></li>
+<li><p>The default <code>anova</code> function in R gives Type 1 sums of squares. This doesn’t matter for models without an interaction, but is probbaly not a good choice if you do have interactions.</p></li>
+<li><p>The easist way to chose which type is to use <code>car::Anova(savedmodel, type=3)</code> instead of the built in <code>anova</code> function.</p></li>
+</ul>
+<p>If you want more explanation of why/how to choose, see: <a href="https://mcfromnz.wordpress.com/2011/03/02/anova-type-iiiiii-ss-explained/" class="uri">https://mcfromnz.wordpress.com/2011/03/02/anova-type-iiiiii-ss-explained/</a> or for a more technical reference see <span class="citation">Venables (<a href="#ref-venables1998exegeses" role="doc-biblioref">1998</a>)</span>.</p>
+</div>
+<div id="modelling-change-scores" class="section level3">
+<h3>Modelling change scores</h3>
+<p>The model above only uses the <code>with.music</code> pain ratings - i.e. scores when music was playing. To estimate the effect of the intervention properly we want to see the difference between scores with and without music:</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="session-2-developing-skills.html#cb246-1"></a>m.effectofmusic &lt;-<span class="st"> </span><span class="kw">lm</span>((no.music <span class="op">-</span><span class="st"> </span>with.music) <span class="op">~</span><span class="st"> </span>liked <span class="op">*</span><span class="st"> </span>familiar, <span class="dt">data=</span>painmusic)</span>
+<span id="cb246-2"><a href="session-2-developing-skills.html#cb246-2"></a>m.effectofmusic <span class="op">%&gt;%</span></span>
+<span id="cb246-3"><a href="session-2-developing-skills.html#cb246-3"></a><span class="st">  </span><span class="kw">pander</span>()</span></code></pre></div>
+<table>
+<caption>Fitting linear model: (no.music - with.music) ~ liked * familiar</caption>
+<colgroup>
+<col width="44%" />
+<col width="13%" />
+<col width="16%" />
+<col width="12%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>(Intercept)</strong></td>
+<td align="center">-0.5357</td>
+<td align="center">0.2928</td>
+<td align="center">-1.829</td>
+<td align="center">0.0701</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>likedLiked</strong></td>
+<td align="center">1.071</td>
+<td align="center">0.4141</td>
+<td align="center">2.587</td>
+<td align="center">0.01101</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>familiarUnfamiliar</strong></td>
+<td align="center">0.07143</td>
+<td align="center">0.4141</td>
+<td align="center">0.1725</td>
+<td align="center">0.8634</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>likedLiked:familiarUnfamiliar</strong></td>
+<td align="center">-0.9643</td>
+<td align="center">0.5857</td>
+<td align="center">-1.646</td>
+<td align="center">0.1026</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that we didn’t create a new variable using mutate: we just used <code>(no.music - with.music)</code> on the left hand side of the <code>~</code> sign. R knows what we mean and creates the extra column for us behind the scenes.</p>
+<p>After running the model we can use the <code>anova</code> function again to get the Anova table and F tests:</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="session-2-developing-skills.html#cb247-1"></a>car<span class="op">::</span><span class="kw">Anova</span>(m.effectofmusic, <span class="dt">type=</span><span class="dv">3</span>)</span>
+<span id="cb247-2"><a href="session-2-developing-skills.html#cb247-2"></a>Anova <span class="kw">Table</span> (Type III tests)</span>
+<span id="cb247-3"><a href="session-2-developing-skills.html#cb247-3"></a></span>
+<span id="cb247-4"><a href="session-2-developing-skills.html#cb247-4"></a>Response<span class="op">:</span><span class="st"> </span>(no.music <span class="op">-</span><span class="st"> </span>with.music)</span>
+<span id="cb247-5"><a href="session-2-developing-skills.html#cb247-5"></a>                Sum Sq  Df F value  <span class="kw">Pr</span>(<span class="op">&gt;</span>F)  </span>
+<span id="cb247-6"><a href="session-2-developing-skills.html#cb247-6"></a>(Intercept)      <span class="fl">8.036</span>   <span class="dv">1</span>  <span class="fl">3.3466</span> <span class="fl">0.07010</span> .</span>
+<span id="cb247-7"><a href="session-2-developing-skills.html#cb247-7"></a>liked           <span class="fl">16.071</span>   <span class="dv">1</span>  <span class="fl">6.6933</span> <span class="fl">0.01101</span> <span class="op">*</span></span>
+<span id="cb247-8"><a href="session-2-developing-skills.html#cb247-8"></a>familiar         <span class="fl">0.071</span>   <span class="dv">1</span>  <span class="fl">0.0297</span> <span class="fl">0.86339</span>  </span>
+<span id="cb247-9"><a href="session-2-developing-skills.html#cb247-9"></a>liked<span class="op">:</span>familiar   <span class="fl">6.509</span>   <span class="dv">1</span>  <span class="fl">2.7108</span> <span class="fl">0.10258</span>  </span>
+<span id="cb247-10"><a href="session-2-developing-skills.html#cb247-10"></a>Residuals      <span class="fl">259.321</span> <span class="dv">108</span>                  </span>
+<span id="cb247-11"><a href="session-2-developing-skills.html#cb247-11"></a><span class="op">---</span></span>
+<span id="cb247-12"><a href="session-2-developing-skills.html#cb247-12"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<p>Because we are now modelling <strong>differences</strong> in pain between when music is/isn’t playing we have a much more powerful test. We can see that the F test for <code>liked</code> is p &lt; .05 (although that isn’t a very high bar).</p>
+</div>
+<div id="using-ancova-to-control-for-baseline" class="section level3">
+<h3>Using Ancova to ‘control for baseline’</h3>
+<p>A common alternative is to put the <code>no.music</code> score on the right of the <code>~</code> sign, as a covariate:</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="session-2-developing-skills.html#cb248-1"></a>music.ancova &lt;-<span class="st"> </span><span class="kw">lm</span>(with.music <span class="op">~</span><span class="st"> </span>no.music <span class="op">+</span><span class="st"> </span>liked <span class="op">*</span><span class="st"> </span>familiar, <span class="dt">data=</span>painmusic)</span>
+<span id="cb248-2"><a href="session-2-developing-skills.html#cb248-2"></a>music.ancova <span class="op">%&gt;%</span></span>
+<span id="cb248-3"><a href="session-2-developing-skills.html#cb248-3"></a><span class="st">  </span><span class="kw">pander</span>()</span></code></pre></div>
+<table>
+<caption>Fitting linear model: with.music ~ no.music + liked * familiar</caption>
+<colgroup>
+<col width="43%" />
+<col width="13%" />
+<col width="15%" />
+<col width="12%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>(Intercept)</strong></td>
+<td align="center">1.847</td>
+<td align="center">0.4585</td>
+<td align="center">4.029</td>
+<td align="center">0.0001052</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>no.music</strong></td>
+<td align="center">0.7359</td>
+<td align="center">0.07345</td>
+<td align="center">10.02</td>
+<td align="center">4.63e-17</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>likedLiked</strong></td>
+<td align="center">-0.9865</td>
+<td align="center">0.3937</td>
+<td align="center">-2.506</td>
+<td align="center">0.01372</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>familiarUnfamiliar</strong></td>
+<td align="center">0.04177</td>
+<td align="center">0.3943</td>
+<td align="center">0.1059</td>
+<td align="center">0.9158</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>likedLiked:familiarUnfamiliar</strong></td>
+<td align="center">0.7379</td>
+<td align="center">0.5593</td>
+<td align="center">1.319</td>
+<td align="center">0.1899</td>
+</tr>
+</tbody>
+</table>
+<p>This means we have run a multiple regression with two categorical variables and their interaction PLUS a continuous predictor.</p>
+<p>If we use the <code>anova</code> function on this model, the results are (perhaps confusingly) known as an <strong>Ancova</strong> or analysis of co-variance.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="session-2-developing-skills.html#cb249-1"></a>music.ancova <span class="op">%&gt;%</span><span class="st"> </span>car<span class="op">::</span><span class="kw">Anova</span>(<span class="dt">type=</span><span class="dv">3</span>)</span>
+<span id="cb249-2"><a href="session-2-developing-skills.html#cb249-2"></a>Anova <span class="kw">Table</span> (Type III tests)</span>
+<span id="cb249-3"><a href="session-2-developing-skills.html#cb249-3"></a></span>
+<span id="cb249-4"><a href="session-2-developing-skills.html#cb249-4"></a>Response<span class="op">:</span><span class="st"> </span>with.music</span>
+<span id="cb249-5"><a href="session-2-developing-skills.html#cb249-5"></a>                Sum Sq  Df  F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb249-6"><a href="session-2-developing-skills.html#cb249-6"></a>(Intercept)     <span class="fl">35.092</span>   <span class="dv">1</span>  <span class="fl">16.2292</span> <span class="fl">0.0001052</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb249-7"><a href="session-2-developing-skills.html#cb249-7"></a>no.music       <span class="fl">217.031</span>   <span class="dv">1</span> <span class="fl">100.3721</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb249-8"><a href="session-2-developing-skills.html#cb249-8"></a>liked           <span class="fl">13.576</span>   <span class="dv">1</span>   <span class="fl">6.2788</span> <span class="fl">0.0137250</span> <span class="op">*</span><span class="st">  </span></span>
+<span id="cb249-9"><a href="session-2-developing-skills.html#cb249-9"></a>familiar         <span class="fl">0.024</span>   <span class="dv">1</span>   <span class="fl">0.0112</span> <span class="fl">0.9158285</span>    </span>
+<span id="cb249-10"><a href="session-2-developing-skills.html#cb249-10"></a>liked<span class="op">:</span>familiar   <span class="fl">3.763</span>   <span class="dv">1</span>   <span class="fl">1.7404</span> <span class="fl">0.1899089</span>    </span>
+<span id="cb249-11"><a href="session-2-developing-skills.html#cb249-11"></a>Residuals      <span class="fl">231.362</span> <span class="dv">107</span>                       </span>
+<span id="cb249-12"><a href="session-2-developing-skills.html#cb249-12"></a><span class="op">---</span></span>
+<span id="cb249-13"><a href="session-2-developing-skills.html#cb249-13"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<p>As with the change score model above, we have more power to detect effects of the intervention than with the very first model.</p>
+<p>By including no-music scores as a covariate we have ‘controlled-for’ the variation between individals. Each participant acts as their own control.</p>
+</div>
+<div id="why-this-isnt-a-repeated-measures-model" class="section level3">
+<h3>Why this isn’t a repeated measures model?</h3>
+<p>In this experiment we took two measures of pain: with and without music. However, because we are interested in the difference between these two, we can either use change scores as our outcome, or include no-music as a covariate (which amounts to much the same thing).</p>
+<p>We couldn’t have done this if we had taken 3 measures… e.g. if we had measures before, during and after music was played.</p>
+<p>The key difference is that in these models, the outcome an be represented by a single column of numbers, and where each participant has only 1 row in the datafile. Any time you have more data than that we need to use a proper repeat-measures model.</p>
+</div>
+<div id="other-uses-of-ancova" class="section level3">
+<h3>Other uses of Ancova</h3>
+<p>The other example I gave in the workshop was from <code>gapminder</code>.</p>
+<p>This is the case where we have some outcome, <code>y</code>, and a categorical predictor, <code>x</code>, but we want to ‘control for’ some other variable, <code>Z</code>.</p>
+<p>Technically, this is just the same as the Ancova example above. Only the <strong><em>interpretation</em></strong> differs.</p>
+<p>I said, in R, we just write: <code>y ~ z + x</code> to estimate group differences, controlling for <code>z</code> (and where <code>x</code> is a categorical variable).</p>
+<p>The models I showed were:</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="session-2-developing-skills.html#cb250-1"></a>m.without &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp<span class="op">~</span>continent, <span class="dt">data=</span>gapminder<span class="op">::</span>gapminder)</span>
+<span id="cb250-2"><a href="session-2-developing-skills.html#cb250-2"></a>m.without <span class="op">%&gt;%</span><span class="st"> </span>pander</span></code></pre></div>
+<table style="width:99%;">
+<caption>Fitting linear model: lifeExp ~ continent</caption>
+<colgroup>
+<col width="33%" />
+<col width="15%" />
+<col width="18%" />
+<col width="13%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>(Intercept)</strong></td>
+<td align="center">48.87</td>
+<td align="center">0.3696</td>
+<td align="center">132.2</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>continentAmericas</strong></td>
+<td align="center">15.79</td>
+<td align="center">0.6486</td>
+<td align="center">24.35</td>
+<td align="center">1.38e-112</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>continentAsia</strong></td>
+<td align="center">11.2</td>
+<td align="center">0.5931</td>
+<td align="center">18.88</td>
+<td align="center">2.438e-72</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>continentEurope</strong></td>
+<td align="center">23.04</td>
+<td align="center">0.611</td>
+<td align="center">37.71</td>
+<td align="center">1.383e-226</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>continentOceania</strong></td>
+<td align="center">25.46</td>
+<td align="center">1.92</td>
+<td align="center">13.26</td>
+<td align="center">2.99e-38</td>
+</tr>
+</tbody>
+</table>
+<p>And then including <code>pop</code> and <code>gdpPercap</code> as covariates:</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="session-2-developing-skills.html#cb251-1"></a>m.with &lt;-<span class="st">  </span><span class="kw">lm</span>(lifeExp<span class="op">~</span>gdpPercap<span class="op">+</span>pop<span class="op">+</span>continent, <span class="dt">data=</span>gapminder<span class="op">::</span>gapminder)</span>
+<span id="cb251-2"><a href="session-2-developing-skills.html#cb251-2"></a>m.with <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</span></code></pre></div>
+<table>
+<caption>Fitting linear model: lifeExp ~ gdpPercap + pop + continent</caption>
+<colgroup>
+<col width="33%" />
+<col width="16%" />
+<col width="18%" />
+<col width="13%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>(Intercept)</strong></td>
+<td align="center">47.81</td>
+<td align="center">0.3395</td>
+<td align="center">140.8</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>gdpPercap</strong></td>
+<td align="center">0.0004495</td>
+<td align="center">2.346e-05</td>
+<td align="center">19.16</td>
+<td align="center">3.239e-74</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>pop</strong></td>
+<td align="center">6.57e-09</td>
+<td align="center">1.975e-09</td>
+<td align="center">3.326</td>
+<td align="center">0.0009007</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>continentAmericas</strong></td>
+<td align="center">13.48</td>
+<td align="center">0.6</td>
+<td align="center">22.46</td>
+<td align="center">5.188e-98</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>continentAsia</strong></td>
+<td align="center">8.193</td>
+<td align="center">0.5712</td>
+<td align="center">14.34</td>
+<td align="center">4.064e-44</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>continentEurope</strong></td>
+<td align="center">17.47</td>
+<td align="center">0.6246</td>
+<td align="center">27.97</td>
+<td align="center">6.335e-142</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>continentOceania</strong></td>
+<td align="center">18.08</td>
+<td align="center">1.782</td>
+<td align="center">10.15</td>
+<td align="center">1.59e-23</td>
+</tr>
+</tbody>
+</table>
+<p>I then used <code>broom::augment</code> (which we previously encountered in the section on <a href="regression-extra-explanations.html#explanation-first-predictions">predictions from regression models</a>).</p>
+<p>I created a new dataframe with one row per-continent, and where the values for <code>pop</code> and <code>gdpPercap</code> were set to the mean of all countries:</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="session-2-developing-skills.html#cb252-1"></a>nd =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">continent=</span><span class="kw">unique</span>(gapminder<span class="op">::</span>gapminder<span class="op">$</span>continent),</span>
+<span id="cb252-2"><a href="session-2-developing-skills.html#cb252-2"></a>            <span class="dt">gdpPercap=</span><span class="kw">mean</span>(gapminder<span class="op">::</span>gapminder<span class="op">$</span>gdpPercap),</span>
+<span id="cb252-3"><a href="session-2-developing-skills.html#cb252-3"></a>            <span class="dt">pop=</span><span class="kw">mean</span>(gapminder<span class="op">::</span>gapminder<span class="op">$</span>pop),</span>
+<span id="cb252-4"><a href="session-2-developing-skills.html#cb252-4"></a>                           )</span></code></pre></div>
+<p>Then I made predictions from both models (with and without covariates) as a kind of <strong><em>sensitivity analysis</em></strong>:</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="session-2-developing-skills.html#cb253-1"></a>without &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp<span class="op">~</span>continent, <span class="dt">data=</span>gapminder<span class="op">::</span>gapminder) <span class="op">%&gt;%</span></span>
+<span id="cb253-2"><a href="session-2-developing-skills.html#cb253-2"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>(<span class="dt">newdata=</span>nd) <span class="op">%&gt;%</span></span>
+<span id="cb253-3"><a href="session-2-developing-skills.html#cb253-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model=</span><span class="st">&quot;without&quot;</span>)</span>
+<span id="cb253-4"><a href="session-2-developing-skills.html#cb253-4"></a></span>
+<span id="cb253-5"><a href="session-2-developing-skills.html#cb253-5"></a>with &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp<span class="op">~</span>gdpPercap<span class="op">+</span>pop<span class="op">+</span>continent, <span class="dt">data=</span>gapminder<span class="op">::</span>gapminder) <span class="op">%&gt;%</span></span>
+<span id="cb253-6"><a href="session-2-developing-skills.html#cb253-6"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>(<span class="dt">newdata=</span>nd) <span class="op">%&gt;%</span></span>
+<span id="cb253-7"><a href="session-2-developing-skills.html#cb253-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model=</span><span class="st">&quot;with&quot;</span>)</span></code></pre></div>
+<p>Then I used <code>bind_rows</code> from <code>dplyr</code> to combine the two dataframes and make a single plot:</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="session-2-developing-skills.html#cb254-1"></a><span class="kw">bind_rows</span>(without, with) <span class="op">%&gt;%</span></span>
+<span id="cb254-2"><a href="session-2-developing-skills.html#cb254-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(forcats<span class="op">::</span><span class="kw">fct_rev</span>(model), .fitted, <span class="dt">fill=</span>model)) <span class="op">+</span></span>
+<span id="cb254-3"><a href="session-2-developing-skills.html#cb254-3"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">geom=</span><span class="st">&quot;bar&quot;</span>, <span class="dt">fun.data=</span>mean_se) <span class="op">+</span></span>
+<span id="cb254-4"><a href="session-2-developing-skills.html#cb254-4"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">40</span>,<span class="dv">80</span>) )<span class="op">+</span></span>
+<span id="cb254-5"><a href="session-2-developing-skills.html#cb254-5"></a><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>continent) <span class="op">+</span></span>
+<span id="cb254-6"><a href="session-2-developing-skills.html#cb254-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;With or without covariates&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Estimated life expectancy&quot;</span>) <span class="op">+</span></span>
+<span id="cb254-7"><a href="session-2-developing-skills.html#cb254-7"></a><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide=</span>F)</span></code></pre></div>
+<p><img src="09-real_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>At this point, I probably droned on and on about how:</p>
+<ul>
+<li>Anova is a nickname for one way of presenting the unadjusted model.</li>
+<li>An Ancova is a nickname for the same thing for the adjusted model.</li>
+<li>Sensitivity analyses are great and we should do more of them.</li>
+<li>You shouldn’t really use bar plots and if you do they should definitely have error bars.</li>
+</ul>
+<p>We can look at both ‘anova’ tables here:</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="session-2-developing-skills.html#cb255-1"></a><span class="kw">anova</span>(m.without)</span>
+<span id="cb255-2"><a href="session-2-developing-skills.html#cb255-2"></a>Analysis of Variance Table</span>
+<span id="cb255-3"><a href="session-2-developing-skills.html#cb255-3"></a></span>
+<span id="cb255-4"><a href="session-2-developing-skills.html#cb255-4"></a>Response<span class="op">:</span><span class="st"> </span>lifeExp</span>
+<span id="cb255-5"><a href="session-2-developing-skills.html#cb255-5"></a>            Df Sum Sq Mean Sq F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb255-6"><a href="session-2-developing-skills.html#cb255-6"></a>continent    <span class="dv">4</span> <span class="dv">139343</span>   <span class="dv">34836</span>  <span class="fl">408.73</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb255-7"><a href="session-2-developing-skills.html#cb255-7"></a>Residuals <span class="dv">1699</span> <span class="dv">144805</span>      <span class="dv">85</span>                      </span>
+<span id="cb255-8"><a href="session-2-developing-skills.html#cb255-8"></a><span class="op">---</span></span>
+<span id="cb255-9"><a href="session-2-developing-skills.html#cb255-9"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="session-2-developing-skills.html#cb256-1"></a><span class="kw">anova</span>(m.with) <span class="co"># this is actually an Ancova tale</span></span>
+<span id="cb256-2"><a href="session-2-developing-skills.html#cb256-2"></a>Analysis of Variance Table</span>
+<span id="cb256-3"><a href="session-2-developing-skills.html#cb256-3"></a></span>
+<span id="cb256-4"><a href="session-2-developing-skills.html#cb256-4"></a>Response<span class="op">:</span><span class="st"> </span>lifeExp</span>
+<span id="cb256-5"><a href="session-2-developing-skills.html#cb256-5"></a>            Df Sum Sq Mean Sq  F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb256-6"><a href="session-2-developing-skills.html#cb256-6"></a>gdpPercap    <span class="dv">1</span>  <span class="dv">96813</span>   <span class="dv">96813</span> <span class="fl">1383.457</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb256-7"><a href="session-2-developing-skills.html#cb256-7"></a>pop          <span class="dv">1</span>   <span class="dv">1815</span>    <span class="dv">1815</span>   <span class="fl">25.938</span> <span class="fl">3.919e-07</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb256-8"><a href="session-2-developing-skills.html#cb256-8"></a>continent    <span class="dv">4</span>  <span class="dv">66766</span>   <span class="dv">16691</span>  <span class="fl">238.521</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb256-9"><a href="session-2-developing-skills.html#cb256-9"></a>Residuals <span class="dv">1697</span> <span class="dv">118754</span>      <span class="dv">70</span>                       </span>
+<span id="cb256-10"><a href="session-2-developing-skills.html#cb256-10"></a><span class="op">---</span></span>
+<span id="cb256-11"><a href="session-2-developing-skills.html#cb256-11"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<p>We saw that the F value for <code>continent</code> is smaller in the adjusted model, but we still see small <em>p</em> values for the group comparison so we would reject the null hypothesis that all the continents are the same.</p>
+<p>Note also that in this example — because we don’t have an interaction term — the type of sums of squares doesn’t make a difference:</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="session-2-developing-skills.html#cb257-1"></a>car<span class="op">::</span><span class="kw">Anova</span>(m.with, <span class="dt">type=</span><span class="dv">2</span>)</span>
+<span id="cb257-2"><a href="session-2-developing-skills.html#cb257-2"></a>Anova <span class="kw">Table</span> (Type II tests)</span>
+<span id="cb257-3"><a href="session-2-developing-skills.html#cb257-3"></a></span>
+<span id="cb257-4"><a href="session-2-developing-skills.html#cb257-4"></a>Response<span class="op">:</span><span class="st"> </span>lifeExp</span>
+<span id="cb257-5"><a href="session-2-developing-skills.html#cb257-5"></a>          Sum Sq   Df F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb257-6"><a href="session-2-developing-skills.html#cb257-6"></a>gdpPercap  <span class="dv">25684</span>    <span class="dv">1</span>  <span class="fl">367.02</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb257-7"><a href="session-2-developing-skills.html#cb257-7"></a>pop          <span class="dv">774</span>    <span class="dv">1</span>   <span class="fl">11.06</span> <span class="fl">0.0009007</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb257-8"><a href="session-2-developing-skills.html#cb257-8"></a>continent  <span class="dv">66766</span>    <span class="dv">4</span>  <span class="fl">238.52</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb257-9"><a href="session-2-developing-skills.html#cb257-9"></a>Residuals <span class="dv">118754</span> <span class="dv">1697</span>                      </span>
+<span id="cb257-10"><a href="session-2-developing-skills.html#cb257-10"></a><span class="op">---</span></span>
+<span id="cb257-11"><a href="session-2-developing-skills.html#cb257-11"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span>
+<span id="cb257-12"><a href="session-2-developing-skills.html#cb257-12"></a>car<span class="op">::</span><span class="kw">Anova</span>(m.with, <span class="dt">type=</span><span class="dv">3</span>)</span>
+<span id="cb257-13"><a href="session-2-developing-skills.html#cb257-13"></a>Anova <span class="kw">Table</span> (Type III tests)</span>
+<span id="cb257-14"><a href="session-2-developing-skills.html#cb257-14"></a></span>
+<span id="cb257-15"><a href="session-2-developing-skills.html#cb257-15"></a>Response<span class="op">:</span><span class="st"> </span>lifeExp</span>
+<span id="cb257-16"><a href="session-2-developing-skills.html#cb257-16"></a>             Sum Sq   Df  F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb257-17"><a href="session-2-developing-skills.html#cb257-17"></a>(Intercept) <span class="dv">1387694</span>    <span class="dv">1</span> <span class="fl">19830.13</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb257-18"><a href="session-2-developing-skills.html#cb257-18"></a>gdpPercap     <span class="dv">25684</span>    <span class="dv">1</span>   <span class="fl">367.02</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb257-19"><a href="session-2-developing-skills.html#cb257-19"></a>pop             <span class="dv">774</span>    <span class="dv">1</span>    <span class="fl">11.06</span> <span class="fl">0.0009007</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb257-20"><a href="session-2-developing-skills.html#cb257-20"></a>continent     <span class="dv">66766</span>    <span class="dv">4</span>   <span class="fl">238.52</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb257-21"><a href="session-2-developing-skills.html#cb257-21"></a>Residuals    <span class="dv">118754</span> <span class="dv">1697</span>                       </span>
+<span id="cb257-22"><a href="session-2-developing-skills.html#cb257-22"></a><span class="op">---</span></span>
+<span id="cb257-23"><a href="session-2-developing-skills.html#cb257-23"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<p>The type 3 table has an extra row for the intercept, but all the other <em>F</em> values are identical.</p>
+<div id="is-using-ancova-a-good-idea" class="section level4">
+<h4>Is using Ancova a good idea?</h4>
+<p>In many papers you will hear authors claiming that they are ‘controlling’ for all sorts of variables. This is typically reported as the ‘natural’ thing to do, and unproblematic.</p>
+<p>In these cases it is always a concern that the covariates were specified apriori. If there were not this is an important source of ‘researcher degrees of freedom’ <span class="citation">(Gelman and Loken <a href="#ref-gelman2014statistical" role="doc-biblioref">2014</a>, @simmons2011false)</span>.</p>
+<p>However, in addition to concerns about researcher degrees of freedom, it has been known for many years that including covariates can introduce biases. In my talk I gave a few examples of this and the bias that can be generated.</p>
+<p>The nature of the possible bias is dependent on the true causal pathways responsible for generating the data. It’s important to note that for real datasets we can never know for sure if our results are biased: we only know it’s a possiblity because simulation studies show this is the case.</p>
+<p>For more on new approaches to deciding when to include covariates see <span class="citation">Pearl and Mackenzie (<a href="#ref-pearl2018book" role="doc-biblioref">2018</a>)</span>, chapter 4.</p>
+<p>The main example I gave was: Imagine smoking causes some underlying change in our cardiovascular system, which then causes strokes. This causal diagram represents that (quite plausible) situation:</p>
+<div id="htmlwidget-db94618cc05f1d2208d7" style="width:672px;height:300px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-db94618cc05f1d2208d7">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Unknown -> Stroke2\n      Unknown -> Stroke1\n      Stroke1 -> Stroke2 [style=invis]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>If we wanted to know the effect of smoking on stroke we might be tempted to ‘control for’ the number of previous strokes, but that would be a disaster:</p>
+<div id="htmlwidget-2aa232b1aa42ea0ef66e" style="width:672px;height:400px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2aa232b1aa42ea0ef66e">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Stroke\n      PreviousStroke -> Stroke\n      Smoking -> PreviousStroke [style=dashed]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>The reason is that the effect of smoking is now being ‘shared’, and we might well underestimate the true causall effect of smoking on stroke, misattributing is to some individual/dispositional cause.</p>
+<div id="should-you-use-covariates-then" class="section level5">
+<h5>Should you use covariates then?</h5>
+<p>There is a fairly simple rule of thumb: If you have an experiment, controlling for covariates is probably fine and is often a good idea (especially if it’s a ‘pre-test’ measurement of the same outcome).</p>
+<p>If you have observational data it’s really not so simple and you should do some more thinking before assuming it will improve the quality of the inferences you draw.</p>
+<p>(Note - for the purposes of the assessment you should reproduce the model faithfully, but you might like to consider the use of covariates when interpreting your findings or thinking about a sensitivity analysis).</p>
+</div>
+</div>
+</div>
+<div id="exercises" class="section level3">
+<h3>Exercises</h3>
+<div id="exercise-1-1" class="section level4 exercise">
+<h4>Exercise 1</h4>
+<ol style="list-style-type: decimal">
+<li>Re-run both the models from above which use the gapminder data and calculate the Bayes Factor</li>
+<li>How much evidence do we have that these covariates improve a continent-only model?</li>
+</ol>
+</div>
+<div id="exercise-2" class="section level4 exercise">
+<h4>Exercise 2</h4>
+<p>Read in the following data like this:</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="session-2-developing-skills.html#cb258-1"></a>fitdata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://zenodo.org/record/1120364/files/blind_data.csv?download=1&#39;</span>)</span></code></pre></div>
+<p>This is data from a trial of Functional Imagery Training (FIT) for weight loss which you have seen before.
+The variables starting <code>kg</code> relate to participants weights. The <code>group</code> variable indicates whether they were allocated to FIT or motivational interviewing (the control condition).</p>
+<ul>
+<li>Run an Anova predicting <code>kg3</code> from <code>group</code>.</li>
+<li>Now run an Ancova predicting <code>kg3</code> from group, controlling for <code>kg1</code></li>
+<li>What are the <em>F</em> and <em>p</em> values for the <code>group</code> effect in each model?</li>
+<li>Which model is better, and why?</li>
+<li>Calculate the BF for the effect of FIT.</li>
+</ul>
+<div class="solution">
+<button>
+Try for yourself first, but click here to see the code and results
+</button>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="session-2-developing-skills.html#cb259-1"></a>m.fit &lt;-<span class="st"> </span><span class="kw">lm</span>(kg3<span class="op">~</span>kg1 <span class="op">+</span><span class="st"> </span>group, <span class="dt">data=</span>fitdata)</span>
+<span id="cb259-2"><a href="session-2-developing-skills.html#cb259-2"></a>m.fit.without &lt;-<span class="st"> </span><span class="kw">lm</span>(kg3<span class="op">~</span><span class="st"> </span>group, <span class="dt">data=</span>fitdata)</span>
+<span id="cb259-3"><a href="session-2-developing-skills.html#cb259-3"></a></span>
+<span id="cb259-4"><a href="session-2-developing-skills.html#cb259-4"></a><span class="kw">anova</span>(m.fit)</span>
+<span id="cb259-5"><a href="session-2-developing-skills.html#cb259-5"></a>Analysis of Variance Table</span>
+<span id="cb259-6"><a href="session-2-developing-skills.html#cb259-6"></a></span>
+<span id="cb259-7"><a href="session-2-developing-skills.html#cb259-7"></a>Response<span class="op">:</span><span class="st"> </span>kg3</span>
+<span id="cb259-8"><a href="session-2-developing-skills.html#cb259-8"></a>           Df  Sum Sq Mean Sq  F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb259-9"><a href="session-2-developing-skills.html#cb259-9"></a>kg1         <span class="dv">1</span> <span class="fl">24046.5</span> <span class="fl">24046.5</span> <span class="fl">1037.292</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb259-10"><a href="session-2-developing-skills.html#cb259-10"></a>group       <span class="dv">1</span>   <span class="fl">990.3</span>   <span class="fl">990.3</span>   <span class="fl">42.719</span> <span class="fl">2.094e-09</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb259-11"><a href="session-2-developing-skills.html#cb259-11"></a>Residuals <span class="dv">109</span>  <span class="fl">2526.8</span>    <span class="fl">23.2</span>                       </span>
+<span id="cb259-12"><a href="session-2-developing-skills.html#cb259-12"></a><span class="op">---</span></span>
+<span id="cb259-13"><a href="session-2-developing-skills.html#cb259-13"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span>
+<span id="cb259-14"><a href="session-2-developing-skills.html#cb259-14"></a><span class="kw">anova</span>(m.fit.without)</span>
+<span id="cb259-15"><a href="session-2-developing-skills.html#cb259-15"></a>Analysis of Variance Table</span>
+<span id="cb259-16"><a href="session-2-developing-skills.html#cb259-16"></a></span>
+<span id="cb259-17"><a href="session-2-developing-skills.html#cb259-17"></a>Response<span class="op">:</span><span class="st"> </span>kg3</span>
+<span id="cb259-18"><a href="session-2-developing-skills.html#cb259-18"></a>           Df  Sum Sq Mean Sq F value <span class="kw">Pr</span>(<span class="op">&gt;</span>F)</span>
+<span id="cb259-19"><a href="session-2-developing-skills.html#cb259-19"></a>group       <span class="dv">1</span>   <span class="fl">546.2</span>  <span class="fl">546.16</span>  <span class="fl">2.2237</span> <span class="fl">0.1388</span></span>
+<span id="cb259-20"><a href="session-2-developing-skills.html#cb259-20"></a>Residuals <span class="dv">110</span> <span class="fl">27017.5</span>  <span class="fl">245.61</span>               </span></code></pre></div>
+<p>The <em>F</em> for the Anova is much smaller, and the p larger. We have less power in this
+model to detect a group difference.</p>
+<p>In the Ancova each participant acts as their own control, increasing statistical power.</p>
+</div>
+</div>
+<div id="graphs" class="section level4 exercise">
+<h4>Graphs</h4>
+<p>If you didn’t complete this in the previous workshop the following would be good preparation for the assessment:</p>
+<ul>
+<li><p>For each of (up to 3) question/predictions, draw out a graph, by hand, which would make it easy to <em>see</em> the answer to the question.</p></li>
+<li><p>Create alternative graphs of the same information which emphasise different aspects of the data, or use different visual aesthetics to make distinctions. Some points to consider when designing different graphs:</p>
+<ul>
+<li>Is there a tradeoff between showing group differences vs. relationships vs. distributional information?</li>
+<li>Is it possible to show both raw data and summaries at the same time? What are the tradeoffs involved?</li>
+<li>Who is your graph for? Are you designing for other interested experts, or busy managers?</li>
+</ul></li>
+</ul>
+<p>Please note for this final question you don’t have to limit yourself to graphs you (personally) can actually plot. If you can describe or draw the graph we can discuss how/whether it can be made and provide support.</p>
+</div>
+<div id="optional-causal-diagram" class="section level4 exercise">
+<h4>Optional: Causal diagram</h4>
+<p>Draw out a causal diagram for the study you are trying to replicate (it might be quite simple or rather complex depending on the study). What other variables might influence the outcome which are not being captured by the authors?
+Would Ancova make sense in this case?</p>
+</div>
+<div id="optional-chi-squared" class="section level4 exercise">
+<h4>Optional: Chi-squared</h4>
+<p>If your study requires a chi-squared test, you can work through the examples here:</p>
+<ul>
+<li><a href="https://benwhalley.github.io/just-enough-r/crosstabs.html#crosstabs" class="uri">https://benwhalley.github.io/just-enough-r/crosstabs.html#crosstabs</a></li>
+</ul>
+</div>
+<div id="optional-correlations" class="section level4 exercise">
+<h4>Optional: Correlations</h4>
+<p>If your study reports correlations, see this page for details of how to create and format a correlation table:</p>
+<ul>
+<li><a href="https://benwhalley.github.io/just-enough-r/correlations.html" class="uri">https://benwhalley.github.io/just-enough-r/correlations.html</a></li>
+</ul>
+<p>If you want to run a Bayesian test on a correlation, see these examples:</p>
+<ul>
+<li><a href="https://ajwills72.github.io/rminr/vbg_corr.html" class="uri">https://ajwills72.github.io/rminr/vbg_corr.html</a></li>
+</ul>
+<p>If your study reports non-parametric correlations ask me during a workshop and we can figure out the best way of calculating the correct numbers.</p>
+</div>
+<div id="optional-extension" class="section level4 exercise">
+<h4>Optional extension</h4>
+<p>One thing we have not covered in details is the way in which outcomes and predictors can be scaled to ease interpretation of regression coefficients.</p>
+<p>Read this page: <a href="https://benwhalley.github.io/just-enough-r/scaling-predictors.html" class="uri">https://benwhalley.github.io/just-enough-r/scaling-predictors.html</a> and also <span class="citation">Gelman (<a href="#ref-gelman_scaling_2008" role="doc-biblioref">2008</a>)</span>.</p>
+<p>Run models using the gapminder data to predict <code>lifeExp</code> which include scaled or unscaled predictors. Compare the regression coefficients from each and decide which you find easiest to interpret and why.</p>
+<!--
+
+
+Next week:
+
+hierarchical regression
+effect size
+
+Then 
+
+multiple comparisons
+reporting results
+
+
+
+
+
+### Effect size
+
+Standardised effect sizes
+Other types of effect size
+Clinically significant/meaningful change definitions
+ROPE
+
+Calculating Cohen's D
+
+
+
+Non-para
+
+
+
+Ancova with baseline
+Anova for pre-post change scores
+Anova 2x2 between subjects
+Hierarchical multiple regression
+Regression to test moderation
+Post-hoc contrasts between groups
+Cohen's D for group differences
+
+Independent samples t test
+Paired sample t test
+Mann Whitney U
+Chi square to test contingency table
+
+Levene's test (equality of variances)
+Cronbach's alpha
+
+
+
+
+-->
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-gelman_scaling_2008">
+<p>Gelman, Andrew. 2008. “Scaling Regression Inputs by Dividing by Two Standard Deviations.” <em>Statistics in Medicine</em> 27 (15): 2865–73. <a href="https://doi.org/10.1002/sim.3107">https://doi.org/10.1002/sim.3107</a>.</p>
+</div>
+<div id="ref-gelman2014statistical">
+<p>Gelman, Andrew, and Eric Loken. 2014. “The Statistical Crisis in Science: Data-Dependent Analysis–a" Garden of Forking Paths"–Explains Why Many Statistically Significant Comparisons Don’t Hold up.” <em>American Scientist</em> 102 (6): 460–66.</p>
+</div>
+<div id="ref-pearl2018book">
+<p>Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New Science of Cause and Effect</em>. Basic Books.</p>
+</div>
+<div id="ref-venables1998exegeses">
+<p>Venables, WN. 1998. “Exegeses on Linear Models.” In <em>S-Plus User’s Conference, Washington Dc</em>. <a href="http://www.stats.ox.ac.uk/pub/MASS3/Exegeses.pdf">http://www.stats.ox.ac.uk/pub/MASS3/Exegeses.pdf</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="session-1-reproducing-a-real-paper.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="session-3-comparisons-and-tests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

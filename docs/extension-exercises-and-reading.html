@@ -50,6 +50,10 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.5/grViz.js"></script>
 <link href="media/webex.css" rel="stylesheet" />
 <link href="media/psystats.css" rel="stylesheet" />
 <script src="media/webex.js"></script>
@@ -251,19 +255,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise</a></li>
 <li class="chapter" data-level="" data-path="summary-of-key-points-3.html"><a href="summary-of-key-points-3.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
-<ul>
-<li><a href="session-1-planned-contrasts-with-emmeans.html#session-1-planned-contrasts-with-emmeans">Session 1: Planned contrasts with <code>emmeans</code></a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a>
-<ul>
-<li class="chapter" data-level="" data-path="session-1-communicating-anova-and-regression.html"><a href="session-1-communicating-anova-and-regression.html"><i class="fa fa-check"></i>Session 1: Communicating Anova and Regression</a></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
 <ul>
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
-<li class="chapter" data-level="" data-path="session-2-reproducing-a-real-paper.html"><a href="session-2-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 2: Reproducing a real paper</a></li>
-<li class="chapter" data-level="" data-path="session-3-reproducing-a-real-paper.html"><a href="session-3-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 3: Reproducing a real paper</a></li>
+<li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
+<li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -279,9 +275,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="other-tips.html"><a href="other-tips.html"><i class="fa fa-check"></i>Other tips</a></li>
 <li class="chapter" data-level="" data-path="wider-reading.html"><a href="wider-reading.html"><i class="fa fa-check"></i>Wider reading</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="./LICENCE" target="blank">Licence: CC BY-SA 4</a></li>
+<li><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank">Licence: CC BY-SA 4</a></li>
 
 </ul>
 
@@ -465,14 +461,14 @@ similar to the way you might record experimental data in a spreadsheet.</p>
 <span id="cb114-6"><a href="extension-exercises-and-reading.html#cb114-6"></a></span>
 <span id="cb114-7"><a href="extension-exercises-and-reading.html#cb114-7"></a>repeatmeasuresdata <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
-##   person time_1  time_2 time_3
-##    &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-## 1      1  0.808 -0.0550   1.73
-## 2      2  0.450  2.28     2.53
-## 3      3  0.108  1.68     4.08
-## 4      4 -0.764  2.31     3.34
-## 5      5  1.30   1.07     3.10
-## 6      6  1.40   2.71     3.47</code></pre>
+##   person time_1 time_2 time_3
+##    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1      1 -1.71   1.13   2.57 
+## 2      2  2.42   2.07   2.93 
+## 3      3  0.120  0.820  3.30 
+## 4      4 -0.518 -0.422  0.924
+## 5      5 -0.968  2.72   1.94 
+## 6      6  1.51   1.75   3.31</code></pre>
 <p><code>repeatmeasuresdata</code> is in <strong>wide</strong> format. Each row contains data for one participant, and each
 participant has three observations.</p>
 <p>We can melt the data into long format like so:</p>
@@ -486,14 +482,14 @@ participant has three observations.</p>
 ## as well. To continue using melt methods from reshape2 while both libraries are
 ## attached, e.g. melt.list, you can prepend the namespace like reshape2::melt(.).
 ## In the next version, this warning will become an error.</code></pre>
-<pre><code>##   person variable       value
-## 1      1   time_1  0.80829148
-## 2      1   time_2 -0.05500297
-## 3      1   time_3  1.72691758
-## 4      2   time_1  0.45002281
-## 5      2   time_2  2.28055887
-## 6      2   time_3  2.53103891
-## 7      3   time_1  0.10791511</code></pre>
+<pre><code>##   person variable      value
+## 1      1   time_1 -1.7063558
+## 2      1   time_2  1.1292308
+## 3      1   time_3  2.5688266
+## 4      2   time_1  2.4211107
+## 5      2   time_2  2.0692895
+## 6      2   time_3  2.9291219
+## 7      3   time_1  0.1196861</code></pre>
 <p>The problem we have now is that <code>variable</code> contains text which describes at which time the
 observation was made. We probably want a number for each timepoint, so we can make a plot with time
 on the x axis.</p>
@@ -511,12 +507,12 @@ Rather than have a column with labels of the form ‘time_1’, it can create tw
 ## In the next version, this warning will become an error.</code></pre>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="extension-exercises-and-reading.html#cb121-1"></a>longrepeatmeasuresdata <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##   person    _ time      value
-## 1      1 time    1  0.8082915
-## 2      2 time    1  0.4500228
-## 3      3 time    1  0.1079151
-## 4      4 time    1 -0.7636126
-## 5      5 time    1  1.2998706
-## 6      6 time    1  1.4030827</code></pre>
+## 1      1 time    1 -1.7063558
+## 2      2 time    1  2.4211107
+## 3      3 time    1  0.1196861
+## 4      4 time    1 -0.5184175
+## 5      5 time    1 -0.9677767
+## 6      6 time    1  1.5104134</code></pre>
 <p>Now the data are in long format, we can plot the points over time:</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="extension-exercises-and-reading.html#cb123-1"></a>longrepeatmeasuresdata <span class="op">%&gt;%</span></span>
 <span id="cb123-2"><a href="extension-exercises-and-reading.html#cb123-2"></a><span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">30</span>) <span class="op">%&gt;%</span></span>

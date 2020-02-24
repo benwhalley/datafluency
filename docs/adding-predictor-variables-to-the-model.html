@@ -50,6 +50,10 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.5/grViz.js"></script>
 <link href="media/webex.css" rel="stylesheet" />
 <link href="media/psystats.css" rel="stylesheet" />
 <script src="media/webex.js"></script>
@@ -251,19 +255,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise</a></li>
 <li class="chapter" data-level="" data-path="summary-of-key-points-3.html"><a href="summary-of-key-points-3.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
-<ul>
-<li><a href="session-1-planned-contrasts-with-emmeans.html#session-1-planned-contrasts-with-emmeans">Session 1: Planned contrasts with <code>emmeans</code></a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a>
-<ul>
-<li class="chapter" data-level="" data-path="session-1-communicating-anova-and-regression.html"><a href="session-1-communicating-anova-and-regression.html"><i class="fa fa-check"></i>Session 1: Communicating Anova and Regression</a></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
 <ul>
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
-<li class="chapter" data-level="" data-path="session-2-reproducing-a-real-paper.html"><a href="session-2-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 2: Reproducing a real paper</a></li>
-<li class="chapter" data-level="" data-path="session-3-reproducing-a-real-paper.html"><a href="session-3-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 3: Reproducing a real paper</a></li>
+<li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
+<li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -279,9 +275,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="other-tips.html"><a href="other-tips.html"><i class="fa fa-check"></i>Other tips</a></li>
 <li class="chapter" data-level="" data-path="wider-reading.html"><a href="wider-reading.html"><i class="fa fa-check"></i>Wider reading</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="./LICENCE" target="blank">Licence: CC BY-SA 4</a></li>
+<li><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank">Licence: CC BY-SA 4</a></li>
 
 </ul>
 
@@ -304,8 +300,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Adding predictor variables to the model</h2>
 <p>An issue that can arise when adding variables to a model is that predictors are usually correlated to some extent. This can make interpretation of multiple regressions tricky. For example, a predictor that is statistically significant in a simple regression may become non-significant in a multiple regression. Let’s see a demonstration of this!</p>
 <p>We’ll now add <code>project</code> to the model with <code>entrex</code>. First, check the correlation between predictors:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="adding-predictor-variables-to-the-model.html#cb202-1"></a>ExamData <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb202-2"><a href="adding-predictor-variables-to-the-model.html#cb202-2"></a><span class="st">  </span><span class="kw">select</span>(entrex,project) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="adding-predictor-variables-to-the-model.html#cb202-1"></a>ExamData <span class="op">%&gt;%</span></span>
+<span id="cb202-2"><a href="adding-predictor-variables-to-the-model.html#cb202-2"></a><span class="st">  </span><span class="kw">select</span>(entrex,project) <span class="op">%&gt;%</span></span>
 <span id="cb202-3"><a href="adding-predictor-variables-to-the-model.html#cb202-3"></a><span class="st">  </span><span class="kw">cor</span>()</span>
 <span id="cb202-4"><a href="adding-predictor-variables-to-the-model.html#cb202-4"></a><span class="op">&gt;</span><span class="st">            </span>entrex   project</span>
 <span id="cb202-5"><a href="adding-predictor-variables-to-the-model.html#cb202-5"></a><span class="op">&gt;</span><span class="st"> </span>entrex  <span class="fl">1.0000000</span> <span class="fl">0.2908253</span></span>
@@ -365,7 +361,7 @@ Show me
 <p>This is because the predictors are <em>correlated</em> (<em>r</em> = .29) and so the variance they explain in <code>finalex</code> is <em>shared</em>.</p>
 <p><br />
 We could represent this on a Venn diagram as follows:</p>
-<p><img src="images\Venn3.jpg" /></p>
+<p><img src="images/Venn3.jpg" /></p>
 <p>The correlation is represented as an overlap in the circles. Their total area (57.16%) is therefore <em>less</em> than the area they’d explain if there were no overlap (69.48%) (i.e., if there was no correlation).</p>
 <p><strong>This demonstrates an important point</strong>: The <em>t</em>-tests on the coefficients in a multiple regression assess the <strong>unique</strong> contribution of each predictor in the model. That is, they test the variance a predictor explains in an outcome variable, <strong>after</strong> the variance explained by the other predictors has been taken into account. This is why <code>project</code> is not statistically significant in the multiple regression model – it only explains a small amount of variance once <code>entrex</code> has been taken into account.</p>
 <div class="tip">

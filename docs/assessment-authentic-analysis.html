@@ -50,6 +50,10 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.5/grViz.js"></script>
 <link href="media/webex.css" rel="stylesheet" />
 <link href="media/psystats.css" rel="stylesheet" />
 <script src="media/webex.js"></script>
@@ -251,19 +255,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise</a></li>
 <li class="chapter" data-level="" data-path="summary-of-key-points-3.html"><a href="summary-of-key-points-3.html"><i class="fa fa-check"></i>Summary of key points</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i>Testing</a>
-<ul>
-<li><a href="session-1-planned-contrasts-with-emmeans.html#session-1-planned-contrasts-with-emmeans">Session 1: Planned contrasts with <code>emmeans</code></a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="communicating-results.html"><a href="communicating-results.html"><i class="fa fa-check"></i>Communicating results</a>
-<ul>
-<li class="chapter" data-level="" data-path="session-1-communicating-anova-and-regression.html"><a href="session-1-communicating-anova-and-regression.html"><i class="fa fa-check"></i>Session 1: Communicating Anova and Regression</a></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="real-world-data.html"><a href="real-world-data.html"><i class="fa fa-check"></i>Real world data</a>
 <ul>
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
-<li class="chapter" data-level="" data-path="session-2-reproducing-a-real-paper.html"><a href="session-2-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 2: Reproducing a real paper</a></li>
-<li class="chapter" data-level="" data-path="session-3-reproducing-a-real-paper.html"><a href="session-3-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 3: Reproducing a real paper</a></li>
+<li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
+<li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -279,9 +275,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="other-tips.html"><a href="other-tips.html"><i class="fa fa-check"></i>Other tips</a></li>
 <li class="chapter" data-level="" data-path="wider-reading.html"><a href="wider-reading.html"><i class="fa fa-check"></i>Wider reading</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="./LICENCE" target="blank">Licence: CC BY-SA 4</a></li>
+<li><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank">Licence: CC BY-SA 4</a></li>
 
 </ul>
 
@@ -327,7 +323,8 @@ and replicate) then please check with the module leader early in the process.</s
 <ol style="list-style-type: decimal">
 <li>Are the data available?</li>
 <li>Is the design between-groups? (answer must be yes)</li>
-<li>Are measurements at more than 2 timepoints per-participant? (answer should be no; if the paper reports “mixed effects” models or repeat-measures Anova it will not be suitable)</li>
+<li>Are measurements at more than 2 timepoints per-participant? (answer should be no; if the paper
+reports “mixed effects” models or repeat-measures Anova it will not be suitable)</li>
 <li>Is the outcome a continuous variable? (i.e. must not be a binary outcome)</li>
 </ol>
 <p>Your task is to:</p>
@@ -336,41 +333,51 @@ and replicate) then please check with the module leader early in the process.</s
 the form on ‘aspredicted.org’. You don’t actually need to use the aspredicted website for this —
 simply copy the heading structure from the form, and include your answers in your submitted
 manuscript. Comment on whether it is possible and/or straightforward to reconstruct what would
-have been in the pre-registration from what is written in the journal article.</p></li>
+have been in the pre-registration from what is written in the journal article. Comments can be
+either interspersed with the answers or in a separate block at the end.</p></li>
 <li><p>Using <code>ggplot</code>, make at least one plot of the data which illustrate the main findings. Explain
 your design decisions for these plots: what features of the data were you trying to highlight,
-and how?</p></li>
-<li><p>Replicate the statistical analysis using methods which are appropriate to the data. You do not
-need to use the <em>exact</em> method used in the original paper: For example, it’s fine to use a mixed
-model in place of a repeated-measures Anova. Report your findings in APA format. Compare/contrast
-your results with the published manuscript.</p></li>
-<li><p>Document your responses and version of the analysis in an Rmd file with accompanying dataset,
+and how? This plot might replicate a plot from the paper closely, but could also use techniques
+learnt in the course to increase the information density or provide some other enhancement. One
+approach to answering this question would be to show several plots representing different
+tradeoffs/options when plotting the data: Your answer would then justify the selection of the
+final plot over the others.</p></li>
+<li><p>Replicate the statistical analysis using methods which are appropriate to the data. Report your
+findings in prose using APA format, but allow yourself additional space for explanation of the
+models/tests run. Compare/contrast your results with the published manuscript as appropriate.
+Document your responses and version of the analysis in an Rmd file with accompanying dataset,
 suitable for upload to Zenodo or OSF.io.</p></li>
-<li><p>Reflect on the extent to which the concept of ‘reseacher degrees of freedom’ should influence our
-understanding of your chosen study.</p></li>
+<li><p>Discuss the extent to which the concept of ‘researcher degrees of freedom’ (Simmons et al 2011;
+Gelman and Loken 2013) should influence our understanding of your chosen study.</p></li>
 </ol>
-<p>Important notes:</p>
+<div id="important-notes" class="section level3">
+<h3>Important notes</h3>
 <ul>
 <li><p>Don’t assume that a published dataset and manuscript can be easily replicated simply because
 they have been shared: <strong><em>It may well be the case that it is hard to replicate the findings and
 this is OK (and interesting!) You will not lose marks simply because you cannot replicate the
 published findings.</em></strong></p></li>
-<li><p>You do not need to use the <em>exact</em> method used in the original paper; the point of the exercise
-is to apply methods we have learned in an appropriate way.</p></li>
+<li><p>You do not need to use the <em>exact</em> method used in the original paper in all cases; the point of
+the exercise is to apply methods we have learned in an appropriate way. For example, you may
+wish to apply Bayesian techniques to a dataset previously analysed with frequentist methods;
+this would provide additional opportunity to demonstrate understanding of the material and
+appropriate application of techniques.</p></li>
 <li><p>Your mark will be based on how appropriate the analysis you propose is, and the range of skill
 and understanding you demonstrate in answering the questions.</p></li>
 </ul>
+</div>
 <div id="submitting-your-answers-1" class="section level3">
 <h3>Submitting your answers</h3>
-<p>You should submit exactly 5 files:</p>
+<p>You should submit 5 files:</p>
 <ol style="list-style-type: decimal">
 <li>An Rmd file and</li>
-<li>datafile which when ‘knitted’ produce</li>
+<li>A datafile which when ‘knitted’ together produce</li>
 <li>An HTML or PDF document.</li>
 <li>As a separate document, upload a copy of the standard CW coversheet (and complete the feedback
 section).</li>
 <li>Also include a pdf copy of the study you chose to replicate.</li>
 </ol>
+<p>If you need to include more than one datafile that is also OK.</p>
 <p>Within the Rmd file you should:</p>
 <ul>
 <li>Label each question clearly</li>
@@ -382,6 +389,20 @@ the knitted HTML or PDF file you submitted (i.e. there won’t be any errors or
 <p>If you work on your own computer at home, you should check your Rmd file ‘knits’ correctly on the
 online Rstudio server.</p>
 <p>See <a href="common-problems.html#common-rmd-problems">common problems when trying to knit Rmd files</a></p>
+</div>
+<div id="marking-scheme" class="section level3">
+<h3>Marking scheme</h3>
+<p>All questions will be marked using the standard school grading scale. Questions 1, 2 and 4 will
+contribute 60% of the overall mark; question 3 contributes 40%.</p>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Gelman, A., &amp; Loken, E. (2013). The garden of forking paths: Why multiple comparisons can be a
+problem, even when there is no “fishing expedition” or “p-hacking” and the research hypothesis was
+posited ahead of time. Department of Statistics, Columbia University. Chicago</p>
+<p>Simmons, J. P., Nelson, L. D., &amp; Simonsohn, U. (2011). False-positive psychology: Undisclosed
+flexibility in data collection and analysis allows presenting anything as significant. Psychological
+science, 22(11), 1359-1366. Chicago</p>
 
 </div>
 </div>

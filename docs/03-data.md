@@ -108,7 +108,7 @@ divided by their squared height (`^2` means _to the power of 2_ in R-speak).
 
 <img src="03-data_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
--   What is the median BMI in the sample? <span class='webex-fitb' id = 'Q809428' ><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["22.3"]'/><span class='solvedme'></span></span>
+-   What is the median BMI in the sample? <span class='webex-fitb' id = 'Q300731' ><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["22.3"]'/><span class='solvedme'></span></span>
 
 :::
 
@@ -762,14 +762,14 @@ repeatmeasuresdata %>% head
 
 ```
 ## # A tibble: 6 x 4
-##   person time_1  time_2 time_3
-##    <int>  <dbl>   <dbl>  <dbl>
-## 1      1  0.808 -0.0550   1.73
-## 2      2  0.450  2.28     2.53
-## 3      3  0.108  1.68     4.08
-## 4      4 -0.764  2.31     3.34
-## 5      5  1.30   1.07     3.10
-## 6      6  1.40   2.71     3.47
+##   person time_1 time_2 time_3
+##    <int>  <dbl>  <dbl>  <dbl>
+## 1      1 -1.71   1.13   2.57 
+## 2      2  2.42   2.07   2.93 
+## 3      3  0.120  0.820  3.30 
+## 4      4 -0.518 -0.422  0.924
+## 5      5 -0.968  2.72   1.94 
+## 6      6  1.51   1.75   3.31
 ```
 
 `repeatmeasuresdata` is in **wide** format. Each row contains data for one participant, and each
@@ -795,14 +795,14 @@ repeatmeasuresdata %>%
 ```
 
 ```
-##   person variable       value
-## 1      1   time_1  0.80829148
-## 2      1   time_2 -0.05500297
-## 3      1   time_3  1.72691758
-## 4      2   time_1  0.45002281
-## 5      2   time_2  2.28055887
-## 6      2   time_3  2.53103891
-## 7      3   time_1  0.10791511
+##   person variable      value
+## 1      1   time_1 -1.7063558
+## 2      1   time_2  1.1292308
+## 3      1   time_3  2.5688266
+## 4      2   time_1  2.4211107
+## 5      2   time_2  2.0692895
+## 6      2   time_3  2.9291219
+## 7      3   time_1  0.1196861
 ```
 
 The problem we have now is that `variable` contains text which describes at which time the
@@ -835,12 +835,12 @@ longrepeatmeasuresdata %>% head
 
 ```
 ##   person    _ time      value
-## 1      1 time    1  0.8082915
-## 2      2 time    1  0.4500228
-## 3      3 time    1  0.1079151
-## 4      4 time    1 -0.7636126
-## 5      5 time    1  1.2998706
-## 6      6 time    1  1.4030827
+## 1      1 time    1 -1.7063558
+## 2      2 time    1  2.4211107
+## 3      3 time    1  0.1196861
+## 4      4 time    1 -0.5184175
+## 5      5 time    1 -0.9677767
+## 6      6 time    1  1.5104134
 ```
 
 Now the data are in long format, we can plot the points over time:
