@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -362,12 +363,12 @@ Use <code>summary()</code> to display the results of each regression:</p>
 <div class="exercise">
 <p>Make note of the variance explained by each model (<span class="math inline">\(R^2\)</span>), i.e., <code>Multiple R-squared</code>: (report as a percentage, to 2 decimal places)</p>
 <ul>
-<li><p>Model 1: <span class="math inline">\(R^2\)</span> = <span id="Q269985" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["53.10"]'/><span class="solvedme"></span></span> %</p></li>
-<li><p>Model 2: <span class="math inline">\(R^2\)</span> = <span id="Q377914" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["58.69"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>Model 1: <span class="math inline">\(R^2\)</span> = <span id="Q918414" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["53.10"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>Model 2: <span class="math inline">\(R^2\)</span> = <span id="Q944530" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["58.69"]'/><span class="solvedme"></span></span> %</p></li>
 </ul>
 <p>Which model explains a greater proportion of variance in <code>finalex</code>? <select class='solveme' data-answer='["entrex, age, project"]'> <option></option> <option>extrex alone</option> <option>entrex, age, project</option></select></p>
 <ul>
-<li>Calculate the difference in <span class="math inline">\(R^2\)</span> between the models. <code>model2</code> improves the prediction of <code>finalex</code> by <span id="Q712768" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["5.59"]'/><span class="solvedme"></span></span> %</li>
+<li>Calculate the difference in <span class="math inline">\(R^2\)</span> between the models. <code>model2</code> improves the prediction of <code>finalex</code> by <span id="Q547683" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["5.59"]'/><span class="solvedme"></span></span> %</li>
 </ul>
 </div>
 <p><br />
@@ -402,7 +403,7 @@ To compare the variance explained by each model, use <code>anova()</code>:</p>
 </ol>
 <p>Is there sufficient evidence that a model with <code>entrex</code> <em>and</em> <code>attendance</code> explains more variance than a model with <code>entrex</code> alone?</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try yourself first, then click to see the code
 </button>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="comparing-models-using-anova.html#cb212-1"></a><span class="co"># model1 was created earlier</span></span>
@@ -464,10 +465,10 @@ Try yourself first, then click to see the code
 <span id="cb212-57"><a href="comparing-models-using-anova.html#cb212-57"></a><span class="er">&gt;</span><span class="st"> </span>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
 </div>
 <ul>
-<li><p>The variance explained by a model with <code>entrex</code> alone is <span class="math inline">\(R^2\)</span> = <span id="Q465970" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["53.10"]'/><span class="solvedme"></span></span> %</p></li>
-<li><p>The <span class="math inline">\(R^2\)</span> for the model that also included <code>attendance</code> was <span class="math inline">\(R^2\)</span> = <span id="Q183852" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["72.23"]'/><span class="solvedme"></span></span> %</p></li>
-<li><p>The increase in <span class="math inline">\(R^2\)</span> was <span id="Q476159" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["19.13"]'/><span class="solvedme"></span></span>%</p></li>
-<li><p>The ANOVA comparing models can be reported as: <em>F</em>(<span id="Q105294" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=2  style='width:2em;'  data-answer='["1"]'/><span class="solvedme"></span></span>, <span id="Q255410" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=2  style='width:2em;'  data-answer='["30"]'/><span class="solvedme"></span></span>) = <span id="Q62332" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["20.67"]'/><span class="solvedme"></span></span>, <em>p</em> &lt; .001.</p></li>
+<li><p>The variance explained by a model with <code>entrex</code> alone is <span class="math inline">\(R^2\)</span> = <span id="Q671920" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["53.10"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>The <span class="math inline">\(R^2\)</span> for the model that also included <code>attendance</code> was <span class="math inline">\(R^2\)</span> = <span id="Q743830" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["72.23"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>The increase in <span class="math inline">\(R^2\)</span> was <span id="Q891362" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["19.13"]'/><span class="solvedme"></span></span>%</p></li>
+<li><p>The ANOVA comparing models can be reported as: <em>F</em>(<span id="Q354571" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=2  style='width:2em;'  data-answer='["1"]'/><span class="solvedme"></span></span>, <span id="Q6889" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=2  style='width:2em;'  data-answer='["30"]'/><span class="solvedme"></span></span>) = <span id="Q57430" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["20.67"]'/><span class="solvedme"></span></span>, <em>p</em> &lt; .001.</p></li>
 <li><p>The increase in <span class="math inline">\(R^2\)</span> was <select class='solveme' data-answer='["statistically significant"]'> <option></option> <option>statistically significant</option> <option>not significant</option></select>.</p></li>
 <li><p>As indicated by the estimates of the coefficients for <code>entrex</code> and <code>attendance</code>, both <select class='solveme' data-answer='["positively"]'> <option></option> <option>negatively</option> <option>positively</option></select> predict <code>finalex</code>.</p></li>
 <li><p>A higher <code>entrex</code> score and greater <code>attendance</code> is associated with a <select class='solveme' data-answer='["higher"]'> <option></option> <option>higher</option> <option>lower</option></select> <code>finalex</code> score.</p></li>

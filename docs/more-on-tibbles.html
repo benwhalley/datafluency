@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -306,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>In the <a href="exploring-data-brief.html#exploring-data-brief">Exploring Data</a> worksheet, you got the mean
 income of your sample like this:</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="more-on-tibbles.html#cb358-1"></a>cpsdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">mean</span>(income))</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="more-on-tibbles.html#cb409-1"></a>cpsdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">mean</span>(income))</span></code></pre></div>
 <pre><code># A tibble: 1 x 1
   `mean(income)`
            &lt;dbl&gt;
@@ -344,9 +345,9 @@ those in this class.</p></li>
 <p>Here’s another example. In the <a href="group-differences-briefly.html#group-differences-briefly">Group Differences</a> worksheet, we calculate the mean income of your sample by sex like
 this:</p>
 <!-- LINK THIS TO DATA HANDLING WORKSHOP INSTEAD -->
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="more-on-tibbles.html#cb360-1"></a>cpsdata <span class="op">%&gt;%</span></span>
-<span id="cb360-2"><a href="more-on-tibbles.html#cb360-2"></a><span class="st">    </span><span class="kw">group_by</span>(sex) <span class="op">%&gt;%</span></span>
-<span id="cb360-3"><a href="more-on-tibbles.html#cb360-3"></a><span class="st">    </span><span class="kw">summarise</span>(<span class="kw">median</span>(income))</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="more-on-tibbles.html#cb411-1"></a>cpsdata <span class="op">%&gt;%</span></span>
+<span id="cb411-2"><a href="more-on-tibbles.html#cb411-2"></a><span class="st">    </span><span class="kw">group_by</span>(sex) <span class="op">%&gt;%</span></span>
+<span id="cb411-3"><a href="more-on-tibbles.html#cb411-3"></a><span class="st">    </span><span class="kw">summarise</span>(<span class="kw">median</span>(income))</span></code></pre></div>
 <pre><code># A tibble: 2 x 2
   sex    `median(income)`
   &lt;chr&gt;             &lt;dbl&gt;

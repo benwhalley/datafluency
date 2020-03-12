@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -304,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="exercise">
 <p>Obtain the correlation between <code>project</code> and <code>proposal</code>:</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show me
 </button>
 <div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="multicollinearity.html#cb204-1"></a>ExamData <span class="op">%&gt;%</span></span>
@@ -314,10 +315,10 @@ Show me
 <span id="cb204-5"><a href="multicollinearity.html#cb204-5"></a><span class="op">&gt;</span><span class="st"> </span>project  <span class="fl">1.0000000</span> <span class="fl">0.9371487</span></span>
 <span id="cb204-6"><a href="multicollinearity.html#cb204-6"></a><span class="op">&gt;</span><span class="st"> </span>proposal <span class="fl">0.9371487</span> <span class="fl">1.0000000</span></span></code></pre></div>
 </div>
-<p>The correlation between <code>project</code> and <code>proposal</code> is <em>r</em> = <span id="Q449524" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.94",".94"]'/><span class="solvedme"></span></span>.</p>
+<p>The correlation between <code>project</code> and <code>proposal</code> is <em>r</em> = <span id="Q707303" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.94",".94"]'/><span class="solvedme"></span></span>.</p>
 <p>To see the effects of multicollinearity, conduct a regression with <code>finalex</code> as the outcome variable and <code>project</code> and <code>proposal</code> as the predictor variables.</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show me
 </button>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="multicollinearity.html#cb205-1"></a>multi1 &lt;-<span class="st"> </span><span class="kw">lm</span>(finalex <span class="op">~</span><span class="st"> </span>project <span class="op">+</span><span class="st"> </span>proposal, <span class="dt">data =</span> ExamData)</span>
@@ -342,7 +343,7 @@ Show me
 <span id="cb205-20"><a href="multicollinearity.html#cb205-20"></a><span class="op">&gt;</span><span class="st"> </span>F<span class="op">-</span>statistic<span class="op">:</span><span class="st"> </span><span class="fl">2.945</span> on <span class="dv">2</span> and <span class="dv">30</span> DF,  p<span class="op">-</span>value<span class="op">:</span><span class="st"> </span><span class="fl">0.06797</span></span></code></pre></div>
 </div>
 <ul>
-<li><p>How much variance in <code>finalex</code> is explained by the model: <span class="math inline">\(R^2\)</span> = <span id="Q234805" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=0.02 data-digits=4 size=5  style='width:5em;'  data-answer='["16.41"]'/><span class="solvedme"></span></span> %.</p></li>
+<li><p>How much variance in <code>finalex</code> is explained by the model: <span class="math inline">\(R^2\)</span> = <span id="Q149714" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=0.02 data-digits=4 size=5  style='width:5em;'  data-answer='["16.41"]'/><span class="solvedme"></span></span> %.</p></li>
 <li><p>Is the overall regression statistically significant? <select class='solveme' data-answer='["no"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
 <li><p>Is the coefficient for <code>project</code> statistically significant? <select class='solveme' data-answer='["no"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
 <li><p>Is the coefficient for <code>proposal</code> statistically significant? <select class='solveme' data-answer='["no"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
@@ -351,7 +352,7 @@ Show me
 <div class="exercise">
 <p>Now run two simple regressions to determine whether <code>project</code> and <code>proposal</code> explain variance in <code>finalex</code> and are statistically significant predictors when in models on their own.</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show me
 </button>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="multicollinearity.html#cb206-1"></a>multi2 &lt;-<span class="st"> </span><span class="kw">lm</span>(finalex <span class="op">~</span><span class="st"> </span>project, <span class="dt">data =</span> ExamData)</span>
@@ -397,14 +398,14 @@ Show me
 <span id="cb206-41"><a href="multicollinearity.html#cb206-41"></a><span class="op">&gt;</span><span class="st"> </span>F<span class="op">-</span>statistic<span class="op">:</span><span class="st"> </span><span class="fl">5.409</span> on <span class="dv">1</span> and <span class="dv">31</span> DF,  p<span class="op">-</span>value<span class="op">:</span><span class="st"> </span><span class="fl">0.02675</span></span></code></pre></div>
 </div>
 <ul>
-<li><p>In a simple regression with <code>finalex</code> as the outcome variable, and <code>project</code> as the predictor variable, <span class="math inline">\(R^2\)</span> = <span id="Q774949" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=0.1 data-digits=4 size=4  style='width:4em;'  data-answer='["16.4"]'/><span class="solvedme"></span></span> %.</p></li>
+<li><p>In a simple regression with <code>finalex</code> as the outcome variable, and <code>project</code> as the predictor variable, <span class="math inline">\(R^2\)</span> = <span id="Q454730" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=0.1 data-digits=4 size=4  style='width:4em;'  data-answer='["16.4"]'/><span class="solvedme"></span></span> %.</p></li>
 <li><p>Is the overall regression statistically significant? <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
-<li><p>In a simple regression with <code>finalex</code> as the outcome variable, and <code>proposal</code> as the predictor variable, <span class="math inline">\(R^2\)</span> = <span id="Q959555" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=0.1 data-digits=4 size=4  style='width:4em;'  data-answer='["14.9"]'/><span class="solvedme"></span></span> %.</p></li>
+<li><p>In a simple regression with <code>finalex</code> as the outcome variable, and <code>proposal</code> as the predictor variable, <span class="math inline">\(R^2\)</span> = <span id="Q322298" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=0.1 data-digits=4 size=4  style='width:4em;'  data-answer='["14.9"]'/><span class="solvedme"></span></span> %.</p></li>
 <li><p>Is the overall regression statistically significant? <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
 <li><p>Try to explain what’s going on here in your own words. Click below or ask if you get stuck.</p></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Explain
 </button>
 <p><em>Interpretation</em></p>

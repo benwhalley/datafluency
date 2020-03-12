@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -326,7 +327,7 @@ each time you run the program. This means different people will get (slightly) d
 <p>This is usual, and nothing to worry about: the amount of variation is typically small. If you see large differences it normally means something else has gone wrong.</p>
 <p>However, when fitting complex models we do sometimes need to minimise the amount of variation. This is quite a complex topic, not covered in this course, but if you were interested see Jon Kruschke’s excellent textbook <span class="citation">(Kruschke <a href="#ref-kruschke2014doing" role="doc-biblioref">2014</a>)</span> or Richard McElreaths’ <em>Rethinking</em> book <span class="citation">(McElreath <a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>.</p>
 <p>However, the short version is that we need to increase the number of simulations the software uses to calculate estimates and intervals. You can do this with rstanarm by setting the <code>iter</code> variable when you run the model. For example, this runs a simple model using 20,000 simulations, rather than the default of 4000:</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="bayesian-estimation-of-the-1.html#cb364-1"></a><span class="kw">stan_glm</span>(mpg<span class="op">~</span>wt, <span class="dt">data=</span>mtcars, <span class="dt">iter=</span><span class="dv">20000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="bayesian-estimation-of-the-1.html#cb415-1"></a><span class="kw">stan_glm</span>(mpg<span class="op">~</span>wt, <span class="dt">data=</span>mtcars, <span class="dt">iter=</span><span class="dv">20000</span>)</span></code></pre></div>
 <p>In short: the default values are often fine, but if you are worried about increasing precision there are ways to achieve it.</p>
 
 </div>

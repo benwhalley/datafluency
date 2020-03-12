@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -342,20 +343,20 @@ ones.</p>
 <h3>The shaded area when using <code>geom_smooth</code></h3>
 <p>If you use <code>geom_smoth</code> with <code>method=lm</code> you get a grey shaded area around the
 line.</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="regression-extra-explanations.html#cb362-1"></a>mtcars <span class="op">%&gt;%</span></span>
-<span id="cb362-2"><a href="regression-extra-explanations.html#cb362-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
-<span id="cb362-3"><a href="regression-extra-explanations.html#cb362-3"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb362-4"><a href="regression-extra-explanations.html#cb362-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="regression-extra-explanations.html#cb413-1"></a>mtcars <span class="op">%&gt;%</span></span>
+<span id="cb413-2"><a href="regression-extra-explanations.html#cb413-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
+<span id="cb413-3"><a href="regression-extra-explanations.html#cb413-3"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb413-4"><a href="regression-extra-explanations.html#cb413-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)</span></code></pre></div>
 <p><img src="extras-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The shaded area shows the <strong><em>standard error</em></strong> of the line of best fit. This is
 an estimate of how confident we are about the predictions the line makes. This
 video explains it quite well: <a href="https://www.youtube.com/watch?v=1oHe1a3JqHw" class="uri">https://www.youtube.com/watch?v=1oHe1a3JqHw</a>.
 When he uses the greek letter he just means “slope”.</p>
 <p>If you want to hide it, you can add: <code>se=FALSE</code>:</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="regression-extra-explanations.html#cb363-1"></a>mtcars <span class="op">%&gt;%</span></span>
-<span id="cb363-2"><a href="regression-extra-explanations.html#cb363-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
-<span id="cb363-3"><a href="regression-extra-explanations.html#cb363-3"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb363-4"><a href="regression-extra-explanations.html#cb363-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="regression-extra-explanations.html#cb414-1"></a>mtcars <span class="op">%&gt;%</span></span>
+<span id="cb414-2"><a href="regression-extra-explanations.html#cb414-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
+<span id="cb414-3"><a href="regression-extra-explanations.html#cb414-3"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb414-4"><a href="regression-extra-explanations.html#cb414-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se=</span><span class="ot">FALSE</span>)</span></code></pre></div>
 <p><img src="extras-regression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="explanation-first-predictions" class="section level3">

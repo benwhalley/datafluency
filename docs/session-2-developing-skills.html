@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -794,11 +795,11 @@ ever”.</p>
 <p>The nature of the possible bias is dependent on the true causal pathways responsible for generating the data. It’s important to note that for real datasets we can never know for sure if our results are biased: we only know it’s a possiblity because simulation studies show this is the case.</p>
 <p>For more on new approaches to deciding when to include covariates see <span class="citation">Pearl and Mackenzie (<a href="#ref-pearl2018book" role="doc-biblioref">2018</a>)</span>, chapter 4.</p>
 <p>The main example I gave was: Imagine smoking causes some underlying change in our cardiovascular system, which then causes strokes. This causal diagram represents that (quite plausible) situation:</p>
-<div id="htmlwidget-db94618cc05f1d2208d7" style="width:672px;height:300px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-db94618cc05f1d2208d7">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Unknown -> Stroke2\n      Unknown -> Stroke1\n      Stroke1 -> Stroke2 [style=invis]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b24b9e70ef8587c7b1e6" style="width:672px;height:300px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b24b9e70ef8587c7b1e6">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Unknown -> Stroke2\n      Unknown -> Stroke1\n      Stroke1 -> Stroke2 [style=invis]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>If we wanted to know the effect of smoking on stroke we might be tempted to ‘control for’ the number of previous strokes, but that would be a disaster:</p>
-<div id="htmlwidget-2aa232b1aa42ea0ef66e" style="width:672px;height:400px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2aa232b1aa42ea0ef66e">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Stroke\n      PreviousStroke -> Stroke\n      Smoking -> PreviousStroke [style=dashed]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-783d59eb9e41831b1136" style="width:672px;height:400px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-783d59eb9e41831b1136">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Stroke\n      PreviousStroke -> Stroke\n      Smoking -> PreviousStroke [style=dashed]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>The reason is that the effect of smoking is now being ‘shared’, and we might well underestimate the true causall effect of smoking on stroke, misattributing is to some individual/dispositional cause.</p>
 <div id="should-you-use-covariates-then" class="section level5">
 <h5>Should you use covariates then?</h5>
@@ -831,7 +832,7 @@ The variables starting <code>kg</code> relate to participants weights. The <code
 <li>Calculate the BF for the effect of FIT.</li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try for yourself first, but click here to see the code and results
 </button>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="session-2-developing-skills.html#cb259-1"></a>m.fit &lt;-<span class="st"> </span><span class="kw">lm</span>(kg3<span class="op">~</span>kg1 <span class="op">+</span><span class="st"> </span>group, <span class="dt">data=</span>fitdata)</span>
@@ -910,7 +911,7 @@ Next week:
 hierarchical regression
 effect size
 
-Then 
+Then
 
 multiple comparisons
 reporting results
@@ -954,6 +955,7 @@ Cronbach's alpha
 
 
 -->
+
 </div>
 </div>
 </div>

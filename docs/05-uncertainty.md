@@ -187,11 +187,11 @@ kidiq %>% glimpse()
 ```
 ## Observations: 434
 ## Variables: 5
-## $ kid_score <dbl> 65, 98, 85, 83, 115, 98, 69, 106, 102, 95, 91, 58, 84,…
-## $ mom_hs    <chr> "Completed", "Completed", "Completed", "Completed", "C…
-## $ mom_iq    <dbl> 121.118, 89.362, 115.443, 99.450, 92.746, 107.902, 138…
-## $ mom_work  <dbl> 4, 4, 4, 3, 4, 1, 4, 3, 1, 1, 1, 4, 4, 4, 2, 1, 3, 3, …
-## $ mom_age   <dbl> 27, 25, 27, 25, 27, 18, 20, 23, 24, 19, 23, 24, 27, 26…
+## $ kid_score <dbl> 65, 98, 85, 83, 115, 98, 69, 106, 102, 95, 91, 58, 84, 78, …
+## $ mom_hs    <chr> "Completed", "Completed", "Completed", "Completed", "Comple…
+## $ mom_iq    <dbl> 121.118, 89.362, 115.443, 99.450, 92.746, 107.902, 138.893,…
+## $ mom_work  <dbl> 4, 4, 4, 3, 4, 1, 4, 3, 1, 1, 1, 4, 4, 4, 2, 1, 3, 3, 4, 3,…
+## $ mom_age   <dbl> 27, 25, 27, 25, 27, 18, 20, 23, 24, 19, 23, 24, 27, 26, 24,…
 ```
 
 As we did in the regression section, we can create a model. Here we predict childrens' scores from mothers' IQ and schooling:
@@ -258,7 +258,7 @@ Use the `predict` function with `iqmodel` to answer the following questions:
 
 
 -   What is the predicted `kid_score` for mothers with IQ = 97 who completed high school?
-    <span class='webex-fitb' id = 'Q475459' ><input class='solveme  nospaces calculator' data-tol=1 data-digits=4 size=4  style='width:4em;'  data-answer='["86.4"]'/><span class='solvedme'></span></span>
+    <span class='webex-fitb' id = 'Q998668' ><input class='solveme  nospaces calculator' data-tol=1 data-digits=4 size=4  style='width:4em;'  data-answer='["86.4"]'/><span class='solvedme'></span></span>
 
 -   Make a new tibble, and then `predict` values for 3 different mothers, with different scores on
     `mom_iq` and `mom_hs`
@@ -270,7 +270,7 @@ Use the `predict` function with `iqmodel` to answer the following questions:
     88.4 <select class='solveme' data-answer='["False"]'> <option></option> <option>True</option> <option>False</option></select>
 
 <div class='solution'>
-<button>Explain the answers</button>
+<button class='solution-button'>Explain the answers</button>
 
 86 is the prediction from the output shown above.
 
@@ -323,7 +323,7 @@ had IQ-97 and had completed high school, if we repeated our sampling and testing
     <select class='solveme' data-answer='["False"]'> <option></option> <option>True</option> <option>False</option></select>
 
 
-<div class='solution'><button>Explain the answers</button>
+<div class='solution'><button class='solution-button'>Explain the answers</button>
 
 
 The prediction is the same, because it's the point on the regression line for these values of
@@ -403,9 +403,9 @@ tidy(iqmodel.bayes)
 ## # A tibble: 3 x 3
 ##   term                   estimate std.error
 ##   <chr>                     <dbl>     <dbl>
-## 1 (Intercept)              31.7      6.34  
-## 2 mom_iq                    0.564    0.0611
-## 3 mom_hsDid not complete   -5.95     2.18
+## 1 (Intercept)              31.7      6.21  
+## 2 mom_iq                    0.564    0.0600
+## 3 mom_hsDid not complete   -5.96     2.17
 ```
 
 :::{.exercise}
@@ -418,7 +418,7 @@ Use `summary` or `tidy` to see the coefficients and standard errors.
 Compare your results with the results using `lm`
 
 
-<div class='solution'><button>Why don't my result match my friends' exactly?</button>
+<div class='solution'><button class='solution-button'>Why don't my result match my friends' exactly?</button>
 
 
 Because of the way Bayesian models are fit, results can vary very slightly each time you run them.
@@ -469,7 +469,7 @@ add_fitted_draws(iqmodel.bayes, newdata=new.mother) %>%
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row .value .lower .upper .width .point .interval
 ##    <dbl> <chr>     <int>  <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
-## 1     97 Completed     1   86.4   84.4   88.4   0.95 mean   qi
+## 1     97 Completed     1   86.4   84.3   88.4   0.95 mean   qi
 ```
 
 If we want to calculate the Bayesian **prediction interval**, we replace `add_fitted_draws` with
@@ -486,7 +486,7 @@ add_predicted_draws(iqmodel.bayes, newdata=new.mother) %>%
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row .prediction .lower .upper .width .point .interval
 ##    <dbl> <chr>     <int>       <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
-## 1     97 Completed     1        86.4   51.0   122.   0.95 mean   qi
+## 1     97 Completed     1        86.4   50.3   122.   0.95 mean   qi
 ```
 
 :::{.exercise}
@@ -540,7 +540,7 @@ Try using expand grid to plot a range of predictions,  for mothers of different 
 
 
 
-<div class='solution'><button>Tell me how to do it!</button>
+<div class='solution'><button class='solution-button'>Tell me how to do it!</button>
 
 
 For the Classical intervals, use `predict(model, newdata=..., interval="...")`
@@ -555,7 +555,7 @@ For the Bayesian intervals you need to use  `add_predicted_samples` or  `add_fit
 
 
 
-<div class='solution'><button>I give up, show me exactly how to do it...</button>
+<div class='solution'><button class='solution-button'>I give up, show me exactly how to do it...</button>
 
 
 Classical:
@@ -600,7 +600,7 @@ add_predicted_draws(model, newdata=new.mother) %>% mean_qi()
 ## # Groups:   mom_iq, mom_hs, mom_age [1]
 ##   mom_iq mom_hs  mom_age  .row .prediction .lower .upper .width .point .interval
 ##    <dbl> <chr>     <dbl> <int>       <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
-## 1    100 Comple…      30     1        89.5   53.9   125.   0.95 mean   qi
+## 1    100 Comple…      30     1        89.9   53.3   126.   0.95 mean   qi
 ```
 
 ```r
@@ -612,7 +612,7 @@ add_fitted_draws(model, newdata=new.mother) %>% mean_qi() #
 ## # Groups:   mom_iq, mom_hs, mom_age [1]
 ##   mom_iq mom_hs    mom_age  .row .value .lower .upper .width .point .interval
 ##    <dbl> <chr>       <dbl> <int>  <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
-## 1    100 Completed      30     1   89.7   84.8   94.5   0.95 mean   qi
+## 1    100 Completed      30     1   89.6   84.8   94.3   0.95 mean   qi
 ```
 
 
@@ -722,11 +722,11 @@ add_predicted_draws(iqmodel.bayes, newdata=new.mother) %>%
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row `mean(.prediction < 60)`
 ##    <dbl> <chr>     <int>                    <dbl>
-## 1     97 Completed     1                   0.0712
+## 1     97 Completed     1                   0.0752
 ```
 
 
-<div class='solution'><button>Explain that code in detail...</button>
+<div class='solution'><button class='solution-button'>Explain that code in detail...</button>
 
 
 In the code above, `add_predicted_draw` makes many predictions for `new.mother`... that is a new

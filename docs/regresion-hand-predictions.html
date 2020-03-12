@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -310,12 +311,12 @@ line on the plot.</p>
 <p>We can do the same thing using the coefficients from <code>lm</code>, because we know that:</p>
 <!-- see cfs1 definition above -->
 <ul>
-<li><p>If someone worked for 0 hours per week then our prediction would be 36. We know
+<li><p>If someone worked for 0 hours per week then our prediction would be 38. We know
 this because this is the intercept value (the point on the line when it is at zero on the
 x-axis).</p></li>
 <li><p>For each extra hour we study the <code>work_hour</code>coefficient tells us that f, our <code>grade</code> will
-increase by 0.9229.</p></li>
-<li><p>So, if we study for 30 hours, our prediction is 36 <span class="math inline">\(+\)</span> 0.9229 <span class="math inline">\(\times\)</span> 30</p></li>
+increase by 0.8377.</p></li>
+<li><p>So, if we study for 30 hours, our prediction is 38 <span class="math inline">\(+\)</span> 0.8377 <span class="math inline">\(\times\)</span> 30</p></li>
 </ul>
 <div class="exercise">
 <p>In pairs again:</p>
@@ -337,9 +338,9 @@ you think this is?</li>
 original dataset:</p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="regresion-hand-predictions.html#cb131-1"></a><span class="kw">predict</span>(first.model) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##        1        2        3        4        5        6        7        8 
-## 59.50978 59.50978 50.28095 65.96997 58.58690 53.97248 65.04708 64.12420 
+## 60.15051 60.15051 51.77323 66.01460 59.31278 55.12414 65.17687 64.33915 
 ##        9       10 
-## 55.81825 65.96997</code></pre>
+## 56.79960 66.01460</code></pre>
 <p><strong>Explanation of the output</strong>: We have one prediction (the point on the line) for each row in the
 original dataset.</p>
 <hr />
@@ -351,12 +352,12 @@ them <em>with</em> the original data. This can make it easier to use:</p>
 <pre><code>## # A tibble: 6 x 9
 ##   grade work_hours .fitted .se.fit .resid    .hat .sigma  .cooksd .std.resid
 ##   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
-## 1    69         26    59.5   0.639   9.49 0.00351   10.8 0.00137       0.882
-## 2    54         26    59.5   0.639  -5.51 0.00351   10.8 0.000462     -0.512
-## 3    37         16    50.3   1.29  -13.3  0.0143    10.8 0.0112       -1.24 
-## 4    59         33    66.0   1.21   -6.97 0.0125    10.8 0.00269      -0.651
-## 5    53         25    58.6   0.623  -5.59 0.00334   10.8 0.000451     -0.519
-## 6    51         20    54.0   0.879  -2.97 0.00664   10.8 0.000256     -0.277</code></pre>
+## 1    65         26    60.2   0.513   4.85 0.00351   8.67 0.000554      0.561
+## 2    57         26    60.2   0.513  -3.15 0.00351   8.68 0.000234     -0.364
+## 3    45         16    51.8   1.04   -6.77 0.0143    8.67 0.00450      -0.788
+## 4    70         33    66.0   0.970   3.99 0.0125    8.67 0.00136       0.463
+## 5    55         25    59.3   0.500  -4.31 0.00334   8.67 0.000416     -0.499
+## 6    50         20    55.1   0.706  -5.12 0.00664   8.67 0.00118      -0.593</code></pre>
 <p><strong>Explanation of the output</strong>: <code>augment</code> has also made a prediction for each row, but returned it
 with the original data (<code>grade</code> and <code>work_hours</code>) that were used to fit the model. Alongside the
 <code>.fitted</code> value, and the <code>.resid</code> (residual) there are some other columns we can ignore for now.</p>
@@ -378,7 +379,7 @@ prediction for:</p>
 <pre><code>## # A tibble: 1 x 3
 ##   work_hours .fitted .se.fit
 ##        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1         30    63.2   0.902</code></pre>
+## 1         30    63.5   0.725</code></pre>
 <p><strong>Explanation of the output</strong>: We have a new data frame with predictions for a new sample who worked
 30 hours.</p>
 </div>
@@ -408,7 +409,7 @@ prediction?</li>
 <li>What is your predicted income for someone who works 40 hours per week?</li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show answers
 </button>
 <p>The numeric answers for each question are shown below:</p>

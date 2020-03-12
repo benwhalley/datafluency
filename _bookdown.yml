@@ -23,6 +23,8 @@ rmd_files:
     # "08-testing.rmd",
     # "09-communicating.rmd",
     "09-real.rmd",
+    "09-real-pt-2.rmd",
+    "09-real-pt-3.rmd",
 
     # PART
     "extras.rmd",

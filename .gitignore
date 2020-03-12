@@ -59,3 +59,6 @@ z_unused.rmd
 .Rproj.user
 packrat/lib*/
 packrat/src
+uncertainty-in-dev.rmd
+uncertainty-unused.rmd
+assessment/2019/notes-on-replications.Rmd

@@ -221,7 +221,7 @@ Run another simple regression:
 
 
 
-<div class='solution'><button>Try yourself first before clicking to show the code</button>
+<div class='solution'><button class='solution-button'>Try yourself first before clicking to show the code</button>
 
 
 ```r
@@ -254,14 +254,14 @@ summary(m2)
 \
 Answer the following: (report statistics to 2 decimal places)
 
-- What is the value of the coefficient for `project`? <span class='webex-fitb' id = 'Q861898' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["1.44"]'/><span class='solvedme'></span></span>
+- What is the value of the coefficient for `project`? <span class='webex-fitb' id = 'Q140511' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["1.44"]'/><span class='solvedme'></span></span>
 
-- What proportion of the variance in `finalex` is explained by `project`?: $R^2$ = <span class='webex-fitb' id = 'Q51181' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.16",".16"]'/><span class='solvedme'></span></span> (or <span class='webex-fitb' id = 'Q97855' ><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["16.38"]'/><span class='solvedme'></span></span> %).
+- What proportion of the variance in `finalex` is explained by `project`?: $R^2$ = <span class='webex-fitb' id = 'Q403264' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.16",".16"]'/><span class='solvedme'></span></span> (or <span class='webex-fitb' id = 'Q295758' ><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["16.38"]'/><span class='solvedme'></span></span> %).
 
 - Write down the regression equation (on a bit of paper).
 
 
-<div class='solution'><button>Show me</button>
+<div class='solution'><button class='solution-button'>Show me</button>
 
 
   - $Predicted\ final\ exam\ score  = 4.70 + 1.44(project)$
@@ -277,7 +277,7 @@ Answer the following: (report statistics to 2 decimal places)
   **_F_(df1, df2) = _F_-statistic, _p_ = _p_-value**:
 
 
-<div class='solution'><button>Show me</button>
+<div class='solution'><button class='solution-button'>Show me</button>
 
 
 _F_(1, 31) = 6.07, _p_ = .02
@@ -339,7 +339,7 @@ ExamData %>%
 
 :::{.exercise}
 
-The correlation between `entrex` and `project` is _r_ = <span class='webex-fitb' id = 'Q235556' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.29",".29"]'/><span class='solvedme'></span></span>
+The correlation between `entrex` and `project` is _r_ = <span class='webex-fitb' id = 'Q22173' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.29",".29"]'/><span class='solvedme'></span></span>
 
 Our predictor variables are weakly correlated. We should keep this in mind going forward.
 
@@ -378,9 +378,9 @@ summary(m3)
 :::{.exercise}
 In this model with `entrex` and `project`as predictors:
 
-What is the value of $R^2$ (as a percentage): <span class='webex-fitb' id = 'Q179317' ><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["57.16"]'/><span class='solvedme'></span></span> %
+What is the value of $R^2$ (as a percentage): <span class='webex-fitb' id = 'Q862429' ><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["57.16"]'/><span class='solvedme'></span></span> %
 
-By how much has $R^2$ _increased_ in this model, relative to the model with `entrex` alone (where $R^2$ was 53.10%)? (as a percentage) (you will need to calculate this) <span class='webex-fitb' id = 'Q427216' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["4.06"]'/><span class='solvedme'></span></span> %
+By how much has $R^2$ _increased_ in this model, relative to the model with `entrex` alone (where $R^2$ was 53.10%)? (as a percentage) (you will need to calculate this) <span class='webex-fitb' id = 'Q145506' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["4.06"]'/><span class='solvedme'></span></span> %
 
 Is the overall regression model predicting `finalex` on the basis of `entrex` and `project` statistically significant? <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select>
 
@@ -390,12 +390,12 @@ Is the overall regression model predicting `finalex` on the basis of `entrex` an
 
 - Is `project` a statistically significant predictor of `finalex` in this model?  <select class='solveme' data-answer='["no"]'> <option></option> <option>yes</option> <option>no</option></select>
 
-- What is the value of the coefficient for `project`? _b_ = <span class='webex-fitb' id = 'Q535278' ><input class='solveme  nospaces calculator' data-tol=0.01 data-digits=4 size=4  style='width:4em;'  data-answer='["0.75",".75"]'/><span class='solvedme'></span></span>
+- What is the value of the coefficient for `project`? _b_ = <span class='webex-fitb' id = 'Q969548' ><input class='solveme  nospaces calculator' data-tol=0.01 data-digits=4 size=4  style='width:4em;'  data-answer='["0.75",".75"]'/><span class='solvedme'></span></span>
 
 - Report the _t_-statistic in APA style:
 
 
-<div class='solution'><button>Show me</button>
+<div class='solution'><button class='solution-button'>Show me</button>
 
 
 Project mark was not a statistically significant predictor of final examination in this model, *b* = 0.75, *t*(30) = 1.69, *p* = .10
@@ -455,7 +455,7 @@ An example of multicollinearity in the `ExamData` dataset can be seen with the v
 Obtain the correlation between `project` and `proposal`:
 
 
-<div class='solution'><button>Show me</button>
+<div class='solution'><button class='solution-button'>Show me</button>
 
 
 ```r
@@ -471,12 +471,12 @@ ExamData %>%
 
 
 
-The correlation between `project` and `proposal` is _r_ = <span class='webex-fitb' id = 'Q449524' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.94",".94"]'/><span class='solvedme'></span></span>.
+The correlation between `project` and `proposal` is _r_ = <span class='webex-fitb' id = 'Q707303' ><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.94",".94"]'/><span class='solvedme'></span></span>.
 
 To see the effects of multicollinearity, conduct a regression with `finalex` as the outcome variable and `project` and `proposal` as the predictor variables.
 
 
-<div class='solution'><button>Show me</button>
+<div class='solution'><button class='solution-button'>Show me</button>
 
 
 ```r
@@ -505,7 +505,7 @@ summary(multi1)
 </div>
 
 
-- How much variance in `finalex` is explained by the model: $R^2$ = <span class='webex-fitb' id = 'Q234805' ><input class='solveme  nospaces calculator' data-tol=0.02 data-digits=4 size=5  style='width:5em;'  data-answer='["16.41"]'/><span class='solvedme'></span></span> %.
+- How much variance in `finalex` is explained by the model: $R^2$ = <span class='webex-fitb' id = 'Q149714' ><input class='solveme  nospaces calculator' data-tol=0.02 data-digits=4 size=5  style='width:5em;'  data-answer='["16.41"]'/><span class='solvedme'></span></span> %.
 
 - Is the overall regression statistically significant? <select class='solveme' data-answer='["no"]'> <option></option> <option>yes</option> <option>no</option></select>
 
@@ -520,7 +520,7 @@ summary(multi1)
 Now run two simple regressions to determine whether `project` and `proposal` explain variance in `finalex` and are statistically significant predictors when in models on their own.
 
 
-<div class='solution'><button>Show me</button>
+<div class='solution'><button class='solution-button'>Show me</button>
 
 
 ```r
@@ -570,11 +570,11 @@ summary(multi3)
 </div>
 
 
-- In a simple regression with `finalex` as the outcome variable, and `project` as the predictor variable, $R^2$ = <span class='webex-fitb' id = 'Q774949' ><input class='solveme  nospaces calculator' data-tol=0.1 data-digits=4 size=4  style='width:4em;'  data-answer='["16.4"]'/><span class='solvedme'></span></span> %.
+- In a simple regression with `finalex` as the outcome variable, and `project` as the predictor variable, $R^2$ = <span class='webex-fitb' id = 'Q454730' ><input class='solveme  nospaces calculator' data-tol=0.1 data-digits=4 size=4  style='width:4em;'  data-answer='["16.4"]'/><span class='solvedme'></span></span> %.
 
 - Is the overall regression statistically significant? <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select>
 
-- In a simple regression with `finalex` as the outcome variable, and `proposal` as the predictor variable, $R^2$ = <span class='webex-fitb' id = 'Q959555' ><input class='solveme  nospaces calculator' data-tol=0.1 data-digits=4 size=4  style='width:4em;'  data-answer='["14.9"]'/><span class='solvedme'></span></span> %.
+- In a simple regression with `finalex` as the outcome variable, and `proposal` as the predictor variable, $R^2$ = <span class='webex-fitb' id = 'Q322298' ><input class='solveme  nospaces calculator' data-tol=0.1 data-digits=4 size=4  style='width:4em;'  data-answer='["14.9"]'/><span class='solvedme'></span></span> %.
 
 - Is the overall regression statistically significant? <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select>
 
@@ -582,7 +582,7 @@ summary(multi3)
 
 
 
-<div class='solution'><button>Explain</button>
+<div class='solution'><button class='solution-button'>Explain</button>
 
 *Interpretation*
 
@@ -611,7 +611,7 @@ summary(multi3)
 As a final exercise, run a multiple regression to predict `finalex` from **three** predictors: `entrex`, `project`, and `iq`.
 
 
-<div class='solution'><button>Show me how</button>
+<div class='solution'><button class='solution-button'>Show me how</button>
 
 
 ```r
@@ -655,7 +655,7 @@ On the basis of all the models conducted so far (with `entrex`, `project`, and `
 
 
 
-<div class='solution'><button>Tell me which model seems best</button>
+<div class='solution'><button class='solution-button'>Tell me which model seems best</button>
 
 
 The model containing `entrex` alone, as this seems to provide the simplest and most effective model of the `finalex`.

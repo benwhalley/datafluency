@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -301,7 +302,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="exercise">
 <p>As a final exercise, run a multiple regression to predict <code>finalex</code> from <strong>three</strong> predictors: <code>entrex</code>, <code>project</code>, and <code>iq</code>.</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show me how
 </button>
 <div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="final-exercise.html#cb207-1"></a>multi4 &lt;-<span class="st"> </span><span class="kw">lm</span>(finalex <span class="op">~</span><span class="st"> </span>entrex <span class="op">+</span><span class="st"> </span>project <span class="op">+</span><span class="st"> </span>iq, <span class="dt">data =</span> ExamData)</span>
@@ -336,7 +337,7 @@ Show me how
 </ul>
 <p>On the basis of all the models conducted so far (with <code>entrex</code>, <code>project</code>, and <code>iq</code>), which model would you choose to best predict <code>finalex</code>?</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Tell me which model seems best
 </button>
 <p>The model containing <code>entrex</code> alone, as this seems to provide the simplest and most effective model of the <code>finalex</code>.</p>

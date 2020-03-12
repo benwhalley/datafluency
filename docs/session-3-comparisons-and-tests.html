@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="session-2-developing-skills.html"/>
-<link rel="next" href="extras.html"/>
+<link rel="next" href="session-4-effect-sizes-and-discrepancies.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -311,18 +312,581 @@ focus on the pitfalls of multiple testing and researcher degrees of freedom.
 Both technical strategies and research policies can mitigate this risk to some
 degree, but research integrity is crucial.</p>
 </blockquote>
-<p>We will introduce techniques for moaking and correcting inferences for multiple comparisons.</p>
+<p><a href="slides/real_3.pptx">Slides from the session</a></p>
+</div>
+<div id="hierarchical-regression-example" class="section level3">
+<h3>Hierarchical regression example</h3>
+<p>(Feel free to skip this if it doesn’t apply to your analysis).</p>
+<p>The R <code>attitude</code> data are:</p>
+<blockquote>
+<p>From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments. The numbers give the percent proportion of favourable responses to seven questions in each department.</p>
+</blockquote>
+<p>Columns in the data include:</p>
+<ul>
+<li>Overall rating</li>
+<li>Handling of employee complaints</li>
+<li>Does not allow special privileges</li>
+<li>Opportunity to learn</li>
+<li>Raises based on performance</li>
+<li>Too critical</li>
+</ul>
+<p>Imagine we wanted to predict overall ratings from individual items:</p>
+<ul>
+<li><p>In <code>m1</code> we add three predictors of overall <code>rating</code>.</p></li>
+<li><p>In <code>m2</code> we keep these same predictors, adding 3 more.</p></li>
+</ul>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="session-3-comparisons-and-tests.html#cb260-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(rating <span class="op">~</span><span class="st"> </span>complaints <span class="op">+</span><span class="st"> </span>privileges <span class="op">+</span><span class="st"> </span>learning, <span class="dt">data=</span>attitude)</span>
+<span id="cb260-2"><a href="session-3-comparisons-and-tests.html#cb260-2"></a>m2 &lt;-<span class="st"> </span><span class="kw">lm</span>(rating <span class="op">~</span><span class="st"> </span>complaints <span class="op">+</span><span class="st"> </span>privileges <span class="op">+</span><span class="st"> </span>learning <span class="op">+</span><span class="st"> </span>raises <span class="op">+</span><span class="st"> </span>critical <span class="op">+</span><span class="st"> </span>advance, <span class="dt">data=</span>attitude)</span></code></pre></div>
+<ul>
+<li>We then use the <code>anova</code> function to calculate the F test for the increase in R^2. That is we ask: do the additional predictors improve the model?</li>
+</ul>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="session-3-comparisons-and-tests.html#cb261-1"></a><span class="kw">anova</span>(m1, m2)</span>
+<span id="cb261-2"><a href="session-3-comparisons-and-tests.html#cb261-2"></a>Analysis of Variance Table</span>
+<span id="cb261-3"><a href="session-3-comparisons-and-tests.html#cb261-3"></a></span>
+<span id="cb261-4"><a href="session-3-comparisons-and-tests.html#cb261-4"></a>Model <span class="dv">1</span><span class="op">:</span><span class="st"> </span>rating <span class="op">~</span><span class="st"> </span>complaints <span class="op">+</span><span class="st"> </span>privileges <span class="op">+</span><span class="st"> </span>learning</span>
+<span id="cb261-5"><a href="session-3-comparisons-and-tests.html#cb261-5"></a>Model <span class="dv">2</span><span class="op">:</span><span class="st"> </span>rating <span class="op">~</span><span class="st"> </span>complaints <span class="op">+</span><span class="st"> </span>privileges <span class="op">+</span><span class="st"> </span>learning <span class="op">+</span><span class="st"> </span>raises <span class="op">+</span><span class="st"> </span>critical <span class="op">+</span><span class="st"> </span></span>
+<span id="cb261-6"><a href="session-3-comparisons-and-tests.html#cb261-6"></a><span class="st">    </span>advance</span>
+<span id="cb261-7"><a href="session-3-comparisons-and-tests.html#cb261-7"></a>  Res.Df    RSS Df Sum of Sq      F <span class="kw">Pr</span>(<span class="op">&gt;</span>F)</span>
+<span id="cb261-8"><a href="session-3-comparisons-and-tests.html#cb261-8"></a><span class="dv">1</span>     <span class="dv">26</span> <span class="fl">1224.6</span>                           </span>
+<span id="cb261-9"><a href="session-3-comparisons-and-tests.html#cb261-9"></a><span class="dv">2</span>     <span class="dv">23</span> <span class="fl">1149.0</span>  <span class="dv">3</span>    <span class="fl">75.616</span> <span class="fl">0.5045</span>  <span class="fl">0.683</span></span></code></pre></div>
+<ul>
+<li><p>The F test has 3 degrees of freedom because there are 3 additional parameters to be estimated in <code>m2</code>.</p></li>
+<li><p>The F test suggests that adding <code>raises + critical + advance</code> to <code>m1</code> doesn’t explain more variance (above that which we would expect by chance).</p></li>
+</ul>
+<hr />
+<p>If we check the R^2 values for each model we can see that although the unadjusted value goes up when we add predictors, the adjusted values actually goes down. This suggests we risk over-fitting by including the additional predictors.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="session-3-comparisons-and-tests.html#cb262-1"></a><span class="kw">library</span>(broom)</span>
+<span id="cb262-2"><a href="session-3-comparisons-and-tests.html#cb262-2"></a><span class="kw">glance</span>(m1) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&#39;squared&#39;</span>))</span>
+<span id="cb262-3"><a href="session-3-comparisons-and-tests.html#cb262-3"></a><span class="co"># A tibble: 1 x 2</span></span>
+<span id="cb262-4"><a href="session-3-comparisons-and-tests.html#cb262-4"></a>  r.squared adj.r.squared</span>
+<span id="cb262-5"><a href="session-3-comparisons-and-tests.html#cb262-5"></a>      <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st">         </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb262-6"><a href="session-3-comparisons-and-tests.html#cb262-6"></a><span class="dv">1</span>     <span class="fl">0.715</span>         <span class="fl">0.682</span></span>
+<span id="cb262-7"><a href="session-3-comparisons-and-tests.html#cb262-7"></a><span class="kw">glance</span>(m2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&#39;squared&#39;</span>))</span>
+<span id="cb262-8"><a href="session-3-comparisons-and-tests.html#cb262-8"></a><span class="co"># A tibble: 1 x 2</span></span>
+<span id="cb262-9"><a href="session-3-comparisons-and-tests.html#cb262-9"></a>  r.squared adj.r.squared</span>
+<span id="cb262-10"><a href="session-3-comparisons-and-tests.html#cb262-10"></a>      <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st">         </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb262-11"><a href="session-3-comparisons-and-tests.html#cb262-11"></a><span class="dv">1</span>     <span class="fl">0.733</span>         <span class="fl">0.663</span></span></code></pre></div>
+<div class="exercise">
+<p>Fit two models with different sets of predictors to your own data. Remember to:</p>
+<ul>
+<li>Include all the predictors from model 1 in model 2 (i.e., you can’t compare <code>y ~ A + B</code> with <code>y ~ B + C</code>… you would need to inlude <code>A</code> in both models)</li>
+<li>Report the F test</li>
+<li>Check the R^2 values (and adjusted R^2)</li>
+<li>Check the APA guidelines for how to report regression results.</li>
+</ul>
+</div>
+</div>
+<div id="moderation-example" class="section level3">
+<h3>Moderation example</h3>
+<p>Moderation, interaction, effect modification: These are all ways of saying that the relationship between two variables varies in some way, and this is predictable if we have information about a third variable.</p>
+<p>To give a concrete example, the plot below shows two simulated datasets which show how likely a person is to eat cake.</p>
+<ul>
+<li><p>In the first panel, we imagine that kids are more likely to eat cake than adults, and people are more likely to eat cake on their birthday. But being a kid AND having a birthday doesn’t make eating cake even more likely.</p></li>
+<li><p>In the second panel of the plot we still imagine that kids are more likely to eat cake than adults, and that people are more likely to eat cake on their birthday. But we also speculate that kids on their birthday will almost <strong>always</strong> be offered cake.</p></li>
+</ul>
+<p><img src="09-real-pt-2_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>In the second panel we’d say the two variables (age and birthdays) <strong>interact</strong>. Or alternatively, we might say that age <strong>moderates</strong> the effect of birthdays on cake-eating.</p>
+<div id="how-do-we-test-moderation" class="section level4">
+<h4>How do we test moderation?</h4>
+<p>To test moderation we are looking for ‘interactions’ in our models (either regression or Anova/Ancova).</p>
+<ul>
+<li>When both variables are categorical, we’d call this an Anova</li>
+<li>When one variable is categorical and one is continuous we often call it Ancova</li>
+<li>When both are continuous we call it multiple regression.</li>
+</ul>
+<p>In all cases though we’d use the <code>car::Anova</code> function or the Bayes Factor package to test the interaction.</p>
+<p>In all cases we just run a model with a <code>*</code> to indicate the interaction term:</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="session-3-comparisons-and-tests.html#cb263-1"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( outcome <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(A) <span class="op">*</span><span class="st"> </span><span class="kw">factor</span>(B), <span class="dt">data=</span>df)</span>
+<span id="cb263-2"><a href="session-3-comparisons-and-tests.html#cb263-2"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( outcome <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(A) <span class="op">*</span><span class="st"> </span>X, <span class="dt">data=</span>df)</span>
+<span id="cb263-3"><a href="session-3-comparisons-and-tests.html#cb263-3"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( outcome <span class="op">~</span><span class="st"> </span>X1 <span class="op">*</span><span class="st"> </span>X2, <span class="dt">data=</span>df)</span></code></pre></div>
+<p>And then use car::Ancova to check the F test:</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="session-3-comparisons-and-tests.html#cb264-1"></a>car<span class="op">::</span><span class="kw">Anova</span>(m, <span class="dt">type=</span><span class="dv">3</span>)</span></code></pre></div>
+<p>Alternatively, we could run both models using BayesFactor and then use division to get the Bayes Factor:</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="session-3-comparisons-and-tests.html#cb265-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">lmBF</span>( outcome <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">data=</span>df)</span>
+<span id="cb265-2"><a href="session-3-comparisons-and-tests.html#cb265-2"></a>m2 &lt;-<span class="st"> </span><span class="kw">lmBF</span>( outcome <span class="op">~</span><span class="st"> </span>X1 <span class="op">*</span><span class="st"> </span>X2, <span class="dt">data=</span>df)</span>
+<span id="cb265-3"><a href="session-3-comparisons-and-tests.html#cb265-3"></a></span>
+<span id="cb265-4"><a href="session-3-comparisons-and-tests.html#cb265-4"></a>m2<span class="op">/</span>m1 </span></code></pre></div>
+<p>The result of <code>m2/m1</code> is the <span class="math inline">\(BF_{10}\)</span>, and gives the evidence <em>in favour</em> of the interaction.</p>
+</div>
+</div>
+<div id="regression-anova-and-t-tests" class="section level3">
+<h3>Regression, Anova and T tests</h3>
+<p>As mentioned in class, regression and Anova are both linear models and will often be equivalent. This exercise illustrates that point, and also shows how to compute <em>t</em> tests in R.</p>
+<p>The <code>guyer</code> dataset is made available in the <code>carData</code> package. We can make a shortcut to it by copying it to a new variable name:</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="session-3-comparisons-and-tests.html#cb266-1"></a>guyer &lt;-<span class="st"> </span>carData<span class="op">::</span>Guyer</span>
+<span id="cb266-2"><a href="session-3-comparisons-and-tests.html#cb266-2"></a>guyer <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span>
+<span id="cb266-3"><a href="session-3-comparisons-and-tests.html#cb266-3"></a>  cooperation condition    sex</span>
+<span id="cb266-4"><a href="session-3-comparisons-and-tests.html#cb266-4"></a><span class="dv">1</span>          <span class="dv">49</span>    public   male</span>
+<span id="cb266-5"><a href="session-3-comparisons-and-tests.html#cb266-5"></a><span class="dv">2</span>          <span class="dv">64</span>    public   male</span>
+<span id="cb266-6"><a href="session-3-comparisons-and-tests.html#cb266-6"></a><span class="dv">3</span>          <span class="dv">37</span>    public   male</span>
+<span id="cb266-7"><a href="session-3-comparisons-and-tests.html#cb266-7"></a><span class="dv">4</span>          <span class="dv">52</span>    public   male</span>
+<span id="cb266-8"><a href="session-3-comparisons-and-tests.html#cb266-8"></a><span class="dv">5</span>          <span class="dv">68</span>    public   male</span>
+<span id="cb266-9"><a href="session-3-comparisons-and-tests.html#cb266-9"></a><span class="dv">6</span>          <span class="dv">54</span>    public female</span></code></pre></div>
+<p>From the description (see <code>?Guyer</code>):</p>
+<blockquote>
+<p>The Guyer data frame has 20 rows and 3 columns. The data are from an experiment in which four-person groups played a prisoner’s dilemma game for 30 trials, each person making either a cooperative or competitive choice on each trial. Choices were made either anonymously or in public; groups were composed either of females or of males. The observations are 20 groups.</p>
+</blockquote>
+<p>The data frame contains the following columns:</p>
+<pre><code>cooperation
+Number of cooperative choices (out of 120 in all).
+
+condition
+A factor with levels: anonymous, Anonymous choice; public, Public choice.
+
+sex
+Sex. A factor with levels: female and male.</code></pre>
+<p>If we plot the data we can see that being in public seems to increase cooperation, but there don’t seem to be very large gender differences:</p>
+<p><img src="09-real-pt-2_files/figure-html/unnamed-chunk-10-1.png" width="576" /></p>
+<div class="exercise">
+<p>Create a shortcut to the <code>carData::Guyer</code> dataset, as shown above (it will be easiest if you also name your shortcut <code>guyer</code>).</p>
+<p>As above, create your own boxplot (or similar) to show the group means and variation.</p>
+<div class="solution">
+<button class="solution-button">
+Show hint
+</button>
+<p>To mimic the plot you will need to use a <code>geom_boxplot()</code> and also <code>facet_grid(~sex)</code>.</p>
+</div>
+<div class="solution">
+<button class="solution-button">
+Show answer
+</button>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="session-3-comparisons-and-tests.html#cb268-1"></a>guyer &lt;-<span class="st"> </span>carData<span class="op">::</span>Guyer</span>
+<span id="cb268-2"><a href="session-3-comparisons-and-tests.html#cb268-2"></a>guyer <span class="op">%&gt;%</span></span>
+<span id="cb268-3"><a href="session-3-comparisons-and-tests.html#cb268-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(condition, cooperation)) <span class="op">+</span></span>
+<span id="cb268-4"><a href="session-3-comparisons-and-tests.html#cb268-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb268-5"><a href="session-3-comparisons-and-tests.html#cb268-5"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span>sex)</span></code></pre></div>
+</div>
+<p>Swap the plot around, so that <code>condition</code> is split across the panels, and <code>sex</code> is on the x axis.</p>
+</div>
+<div id="independent-samples-t-tests" class="section level4">
+<h4>Independent samples T tests</h4>
+<p>To start, let’s say we wanted to run a <em>t</em>-test comparing men with women, in their level of cooperativeness. We can do this with a model formula, as we use for <code>lm</code>.</p>
+<p>Here <code>cooperation</code> is our outcome. This is to the left of the <code>~</code> symbol, followed by the predictor variable, <code>sex</code>.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="session-3-comparisons-and-tests.html#cb269-1"></a><span class="kw">t.test</span>(cooperation<span class="op">~</span>sex, <span class="dt">data=</span>guyer, <span class="dt">var.equal=</span>T)</span>
+<span id="cb269-2"><a href="session-3-comparisons-and-tests.html#cb269-2"></a></span>
+<span id="cb269-3"><a href="session-3-comparisons-and-tests.html#cb269-3"></a>    Two Sample t<span class="op">-</span>test</span>
+<span id="cb269-4"><a href="session-3-comparisons-and-tests.html#cb269-4"></a></span>
+<span id="cb269-5"><a href="session-3-comparisons-and-tests.html#cb269-5"></a>data<span class="op">:</span><span class="st">  </span>cooperation by sex</span>
+<span id="cb269-6"><a href="session-3-comparisons-and-tests.html#cb269-6"></a>t =<span class="st"> </span><span class="fl">0.15244</span>, df =<span class="st"> </span><span class="dv">18</span>, p<span class="op">-</span>value =<span class="st"> </span><span class="fl">0.8805</span></span>
+<span id="cb269-7"><a href="session-3-comparisons-and-tests.html#cb269-7"></a>alternative hypothesis<span class="op">:</span><span class="st"> </span>true difference <span class="cf">in</span> means is not equal to <span class="dv">0</span></span>
+<span id="cb269-8"><a href="session-3-comparisons-and-tests.html#cb269-8"></a><span class="dv">95</span> percent confidence interval<span class="op">:</span></span>
+<span id="cb269-9"><a href="session-3-comparisons-and-tests.html#cb269-9"></a><span class="st"> </span><span class="fl">-12.78236</span>  <span class="fl">14.78236</span></span>
+<span id="cb269-10"><a href="session-3-comparisons-and-tests.html#cb269-10"></a>sample estimates<span class="op">:</span></span>
+<span id="cb269-11"><a href="session-3-comparisons-and-tests.html#cb269-11"></a>mean <span class="cf">in</span> group female   mean <span class="cf">in</span> group male </span>
+<span id="cb269-12"><a href="session-3-comparisons-and-tests.html#cb269-12"></a>                <span class="fl">48.8</span>                 <span class="fl">47.8</span> </span></code></pre></div>
+<p>Because independent samples t-tests, Anova and linear regression are all related, we could equally well have written:</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="session-3-comparisons-and-tests.html#cb270-1"></a>model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(cooperation <span class="op">~</span><span class="st"> </span>sex, <span class="dt">data=</span>guyer)</span>
+<span id="cb270-2"><a href="session-3-comparisons-and-tests.html#cb270-2"></a>model1 <span class="op">%&gt;%</span><span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span>
+<span id="cb270-3"><a href="session-3-comparisons-and-tests.html#cb270-3"></a><span class="co"># A tibble: 2 x 5</span></span>
+<span id="cb270-4"><a href="session-3-comparisons-and-tests.html#cb270-4"></a>  term        estimate std.error statistic       p.value</span>
+<span id="cb270-5"><a href="session-3-comparisons-and-tests.html#cb270-5"></a>  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">          </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">         </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb270-6"><a href="session-3-comparisons-and-tests.html#cb270-6"></a><span class="dv">1</span> (Intercept)     <span class="fl">48.8</span>      <span class="fl">4.64</span>    <span class="fl">10.5</span>   <span class="fl">0.00000000407</span></span>
+<span id="cb270-7"><a href="session-3-comparisons-and-tests.html#cb270-7"></a><span class="dv">2</span> sexmale         <span class="fl">-1.</span>       <span class="fl">6.56</span>    <span class="fl">-0.152</span> <span class="fl">0.881</span>        </span></code></pre></div>
+<p>In the output above, the <code>statistic</code> column is the <em>t</em> value, with 1 degree of freedom. It’s identical to the output from <code>t.test</code>, barring any small rounding differences.</p>
+</div>
+<div id="using-anova-for-a-t-test" class="section level4">
+<h4>Using Anova for a t-test</h4>
+<p>To show off, we can also run the same test using an Anova. To do this, we actually re-use our same <code>model1</code> from above:</p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="session-3-comparisons-and-tests.html#cb271-1"></a>car<span class="op">::</span><span class="kw">Anova</span>(model1)</span>
+<span id="cb271-2"><a href="session-3-comparisons-and-tests.html#cb271-2"></a>Anova <span class="kw">Table</span> (Type II tests)</span>
+<span id="cb271-3"><a href="session-3-comparisons-and-tests.html#cb271-3"></a></span>
+<span id="cb271-4"><a href="session-3-comparisons-and-tests.html#cb271-4"></a>Response<span class="op">:</span><span class="st"> </span>cooperation</span>
+<span id="cb271-5"><a href="session-3-comparisons-and-tests.html#cb271-5"></a>          Sum Sq Df F value <span class="kw">Pr</span>(<span class="op">&gt;</span>F)</span>
+<span id="cb271-6"><a href="session-3-comparisons-and-tests.html#cb271-6"></a>sex          <span class="fl">5.0</span>  <span class="dv">1</span>  <span class="fl">0.0232</span> <span class="fl">0.8805</span></span>
+<span id="cb271-7"><a href="session-3-comparisons-and-tests.html#cb271-7"></a>Residuals <span class="fl">3873.2</span> <span class="dv">18</span>               </span></code></pre></div>
+<p>This shows how linked Anova and regression are: Anova is really just a diffent way of summarising the results from a linear model.</p>
+<p>Where there are only two groups, we get the same <em>p</em> value each time. The only difference is that Anova reports an <em>F</em> statistic rather than a <em>t</em>.</p>
+<p>You might write up these results as:</p>
+<blockquote>
+<p>The difference in rates of cooperation between men and women was relatively small 47.8 vs 48.8, <em>t</em>(17.8) = 0.15, <em>p</em> = .881).</p>
+</blockquote>
+<p>Or, if you must:</p>
+<blockquote>
+<p>The difference in rates of cooperation between men and women was not statistically significant, 47.8 vs 48.8, <em>F</em>(1, 18) = 0.02, <em>p</em> = .881.</p>
+</blockquote>
+</div>
+<div id="testing-for-an-interactionmoderation" class="section level4">
+<h4>Testing for an interaction/moderation</h4>
+<p>In this case it doesn’t look like there is an interaction between gender and condition:</p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="session-3-comparisons-and-tests.html#cb272-1"></a>guyer.interaction.model &lt;-<span class="st"> </span><span class="kw">lm</span>(cooperation <span class="op">~</span><span class="st"> </span>condition <span class="op">*</span><span class="st"> </span>sex, <span class="dt">data=</span>guyer)</span>
+<span id="cb272-2"><a href="session-3-comparisons-and-tests.html#cb272-2"></a>guyer.interaction.model <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb272-3"><a href="session-3-comparisons-and-tests.html#cb272-3"></a><span class="st">  </span>car<span class="op">::</span><span class="kw">Anova</span>(<span class="dt">type=</span><span class="dv">3</span>)</span>
+<span id="cb272-4"><a href="session-3-comparisons-and-tests.html#cb272-4"></a>Anova <span class="kw">Table</span> (Type III tests)</span>
+<span id="cb272-5"><a href="session-3-comparisons-and-tests.html#cb272-5"></a></span>
+<span id="cb272-6"><a href="session-3-comparisons-and-tests.html#cb272-6"></a>Response<span class="op">:</span><span class="st"> </span>cooperation</span>
+<span id="cb272-7"><a href="session-3-comparisons-and-tests.html#cb272-7"></a>              Sum Sq Df F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb272-8"><a href="session-3-comparisons-and-tests.html#cb272-8"></a>(Intercept)   <span class="fl">8080.2</span>  <span class="dv">1</span> <span class="fl">47.0258</span> <span class="fl">3.851e-06</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb272-9"><a href="session-3-comparisons-and-tests.html#cb272-9"></a>condition      <span class="fl">739.6</span>  <span class="dv">1</span>  <span class="fl">4.3044</span>   <span class="fl">0.05451</span> .  </span>
+<span id="cb272-10"><a href="session-3-comparisons-and-tests.html#cb272-10"></a>sex              <span class="fl">4.9</span>  <span class="dv">1</span>  <span class="fl">0.0285</span>   <span class="fl">0.86801</span>    </span>
+<span id="cb272-11"><a href="session-3-comparisons-and-tests.html#cb272-11"></a>condition<span class="op">:</span>sex   <span class="fl">28.8</span>  <span class="dv">1</span>  <span class="fl">0.1676</span>   <span class="fl">0.68767</span>    </span>
+<span id="cb272-12"><a href="session-3-comparisons-and-tests.html#cb272-12"></a>Residuals     <span class="fl">2749.2</span> <span class="dv">16</span>                      </span>
+<span id="cb272-13"><a href="session-3-comparisons-and-tests.html#cb272-13"></a><span class="op">---</span></span>
+<span id="cb272-14"><a href="session-3-comparisons-and-tests.html#cb272-14"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<p>Because there is no interaction, some authors would argue that using type 2 sums of squares would be more appropriate in this instance:</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="session-3-comparisons-and-tests.html#cb273-1"></a>guyer.interaction.model <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb273-2"><a href="session-3-comparisons-and-tests.html#cb273-2"></a><span class="st">  </span>car<span class="op">::</span><span class="kw">Anova</span>(<span class="dt">type=</span><span class="dv">2</span>)</span>
+<span id="cb273-3"><a href="session-3-comparisons-and-tests.html#cb273-3"></a>Anova <span class="kw">Table</span> (Type II tests)</span>
+<span id="cb273-4"><a href="session-3-comparisons-and-tests.html#cb273-4"></a></span>
+<span id="cb273-5"><a href="session-3-comparisons-and-tests.html#cb273-5"></a>Response<span class="op">:</span><span class="st"> </span>cooperation</span>
+<span id="cb273-6"><a href="session-3-comparisons-and-tests.html#cb273-6"></a>              Sum Sq Df F value  <span class="kw">Pr</span>(<span class="op">&gt;</span>F)  </span>
+<span id="cb273-7"><a href="session-3-comparisons-and-tests.html#cb273-7"></a>condition     <span class="fl">1095.2</span>  <span class="dv">1</span>  <span class="fl">6.3739</span> <span class="fl">0.02253</span> <span class="op">*</span></span>
+<span id="cb273-8"><a href="session-3-comparisons-and-tests.html#cb273-8"></a>sex              <span class="fl">5.0</span>  <span class="dv">1</span>  <span class="fl">0.0291</span> <span class="fl">0.86669</span>  </span>
+<span id="cb273-9"><a href="session-3-comparisons-and-tests.html#cb273-9"></a>condition<span class="op">:</span>sex   <span class="fl">28.8</span>  <span class="dv">1</span>  <span class="fl">0.1676</span> <span class="fl">0.68767</span>  </span>
+<span id="cb273-10"><a href="session-3-comparisons-and-tests.html#cb273-10"></a>Residuals     <span class="fl">2749.2</span> <span class="dv">16</span>                  </span>
+<span id="cb273-11"><a href="session-3-comparisons-and-tests.html#cb273-11"></a><span class="op">---</span></span>
+<span id="cb273-12"><a href="session-3-comparisons-and-tests.html#cb273-12"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<p>Indeed, the type 2 test is more powerful in this case and reveals a ‘significant’ main effect of <code>condition</code>.
+You should be cautious about over-interpreting such a result, no matter how tempting; pre-specifying analyses is an important means by which we can mitigate the risks of excessive flexibility in our analyses.</p>
+<p>Where we don’t find ‘significant’ interactions, it can also be helpful to calculate the Bayes Factor to let us know how much evidence we have <em>against</em> the proposition (rather than simply failing to reject a null hypotheses):</p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="session-3-comparisons-and-tests.html#cb274-1"></a>guyer.bf &lt;-<span class="st"> </span><span class="kw">anovaBF</span>(cooperation <span class="op">~</span><span class="st"> </span>condition <span class="op">*</span><span class="st"> </span>sex, <span class="dt">data=</span>guyer)</span>
+<span id="cb274-2"><a href="session-3-comparisons-and-tests.html#cb274-2"></a>guyer.bf<span class="op">/</span>guyer.bf</span>
+<span id="cb274-3"><a href="session-3-comparisons-and-tests.html#cb274-3"></a>                                 denominator</span>
+<span id="cb274-4"><a href="session-3-comparisons-and-tests.html#cb274-4"></a>numerator                         condition      sex condition <span class="op">+</span><span class="st"> </span>sex</span>
+<span id="cb274-5"><a href="session-3-comparisons-and-tests.html#cb274-5"></a>  condition                       <span class="fl">1.0000000</span> <span class="fl">9.284485</span>       <span class="fl">2.4608288</span></span>
+<span id="cb274-6"><a href="session-3-comparisons-and-tests.html#cb274-6"></a>  sex                             <span class="fl">0.1077066</span> <span class="fl">1.000000</span>       <span class="fl">0.2650474</span></span>
+<span id="cb274-7"><a href="session-3-comparisons-and-tests.html#cb274-7"></a>  condition <span class="op">+</span><span class="st"> </span>sex                 <span class="fl">0.4063672</span> <span class="fl">3.772910</span>       <span class="fl">1.0000000</span></span>
+<span id="cb274-8"><a href="session-3-comparisons-and-tests.html#cb274-8"></a>  condition <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>condition<span class="op">:</span>sex <span class="fl">0.1970052</span> <span class="fl">1.829092</span>       <span class="fl">0.4847961</span></span>
+<span id="cb274-9"><a href="session-3-comparisons-and-tests.html#cb274-9"></a>                                 denominator</span>
+<span id="cb274-10"><a href="session-3-comparisons-and-tests.html#cb274-10"></a>numerator                         condition <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>condition<span class="op">:</span>sex</span>
+<span id="cb274-11"><a href="session-3-comparisons-and-tests.html#cb274-11"></a>  condition                                             <span class="fl">5.0760078</span></span>
+<span id="cb274-12"><a href="session-3-comparisons-and-tests.html#cb274-12"></a>  sex                                                   <span class="fl">0.5467194</span></span>
+<span id="cb274-13"><a href="session-3-comparisons-and-tests.html#cb274-13"></a>  condition <span class="op">+</span><span class="st"> </span>sex                                       <span class="fl">2.0627229</span></span>
+<span id="cb274-14"><a href="session-3-comparisons-and-tests.html#cb274-14"></a>  condition <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>condition<span class="op">:</span>sex                       <span class="fl">1.0000000</span></span></code></pre></div>
+<p>This table shows us the Bayes Factor for each comparison between possible models. We can see that the</p>
+</div>
+</div>
+<div id="test-and-contrasts" class="section level3">
+<h3>Test and contrasts</h3>
+<p>The <code>carData::Adler</code> data reports results from a study of experimenter effects. From the R help file:</p>
+<blockquote>
+<p>The “experimenters” were the actual subjects of the study. They collected ratings of the apparent success of people in pictures who were pre-selected for their average appearance of success. The experimenters were told prior to collecting data that particular subjects were either high or low in their tendency to rate appearance of success, and were instructed to get good data, scientific data, or were given no such instruction. Each experimenter collected ratings from 18 randomly assigned subjects. This version of the Adler data is taken from Erickson and Nosanchuk (1977). The data described in the original source, Adler (1973), have a more complex structure.</p>
+</blockquote>
+<p>We can plot the results like so:</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="session-3-comparisons-and-tests.html#cb275-1"></a>carData<span class="op">::</span>Adler <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb275-2"><a href="session-3-comparisons-and-tests.html#cb275-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(expectation, rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>instruction)</span></code></pre></div>
+<p><img src="09-real-pt-2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="session-3-comparisons-and-tests.html#cb276-1"></a><span class="kw">ggsave</span>(<span class="st">&#39;images/adlerplot.png&#39;</span>, <span class="dt">width=</span><span class="dv">4</span>, <span class="dt">height=</span><span class="dv">3</span>)</span></code></pre></div>
+<p>This is a classic 2x3 Anova, which we can run like this:</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="session-3-comparisons-and-tests.html#cb277-1"></a>adler.m &lt;-<span class="st"> </span><span class="kw">lm</span>(rating <span class="op">~</span><span class="st"> </span>expectation <span class="op">*</span><span class="st"> </span>instruction, <span class="dt">data=</span>carData<span class="op">::</span>Adler)</span>
+<span id="cb277-2"><a href="session-3-comparisons-and-tests.html#cb277-2"></a>car<span class="op">::</span><span class="kw">Anova</span>(adler.m, <span class="dt">type=</span><span class="dv">3</span>)</span>
+<span id="cb277-3"><a href="session-3-comparisons-and-tests.html#cb277-3"></a>Anova <span class="kw">Table</span> (Type III tests)</span>
+<span id="cb277-4"><a href="session-3-comparisons-and-tests.html#cb277-4"></a></span>
+<span id="cb277-5"><a href="session-3-comparisons-and-tests.html#cb277-5"></a>Response<span class="op">:</span><span class="st"> </span>rating</span>
+<span id="cb277-6"><a href="session-3-comparisons-and-tests.html#cb277-6"></a>                         Sum Sq  Df F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb277-7"><a href="session-3-comparisons-and-tests.html#cb277-7"></a>(Intercept)               <span class="fl">355.6</span>   <span class="dv">1</span>  <span class="fl">2.4356</span>  <span class="fl">0.121709</span>    </span>
+<span id="cb277-8"><a href="session-3-comparisons-and-tests.html#cb277-8"></a>expectation              <span class="fl">4646.7</span>   <span class="dv">1</span> <span class="fl">31.8299</span> <span class="fl">1.515e-07</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb277-9"><a href="session-3-comparisons-and-tests.html#cb277-9"></a>instruction              <span class="fl">2051.4</span>   <span class="dv">2</span>  <span class="fl">7.0262</span>  <span class="fl">0.001384</span> <span class="op">**</span><span class="st"> </span></span>
+<span id="cb277-10"><a href="session-3-comparisons-and-tests.html#cb277-10"></a>expectation<span class="op">:</span>instruction  <span class="fl">5329.7</span>   <span class="dv">2</span> <span class="fl">18.2542</span> <span class="fl">1.672e-07</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb277-11"><a href="session-3-comparisons-and-tests.html#cb277-11"></a>Residuals               <span class="fl">14890.5</span> <span class="dv">102</span>                      </span>
+<span id="cb277-12"><a href="session-3-comparisons-and-tests.html#cb277-12"></a><span class="op">---</span></span>
+<span id="cb277-13"><a href="session-3-comparisons-and-tests.html#cb277-13"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span></code></pre></div>
+<p>Let’s imagine we have a particular, <em>a-priori</em> hypothesis that <code>expectation</code> would play a role in the “good data” condition but not in the “no instructions” condition. We can use <code>emmeans</code> and <code>contrast</code> to calculate the t test statistics for these comparisons.</p>
+<p>First we calculate the effect of expectation <em>within</em> each level of instruction:</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="session-3-comparisons-and-tests.html#cb278-1"></a><span class="kw">library</span>(emmeans)</span>
+<span id="cb278-2"><a href="session-3-comparisons-and-tests.html#cb278-2"></a>adler.expectation.within.instruction &lt;-<span class="st"> </span><span class="kw">emmeans</span>(adler.m, <span class="op">~</span>expectation<span class="op">|</span>instruction)</span></code></pre></div>
+<p>Then we can compute pairwise tests for the differences between high and low expectation, for each instruction:</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="session-3-comparisons-and-tests.html#cb279-1"></a><span class="kw">contrast</span>(adler.expectation.within.instruction, <span class="dt">method=</span><span class="st">&quot;pairwise&quot;</span>)</span>
+<span id="cb279-2"><a href="session-3-comparisons-and-tests.html#cb279-2"></a>instruction =<span class="st"> </span>good<span class="op">:</span></span>
+<span id="cb279-3"><a href="session-3-comparisons-and-tests.html#cb279-3"></a><span class="st"> </span>contrast   estimate   SE  df t.ratio p.value</span>
+<span id="cb279-4"><a href="session-3-comparisons-and-tests.html#cb279-4"></a> high <span class="op">-</span><span class="st"> </span>low    <span class="fl">22.72</span> <span class="fl">4.03</span> <span class="dv">102</span>  <span class="fl">5.642</span>  <span class="op">&lt;</span>.<span class="dv">0001</span> </span>
+<span id="cb279-5"><a href="session-3-comparisons-and-tests.html#cb279-5"></a></span>
+<span id="cb279-6"><a href="session-3-comparisons-and-tests.html#cb279-6"></a>instruction =<span class="st"> </span>none<span class="op">:</span></span>
+<span id="cb279-7"><a href="session-3-comparisons-and-tests.html#cb279-7"></a><span class="st"> </span>contrast   estimate   SE  df t.ratio p.value</span>
+<span id="cb279-8"><a href="session-3-comparisons-and-tests.html#cb279-8"></a> high <span class="op">-</span><span class="st"> </span>low    <span class="fl">-6.33</span> <span class="fl">4.03</span> <span class="dv">102</span> <span class="fl">-1.573</span>  <span class="fl">0.1189</span> </span>
+<span id="cb279-9"><a href="session-3-comparisons-and-tests.html#cb279-9"></a></span>
+<span id="cb279-10"><a href="session-3-comparisons-and-tests.html#cb279-10"></a>instruction =<span class="st"> </span>scientific<span class="op">:</span></span>
+<span id="cb279-11"><a href="session-3-comparisons-and-tests.html#cb279-11"></a><span class="st"> </span>contrast   estimate   SE  df t.ratio p.value</span>
+<span id="cb279-12"><a href="session-3-comparisons-and-tests.html#cb279-12"></a> high <span class="op">-</span><span class="st"> </span>low    <span class="fl">-7.78</span> <span class="fl">4.03</span> <span class="dv">102</span> <span class="fl">-1.931</span>  <span class="fl">0.0562</span> </span></code></pre></div>
+<!-- other exmaples for slides -->
+</div>
+<div id="other-contrasts" class="section level3">
+<h3>Other contrasts</h3>
+<p>Now imagine our hypothesis had actually been that, because students are by default scientifically-minded, we would not see an effect of expectation without an instruction to get good data. This implies that there should be:</p>
+<ul>
+<li>No difference in the effect of expectation between “no-instruction” and “scientific” instructions</li>
+<li>A significant difference in the effect of expectation between “good data” instructions and no instruction</li>
+<li>A significant difference in the effect of expectation between “good data” instructions and “scientific” instructions</li>
+</ul>
+<p>Using interaction contrasts we can test these predictions directly. First we calculate all the cell means:</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="session-3-comparisons-and-tests.html#cb280-1"></a>adler.means.all &lt;-<span class="st"> </span><span class="kw">emmeans</span>(adler.m, <span class="op">~</span>expectation<span class="op">*</span>instruction)</span>
+<span id="cb280-2"><a href="session-3-comparisons-and-tests.html#cb280-2"></a>adler.means.all</span>
+<span id="cb280-3"><a href="session-3-comparisons-and-tests.html#cb280-3"></a> expectation instruction  emmean   SE  df lower.CL upper.CL</span>
+<span id="cb280-4"><a href="session-3-comparisons-and-tests.html#cb280-4"></a> high        good          <span class="fl">4.444</span> <span class="fl">2.85</span> <span class="dv">102</span>    <span class="fl">-1.20</span>    <span class="fl">10.09</span></span>
+<span id="cb280-5"><a href="session-3-comparisons-and-tests.html#cb280-5"></a> low         good        <span class="fl">-18.278</span> <span class="fl">2.85</span> <span class="dv">102</span>   <span class="fl">-23.93</span>   <span class="fl">-12.63</span></span>
+<span id="cb280-6"><a href="session-3-comparisons-and-tests.html#cb280-6"></a> high        none         <span class="fl">-9.833</span> <span class="fl">2.85</span> <span class="dv">102</span>   <span class="fl">-15.48</span>    <span class="fl">-4.18</span></span>
+<span id="cb280-7"><a href="session-3-comparisons-and-tests.html#cb280-7"></a> low         none         <span class="fl">-3.500</span> <span class="fl">2.85</span> <span class="dv">102</span>    <span class="fl">-9.15</span>     <span class="fl">2.15</span></span>
+<span id="cb280-8"><a href="session-3-comparisons-and-tests.html#cb280-8"></a> high        scientific   <span class="fl">-6.944</span> <span class="fl">2.85</span> <span class="dv">102</span>   <span class="fl">-12.59</span>    <span class="fl">-1.30</span></span>
+<span id="cb280-9"><a href="session-3-comparisons-and-tests.html#cb280-9"></a> low         scientific    <span class="fl">0.833</span> <span class="fl">2.85</span> <span class="dv">102</span>    <span class="fl">-4.82</span>     <span class="fl">6.48</span></span>
+<span id="cb280-10"><a href="session-3-comparisons-and-tests.html#cb280-10"></a></span>
+<span id="cb280-11"><a href="session-3-comparisons-and-tests.html#cb280-11"></a>Confidence level used<span class="op">:</span><span class="st"> </span><span class="fl">0.95</span> </span></code></pre></div>
+<p>This can be useful in its own right: we now have the mean and CI for each group.</p>
+<p>However we use the <code>interaction</code> setting of the <code>contrast</code> function:</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="session-3-comparisons-and-tests.html#cb281-1"></a><span class="kw">contrast</span>(adler.means.all, <span class="dt">interaction=</span><span class="st">&quot;pairwise&quot;</span>)</span>
+<span id="cb281-2"><a href="session-3-comparisons-and-tests.html#cb281-2"></a> expectation_pairwise instruction_pairwise estimate  SE  df t.ratio p.value</span>
+<span id="cb281-3"><a href="session-3-comparisons-and-tests.html#cb281-3"></a> high <span class="op">-</span><span class="st"> </span>low           good <span class="op">-</span><span class="st"> </span>none             <span class="fl">29.06</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">5.101</span>   <span class="op">&lt;</span>.<span class="dv">0001</span> </span>
+<span id="cb281-4"><a href="session-3-comparisons-and-tests.html#cb281-4"></a> high <span class="op">-</span><span class="st"> </span>low           good <span class="op">-</span><span class="st"> </span>scientific       <span class="fl">30.50</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">5.355</span>   <span class="op">&lt;</span>.<span class="dv">0001</span> </span>
+<span id="cb281-5"><a href="session-3-comparisons-and-tests.html#cb281-5"></a> high <span class="op">-</span><span class="st"> </span>low           none <span class="op">-</span><span class="st"> </span>scientific        <span class="fl">1.44</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">0.254</span>   <span class="fl">0.8003</span> </span></code></pre></div>
+<p>These are now the <strong><em>tests of differences in differences</em></strong>.</p>
+<p>As predicted, we have differences in the effect of expectancy between ‘none’ vs. ‘good’, and also for ‘good’ vs ‘scientific’, but not for ‘none’ vs. ‘scientific’.</p>
+<p>At this point it makes sense to plot the result. Calling <code>plot</code> with the results of an <code>emmeans</code> command returns a ggplot. Below, I add a vertical line at zero so we can easily see where the 95% CI overlaps, and also make the axis labels more decriptive:</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="session-3-comparisons-and-tests.html#cb282-1"></a><span class="kw">plot</span>(<span class="kw">contrast</span>(adler.means.all, <span class="dt">interaction=</span><span class="st">&quot;pairwise&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb282-2"><a href="session-3-comparisons-and-tests.html#cb282-2"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept=</span><span class="dv">0</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb282-3"><a href="session-3-comparisons-and-tests.html#cb282-3"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Difference in the effect of expectation&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb282-4"><a href="session-3-comparisons-and-tests.html#cb282-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Differences in differences&quot;</span>)</span></code></pre></div>
+<p><img src="09-real-pt-2_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="exercise">
+<ol style="list-style-type: decimal">
+<li><p>Think of a dataset (preferably your own) with two categorical variables (if you are stuck you can use <code>mtcars</code> which is built in)</p></li>
+<li><p>Run a model with two categorical predictors and their interaction.</p></li>
+<li><p>Compute tests for all pairwise comparisons in this.</p></li>
+<li><p>Test the effect of <code>am</code> within each level of <code>cyl</code></p></li>
+<li><p>Compute and interpret interaction contrasts (i.e. tests of differences in differences). Write down what the numbers mean in prose.</p></li>
+</ol>
+<div class="solution">
+<button class="solution-button">
+Show the code
+</button>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="session-3-comparisons-and-tests.html#cb283-1"></a><span class="co"># plot should always come first</span></span>
+<span id="cb283-2"><a href="session-3-comparisons-and-tests.html#cb283-2"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">factor</span>(am), mpg )) <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>cyl)</span></code></pre></div>
+<p><img src="09-real-pt-2_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="session-3-comparisons-and-tests.html#cb284-1"></a></span>
+<span id="cb284-2"><a href="session-3-comparisons-and-tests.html#cb284-2"></a><span class="co"># q2 </span></span>
+<span id="cb284-3"><a href="session-3-comparisons-and-tests.html#cb284-3"></a>mt.model &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg<span class="op">~</span><span class="kw">factor</span>(am)<span class="op">*</span><span class="kw">factor</span>(cyl), <span class="dt">data=</span>mtcars)</span>
+<span id="cb284-4"><a href="session-3-comparisons-and-tests.html#cb284-4"></a>(mtcars.means &lt;-<span class="st"> </span><span class="kw">emmeans</span>(mt.model, <span class="op">~</span><span class="kw">factor</span>(am)<span class="op">*</span><span class="kw">factor</span>(cyl)))</span>
+<span id="cb284-5"><a href="session-3-comparisons-and-tests.html#cb284-5"></a> am cyl emmean    SE df lower.CL upper.CL</span>
+<span id="cb284-6"><a href="session-3-comparisons-and-tests.html#cb284-6"></a>  <span class="dv">0</span>   <span class="dv">4</span>   <span class="fl">22.9</span> <span class="fl">1.751</span> <span class="dv">26</span>     <span class="fl">19.3</span>     <span class="fl">26.5</span></span>
+<span id="cb284-7"><a href="session-3-comparisons-and-tests.html#cb284-7"></a>  <span class="dv">1</span>   <span class="dv">4</span>   <span class="fl">28.1</span> <span class="fl">1.072</span> <span class="dv">26</span>     <span class="fl">25.9</span>     <span class="fl">30.3</span></span>
+<span id="cb284-8"><a href="session-3-comparisons-and-tests.html#cb284-8"></a>  <span class="dv">0</span>   <span class="dv">6</span>   <span class="fl">19.1</span> <span class="fl">1.516</span> <span class="dv">26</span>     <span class="fl">16.0</span>     <span class="fl">22.2</span></span>
+<span id="cb284-9"><a href="session-3-comparisons-and-tests.html#cb284-9"></a>  <span class="dv">1</span>   <span class="dv">6</span>   <span class="fl">20.6</span> <span class="fl">1.751</span> <span class="dv">26</span>     <span class="fl">17.0</span>     <span class="fl">24.2</span></span>
+<span id="cb284-10"><a href="session-3-comparisons-and-tests.html#cb284-10"></a>  <span class="dv">0</span>   <span class="dv">8</span>   <span class="fl">15.1</span> <span class="fl">0.875</span> <span class="dv">26</span>     <span class="fl">13.3</span>     <span class="fl">16.8</span></span>
+<span id="cb284-11"><a href="session-3-comparisons-and-tests.html#cb284-11"></a>  <span class="dv">1</span>   <span class="dv">8</span>   <span class="fl">15.4</span> <span class="fl">2.144</span> <span class="dv">26</span>     <span class="fl">11.0</span>     <span class="fl">19.8</span></span>
+<span id="cb284-12"><a href="session-3-comparisons-and-tests.html#cb284-12"></a></span>
+<span id="cb284-13"><a href="session-3-comparisons-and-tests.html#cb284-13"></a>Confidence level used<span class="op">:</span><span class="st"> </span><span class="fl">0.95</span> </span>
+<span id="cb284-14"><a href="session-3-comparisons-and-tests.html#cb284-14"></a>car<span class="op">::</span><span class="kw">Anova</span>(mt.model, <span class="dt">type=</span><span class="dv">3</span>)</span>
+<span id="cb284-15"><a href="session-3-comparisons-and-tests.html#cb284-15"></a>Anova <span class="kw">Table</span> (Type III tests)</span>
+<span id="cb284-16"><a href="session-3-comparisons-and-tests.html#cb284-16"></a></span>
+<span id="cb284-17"><a href="session-3-comparisons-and-tests.html#cb284-17"></a>Response<span class="op">:</span><span class="st"> </span>mpg</span>
+<span id="cb284-18"><a href="session-3-comparisons-and-tests.html#cb284-18"></a>                        Sum Sq Df  F value    <span class="kw">Pr</span>(<span class="op">&gt;</span>F)    </span>
+<span id="cb284-19"><a href="session-3-comparisons-and-tests.html#cb284-19"></a>(Intercept)            <span class="fl">1573.23</span>  <span class="dv">1</span> <span class="fl">171.1040</span> <span class="fl">6.057e-13</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb284-20"><a href="session-3-comparisons-and-tests.html#cb284-20"></a><span class="kw">factor</span>(am)               <span class="fl">58.43</span>  <span class="dv">1</span>   <span class="fl">6.3549</span> <span class="fl">0.0181761</span> <span class="op">*</span><span class="st">  </span></span>
+<span id="cb284-21"><a href="session-3-comparisons-and-tests.html#cb284-21"></a><span class="kw">factor</span>(cyl)             <span class="fl">167.71</span>  <span class="dv">2</span>   <span class="fl">9.1200</span> <span class="fl">0.0009978</span> <span class="op">**</span><span class="er">*</span></span>
+<span id="cb284-22"><a href="session-3-comparisons-and-tests.html#cb284-22"></a><span class="kw">factor</span>(am)<span class="op">:</span><span class="kw">factor</span>(cyl)   <span class="fl">25.44</span>  <span class="dv">2</span>   <span class="fl">1.3832</span> <span class="fl">0.2686140</span>    </span>
+<span id="cb284-23"><a href="session-3-comparisons-and-tests.html#cb284-23"></a>Residuals               <span class="fl">239.06</span> <span class="dv">26</span>                       </span>
+<span id="cb284-24"><a href="session-3-comparisons-and-tests.html#cb284-24"></a><span class="op">---</span></span>
+<span id="cb284-25"><a href="session-3-comparisons-and-tests.html#cb284-25"></a>Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span>
+<span id="cb284-26"><a href="session-3-comparisons-and-tests.html#cb284-26"></a></span>
+<span id="cb284-27"><a href="session-3-comparisons-and-tests.html#cb284-27"></a><span class="co"># q3</span></span>
+<span id="cb284-28"><a href="session-3-comparisons-and-tests.html#cb284-28"></a><span class="kw">contrast</span>(mtcars.means, <span class="st">&quot;pairwise&quot;</span>)</span>
+<span id="cb284-29"><a href="session-3-comparisons-and-tests.html#cb284-29"></a> contrast  estimate   SE df t.ratio p.value</span>
+<span id="cb284-30"><a href="session-3-comparisons-and-tests.html#cb284-30"></a> <span class="dv">0</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">4</span>    <span class="fl">-5.17</span> <span class="fl">2.05</span> <span class="dv">26</span> <span class="fl">-2.521</span>  <span class="fl">0.1547</span> </span>
+<span id="cb284-31"><a href="session-3-comparisons-and-tests.html#cb284-31"></a> <span class="dv">0</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">0</span>,<span class="dv">6</span>     <span class="fl">3.77</span> <span class="fl">2.32</span> <span class="dv">26</span>  <span class="fl">1.630</span>  <span class="fl">0.5872</span> </span>
+<span id="cb284-32"><a href="session-3-comparisons-and-tests.html#cb284-32"></a> <span class="dv">0</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">6</span>     <span class="fl">2.33</span> <span class="fl">2.48</span> <span class="dv">26</span>  <span class="fl">0.942</span>  <span class="fl">0.9315</span> </span>
+<span id="cb284-33"><a href="session-3-comparisons-and-tests.html#cb284-33"></a> <span class="dv">0</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">0</span>,<span class="dv">8</span>     <span class="fl">7.85</span> <span class="fl">1.96</span> <span class="dv">26</span>  <span class="fl">4.011</span>  <span class="fl">0.0054</span> </span>
+<span id="cb284-34"><a href="session-3-comparisons-and-tests.html#cb284-34"></a> <span class="dv">0</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">8</span>     <span class="fl">7.50</span> <span class="fl">2.77</span> <span class="dv">26</span>  <span class="fl">2.709</span>  <span class="fl">0.1073</span> </span>
+<span id="cb284-35"><a href="session-3-comparisons-and-tests.html#cb284-35"></a> <span class="dv">1</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">0</span>,<span class="dv">6</span>     <span class="fl">8.95</span> <span class="fl">1.86</span> <span class="dv">26</span>  <span class="fl">4.820</span>  <span class="fl">0.0007</span> </span>
+<span id="cb284-36"><a href="session-3-comparisons-and-tests.html#cb284-36"></a> <span class="dv">1</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">6</span>     <span class="fl">7.51</span> <span class="fl">2.05</span> <span class="dv">26</span>  <span class="fl">3.658</span>  <span class="fl">0.0129</span> </span>
+<span id="cb284-37"><a href="session-3-comparisons-and-tests.html#cb284-37"></a> <span class="dv">1</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">0</span>,<span class="dv">8</span>    <span class="fl">13.03</span> <span class="fl">1.38</span> <span class="dv">26</span>  <span class="fl">9.411</span>  <span class="op">&lt;</span>.<span class="dv">0001</span> </span>
+<span id="cb284-38"><a href="session-3-comparisons-and-tests.html#cb284-38"></a> <span class="dv">1</span>,<span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">8</span>    <span class="fl">12.68</span> <span class="fl">2.40</span> <span class="dv">26</span>  <span class="fl">5.287</span>  <span class="fl">0.0002</span> </span>
+<span id="cb284-39"><a href="session-3-comparisons-and-tests.html#cb284-39"></a> <span class="dv">0</span>,<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">6</span>    <span class="fl">-1.44</span> <span class="fl">2.32</span> <span class="dv">26</span> <span class="fl">-0.623</span>  <span class="fl">0.9883</span> </span>
+<span id="cb284-40"><a href="session-3-comparisons-and-tests.html#cb284-40"></a> <span class="dv">0</span>,<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">0</span>,<span class="dv">8</span>     <span class="fl">4.08</span> <span class="fl">1.75</span> <span class="dv">26</span>  <span class="fl">2.328</span>  <span class="fl">0.2192</span> </span>
+<span id="cb284-41"><a href="session-3-comparisons-and-tests.html#cb284-41"></a> <span class="dv">0</span>,<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">8</span>     <span class="fl">3.73</span> <span class="fl">2.63</span> <span class="dv">26</span>  <span class="fl">1.419</span>  <span class="fl">0.7159</span> </span>
+<span id="cb284-42"><a href="session-3-comparisons-and-tests.html#cb284-42"></a> <span class="dv">1</span>,<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">0</span>,<span class="dv">8</span>     <span class="fl">5.52</span> <span class="fl">1.96</span> <span class="dv">26</span>  <span class="fl">2.818</span>  <span class="fl">0.0859</span> </span>
+<span id="cb284-43"><a href="session-3-comparisons-and-tests.html#cb284-43"></a> <span class="dv">1</span>,<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">8</span>     <span class="fl">5.17</span> <span class="fl">2.77</span> <span class="dv">26</span>  <span class="fl">1.867</span>  <span class="fl">0.4437</span> </span>
+<span id="cb284-44"><a href="session-3-comparisons-and-tests.html#cb284-44"></a> <span class="dv">0</span>,<span class="dv">8</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">8</span>    <span class="fl">-0.35</span> <span class="fl">2.32</span> <span class="dv">26</span> <span class="fl">-0.151</span>  <span class="fl">1.0000</span> </span>
+<span id="cb284-45"><a href="session-3-comparisons-and-tests.html#cb284-45"></a></span>
+<span id="cb284-46"><a href="session-3-comparisons-and-tests.html#cb284-46"></a>P value adjustment<span class="op">:</span><span class="st"> </span>tukey method <span class="cf">for</span> comparing a family of <span class="dv">6</span> estimates </span>
+<span id="cb284-47"><a href="session-3-comparisons-and-tests.html#cb284-47"></a><span class="co"># or pairs(mtcars.means)</span></span>
+<span id="cb284-48"><a href="session-3-comparisons-and-tests.html#cb284-48"></a></span>
+<span id="cb284-49"><a href="session-3-comparisons-and-tests.html#cb284-49"></a><span class="co"># q4 </span></span>
+<span id="cb284-50"><a href="session-3-comparisons-and-tests.html#cb284-50"></a><span class="kw">contrast</span>(<span class="kw">emmeans</span>(mt.model, <span class="op">~</span><span class="kw">factor</span>(am) <span class="op">|</span><span class="st"> </span><span class="kw">factor</span>(cyl)))</span>
+<span id="cb284-51"><a href="session-3-comparisons-and-tests.html#cb284-51"></a>cyl =<span class="st"> </span><span class="dv">4</span><span class="op">:</span></span>
+<span id="cb284-52"><a href="session-3-comparisons-and-tests.html#cb284-52"></a><span class="st"> </span>contrast estimate   SE df t.ratio p.value</span>
+<span id="cb284-53"><a href="session-3-comparisons-and-tests.html#cb284-53"></a> <span class="dv">0</span> effect   <span class="fl">-2.587</span> <span class="fl">1.03</span> <span class="dv">26</span> <span class="fl">-2.521</span>  <span class="fl">0.0182</span> </span>
+<span id="cb284-54"><a href="session-3-comparisons-and-tests.html#cb284-54"></a> <span class="dv">1</span> effect    <span class="fl">2.587</span> <span class="fl">1.03</span> <span class="dv">26</span>  <span class="fl">2.521</span>  <span class="fl">0.0182</span> </span>
+<span id="cb284-55"><a href="session-3-comparisons-and-tests.html#cb284-55"></a></span>
+<span id="cb284-56"><a href="session-3-comparisons-and-tests.html#cb284-56"></a>cyl =<span class="st"> </span><span class="dv">6</span><span class="op">:</span></span>
+<span id="cb284-57"><a href="session-3-comparisons-and-tests.html#cb284-57"></a><span class="st"> </span>contrast estimate   SE df t.ratio p.value</span>
+<span id="cb284-58"><a href="session-3-comparisons-and-tests.html#cb284-58"></a> <span class="dv">0</span> effect   <span class="fl">-0.721</span> <span class="fl">1.16</span> <span class="dv">26</span> <span class="fl">-0.623</span>  <span class="fl">0.5390</span> </span>
+<span id="cb284-59"><a href="session-3-comparisons-and-tests.html#cb284-59"></a> <span class="dv">1</span> effect    <span class="fl">0.721</span> <span class="fl">1.16</span> <span class="dv">26</span>  <span class="fl">0.623</span>  <span class="fl">0.5390</span> </span>
+<span id="cb284-60"><a href="session-3-comparisons-and-tests.html#cb284-60"></a></span>
+<span id="cb284-61"><a href="session-3-comparisons-and-tests.html#cb284-61"></a>cyl =<span class="st"> </span><span class="dv">8</span><span class="op">:</span></span>
+<span id="cb284-62"><a href="session-3-comparisons-and-tests.html#cb284-62"></a><span class="st"> </span>contrast estimate   SE df t.ratio p.value</span>
+<span id="cb284-63"><a href="session-3-comparisons-and-tests.html#cb284-63"></a> <span class="dv">0</span> effect   <span class="fl">-0.175</span> <span class="fl">1.16</span> <span class="dv">26</span> <span class="fl">-0.151</span>  <span class="fl">0.8810</span> </span>
+<span id="cb284-64"><a href="session-3-comparisons-and-tests.html#cb284-64"></a> <span class="dv">1</span> effect    <span class="fl">0.175</span> <span class="fl">1.16</span> <span class="dv">26</span>  <span class="fl">0.151</span>  <span class="fl">0.8810</span> </span>
+<span id="cb284-65"><a href="session-3-comparisons-and-tests.html#cb284-65"></a></span>
+<span id="cb284-66"><a href="session-3-comparisons-and-tests.html#cb284-66"></a>P value adjustment<span class="op">:</span><span class="st"> </span>fdr method <span class="cf">for</span> <span class="dv">2</span> tests </span>
+<span id="cb284-67"><a href="session-3-comparisons-and-tests.html#cb284-67"></a></span>
+<span id="cb284-68"><a href="session-3-comparisons-and-tests.html#cb284-68"></a><span class="co"># q5</span></span>
+<span id="cb284-69"><a href="session-3-comparisons-and-tests.html#cb284-69"></a><span class="kw">contrast</span>(mtcars.means, <span class="dt">interaction=</span><span class="st">&quot;pairwise&quot;</span>)</span>
+<span id="cb284-70"><a href="session-3-comparisons-and-tests.html#cb284-70"></a> am_pairwise cyl_pairwise estimate   SE df t.ratio p.value</span>
+<span id="cb284-71"><a href="session-3-comparisons-and-tests.html#cb284-71"></a> <span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>       <span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span>           <span class="fl">-3.73</span> <span class="fl">3.09</span> <span class="dv">26</span> <span class="fl">-1.206</span>  <span class="fl">0.2386</span> </span>
+<span id="cb284-72"><a href="session-3-comparisons-and-tests.html#cb284-72"></a> <span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>       <span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">8</span>           <span class="fl">-4.83</span> <span class="fl">3.09</span> <span class="dv">26</span> <span class="fl">-1.559</span>  <span class="fl">0.1311</span> </span>
+<span id="cb284-73"><a href="session-3-comparisons-and-tests.html#cb284-73"></a> <span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>       <span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">8</span>           <span class="fl">-1.09</span> <span class="fl">3.28</span> <span class="dv">26</span> <span class="fl">-0.333</span>  <span class="fl">0.7416</span> </span></code></pre></div>
+</div>
+<div class="solution">
+<button class="solution-button">
+Show the explanation for Q4 and 5
+</button>
+<p>The Anova shows there is a significant ‘main effect’ of <code>am</code>. The plot shows that such that <code>am=1</code> cars tend to have higher fuel consumption, but this effect is most marked for 4-cylinder cars.</p>
+<p>The within-cylinder tests show that the effect of <code>am</code>=1 is only statistically significant for 4-cylinder cars.</p>
+<p>However the tests of differences-in-differences (interaction contrasts) show that the effect of <code>am</code> is not itself significantly different between levels of <code>cyl</code>. This is expected, because the Anova table shows the interaction (<code>factor(am):factor(cyl)</code>) is not statistically significant.</p>
+<p>We should be cautious in rejecting this hypothesis though. The dataset is small, and power may play a role. Based on the plot we certainly seem to have evidence in favour of the hypothesis. At this point we might want to test the interaction directly using a Bayes Factor:</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="session-3-comparisons-and-tests.html#cb285-1"></a><span class="kw">library</span>(BayesFactor)</span>
+<span id="cb285-2"><a href="session-3-comparisons-and-tests.html#cb285-2"></a>mtfac &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">am=</span><span class="kw">factor</span>(am), <span class="dt">cyl=</span><span class="kw">factor</span>(cyl))</span>
+<span id="cb285-3"><a href="session-3-comparisons-and-tests.html#cb285-3"></a></span>
+<span id="cb285-4"><a href="session-3-comparisons-and-tests.html#cb285-4"></a>full.model &lt;-<span class="st"> </span><span class="kw">anovaBF</span>(mpg<span class="op">~</span><span class="st"> </span>am <span class="op">*</span><span class="st"> </span>cyl, <span class="dt">data=</span>mtfac, <span class="dt">iterations =</span> <span class="fl">1e5</span>)</span>
+<span id="cb285-5"><a href="session-3-comparisons-and-tests.html#cb285-5"></a></span>
+<span id="cb285-6"><a href="session-3-comparisons-and-tests.html#cb285-6"></a><span class="co"># this is a trick to get all combinations of BayesFactors</span></span>
+<span id="cb285-7"><a href="session-3-comparisons-and-tests.html#cb285-7"></a>full.model <span class="op">/</span><span class="st"> </span>full.model</span>
+<span id="cb285-8"><a href="session-3-comparisons-and-tests.html#cb285-8"></a>                   denominator</span>
+<span id="cb285-9"><a href="session-3-comparisons-and-tests.html#cb285-9"></a>numerator                    cyl       am     cyl <span class="op">+</span><span class="st"> </span>am cyl <span class="op">+</span><span class="st"> </span>am <span class="op">+</span><span class="st"> </span>cyl<span class="op">:</span>am</span>
+<span id="cb285-10"><a href="session-3-comparisons-and-tests.html#cb285-10"></a>  cyl               <span class="fl">1.000000e+00</span> <span class="fl">26264.15</span> <span class="fl">5.135729e-01</span>      <span class="fl">7.029747e-01</span></span>
+<span id="cb285-11"><a href="session-3-comparisons-and-tests.html#cb285-11"></a>  am                <span class="fl">3.807471e-05</span>     <span class="fl">1.00</span> <span class="fl">1.955414e-05</span>      <span class="fl">2.676556e-05</span></span>
+<span id="cb285-12"><a href="session-3-comparisons-and-tests.html#cb285-12"></a>  cyl <span class="op">+</span><span class="st"> </span>am          <span class="fl">1.947143e+00</span> <span class="fl">51140.06</span> <span class="fl">1.000000e+00</span>      <span class="fl">1.368792e+00</span></span>
+<span id="cb285-13"><a href="session-3-comparisons-and-tests.html#cb285-13"></a>  cyl <span class="op">+</span><span class="st"> </span>am <span class="op">+</span><span class="st"> </span>cyl<span class="op">:</span>am <span class="fl">1.422526e+00</span> <span class="fl">37361.45</span> <span class="fl">7.305710e-01</span>      <span class="fl">1.000000e+00</span></span></code></pre></div>
+<p>We can see the BF for <code>cyl + am + cyl:am</code> / <code>cyl + am</code> = 1.4, which means we don’t have as much evidence as the plot would suggest. We probaly need to collect more data!</p>
+</div>
+</div>
+<div id="adjusting-for-multiple-comparisons" class="section level4">
+<h4>Adjusting for multiple comparisons</h4>
+<p>If we want to adjust p values for multiple comparisons we use the <code>adjust='type'</code> syntax. This corrects p values to maintain a false discovery rate:</p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="session-3-comparisons-and-tests.html#cb286-1"></a><span class="kw">contrast</span>(adler.means.all, <span class="dt">interaction=</span><span class="st">&quot;pairwise&quot;</span>, <span class="dt">adjust=</span><span class="st">&quot;fdr&quot;</span>)</span>
+<span id="cb286-2"><a href="session-3-comparisons-and-tests.html#cb286-2"></a> expectation_pairwise instruction_pairwise estimate  SE  df t.ratio p.value</span>
+<span id="cb286-3"><a href="session-3-comparisons-and-tests.html#cb286-3"></a> high <span class="op">-</span><span class="st"> </span>low           good <span class="op">-</span><span class="st"> </span>none             <span class="fl">29.06</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">5.101</span>   <span class="op">&lt;</span>.<span class="dv">0001</span> </span>
+<span id="cb286-4"><a href="session-3-comparisons-and-tests.html#cb286-4"></a> high <span class="op">-</span><span class="st"> </span>low           good <span class="op">-</span><span class="st"> </span>scientific       <span class="fl">30.50</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">5.355</span>   <span class="op">&lt;</span>.<span class="dv">0001</span> </span>
+<span id="cb286-5"><a href="session-3-comparisons-and-tests.html#cb286-5"></a> high <span class="op">-</span><span class="st"> </span>low           none <span class="op">-</span><span class="st"> </span>scientific        <span class="fl">1.44</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">0.254</span>   <span class="fl">0.8003</span> </span>
+<span id="cb286-6"><a href="session-3-comparisons-and-tests.html#cb286-6"></a></span>
+<span id="cb286-7"><a href="session-3-comparisons-and-tests.html#cb286-7"></a>P value adjustment<span class="op">:</span><span class="st"> </span>fdr method <span class="cf">for</span> <span class="dv">3</span> tests </span></code></pre></div>
+<p>And this applies Bonferroni correction:</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="session-3-comparisons-and-tests.html#cb287-1"></a><span class="kw">contrast</span>(adler.means.all, <span class="dt">interaction=</span><span class="st">&quot;pairwise&quot;</span>, <span class="dt">adjust=</span><span class="st">&quot;bonf&quot;</span>)</span>
+<span id="cb287-2"><a href="session-3-comparisons-and-tests.html#cb287-2"></a> expectation_pairwise instruction_pairwise estimate  SE  df t.ratio p.value</span>
+<span id="cb287-3"><a href="session-3-comparisons-and-tests.html#cb287-3"></a> high <span class="op">-</span><span class="st"> </span>low           good <span class="op">-</span><span class="st"> </span>none             <span class="fl">29.06</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">5.101</span>   <span class="op">&lt;</span>.<span class="dv">0001</span> </span>
+<span id="cb287-4"><a href="session-3-comparisons-and-tests.html#cb287-4"></a> high <span class="op">-</span><span class="st"> </span>low           good <span class="op">-</span><span class="st"> </span>scientific       <span class="fl">30.50</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">5.355</span>   <span class="op">&lt;</span>.<span class="dv">0001</span> </span>
+<span id="cb287-5"><a href="session-3-comparisons-and-tests.html#cb287-5"></a> high <span class="op">-</span><span class="st"> </span>low           none <span class="op">-</span><span class="st"> </span>scientific        <span class="fl">1.44</span> <span class="fl">5.7</span> <span class="dv">102</span> <span class="fl">0.254</span>   <span class="fl">1.0000</span> </span>
+<span id="cb287-6"><a href="session-3-comparisons-and-tests.html#cb287-6"></a></span>
+<span id="cb287-7"><a href="session-3-comparisons-and-tests.html#cb287-7"></a>P value adjustment<span class="op">:</span><span class="st"> </span>bonferroni method <span class="cf">for</span> <span class="dv">3</span> tests </span></code></pre></div>
+<p>In both cases, the inferences survive correction of p values for multiple comparisons.</p>
+</div>
+<div id="optional-adjust-for-a-specific-family-size" class="section level4">
+<h4>Optional: Adjust for a specific family size</h4>
+<p>If you wanted set the family size to be larger (e.g. to account for all the tests within the analysis of an experiment), you can do this with <code>p.adjust</code>:</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="session-3-comparisons-and-tests.html#cb288-1"></a><span class="co"># save the table of tests as a dataframe</span></span>
+<span id="cb288-2"><a href="session-3-comparisons-and-tests.html#cb288-2"></a>table.of.tests &lt;-<span class="st"> </span><span class="kw">contrast</span>(adler.means.all, <span class="st">&quot;pairwise&quot;</span>, <span class="dt">interaction=</span><span class="st">&quot;pairwise&quot;</span>, <span class="dt">adjust=</span><span class="st">&quot;none&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb288-3"><a href="session-3-comparisons-and-tests.html#cb288-3"></a><span class="st">  </span>as_tibble </span>
+<span id="cb288-4"><a href="session-3-comparisons-and-tests.html#cb288-4"></a></span>
+<span id="cb288-5"><a href="session-3-comparisons-and-tests.html#cb288-5"></a><span class="co"># use mutate and p.adjust to correct the p values:</span></span>
+<span id="cb288-6"><a href="session-3-comparisons-and-tests.html#cb288-6"></a>table.of.tests <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb288-7"><a href="session-3-comparisons-and-tests.html#cb288-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p.adj =</span> <span class="kw">p.adjust</span>(p.value, <span class="dt">method=</span><span class="st">&quot;bonf&quot;</span>, <span class="dt">n=</span><span class="dv">2000</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb288-8"><a href="session-3-comparisons-and-tests.html#cb288-8"></a><span class="st">  </span><span class="co"># use a special function from apastats package to round p values nicely</span></span>
+<span id="cb288-9"><a href="session-3-comparisons-and-tests.html#cb288-9"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&#39;p.&#39;</span>)), <span class="kw">funs</span>(apastats<span class="op">::</span>round.p)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb288-10"><a href="session-3-comparisons-and-tests.html#cb288-10"></a><span class="st">  </span><span class="co"># rename columns so the table looks nice</span></span>
+<span id="cb288-11"><a href="session-3-comparisons-and-tests.html#cb288-11"></a><span class="st">  </span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Expectation effect</span><span class="st">`</span> =<span class="st"> </span>expectation_pairwise, </span>
+<span id="cb288-12"><a href="session-3-comparisons-and-tests.html#cb288-12"></a>         <span class="dt">Comparison=</span>instruction_pairwise,</span>
+<span id="cb288-13"><a href="session-3-comparisons-and-tests.html#cb288-13"></a>         <span class="dt">Estimate=</span>estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb288-14"><a href="session-3-comparisons-and-tests.html#cb288-14"></a><span class="st">  </span><span class="kw">pander</span>(<span class="dt">caption=</span><span class="st">&quot;Interaction contrasts adjusted for familywise error rate (family size=2000!)&quot;</span>)</span>
+<span id="cb288-15"><a href="session-3-comparisons-and-tests.html#cb288-15"></a>Warning<span class="op">:</span><span class="st"> </span><span class="kw">funs</span>() is soft deprecated as of dplyr <span class="dv">0</span>.<span class="fl">8.0</span></span>
+<span id="cb288-16"><a href="session-3-comparisons-and-tests.html#cb288-16"></a>Please use a list of either functions or lambdas<span class="op">:</span><span class="st"> </span></span>
+<span id="cb288-17"><a href="session-3-comparisons-and-tests.html#cb288-17"></a></span>
+<span id="cb288-18"><a href="session-3-comparisons-and-tests.html#cb288-18"></a><span class="st">  </span><span class="co"># Simple named list: </span></span>
+<span id="cb288-19"><a href="session-3-comparisons-and-tests.html#cb288-19"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">mean =</span> mean, <span class="dt">median =</span> median)</span>
+<span id="cb288-20"><a href="session-3-comparisons-and-tests.html#cb288-20"></a></span>
+<span id="cb288-21"><a href="session-3-comparisons-and-tests.html#cb288-21"></a>  <span class="co"># Auto named with `tibble::lst()`: </span></span>
+<span id="cb288-22"><a href="session-3-comparisons-and-tests.html#cb288-22"></a>  tibble<span class="op">::</span><span class="kw">lst</span>(mean, median)</span>
+<span id="cb288-23"><a href="session-3-comparisons-and-tests.html#cb288-23"></a></span>
+<span id="cb288-24"><a href="session-3-comparisons-and-tests.html#cb288-24"></a>  <span class="co"># Using lambdas</span></span>
+<span id="cb288-25"><a href="session-3-comparisons-and-tests.html#cb288-25"></a>  <span class="kw">list</span>(<span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(., <span class="dt">trim =</span> <span class="fl">.2</span>), <span class="op">~</span><span class="st"> </span><span class="kw">median</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span>
+<span id="cb288-26"><a href="session-3-comparisons-and-tests.html#cb288-26"></a>This warning is displayed once per session.</span></code></pre></div>
+<table>
+<caption>Interaction contrasts adjusted for familywise error rate (family size=2000!) (continued below)</caption>
+<colgroup>
+<col width="27%" />
+<col width="26%" />
+<col width="14%" />
+<col width="10%" />
+<col width="7%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Expectation effect</th>
+<th align="center">Comparison</th>
+<th align="center">Estimate</th>
+<th align="center">SE</th>
+<th align="center">df</th>
+<th align="center">t.ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">high - low</td>
+<td align="center">good - none</td>
+<td align="center">29.06</td>
+<td align="center">5.696</td>
+<td align="center">102</td>
+<td align="center">5.101</td>
+</tr>
+<tr class="even">
+<td align="center">high - low</td>
+<td align="center">good - scientific</td>
+<td align="center">30.5</td>
+<td align="center">5.696</td>
+<td align="center">102</td>
+<td align="center">5.355</td>
+</tr>
+<tr class="odd">
+<td align="center">high - low</td>
+<td align="center">none - scientific</td>
+<td align="center">1.444</td>
+<td align="center">5.696</td>
+<td align="center">102</td>
+<td align="center">0.2536</td>
+</tr>
+</tbody>
+</table>
+<table style="width:28%;">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">p.value</th>
+<th align="center">p.adj</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">&lt; .001</td>
+<td align="center">= .003</td>
+</tr>
+<tr class="even">
+<td align="center">&lt; .001</td>
+<td align="center">= .001</td>
+</tr>
+<tr class="odd">
+<td align="center">= .800</td>
+<td align="center">= 1.000</td>
+</tr>
+</tbody>
+</table>
+<p>In this instance the adjustment doesn’t change the inference, but it often will.</p>
+<div class="exercise">
+<ol style="list-style-type: decimal">
+<li><p>Adapt the code above to perform FDR adjustment for a family size of 10 tests.</p></li>
+<li><p>For more explanation and exercises see: <a href="https://benwhalley.github.io/just-enough-r/multiple-comparisons.html" class="uri">https://benwhalley.github.io/just-enough-r/multiple-comparisons.html</a></p></li>
+</ol>
+</div>
 
 </div>
 </div>
-<!-- </div> -->
+</div>
             </section>
 
           </div>
         </div>
       </div>
 <a href="session-2-developing-skills.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="extras.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="session-4-effect-sizes-and-discrepancies.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

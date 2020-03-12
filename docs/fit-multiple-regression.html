@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -311,9 +312,9 @@ slopes of the lines.</p>
 ## 
 ## Coefficients:
 ##           (Intercept)             work_hours             femaleTRUE  
-##               18.0266                 1.8232                18.3918  
+##                18.623                  1.795                 22.463  
 ## work_hours:femaleTRUE  
-##               -0.9444</code></pre>
+##                -1.074</code></pre>
 <div id="explanation-of-the-lm-code-above" class="section level4">
 <h4>Explanation of the <code>lm</code> code above</h4>
 <p>This time we have changed the <a href="regression-extra-explanations.html#explain-formulae">formula</a> and:</p>
@@ -358,10 +359,10 @@ does mean we have to know both <code>work_hours</code> (the slope for men) and <
 difference in slopes for men and women) to be able to work out the slope for women.</p>
 <p>To test your knowledge:</p>
 <ul>
-<li>What is the slope for women in <code>second.model</code> above? <span id="Q990204" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=3  style='width:3em;'  data-answer='["0.9",".9"]'/><span class="solvedme"></span></span></li>
+<li>What is the slope for women in <code>second.model</code> above? <span id="Q990204" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=3  style='width:3em;'  data-answer='["0.7",".7"]'/><span class="solvedme"></span></span></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show answer
 </button>
 <p>To get the answer we need to add the slope for <code>work_hours</code> to the coefficient <code>work_hours:femaleTRUE</code>.</p>
@@ -369,7 +370,7 @@ Show answer
 <li><code>work_hours</code> represents the slope for men</li>
 <li><code>work_hours:femaleTRUE</code> represents the difference in slopes between men and women</li>
 </ul>
-<p>So the slope for women = <span class="math inline">\(1.8231526 + -0.9443829 = 0.8787697\)</span> (you can round this to 0.9).</p>
+<p>So the slope for women = <span class="math inline">\(1.7948984 + -1.0735653 = 0.7213331\)</span> (you can round this to 0.7).</p>
 </div>
 </div>
 </div>
@@ -383,9 +384,9 @@ Show answer
 ## 
 ## Coefficients:
 ##           (Intercept)             work_hours             femaleTRUE  
-##               18.0266                 1.8232                18.3918  
+##                18.623                  1.795                 22.463  
 ## work_hours:femaleTRUE  
-##               -0.9444</code></pre>
+##                -1.074</code></pre>
 <p><img src="04-regression_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <p>As a group:</p>
 <ol style="list-style-type: decimal">
@@ -438,10 +439,10 @@ variables we want predictions for</li>
 <pre><code>## # A tibble: 4 x 4
 ##   female work_hours .fitted .se.fit
 ##   &lt;lgl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1 TRUE           20    54.0    1.02
-## 2 TRUE           40    71.6    2.14
-## 3 FALSE          20    54.5    1.73
-## 4 FALSE          40    91.0    8.67</code></pre>
+## 1 TRUE           20    55.5   0.821
+## 2 TRUE           40    69.9   1.72 
+## 3 FALSE          20    54.5   1.29 
+## 4 FALSE          40    90.4   5.19</code></pre>
 <p>And we can plot these new predictions using ggplot:</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="fit-multiple-regression.html#cb161-1"></a>second.model.predictions <span class="op">%&gt;%</span></span>
 <span id="cb161-2"><a href="fit-multiple-regression.html#cb161-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(work_hours, .fitted, <span class="dt">color=</span>female)) <span class="op">+</span></span>
@@ -468,10 +469,10 @@ called <code>.se.fit</code>. This is short for <strong>standard error of the pre
 <pre><code>## # A tibble: 4 x 4
 ##   female work_hours .fitted .se.fit
 ##   &lt;lgl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1 TRUE           20    54.0    1.02
-## 2 TRUE           40    71.6    2.14
-## 3 FALSE          20    54.5    1.73
-## 4 FALSE          40    91.0    8.67</code></pre>
+## 1 TRUE           20    55.5   0.821
+## 2 TRUE           40    69.9   1.72 
+## 3 FALSE          20    54.5   1.29 
+## 4 FALSE          40    90.4   5.19</code></pre>
 <p>We can use a new <code>geom_</code> function with this column to add error bars to the plot. The
 <code>geom_errorbar</code> needs two additional bits of information inside the <code>aes()</code> section. These are
 <code>ymin</code> and <code>ymax</code>, which represent the bottom and top of the error bars, respectively:</p>

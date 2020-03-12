@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -351,7 +352,7 @@ Plot the relationship between <code>age</code> and <code>happiness</code>:</p>
 </p>
 <p>Try to describe the relationship between <code>happiness</code> and <code>age</code>.</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try first, click here for a description
 </button>
 <p>Happiness of individuals appears to decline from 30 years to the late forties. Happiness then increases beyond the late forties, reaching its peak at 70 years, at which age people reported the highest levels of happiness - higher even than levels shown in early thirties.</p>
@@ -440,7 +441,7 @@ Try first, click here for a description
 <li><p>What is the change in <span class="math inline">\(R^2\)</span>? <span id="Q702779" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["25.14"]'/><span class="solvedme"></span></span> % (to 2 decimal places)</p></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Click to see how the answer is calculated
 </button>
 <p><span class="math inline">\(R^2\)</span> change from <code>polynomial1</code> to <code>polynomial2</code> = 68.53 - 43.39 = 25.14%</p>
@@ -464,7 +465,7 @@ Click to see how the answer is calculated
 <div class="exercise">
 <p>Is the increase in <span class="math inline">\(R^2\)</span> associated with the addition of the quadratic component statistically significant? <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select></p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Answer
 </button>
 <p>Yes. We can report the improvement in fit as follows:</p>
@@ -529,7 +530,7 @@ Answer
 <div class="exercise">
 <p>Is the increase in <span class="math inline">\(R^2\)</span> associated with the addition of a cubic component statistically significant? <select class='solveme' data-answer='["no"]'> <option></option> <option>no</option> <option>yes</option></select></p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Description of the answer
 </button>
 <p>The <code>anova</code> comparing <code>polynomial3</code> and <code>polynomial2</code> is not statistically significant, <em>F</em>(1, 146) = 1.27, <em>p</em> = .26, indicating that the addition of the cubic component of <code>age</code> into the regression model does not increase the variance in <code>happiness</code> explained.</p>
@@ -538,7 +539,7 @@ Description of the answer
 On the basis of the tests conducted so far, which model should be preferred? One with:</p>
 <p><select class='solveme' data-answer='["linear and quadratic components of age"]'> <option></option> <option>a linear component of age only</option> <option>linear and quadratic components of age</option> <option>linear, quadratic, and cubic components of age</option></select></p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Explain
 </button>
 <p>Our analyses suggest that a model with a quadratic component of <code>age</code> (i.e., the model in <code>polynomial2</code>) is sufficient to explain the data.</p>

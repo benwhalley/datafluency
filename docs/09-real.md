@@ -11,7 +11,6 @@
 
 
 
-
 ## Session 1: Reproducing a real paper
 
 In this session we dissect a specific published paper, attempt to replicate the
@@ -518,13 +517,13 @@ For more on new approaches to deciding when to include covariates see @pearl2018
 
 The main example I gave was: Imagine smoking causes some underlying change in our cardiovascular system, which then causes strokes. This causal diagram represents that (quite plausible) situation:
 
-<!--html_preserve--><div id="htmlwidget-db94618cc05f1d2208d7" style="width:672px;height:300px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-db94618cc05f1d2208d7">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Unknown -> Stroke2\n      Unknown -> Stroke1\n      Stroke1 -> Stroke2 [style=invis]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-b24b9e70ef8587c7b1e6" style="width:672px;height:300px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b24b9e70ef8587c7b1e6">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Unknown -> Stroke2\n      Unknown -> Stroke1\n      Stroke1 -> Stroke2 [style=invis]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 If we wanted to know the effect of smoking on stroke we might be tempted to 'control for' the number of previous strokes, but that would be a disaster:
 
-<!--html_preserve--><div id="htmlwidget-2aa232b1aa42ea0ef66e" style="width:672px;height:400px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2aa232b1aa42ea0ef66e">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Stroke\n      PreviousStroke -> Stroke\n      Smoking -> PreviousStroke [style=dashed]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-783d59eb9e41831b1136" style="width:672px;height:400px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-783d59eb9e41831b1136">{"x":{"diagram":"\n      digraph ab {\n      Smoking -> Stroke\n      PreviousStroke -> Stroke\n      Smoking -> PreviousStroke [style=dashed]\n      }\n      ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 The reason is that the effect of smoking is now being 'shared', and we might well underestimate the true causall effect of smoking on stroke, misattributing is to some individual/dispositional cause.
 
@@ -574,7 +573,7 @@ The variables starting `kg` relate to participants weights. The `group` variable
 
 
 
-<div class='solution'><button>Try for yourself first, but click here to see the code and results</button>
+<div class='solution'><button class='solution-button'>Try for yourself first, but click here to see the code and results</button>
 
 
 
@@ -684,7 +683,7 @@ Next week:
 hierarchical regression
 effect size
 
-Then 
+Then
 
 multiple comparisons
 reporting results
@@ -731,22 +730,3 @@ Cronbach's alpha
 
 
 
-
-
-
-## Session 3: Comparisons and tests
-
-### In brief
-
-> A single statistical model can test many different hypotheses. Sometimes these
-> hypotheses can, superficially, sound similar---but selecting the relevant test
-> and reporting it correctly can sometimes be a challange. R packages exist to
-> make specifying and reporting tests easier, but none can automate the process:
-> Testing hypotheses always requires thought about both the research question in
-> hand alongside statistical issues. The replication crisis has brought renewed
-> focus on the pitfalls of multiple testing and researcher degrees of freedom.
-> Both technical strategies and research policies can mitigate this risk to some
-> degree, but research integrity is crucial.
-
-
-We will introduce techniques for moaking and correcting inferences for multiple comparisons.

@@ -253,7 +253,7 @@ Now, add the `colour=female` inside the part which says `aes(...)`. Before you r
 will happen.
 
 
-<div class='solution'><button>show answer</button>
+<div class='solution'><button class='solution-button'>show answer</button>
 
 
 It should plot different lines for men and women. Something like this:
@@ -301,7 +301,7 @@ first.model
 ## 
 ## Coefficients:
 ## (Intercept)   work_hours  
-##     35.5148       0.9229
+##     38.3696       0.8377
 ```
 
 **Explanation of the code**: We used the `lm` function to estimate the relation beteen grades and
@@ -317,8 +317,8 @@ work hours.
 
 
 
-In this example, we have two coefficients: the `(Intercept)` which is 35.5148 and the
-`work_hours` coefficient which is 0.9229.
+In this example, we have two coefficients: the `(Intercept)` which is 38.3696 and the
+`work_hours` coefficient which is 0.8377.
 
 **The best way to think about the coefficients is in relation to the plot we made**. In this version
 of the plot, however, I extended the line so it crosses zero on the x axis:
@@ -363,13 +363,13 @@ We can do the same thing using the coefficients from `lm`, because we know that:
 
 <!-- see cfs1 definition above -->
 
--   If someone worked for 0 hours per week then our prediction would be 36. We know
+-   If someone worked for 0 hours per week then our prediction would be 38. We know
     this because this is the intercept value (the point on the line when it is at zero on the
     x-axis).
 -   For each extra hour we study the `work_hour`coefficient tells us that f, our `grade` will
-    increase by 0.9229.
+    increase by 0.8377.
 
--   So, if we study for 30 hours, our prediction is 36 $+$ 0.9229 $\times$ 30
+-   So, if we study for 30 hours, our prediction is 38 $+$ 0.8377 $\times$ 30
 
 :::{.exercise}
 
@@ -407,9 +407,9 @@ predict(first.model) %>% head(10)
 
 ```
 ##        1        2        3        4        5        6        7        8 
-## 59.50978 59.50978 50.28095 65.96997 58.58690 53.97248 65.04708 64.12420 
+## 60.15051 60.15051 51.77323 66.01460 59.31278 55.12414 65.17687 64.33915 
 ##        9       10 
-## 55.81825 65.96997
+## 56.79960 66.01460
 ```
 
 **Explanation of the output**: We have one prediction (the point on the line) for each row in the
@@ -431,12 +431,12 @@ augment(first.model) %>%
 ## # A tibble: 6 x 9
 ##   grade work_hours .fitted .se.fit .resid    .hat .sigma  .cooksd .std.resid
 ##   <dbl>      <dbl>   <dbl>   <dbl>  <dbl>   <dbl>  <dbl>    <dbl>      <dbl>
-## 1    69         26    59.5   0.639   9.49 0.00351   10.8 0.00137       0.882
-## 2    54         26    59.5   0.639  -5.51 0.00351   10.8 0.000462     -0.512
-## 3    37         16    50.3   1.29  -13.3  0.0143    10.8 0.0112       -1.24 
-## 4    59         33    66.0   1.21   -6.97 0.0125    10.8 0.00269      -0.651
-## 5    53         25    58.6   0.623  -5.59 0.00334   10.8 0.000451     -0.519
-## 6    51         20    54.0   0.879  -2.97 0.00664   10.8 0.000256     -0.277
+## 1    65         26    60.2   0.513   4.85 0.00351   8.67 0.000554      0.561
+## 2    57         26    60.2   0.513  -3.15 0.00351   8.68 0.000234     -0.364
+## 3    45         16    51.8   1.04   -6.77 0.0143    8.67 0.00450      -0.788
+## 4    70         33    66.0   0.970   3.99 0.0125    8.67 0.00136       0.463
+## 5    55         25    59.3   0.500  -4.31 0.00334   8.67 0.000416     -0.499
+## 6    50         20    55.1   0.706  -5.12 0.00664   8.67 0.00118      -0.593
 ```
 
 **Explanation of the output**: `augment` has also made a prediction for each row, but returned it
@@ -479,7 +479,7 @@ augment(first.model, newdata=newsamples)
 ## # A tibble: 1 x 3
 ##   work_hours .fitted .se.fit
 ##        <dbl>   <dbl>   <dbl>
-## 1         30    63.2   0.902
+## 1         30    63.5   0.725
 ```
 
 **Explanation of the output**: We have a new data frame with predictions for a new sample who worked
@@ -514,7 +514,7 @@ Using the CPS data saved here <http://www.willslab.org.uk/cps2.csv>, what you
 -   What is your predicted income for someone who works 40 hours per week?
 
 
-<div class='solution'><button>Show answers</button>
+<div class='solution'><button class='solution-button'>Show answers</button>
 
 
 The numeric answers for each question are shown below:
@@ -1237,9 +1237,9 @@ second.model
 ## 
 ## Coefficients:
 ##           (Intercept)             work_hours             femaleTRUE  
-##               18.0266                 1.8232                18.3918  
+##                18.623                  1.795                 22.463  
 ## work_hours:femaleTRUE  
-##               -0.9444
+##                -1.074
 ```
 
 #### Explanation of the `lm` code above
@@ -1291,10 +1291,10 @@ difference in slopes for men and women) to be able to work out the slope for wom
 
 To test your knowledge:
 
--   What is the slope for women in `second.model` above? <span class='webex-fitb' id = 'Q990204' ><input class='solveme  nospaces calculator' data-digits=4 size=3  style='width:3em;'  data-answer='["0.9",".9"]'/><span class='solvedme'></span></span>
+-   What is the slope for women in `second.model` above? <span class='webex-fitb' id = 'Q990204' ><input class='solveme  nospaces calculator' data-digits=4 size=3  style='width:3em;'  data-answer='["0.7",".7"]'/><span class='solvedme'></span></span>
 
 
-<div class='solution'><button>Show answer</button>
+<div class='solution'><button class='solution-button'>Show answer</button>
 
 
 To get the answer we need to add the slope for `work_hours` to the coefficient `work_hours:femaleTRUE`.
@@ -1302,7 +1302,7 @@ To get the answer we need to add the slope for `work_hours` to the coefficient `
 - `work_hours` represents the slope for men
 - `work_hours:femaleTRUE` represents the difference in slopes between men and women
 
-So the slope for women = $1.8231526 + -0.9443829 = 0.8787697$ (you can round this to 0.9).
+So the slope for women = $1.7948984 + -1.0735653 = 0.7213331$ (you can round this to 0.7).
 
 
 
@@ -1329,9 +1329,9 @@ Compare the model output below with the plot:
 ## 
 ## Coefficients:
 ##           (Intercept)             work_hours             femaleTRUE  
-##               18.0266                 1.8232                18.3918  
+##                18.623                  1.795                 22.463  
 ## work_hours:femaleTRUE  
-##               -0.9444
+##                -1.074
 ```
 
 <img src="04-regression_files/figure-html/unnamed-chunk-56-1.png" width="672" />
@@ -1418,10 +1418,10 @@ second.model.predictions
 ## # A tibble: 4 x 4
 ##   female work_hours .fitted .se.fit
 ##   <lgl>       <dbl>   <dbl>   <dbl>
-## 1 TRUE           20    54.0    1.02
-## 2 TRUE           40    71.6    2.14
-## 3 FALSE          20    54.5    1.73
-## 4 FALSE          40    91.0    8.67
+## 1 TRUE           20    55.5   0.821
+## 2 TRUE           40    69.9   1.72 
+## 3 FALSE          20    54.5   1.29 
+## 4 FALSE          40    90.4   5.19
 ```
 
 And we can plot these new predictions using ggplot:
@@ -1470,10 +1470,10 @@ second.model.predictions
 ## # A tibble: 4 x 4
 ##   female work_hours .fitted .se.fit
 ##   <lgl>       <dbl>   <dbl>   <dbl>
-## 1 TRUE           20    54.0    1.02
-## 2 TRUE           40    71.6    2.14
-## 3 FALSE          20    54.5    1.73
-## 4 FALSE          40    91.0    8.67
+## 1 TRUE           20    55.5   0.821
+## 2 TRUE           40    69.9   1.72 
+## 3 FALSE          20    54.5   1.29 
+## 4 FALSE          40    90.4   5.19
 ```
 
 We can use a new `geom_` function with this column to add error bars to the plot. The

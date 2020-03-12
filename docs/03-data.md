@@ -108,7 +108,7 @@ divided by their squared height (`^2` means _to the power of 2_ in R-speak).
 
 <img src="03-data_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
--   What is the median BMI in the sample? <span class='webex-fitb' id = 'Q300731' ><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["22.3"]'/><span class='solvedme'></span></span>
+-   What is the median BMI in the sample? <span class='webex-fitb' id = 'Q817858' ><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["22.3"]'/><span class='solvedme'></span></span>
 
 :::
 
@@ -560,7 +560,7 @@ We then write some R code, and close the chunk with 3 more backticks. This is wh
 ![A code chunk in the RMarkdown editor](media/r-code-chunk.png)
 
 
-<div class='solution'><button>Can't find the backtick on your keyboard?</button>
+<div class='solution'><button class='solution-button'>Can't find the backtick on your keyboard?</button>
 
 
 ![On windows](media/backtick-windows-uk.png)
@@ -762,14 +762,14 @@ repeatmeasuresdata %>% head
 
 ```
 ## # A tibble: 6 x 4
-##   person time_1 time_2 time_3
-##    <int>  <dbl>  <dbl>  <dbl>
-## 1      1 -1.71   1.13   2.57 
-## 2      2  2.42   2.07   2.93 
-## 3      3  0.120  0.820  3.30 
-## 4      4 -0.518 -0.422  0.924
-## 5      5 -0.968  2.72   1.94 
-## 6      6  1.51   1.75   3.31
+##   person time_1   time_2 time_3
+##    <int>  <dbl>    <dbl>  <dbl>
+## 1      1 -0.360  1.77      1.60
+## 2      2 -0.913 -0.0207    1.60
+## 3      3  0.996  0.842     1.87
+## 4      4  0.970  2.11      2.85
+## 5      5 -0.248 -0.00830   3.82
+## 6      6  0.644  2.57      2.24
 ```
 
 `repeatmeasuresdata` is in **wide** format. Each row contains data for one participant, and each
@@ -795,14 +795,14 @@ repeatmeasuresdata %>%
 ```
 
 ```
-##   person variable      value
-## 1      1   time_1 -1.7063558
-## 2      1   time_2  1.1292308
-## 3      1   time_3  2.5688266
-## 4      2   time_1  2.4211107
-## 5      2   time_2  2.0692895
-## 6      2   time_3  2.9291219
-## 7      3   time_1  0.1196861
+##   person variable       value
+## 1      1   time_1 -0.35968916
+## 2      1   time_2  1.77283454
+## 3      1   time_3  1.59803855
+## 4      2   time_1 -0.91284991
+## 5      2   time_2 -0.02071884
+## 6      2   time_3  1.59898741
+## 7      3   time_1  0.99648985
 ```
 
 The problem we have now is that `variable` contains text which describes at which time the
@@ -835,12 +835,12 @@ longrepeatmeasuresdata %>% head
 
 ```
 ##   person    _ time      value
-## 1      1 time    1 -1.7063558
-## 2      2 time    1  2.4211107
-## 3      3 time    1  0.1196861
-## 4      4 time    1 -0.5184175
-## 5      5 time    1 -0.9677767
-## 6      6 time    1  1.5104134
+## 1      1 time    1 -0.3596892
+## 2      2 time    1 -0.9128499
+## 3      3 time    1  0.9964899
+## 4      4 time    1  0.9698770
+## 5      5 time    1 -0.2478221
+## 6      6 time    1  0.6442300
 ```
 
 Now the data are in long format, we can plot the points over time:

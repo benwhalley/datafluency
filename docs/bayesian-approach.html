@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -377,7 +378,7 @@ First, make sure the BayesFactor package is loaded (<code>library(BayesFactor)</
 <p>Does this constitute strong evidence for the addition of a quadratic component?
 <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select></p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Explain why
 </button>
 <p>The Bayes Factor tells us that a model with a quadratic component of <code>age</code> is 2.62e+17 or <span class="math inline">\(2.62 \times 10^{17}\)</span> times more likely than one that simply contains a linear component. This is very strong evidence for the inclusion of a quadratic component of <code>age</code> in the model.</p>
@@ -408,7 +409,7 @@ Explain why
 <p>Does this constitute strong evidence for the inclusion of a cubic component in the model?
 <select class='solveme' data-answer='["no"]'> <option></option> <option>yes</option> <option>no</option></select></p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Explain why
 </button>
 <p>The Bayes Factor tells us that a model with a cubic component of <code>age</code> is only 0.16 times more likely than one that contains both linear and quadratic components. Because the Bayes Factor is less than 0.33, this constitutes strong evidence for the simpler model with only linear and quadratic components.</p>

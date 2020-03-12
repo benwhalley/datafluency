@@ -289,7 +289,7 @@ Optional extension tasks:
    using colour?
 
 
-<div class='solution'><button>Show answer</button>
+<div class='solution'><button class='solution-button'>Show answer</button>
 
 
 There's no right answer here, but for this example I prefer the coloured plot to the facetted one.

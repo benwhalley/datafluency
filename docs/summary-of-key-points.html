@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -341,14 +342,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Try using expand grid to plot a range of predictions, for mothers of different ages.</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Tell me how to do it!
 </button>
 <p>For the Classical intervals, use <code>predict(model, newdata=..., interval="...")</code></p>
 <p>For the Bayesian intervals you need to use <code>add_predicted_samples</code> or <code>add_fitted_samples</code> to get the simulations, and then use <code>mean_qi</code> to get the 95% interval.</p>
 </div>
 <div class="solution">
-<button>
+<button class="solution-button">
 I give up, show me exactly how to do it…
 </button>
 <p>Classical:</p>
@@ -371,13 +372,13 @@ I give up, show me exactly how to do it…
 ## # Groups:   mom_iq, mom_hs, mom_age [1]
 ##   mom_iq mom_hs  mom_age  .row .prediction .lower .upper .width .point .interval
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-## 1    100 Comple…      30     1        89.5   53.9   125.   0.95 mean   qi</code></pre>
+## 1    100 Comple…      30     1        89.9   53.3   126.   0.95 mean   qi</code></pre>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="summary-of-key-points.html#cb191-1"></a><span class="kw">add_fitted_draws</span>(model, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean_qi</span>() <span class="co">#</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 x 10
 ## # Groups:   mom_iq, mom_hs, mom_age [1]
 ##   mom_iq mom_hs    mom_age  .row .value .lower .upper .width .point .interval
 ##    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-## 1    100 Completed      30     1   89.7   84.8   94.5   0.95 mean   qi</code></pre>
+## 1    100 Completed      30     1   89.6   84.8   94.3   0.95 mean   qi</code></pre>
 </div>
 </div>
 </div>

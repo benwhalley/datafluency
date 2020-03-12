@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -307,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb202-5"><a href="adding-predictor-variables-to-the-model.html#cb202-5"></a><span class="op">&gt;</span><span class="st"> </span>entrex  <span class="fl">1.0000000</span> <span class="fl">0.2908253</span></span>
 <span id="cb202-6"><a href="adding-predictor-variables-to-the-model.html#cb202-6"></a><span class="op">&gt;</span><span class="st"> </span>project <span class="fl">0.2908253</span> <span class="fl">1.0000000</span></span></code></pre></div>
 <div class="exercise">
-<p>The correlation between <code>entrex</code> and <code>project</code> is <em>r</em> = <span id="Q235556" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.29",".29"]'/><span class="solvedme"></span></span></p>
+<p>The correlation between <code>entrex</code> and <code>project</code> is <em>r</em> = <span id="Q22173" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.29",".29"]'/><span class="solvedme"></span></span></p>
 <p>Our predictor variables are weakly correlated. We should keep this in mind going forward.</p>
 </div>
 <p>Now run a <em>multiple regression</em> to predict <code>finalex</code> from both <code>entrex</code> and <code>project</code>. Again, use <code>lm</code> but use the <code>+</code> symbol to add predictors to the model:</p>
@@ -335,18 +336,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb203-22"><a href="adding-predictor-variables-to-the-model.html#cb203-22"></a><span class="op">&gt;</span><span class="st"> </span>F<span class="op">-</span>statistic<span class="op">:</span><span class="st"> </span><span class="fl">20.02</span> on <span class="dv">2</span> and <span class="dv">30</span> DF,  p<span class="op">-</span>value<span class="op">:</span><span class="st"> </span><span class="fl">3e-06</span></span></code></pre></div>
 <div class="exercise">
 <p>In this model with <code>entrex</code> and <code>project</code>as predictors:</p>
-<p>What is the value of <span class="math inline">\(R^2\)</span> (as a percentage): <span id="Q179317" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["57.16"]'/><span class="solvedme"></span></span> %</p>
-<p>By how much has <span class="math inline">\(R^2\)</span> <em>increased</em> in this model, relative to the model with <code>entrex</code> alone (where <span class="math inline">\(R^2\)</span> was 53.10%)? (as a percentage) (you will need to calculate this) <span id="Q427216" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["4.06"]'/><span class="solvedme"></span></span> %</p>
+<p>What is the value of <span class="math inline">\(R^2\)</span> (as a percentage): <span id="Q862429" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["57.16"]'/><span class="solvedme"></span></span> %</p>
+<p>By how much has <span class="math inline">\(R^2\)</span> <em>increased</em> in this model, relative to the model with <code>entrex</code> alone (where <span class="math inline">\(R^2\)</span> was 53.10%)? (as a percentage) (you will need to calculate this) <span id="Q145506" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["4.06"]'/><span class="solvedme"></span></span> %</p>
 <p>Is the overall regression model predicting <code>finalex</code> on the basis of <code>entrex</code> and <code>project</code> statistically significant? <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select></p>
 <ul>
 <li><p>Is <code>entrex</code> a statistically significant predictor of <code>finalex</code>? <select class='solveme' data-answer='["yes"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
 <li><p>We can report this in the following way: the <em>t</em>-test on the coefficient for <code>entrex</code> is statistically significant, <em>b</em> = 2.89, <em>t</em>(30) = 5.34, <em>p</em> &lt; .001.</p></li>
 <li><p>Is <code>project</code> a statistically significant predictor of <code>finalex</code> in this model? <select class='solveme' data-answer='["no"]'> <option></option> <option>yes</option> <option>no</option></select></p></li>
-<li><p>What is the value of the coefficient for <code>project</code>? <em>b</em> = <span id="Q535278" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=0.01 data-digits=4 size=4  style='width:4em;'  data-answer='["0.75",".75"]'/><span class="solvedme"></span></span></p></li>
+<li><p>What is the value of the coefficient for <code>project</code>? <em>b</em> = <span id="Q969548" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=0.01 data-digits=4 size=4  style='width:4em;'  data-answer='["0.75",".75"]'/><span class="solvedme"></span></span></p></li>
 <li><p>Report the <em>t</em>-statistic in APA style:</p></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show me
 </button>
 <p>Project mark was not a statistically significant predictor of final examination in this model, <em>b</em> = 0.75, <em>t</em>(30) = 1.69, <em>p</em> = .10</p>

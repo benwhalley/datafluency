@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -304,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="exercise">
 <p>Use <code>read_csv</code> to load in the data at the link above to the variable <code>memory_data</code> and preview it with <code>head()</code>.</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try this yourself first. Click to show code
 </button>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="exercise.html#cb219-1"></a>memory_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://bit.ly/37pOTrC&#39;</span>)</span>
@@ -337,7 +338,7 @@ She therefore wants to use a hierarchical regression approach to determine wheth
 <p><br />
 1. First, fit a linear model to determine the extent to which <code>memory_score</code> is predicted by <code>iq</code> and <code>age</code>. Store the results in <code>memory1</code>.</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try first, then click to see the code
 </button>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="exercise.html#cb220-1"></a><span class="co"># specify the baseline model</span></span>
@@ -368,7 +369,7 @@ Try first, then click to see the code
 <p><br />
 2. Next, add <code>attention</code> and <code>sleep</code> to the model, storing your results in <code>memory2</code>.</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try first, then click to see the code
 </button>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="exercise.html#cb221-1"></a><span class="co"># specify the next model</span></span>
@@ -401,7 +402,7 @@ Try first, then click to see the code
 <p><br />
 3. Now, compare the <code>memory1</code> and <code>memory2</code> models using <code>anova()</code></p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try first, then click to see the code
 </button>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="exercise.html#cb222-1"></a><span class="kw">anova</span>(memory1, memory2)</span>
@@ -419,10 +420,10 @@ Try first, then click to see the code
 <br />
 <strong>Answer the following questions:</strong></p>
 <ul>
-<li><p>A model with <code>iq</code> and <code>age</code> as predictors explains <span id="Q527607" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["13.03"]'/><span class="solvedme"></span></span> % of the variance in <code>memory_scores</code></p></li>
-<li><p>A model with <code>iq</code>, <code>age</code>, <code>attention</code> and <code>sleep</code> as predictors explains <span id="Q688000" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["48.39"]'/><span class="solvedme"></span></span> % of the variance in <code>memory_scores</code></p></li>
-<li><p>Calculate the additional variance explained by the second model: Change in <span class="math inline">\(R^2\)</span> = <span id="Q968802" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["35.36"]'/><span class="solvedme"></span></span> %</p></li>
-<li><p>The ANOVA comparing models can be reported as: <em>F</em>(<span id="Q272090" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=2  style='width:2em;'  data-answer='["2"]'/><span class="solvedme"></span></span>, <span id="Q412818" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=3  style='width:3em;'  data-answer='["229"]'/><span class="solvedme"></span></span>) = <span id="Q4400" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["78.45"]'/><span class="solvedme"></span></span>, <em>p</em> &lt; .001.</p></li>
+<li><p>A model with <code>iq</code> and <code>age</code> as predictors explains <span id="Q545826" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["13.03"]'/><span class="solvedme"></span></span> % of the variance in <code>memory_scores</code></p></li>
+<li><p>A model with <code>iq</code>, <code>age</code>, <code>attention</code> and <code>sleep</code> as predictors explains <span id="Q96097" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["48.39"]'/><span class="solvedme"></span></span> % of the variance in <code>memory_scores</code></p></li>
+<li><p>Calculate the additional variance explained by the second model: Change in <span class="math inline">\(R^2\)</span> = <span id="Q449752" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["35.36"]'/><span class="solvedme"></span></span> %</p></li>
+<li><p>The ANOVA comparing models can be reported as: <em>F</em>(<span id="Q687234" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=2  style='width:2em;'  data-answer='["2"]'/><span class="solvedme"></span></span>, <span id="Q840179" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=3  style='width:3em;'  data-answer='["229"]'/><span class="solvedme"></span></span>) = <span id="Q44007" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=5  style='width:5em;'  data-answer='["78.45"]'/><span class="solvedme"></span></span>, <em>p</em> &lt; .001.</p></li>
 <li><p>Is there a statistically significant improvement in the prediction of <code>memory_scores</code> as a result of adding <code>attention</code> and <code>sleep</code> to the model? <select class='solveme' data-answer='["yes"]'> <option></option> <option>no</option> <option>yes</option></select></p></li>
 </ul>
 <p><br />
@@ -431,7 +432,7 @@ Try first, then click to see the code
 <p><br />
 </p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try first, click here for a reminder of the steps
 </button>
 <ul>
@@ -443,7 +444,7 @@ Try first, click here for a reminder of the steps
 <p><br />
 </p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try first, click here to see the code
 </button>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="exercise.html#cb223-1"></a><span class="co"># Store the Bayes Factor for the first model in memory1.BF</span></span>
@@ -467,11 +468,11 @@ Try first, click here to see the code
 </p>
 <p><strong>Answer the following questions:</strong></p>
 <ul>
-<li><p>The Bayes Factor comparing <code>memory2</code> and <code>memory1</code> to (2 decimal places) is <span id="Q227265" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["4.17"]'/><span class="solvedme"></span></span> e+ <span id="Q29000" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=2  style='width:2em;'  data-answer='["23"]'/><span class="solvedme"></span></span>.</p></li>
+<li><p>The Bayes Factor comparing <code>memory2</code> and <code>memory1</code> to (2 decimal places) is <span id="Q259281" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["4.17"]'/><span class="solvedme"></span></span> e+ <span id="Q470544" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=2  style='width:2em;'  data-answer='["23"]'/><span class="solvedme"></span></span>.</p></li>
 <li><p>Does the Bayes Factor support the conclusions from the ANOVA? <select class='solveme' data-answer='["yes"]'> <option></option> <option>no</option> <option>yes</option></select></p></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Click for answer
 </button>
 <p>Yes! The Bayes Factor is equal to <span class="math inline">\(4.17 \times 10^{23}\)</span>, and this therefore strongly supports the inclusion of <code>attention</code> and <code>sleep</code> in the model already containing <code>iq</code> and <code>age</code>.</p>
@@ -487,10 +488,10 @@ Hint: in a previous session, you have previously used the <code>predict()</code>
 <p><br />
 </p>
 <ul>
-<li>The predicted <code>memory_score</code> is <span id="Q796968" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=6  style='width:6em;'  data-answer='["102.68"]'/><span class="solvedme"></span></span></li>
+<li>The predicted <code>memory_score</code> is <span id="Q621426" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=6  style='width:6em;'  data-answer='["102.68"]'/><span class="solvedme"></span></span></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try first, then click to show the code for the answer
 </button>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="exercise.html#cb224-1"></a><span class="co"># create tibble for the new data</span></span>
@@ -508,12 +509,12 @@ Try first, then click to show the code for the answer
 <p><br />
 Determine the Bayes Factor comparing <code>memory2</code> with a model that additionally contains <code>blueberries</code>.</p>
 <ul>
-<li><p>The Bayes Factor for the model comparison is <span id="Q527700" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.17",".17"]'/><span class="solvedme"></span></span> (to 2 decimal places)</p></li>
+<li><p>The Bayes Factor for the model comparison is <span id="Q252169" class="webex-fitb"><input class='solveme  nospaces calculator' data-digits=4 size=4  style='width:4em;'  data-answer='["0.17",".17"]'/><span class="solvedme"></span></span> (to 2 decimal places)</p></li>
 <li><p>The Bayes Factor indicates that the model with <code>blueberries</code> is <select class='solveme' data-answer='["less likely"]'> <option></option> <option>more likely</option> <option>less likely</option></select> than the model without it.</p></li>
 <li><p>Should the researcher add <code>blueberries</code> to the model? <select class='solveme' data-answer='["no"]'> <option></option> <option>no</option> <option>yes</option> <option>if it tastes good</option></select></p></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Try yourself first, then click for the code
 </button>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="exercise.html#cb225-1"></a><span class="co"># add blueberries to memory2; store in memory3.BF</span></span>

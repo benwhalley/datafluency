@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -319,11 +320,11 @@ children along with their mothers’ IQ scores, ages, and whether they completed
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="calculating-intervals.html#cb168-1"></a>kidiq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>## Observations: 434
 ## Variables: 5
-## $ kid_score &lt;dbl&gt; 65, 98, 85, 83, 115, 98, 69, 106, 102, 95, 91, 58, 84,…
-## $ mom_hs    &lt;chr&gt; &quot;Completed&quot;, &quot;Completed&quot;, &quot;Completed&quot;, &quot;Completed&quot;, &quot;C…
-## $ mom_iq    &lt;dbl&gt; 121.118, 89.362, 115.443, 99.450, 92.746, 107.902, 138…
-## $ mom_work  &lt;dbl&gt; 4, 4, 4, 3, 4, 1, 4, 3, 1, 1, 1, 4, 4, 4, 2, 1, 3, 3, …
-## $ mom_age   &lt;dbl&gt; 27, 25, 27, 25, 27, 18, 20, 23, 24, 19, 23, 24, 27, 26…</code></pre>
+## $ kid_score &lt;dbl&gt; 65, 98, 85, 83, 115, 98, 69, 106, 102, 95, 91, 58, 84, 78, …
+## $ mom_hs    &lt;chr&gt; &quot;Completed&quot;, &quot;Completed&quot;, &quot;Completed&quot;, &quot;Completed&quot;, &quot;Comple…
+## $ mom_iq    &lt;dbl&gt; 121.118, 89.362, 115.443, 99.450, 92.746, 107.902, 138.893,…
+## $ mom_work  &lt;dbl&gt; 4, 4, 4, 3, 4, 1, 4, 3, 1, 1, 1, 4, 4, 4, 2, 1, 3, 3, 4, 3,…
+## $ mom_age   &lt;dbl&gt; 27, 25, 27, 25, 27, 18, 20, 23, 24, 19, 23, 24, 27, 26, 24,…</code></pre>
 <p>As we did in the regression section, we can create a model. Here we predict childrens’ scores from mothers’ IQ and schooling:</p>
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="calculating-intervals.html#cb170-1"></a>iqmodel &lt;-<span class="st"> </span><span class="kw">lm</span>(kid_score <span class="op">~</span><span class="st"> </span>mom_iq <span class="op">+</span><span class="st"> </span>mom_hs, <span class="dt">data=</span>kidiq)</span>
 <span id="cb170-2"><a href="calculating-intervals.html#cb170-2"></a>iqmodel</span></code></pre></div>
@@ -359,7 +360,7 @@ prediction for; in this case, just one mother who completed high school:</p>
 <p>Use the <code>predict</code> function with <code>iqmodel</code> to answer the following questions:</p>
 <ul>
 <li><p>What is the predicted <code>kid_score</code> for mothers with IQ = 97 who completed high school?
-<span id="Q475459" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=1 data-digits=4 size=4  style='width:4em;'  data-answer='["86.4"]'/><span class="solvedme"></span></span></p></li>
+<span id="Q998668" class="webex-fitb"><input class='solveme  nospaces calculator' data-tol=1 data-digits=4 size=4  style='width:4em;'  data-answer='["86.4"]'/><span class="solvedme"></span></span></p></li>
 <li><p>Make a new tibble, and then <code>predict</code> values for 3 different mothers, with different scores on
 <code>mom_iq</code> and <code>mom_hs</code></p></li>
 <li><p>95% of mothers with IQ = 97 who completed high school will have a child with an IQ &lt; 88.4:
@@ -368,7 +369,7 @@ prediction for; in this case, just one mother who completed high school:</p>
 88.4 <select class='solveme' data-answer='["False"]'> <option></option> <option>True</option> <option>False</option></select></p></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Explain the answers
 </button>
 <p>86 is the prediction from the output shown above.</p>
@@ -400,7 +401,7 @@ have an IQ between 50.7 and 122.1, we would be right 95% of the time :
 <select class='solveme' data-answer='["False"]'> <option></option> <option>True</option> <option>False</option></select></p></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Explain the answers
 </button>
 <p>The prediction is the same, because it’s the point on the regression line for these values of
@@ -453,16 +454,16 @@ coefficients we can use the <code>tidy</code> function in the <code>broom</code>
 <pre><code>## # A tibble: 3 x 3
 ##   term                   estimate std.error
 ##   &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept)              31.7      6.34  
-## 2 mom_iq                    0.564    0.0611
-## 3 mom_hsDid not complete   -5.95     2.18</code></pre>
+## 1 (Intercept)              31.7      6.21  
+## 2 mom_iq                    0.564    0.0600
+## 3 mom_hsDid not complete   -5.96     2.17</code></pre>
 <div class="exercise">
 <p>Try re-running our <code>iqmodel</code> using <code>stan_glm()</code> in place of <code>lm()</code>. Use the formula:
 <code>kid_score ~ mom_iq + mom_hs</code>.</p>
 <p>Use <code>summary</code> or <code>tidy</code> to see the coefficients and standard errors.</p>
 <p>Compare your results with the results using <code>lm</code></p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Why don’t my result match my friends’ exactly?
 </button>
 <p>Because of the way Bayesian models are fit, results can vary very slightly each time you run them.
@@ -495,7 +496,7 @@ gives the 95% credible interval:</p>
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row .value .lower .upper .width .point .interval
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-## 1     97 Completed     1   86.4   84.4   88.4   0.95 mean   qi</code></pre>
+## 1     97 Completed     1   86.4   84.3   88.4   0.95 mean   qi</code></pre>
 <p>If we want to calculate the Bayesian <strong>prediction interval</strong>, we replace <code>add_fitted_draws</code> with
 <code>add_predicted_draws</code></p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="calculating-intervals.html#cb183-1"></a><span class="kw">add_predicted_draws</span>(iqmodel.bayes, <span class="dt">newdata=</span>new.mother) <span class="op">%&gt;%</span></span>
@@ -504,7 +505,7 @@ gives the 95% credible interval:</p>
 ## # Groups:   mom_iq, mom_hs [1]
 ##   mom_iq mom_hs     .row .prediction .lower .upper .width .point .interval
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-## 1     97 Completed     1        86.4   51.0   122.   0.95 mean   qi</code></pre>
+## 1     97 Completed     1        86.4   50.3   122.   0.95 mean   qi</code></pre>
 <div class="exercise">
 <p>Compare the Bayesian credible/prediction intervals with the classical confidence/prediction
 intervals. Hopefully they are not too different in this example.</p>

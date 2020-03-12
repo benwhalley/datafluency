@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-1-reproducing-a-real-paper.html"><a href="session-1-reproducing-a-real-paper.html"><i class="fa fa-check"></i>Session 1: Reproducing a real paper</a></li>
 <li class="chapter" data-level="" data-path="session-2-developing-skills.html"><a href="session-2-developing-skills.html"><i class="fa fa-check"></i>Session 2: Developing skills</a></li>
 <li class="chapter" data-level="" data-path="session-3-comparisons-and-tests.html"><a href="session-3-comparisons-and-tests.html"><i class="fa fa-check"></i>Session 3: Comparisons and tests</a></li>
+<li class="chapter" data-level="" data-path="session-4-effect-sizes-and-discrepancies.html"><a href="session-4-effect-sizes-and-discrepancies.html"><i class="fa fa-check"></i>Session 4: Effect sizes and discrepancies</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i>Extras</a>
 <ul>
@@ -461,14 +462,14 @@ similar to the way you might record experimental data in a spreadsheet.</p>
 <span id="cb114-6"><a href="extension-exercises-and-reading.html#cb114-6"></a></span>
 <span id="cb114-7"><a href="extension-exercises-and-reading.html#cb114-7"></a>repeatmeasuresdata <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
-##   person time_1 time_2 time_3
-##    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1      1 -1.71   1.13   2.57 
-## 2      2  2.42   2.07   2.93 
-## 3      3  0.120  0.820  3.30 
-## 4      4 -0.518 -0.422  0.924
-## 5      5 -0.968  2.72   1.94 
-## 6      6  1.51   1.75   3.31</code></pre>
+##   person time_1   time_2 time_3
+##    &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1      1 -0.360  1.77      1.60
+## 2      2 -0.913 -0.0207    1.60
+## 3      3  0.996  0.842     1.87
+## 4      4  0.970  2.11      2.85
+## 5      5 -0.248 -0.00830   3.82
+## 6      6  0.644  2.57      2.24</code></pre>
 <p><code>repeatmeasuresdata</code> is in <strong>wide</strong> format. Each row contains data for one participant, and each
 participant has three observations.</p>
 <p>We can melt the data into long format like so:</p>
@@ -482,14 +483,14 @@ participant has three observations.</p>
 ## as well. To continue using melt methods from reshape2 while both libraries are
 ## attached, e.g. melt.list, you can prepend the namespace like reshape2::melt(.).
 ## In the next version, this warning will become an error.</code></pre>
-<pre><code>##   person variable      value
-## 1      1   time_1 -1.7063558
-## 2      1   time_2  1.1292308
-## 3      1   time_3  2.5688266
-## 4      2   time_1  2.4211107
-## 5      2   time_2  2.0692895
-## 6      2   time_3  2.9291219
-## 7      3   time_1  0.1196861</code></pre>
+<pre><code>##   person variable       value
+## 1      1   time_1 -0.35968916
+## 2      1   time_2  1.77283454
+## 3      1   time_3  1.59803855
+## 4      2   time_1 -0.91284991
+## 5      2   time_2 -0.02071884
+## 6      2   time_3  1.59898741
+## 7      3   time_1  0.99648985</code></pre>
 <p>The problem we have now is that <code>variable</code> contains text which describes at which time the
 observation was made. We probably want a number for each timepoint, so we can make a plot with time
 on the x axis.</p>
@@ -507,12 +508,12 @@ Rather than have a column with labels of the form ‘time_1’, it can create tw
 ## In the next version, this warning will become an error.</code></pre>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="extension-exercises-and-reading.html#cb121-1"></a>longrepeatmeasuresdata <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##   person    _ time      value
-## 1      1 time    1 -1.7063558
-## 2      2 time    1  2.4211107
-## 3      3 time    1  0.1196861
-## 4      4 time    1 -0.5184175
-## 5      5 time    1 -0.9677767
-## 6      6 time    1  1.5104134</code></pre>
+## 1      1 time    1 -0.3596892
+## 2      2 time    1 -0.9128499
+## 3      3 time    1  0.9964899
+## 4      4 time    1  0.9698770
+## 5      5 time    1 -0.2478221
+## 6      6 time    1  0.6442300</code></pre>
 <p>Now the data are in long format, we can plot the points over time:</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="extension-exercises-and-reading.html#cb123-1"></a>longrepeatmeasuresdata <span class="op">%&gt;%</span></span>
 <span id="cb123-2"><a href="extension-exercises-and-reading.html#cb123-2"></a><span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">30</span>) <span class="op">%&gt;%</span></span>
