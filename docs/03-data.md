@@ -108,7 +108,7 @@ divided by their squared height (`^2` means _to the power of 2_ in R-speak).
 
 <img src="03-data_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
--   What is the median BMI in the sample? <span class='webex-fitb' id = 'Q817858' ><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["22.3"]'/><span class='solvedme'></span></span>
+-   What is the median BMI in the sample? <span class='webex-fitb' id = 'Q830385' ><input class='solveme  nospaces' data-digits=4 size=4  style='width:4em;'  data-answer='["22.3"]'/><span class='solvedme'></span></span>
 
 :::
 
@@ -764,12 +764,12 @@ repeatmeasuresdata %>% head
 ## # A tibble: 6 x 4
 ##   person time_1   time_2 time_3
 ##    <int>  <dbl>    <dbl>  <dbl>
-## 1      1 -0.360  1.77      1.60
-## 2      2 -0.913 -0.0207    1.60
-## 3      3  0.996  0.842     1.87
-## 4      4  0.970  2.11      2.85
-## 5      5 -0.248 -0.00830   3.82
-## 6      6  0.644  2.57      2.24
+## 1      1  0.350  0.839     4.33
+## 2      2  0.789  0.00312   3.36
+## 3      3  1.34   1.71      3.82
+## 4      4 -0.902  3.12      3.24
+## 5      5 -1.11   2.05      2.45
+## 6      6 -0.588 -0.904     1.62
 ```
 
 `repeatmeasuresdata` is in **wide** format. Each row contains data for one participant, and each
@@ -796,13 +796,13 @@ repeatmeasuresdata %>%
 
 ```
 ##   person variable       value
-## 1      1   time_1 -0.35968916
-## 2      1   time_2  1.77283454
-## 3      1   time_3  1.59803855
-## 4      2   time_1 -0.91284991
-## 5      2   time_2 -0.02071884
-## 6      2   time_3  1.59898741
-## 7      3   time_1  0.99648985
+## 1      1   time_1 0.350021312
+## 2      1   time_2 0.839181423
+## 3      1   time_3 4.334987065
+## 4      2   time_1 0.788798986
+## 5      2   time_2 0.003122309
+## 6      2   time_3 3.363328636
+## 7      3   time_1 1.335259575
 ```
 
 The problem we have now is that `variable` contains text which describes at which time the
@@ -835,12 +835,12 @@ longrepeatmeasuresdata %>% head
 
 ```
 ##   person    _ time      value
-## 1      1 time    1 -0.3596892
-## 2      2 time    1 -0.9128499
-## 3      3 time    1  0.9964899
-## 4      4 time    1  0.9698770
-## 5      5 time    1 -0.2478221
-## 6      6 time    1  0.6442300
+## 1      1 time    1  0.3500213
+## 2      2 time    1  0.7887990
+## 3      3 time    1  1.3352596
+## 4      4 time    1 -0.9019219
+## 5      5 time    1 -1.1136118
+## 6      6 time    1 -0.5876622
 ```
 
 Now the data are in long format, we can plot the points over time:

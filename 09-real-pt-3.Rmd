@@ -246,7 +246,7 @@ set.seed(1234)
 # correlations of r = 0.1, variance = 1.
 my_covariances <- matrix(c(1, .1, .1, 1), ncol = 2)
 MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>% 
-  as_tibble() %>% pairs()
+  as_tibble() %>%
   ggplot(aes(V1, V2)) + geom_point() + geom_smooth(method=lm, se=F) + 
   coord_cartesian(xlim=c(-2.5, 2.5), ylim=c(-2.5, 2.5))
 

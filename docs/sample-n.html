@@ -301,9 +301,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>More sampling</h2>
 <p>In the beginner session we used <code>sample</code> to shuffle a sequence of numbers, and make random samples:</p>
 <div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="sample-n.html#cb397-1"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1]  6 10  4  7  9</code></pre>
+<pre><code>## [1] 8 3 6 4 2</code></pre>
 <div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="sample-n.html#cb399-1"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>##  [1] 2 2 1 2 2 1 1 2 2 2</code></pre>
+<pre><code>##  [1] 2 2 2 2 1 2 2 1 2 1</code></pre>
 <p>We also saw how to use <code>expand.grid</code> to create experimental designs:</p>
 <div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="sample-n.html#cb401-1"></a>colours=<span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Green&quot;</span>)</span>
 <span id="cb401-2"><a href="sample-n.html#cb401-2"></a>positions=<span class="kw">c</span>(<span class="st">&quot;Top&quot;</span>, <span class="st">&quot;Bottom&quot;</span>)</span>
@@ -338,11 +338,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb407-2"><a href="sample-n.html#cb407-2"></a>design <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">100</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code>##   colour position  words
 ## 1  Green      Top Wobble
-## 2  Green      Top Nobble
-## 3  Green      Top Hobble
-## 4  Green   Bottom Wobble
-## 5    Red      Top Nobble
-## 6    Red   Bottom Hobble</code></pre>
+## 2    Red      Top Wobble
+## 3    Red      Top Hobble
+## 4    Red      Top Wobble
+## 5    Red      Top Hobble
+## 6    Red      Top Hobble</code></pre>
 <p><strong>Explanation</strong>: <code>sample_n</code> has randomly sampled rows from our design. In this case we sampled 100, but show only the first 6 (by using <code>head</code>).</p>
 
 </div>

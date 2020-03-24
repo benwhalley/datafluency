@@ -157,10 +157,10 @@ right answer ([42](https://www.urbandictionary.com/define.php?term=42)), and the
 blue:
 
 **The answer to life, the universe and everything is:**
-<span class='webex-fitb' id = 'Q229687' ><input class='solveme  nospaces' data-digits=4 size=2  style='width:2em;'  data-answer='["42"]'/><span class='solvedme'></span></span>
+<span class='webex-fitb' id = 'Q480623' ><input class='solveme  nospaces' data-digits=4 size=2  style='width:2em;'  data-answer='["42"]'/><span class='solvedme'></span></span>
 
 Other questions might ask you to make calculations. For these the text box acts like a mini
-calculator. Try typing `1000 * 1024` into this box: <span class='webex-fitb' id = 'Q558021' ><input class='solveme  nospaces calculator' data-digits=4 size=7  style='width:7em;'  data-answer='["1024000"]'/><span class='solvedme'></span></span>
+calculator. Try typing `1000 * 1024` into this box: <span class='webex-fitb' id = 'Q818660' ><input class='solveme  nospaces calculator' data-digits=4 size=7  style='width:7em;'  data-answer='["1024000"]'/><span class='solvedme'></span></span>
 
 [Why do we use `*` and not $\times$?](#compoperators)).
 

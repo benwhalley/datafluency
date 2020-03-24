@@ -8,7 +8,7 @@ sample(1:10, size=5)
 ```
 
 ```
-## [1]  6 10  4  7  9
+## [1] 8 3 6 4 2
 ```
 
 ```r
@@ -16,7 +16,7 @@ sample(1:2, size=10, replace=TRUE)
 ```
 
 ```
-##  [1] 2 2 1 2 2 1 1 2 2 2
+##  [1] 2 2 2 2 1 2 2 1 2 1
 ```
 
 We also saw how to use `expand.grid` to create experimental designs:
@@ -82,11 +82,11 @@ design %>% sample_n(100, replace=TRUE) %>% head
 ```
 ##   colour position  words
 ## 1  Green      Top Wobble
-## 2  Green      Top Nobble
-## 3  Green      Top Hobble
-## 4  Green   Bottom Wobble
-## 5    Red      Top Nobble
-## 6    Red   Bottom Hobble
+## 2    Red      Top Wobble
+## 3    Red      Top Hobble
+## 4    Red      Top Wobble
+## 5    Red      Top Hobble
+## 6    Red      Top Hobble
 ```
 
 

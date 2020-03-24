@@ -348,25 +348,26 @@ load tidyverse for most of these examples:</p>
 <h3>Randomness</h3>
 <p>A random sample:</p>
 <div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="cheatsheet.html#cb345-1"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1]  6  4 20  9 17  8 15 11  5  3 13 16 14 12 10 19  2 18  1  7</code></pre>
+<pre><code>##  [1] 10  2  6 13  4 18  9  1 14 12  8 11  7 15 17 19  3 20  5 16</code></pre>
 <p>Random-normal numbers:</p>
 <div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="cheatsheet.html#cb347-1"></a><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">20</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>##  [1] -2.546479  6.180139 -4.891320 -3.729687 -3.747578 -5.904321 -7.982217
-##  [8] -8.533642  1.061410 -2.115566  1.028005 -4.805519 -2.733308 -9.800582
-## [15] -4.828954  0.448726 -4.393187  2.696021  5.654222  8.980129</code></pre>
+<pre><code>##  [1] -4.63252036  6.06991270  5.20651893  1.12220817 -9.04403089  8.68813060
+##  [7] -6.76442140  4.17164247 -3.79578587 -6.52194782 -1.72375013  5.64443318
+## [13]  6.96260218  3.79652093  0.05394649  3.20169825 -3.25847091  0.76543086
+## [19]  0.05380241  8.16242436</code></pre>
 <div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="cheatsheet.html#cb349-1"></a><span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">5</span>)  <span class="co"># equivalent to line above(but this is a different sample!)</span></span></code></pre></div>
-<pre><code>##  [1]  4.028109189 -2.681568975 -4.761881226 -2.583841343 -1.740077616
-##  [6]  0.002016476 -3.136089647  2.956438836  2.791972072  5.150450318
-## [11]  2.623554267 -7.657631385 -9.039669239 -7.575491956 -7.813510851
-## [16]  4.772005644  2.311642638 -9.692398902 -9.682451833  4.378930258</code></pre>
+<pre><code>##  [1]  5.4532519  5.1928740 -6.4425070 -1.9254551 -7.4003830 -0.6003605
+##  [7]  1.2078661 -7.3855843 -5.2242546  5.8351966 -0.5899706  7.8005975
+## [13]  8.1354821 -3.4853749  1.9306607  6.5902829 -0.5673054  7.7127472
+## [19] -4.7053461 -3.7065989</code></pre>
 <p>Other types of random numbers:</p>
 <div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="cheatsheet.html#cb351-1"></a><span class="kw">runif</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] 0.9758848 0.2681794 0.8127023 0.3958482 0.1238561 0.5020616 0.4058410
-##  [8] 0.7930333 0.2513147 0.5921510</code></pre>
+<pre><code>##  [1] 0.001319438 0.146742771 0.732479485 0.929883373 0.649513251 0.407339471
+##  [7] 0.216244302 0.044197892 0.204574604 0.099189176</code></pre>
 <div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="cheatsheet.html#cb353-1"></a><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span>.<span class="dv">5</span>) <span class="co"># like a coin toss where 1=heads</span></span></code></pre></div>
-<pre><code>##  [1] 1 1 0 1 1 0 0 0 0 1</code></pre>
+<pre><code>##  [1] 0 0 1 1 0 0 0 1 0 0</code></pre>
 <div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="cheatsheet.html#cb355-1"></a><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">prob=</span>.<span class="dv">5</span>) <span class="co"># like best of 5 coin tosses</span></span></code></pre></div>
-<pre><code>##  [1] 1 4 1 1 5 3 4 2 2 2</code></pre>
+<pre><code>##  [1] 2 2 2 2 2 4 4 2 2 1</code></pre>
 </div>
 <div id="loading-data-1" class="section level3">
 <h3>Loading data</h3>

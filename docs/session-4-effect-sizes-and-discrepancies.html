@@ -304,7 +304,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <blockquote>
 <p>To end our journey, we return to where we started: thinking about the size of the effects we have found, and how to interpret them.</p>
 </blockquote>
-<p><a href="slides/real_4.pptx">Slides from the session</a></p>
+<p><a href="slides/real_4_sm.pptx">Slides from the session</a></p>
 <p>See the <a href="session-4-effect-sizes-and-discrepancies.html#slidebits">section at the end</a> for the code to make the plots from todays slides.</p>
 </div>
 <div id="code-examples-and-exercises" class="section level3">
@@ -500,27 +500,25 @@ Show answers
 <span id="cb298-7"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-7"></a><span class="co"># correlations of r = 0.1, variance = 1.</span></span>
 <span id="cb298-8"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-8"></a>my_covariances &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">.1</span>, <span class="fl">.1</span>, <span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
 <span id="cb298-9"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-9"></a>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> N, <span class="dt">mu =</span> my_means, <span class="dt">Sigma =</span> my_covariances) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb298-10"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-10"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb298-10"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-10"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></span>
 <span id="cb298-11"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-11"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(V1, V2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se=</span>F) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb298-12"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-12"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>))</span>
 <span id="cb298-13"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-13"></a>Warning<span class="op">:</span><span class="st"> `</span><span class="dt">as_tibble.matrix()</span><span class="st">`</span> requires a matrix with column names or a <span class="st">`</span><span class="dt">.name_repair</span><span class="st">`</span> argument. Using compatibility <span class="st">`</span><span class="dt">.name_repair</span><span class="st">`</span>.</span>
 <span id="cb298-14"><a href="session-4-effect-sizes-and-discrepancies.html#cb298-14"></a>This warning is displayed once per session.</span></code></pre></div>
 <p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-11-1.png" width="288" /></p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-1"></a><span class="kw">ggsave</span>(<span class="st">&#39;~/Desktop/corrpoint1.png&#39;</span>)</span>
-<span id="cb299-2"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-2"></a></span>
-<span id="cb299-3"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-3"></a>my_covariances &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">.5</span>, <span class="fl">.5</span>, <span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb299-4"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-4"></a>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> N, <span class="dt">mu =</span> my_means, <span class="dt">Sigma =</span> my_covariances) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb299-5"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-5"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb299-6"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(V1, V2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se=</span>F) <span class="op">+</span></span>
-<span id="cb299-7"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-7"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>))</span></code></pre></div>
-<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-11-2.png" width="288" /></p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-1"></a>my_covariances &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">.5</span>, <span class="fl">.5</span>, <span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb299-2"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-2"></a>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> N, <span class="dt">mu =</span> my_means, <span class="dt">Sigma =</span> my_covariances) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb299-3"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-3"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb299-4"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(V1, V2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se=</span>F) <span class="op">+</span></span>
+<span id="cb299-5"><a href="session-4-effect-sizes-and-discrepancies.html#cb299-5"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>))</span></code></pre></div>
+<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="session-4-effect-sizes-and-discrepancies.html#cb300-1"></a><span class="kw">ggsave</span>(<span class="st">&#39;~/Desktop/corrpoint5.png&#39;</span>)</span>
 <span id="cb300-2"><a href="session-4-effect-sizes-and-discrepancies.html#cb300-2"></a></span>
 <span id="cb300-3"><a href="session-4-effect-sizes-and-discrepancies.html#cb300-3"></a>my_covariances &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">.5</span>, <span class="fl">.5</span>, <span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
 <span id="cb300-4"><a href="session-4-effect-sizes-and-discrepancies.html#cb300-4"></a>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> N, <span class="dt">mu =</span> my_means, <span class="dt">Sigma =</span> my_covariances) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb300-5"><a href="session-4-effect-sizes-and-discrepancies.html#cb300-5"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb300-6"><a href="session-4-effect-sizes-and-discrepancies.html#cb300-6"></a><span class="st">  </span>GGally<span class="op">::</span><span class="kw">ggpairs</span>(<span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(<span class="st">&quot;smooth&quot;</span>)))</span></code></pre></div>
-<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-11-3.png" width="288" /></p>
+<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
 <div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="session-4-effect-sizes-and-discrepancies.html#cb301-1"></a></span>
 <span id="cb301-2"><a href="session-4-effect-sizes-and-discrepancies.html#cb301-2"></a><span class="kw">ggsave</span>(<span class="st">&#39;~/Desktop/pairspoint5.png&#39;</span>)</span>
 <span id="cb301-3"><a href="session-4-effect-sizes-and-discrepancies.html#cb301-3"></a></span>
@@ -530,7 +528,7 @@ Show answers
 <span id="cb301-7"><a href="session-4-effect-sizes-and-discrepancies.html#cb301-7"></a>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> N, <span class="dt">mu =</span> my_means, <span class="dt">Sigma =</span> my_covariances) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb301-8"><a href="session-4-effect-sizes-and-discrepancies.html#cb301-8"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb301-9"><a href="session-4-effect-sizes-and-discrepancies.html#cb301-9"></a><span class="st">  </span><span class="kw">ggpairs</span>(<span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(<span class="st">&quot;smooth&quot;</span>)))</span></code></pre></div>
-<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-11-4.png" width="288" /></p>
+<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
 <div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="session-4-effect-sizes-and-discrepancies.html#cb302-1"></a><span class="kw">ggsave</span>(<span class="st">&#39;~/Desktop/pairspoint5diffmeans.png&#39;</span>)</span>
 <span id="cb302-2"><a href="session-4-effect-sizes-and-discrepancies.html#cb302-2"></a></span>
 <span id="cb302-3"><a href="session-4-effect-sizes-and-discrepancies.html#cb302-3"></a></span>
@@ -540,7 +538,7 @@ Show answers
 <span id="cb302-7"><a href="session-4-effect-sizes-and-discrepancies.html#cb302-7"></a>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> N, <span class="dt">mu =</span> my_means, <span class="dt">Sigma =</span> my_covariances) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb302-8"><a href="session-4-effect-sizes-and-discrepancies.html#cb302-8"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb302-9"><a href="session-4-effect-sizes-and-discrepancies.html#cb302-9"></a><span class="st">  </span><span class="kw">ggpairs</span>(<span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(<span class="st">&quot;smooth&quot;</span>)))</span></code></pre></div>
-<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-11-5.png" width="288" /></p>
+<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-12-4.png" width="672" /></p>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="session-4-effect-sizes-and-discrepancies.html#cb303-1"></a><span class="kw">ggsave</span>(<span class="st">&#39;~/Desktop/pairspoint5diffmeanscovars.png&#39;</span>)</span>
 <span id="cb303-2"><a href="session-4-effect-sizes-and-discrepancies.html#cb303-2"></a></span>
 <span id="cb303-3"><a href="session-4-effect-sizes-and-discrepancies.html#cb303-3"></a><span class="co"># this example shows how adding noise to measurements attenuates the correlation</span></span>
@@ -551,7 +549,7 @@ Show answers
 <span id="cb303-8"><a href="session-4-effect-sizes-and-discrepancies.html#cb303-8"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb303-9"><a href="session-4-effect-sizes-and-discrepancies.html#cb303-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">e1  =</span><span class="kw">rnorm</span>(N), <span class="dt">e2  =</span><span class="kw">rnorm</span>(N),  <span class="dt">V1e =</span> V1<span class="op">+</span>e1, <span class="dt">V2e=</span>V2<span class="op">+</span>e2 ) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb303-10"><a href="session-4-effect-sizes-and-discrepancies.html#cb303-10"></a><span class="st">  </span><span class="kw">ggpairs</span>(<span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(<span class="st">&quot;smooth&quot;</span>)))</span></code></pre></div>
-<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-11-6.png" width="288" /></p>
+<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-12-5.png" width="672" /></p>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="session-4-effect-sizes-and-discrepancies.html#cb304-1"></a><span class="kw">ggsave</span>(<span class="st">&#39;~/Desktop/corrswitherrors.png&#39;</span>)</span></code></pre></div>
 </div>
 <div id="examples-of-between-groups-effects" class="section level5">
@@ -566,13 +564,13 @@ Show answers
 <span id="cb305-8"><a href="session-4-effect-sizes-and-discrepancies.html#cb305-8"></a></span>
 <span id="cb305-9"><a href="session-4-effect-sizes-and-discrepancies.html#cb305-9"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb305-10"><a href="session-4-effect-sizes-and-discrepancies.html#cb305-10"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Outcome, <span class="dt">colour=</span>Group, <span class="dt">group=</span>Group)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>()</span></code></pre></div>
-<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="session-4-effect-sizes-and-discrepancies.html#cb306-1"></a></span>
 <span id="cb306-2"><a href="session-4-effect-sizes-and-discrepancies.html#cb306-2"></a></span>
 <span id="cb306-3"><a href="session-4-effect-sizes-and-discrepancies.html#cb306-3"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb306-4"><a href="session-4-effect-sizes-and-discrepancies.html#cb306-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Outcome =</span> <span class="kw">ifelse</span>(Group<span class="op">==</span><span class="st">&quot;A&quot;</span>, Outcome<span class="op">+</span><span class="dv">2</span>, Outcome)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb306-5"><a href="session-4-effect-sizes-and-discrepancies.html#cb306-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Outcome, <span class="dt">colour=</span>Group, <span class="dt">group=</span>Group)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>()</span></code></pre></div>
-<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
 </div>
 <div id="pooled-standard-deviation" class="section level5">
 <h5>Pooled standard deviation</h5>
@@ -657,7 +655,7 @@ Show answers
 <span id="cb310-8"><a href="session-4-effect-sizes-and-discrepancies.html#cb310-8"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb310-9"><a href="session-4-effect-sizes-and-discrepancies.html#cb310-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>data) <span class="op">+</span></span>
 <span id="cb310-10"><a href="session-4-effect-sizes-and-discrepancies.html#cb310-10"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Outcome&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
-<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-16-1.png" width="288" /></p>
+<p><img src="09-real-pt-3_files/figure-html/unnamed-chunk-17-1.png" width="288" /></p>
 
 </div>
 </div>
