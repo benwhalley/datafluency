@@ -16,6 +16,8 @@ knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=FALSE, comment=NA, messa
 > To end our journey, we return to where we started: thinking about the size of the effects we have found, and how to interpret them.
 
 
+
+
 [Slides from the session](slides/real_4_sm.pptx)
 
 See the [section at the end](#slidebits) for the code to make the plots from todays slides.
