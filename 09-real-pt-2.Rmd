@@ -271,7 +271,7 @@ g <- guyer %>% group_by(sex) %>% summarise(m=mean(cooperation)) %>% pull(m)
 diff(g)
 ```
 
-> The difference in rates of cooperation between men and women was relatively small `r g[2]` vs `r g[1]`, `r apastats::describe.ttest(t.test(cooperation~sex, data=guyer))`).
+> The difference in rates of cooperation between men and women was relatively small `r g[2]` vs `r g[1]`, `r apastats::describe.ttest(t.test(cooperation~sex, data=guyer, var.equal=T))`).
 
 Or, if you must:
 
