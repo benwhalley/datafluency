@@ -524,7 +524,7 @@ expdata %>%
 ```
 
 However, there is evidence that readers often misinterpret bar plots. Specifically, the problem is
-that we percieve values _within_ the bar area as more _likely_ than those just above, even though
+that we perceive values _within_ the bar area as more _likely_ than those just above, even though
 this is not in fact the case.
 
 A better choice is (almost always) to use a boxplot:
