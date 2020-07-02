@@ -6,7 +6,7 @@ bookdown::gitbook:
     biblio-style: 'apalike'
     number_sections: no
     toc_depth: 2
-    split_by: section
+    split_by: chapter
     config:
         toc:
             collapse: section
