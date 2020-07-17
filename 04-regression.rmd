@@ -7,6 +7,7 @@ library(cowplot)
 library(DiagrammeR)
 source('grvizpng.R')
 theme_set(theme_minimal())
+knitr::opts_chunk$set(cache=T)
 ```
 
 ![](media/duck.jpg){width=40%}

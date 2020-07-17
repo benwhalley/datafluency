@@ -87,7 +87,7 @@ Fit two models with different sets of predictors to your own data. Remember to:
 - Report the F test
 - Check the R^2 values (and adjusted R^2)
 - Check the APA guidelines for how to report regression results.
-::: 
+:::
 
 
 
@@ -158,7 +158,7 @@ Alternatively, we could run both models using BayesFactor and then use division 
 m1 <- lmBF( outcome ~ X1 + X2, data=df)
 m2 <- lmBF( outcome ~ X1 * X2, data=df)
 
-m2/m1 
+m2/m1
 ```
 
 The result of `m2/m1` is the $BF_{10}$, and gives the evidence *in favour* of the interaction.
@@ -271,7 +271,7 @@ g <- guyer %>% group_by(sex) %>% summarise(m=mean(cooperation)) %>% pull(m)
 diff(g)
 ```
 
-> The difference in rates of cooperation between men and women was relatively small `r g[2]` vs `r g[1]`, `r apastats::describe.ttest(t.test(cooperation~sex, data=guyer))`).
+> The difference in rates of cooperation between men and women was relatively small `r g[2]` vs `r g[1]`, `r apastats::describe.ttest(t.test(cooperation~sex, data=guyer, var.equal=T))`).
 
 Or, if you must:
 
@@ -285,7 +285,7 @@ In this case it doesn't look like there is an interaction between gender and con
 
 ```{r}
 guyer.interaction.model <- lm(cooperation ~ condition * sex, data=guyer)
-guyer.interaction.model %>% 
+guyer.interaction.model %>%
   car::Anova(type=3)
 ```
 
@@ -293,7 +293,7 @@ guyer.interaction.model %>%
 Because there is no interaction, some authors would argue that using type 2 sums of squares would be more appropriate in this instance:
 
 ```{r}
-guyer.interaction.model %>% 
+guyer.interaction.model %>%
   car::Anova(type=2)
 ```
 
@@ -310,11 +310,11 @@ guyer.bf <- anovaBF(cooperation ~ condition * sex, data=guyer)
 guyer.bf/guyer.bf
 ```
 
-This table shows us the Bayes Factor for each comparison between possible models. We can see that the 
+This table shows us the Bayes Factor for each comparison between possible models. We can see that the
 
 
 
-### Test and contrasts 
+### Test and contrasts
 
 The `carData::Adler` data reports results from a study of experimenter effects. From the R help file:
 
@@ -325,7 +325,7 @@ The `carData::Adler` data reports results from a study of experimenter effects. 
 We can plot the results like so:
 
 ```{r}
-carData::Adler %>% 
+carData::Adler %>%
   ggplot(aes(expectation, rating)) + geom_boxplot() + facet_wrap(~instruction)
 ggsave('images/adlerplot.png', width=4, height=3)
 ```
@@ -382,10 +382,10 @@ pairs(emmeans(adler.m, ~ expectation * instruction))
 ```
 
 ```{r, include=F, echo=F}
-contrast(emmeans(adler.m, ~ expectation * instruction), 
+contrast(emmeans(adler.m, ~ expectation * instruction),
          interaction="pairwise")
 
-plot(contrast(emmeans(adler.m, ~ expectation * instruction), 
+plot(contrast(emmeans(adler.m, ~ expectation * instruction),
          interaction="pairwise")) + geom_vline(xintercept = 0)
 ```
 
@@ -422,9 +422,9 @@ As predicted, we have differences in the effect of expectancy between 'none' vs.
 At this point it makes sense to plot the result. Calling `plot` with the results of an `emmeans` command returns a ggplot. Below, I add a vertical line at zero so we can easily see where the 95% CI overlaps, and also make the axis labels more decriptive:
 
 ```{r}
-plot(contrast(adler.means.all, interaction="pairwise")) + 
-  geom_vline(xintercept=0) + 
-  xlab("Difference in the effect of expectation") + 
+plot(contrast(adler.means.all, interaction="pairwise")) +
+  geom_vline(xintercept=0) +
+  xlab("Difference in the effect of expectation") +
   ylab("Differences in differences")
 ```
 
@@ -436,11 +436,11 @@ plot(contrast(adler.means.all, interaction="pairwise")) +
 
 2. Run a model with two categorical predictors and their interaction.
 
-3. Compute tests for all pairwise comparisons in this. 
+3. Compute tests for all pairwise comparisons in this.
 
 4. Test the effect of `am` within each level of `cyl`
 
-5. Compute and interpret interaction contrasts (i.e. tests of differences in differences). Write down what the numbers mean in prose. 
+5. Compute and interpret interaction contrasts (i.e. tests of differences in differences). Write down what the numbers mean in prose.
 
 
 `r hide("Show the code")`
@@ -450,7 +450,7 @@ plot(contrast(adler.means.all, interaction="pairwise")) +
 # plot should always come first
 mtcars %>% ggplot(aes(factor(am), mpg )) + geom_boxplot() + facet_wrap(~cyl)
 
-# q2 
+# q2
 mt.model <- lm(mpg~factor(am)*factor(cyl), data=mtcars)
 (mtcars.means <- emmeans(mt.model, ~factor(am)*factor(cyl)))
 car::Anova(mt.model, type=3)
@@ -459,7 +459,7 @@ car::Anova(mt.model, type=3)
 contrast(mtcars.means, "pairwise")
 # or pairs(mtcars.means)
 
-# q4 
+# q4
 contrast(emmeans(mt.model, ~factor(am) | factor(cyl)))
 
 # q5
@@ -531,18 +531,18 @@ If you wanted set the family size to be larger (e.g. to account for all the test
 
 ```{r}
 # save the table of tests as a dataframe
-table.of.tests <- contrast(adler.means.all, "pairwise", interaction="pairwise", adjust="none") %>% 
-  as_tibble 
+table.of.tests <- contrast(adler.means.all, "pairwise", interaction="pairwise", adjust="none") %>%
+  as_tibble
 
 # use mutate and p.adjust to correct the p values:
-table.of.tests %>% 
-  mutate(p.adj = p.adjust(p.value, method="bonf", n=2000)) %>% 
+table.of.tests %>%
+  mutate(p.adj = p.adjust(p.value, method="bonf", n=2000)) %>%
   # use a special function from apastats package to round p values nicely
-  mutate_at(vars(starts_with('p.')), funs(apastats::round.p)) %>% 
+  mutate_at(vars(starts_with('p.')), funs(apastats::round.p)) %>%
   # rename columns so the table looks nice
-  rename(`Expectation effect` = expectation_pairwise, 
+  rename(`Expectation effect` = expectation_pairwise,
          Comparison=instruction_pairwise,
-         Estimate=estimate) %>% 
+         Estimate=estimate) %>%
   pander(caption="Interaction contrasts adjusted for familywise error rate (family size=2000!)")
 ```
 
@@ -557,6 +557,3 @@ In this instance the adjustment doesn't change the inference, but it often will.
 2. For more explanation and exercises see: <https://benwhalley.github.io/just-enough-r/multiple-comparisons.html>
 
 :::
-
-
-
