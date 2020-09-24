@@ -7,12 +7,13 @@ library(cowplot)
 library(DiagrammeR)
 library(pander)
 theme_set(theme_minimal())
+knitr::opts_chunk$set(cache=T)
 ```
 
 
 ![](media/error_bars_2x.png){width=50%}
 
-> Statistical require us to be explicit about our assumptions and help us make numerical predictions
+> Statistics require us to be explicit about our assumptions and help us make numerical predictions
 > for new data. They also let us **quantify our uncertainty** about these predictions. Quantifying
 > uncertainty is important for both practical and theoretical purposes. Practically, we might want
 > to put 'bounds' on our predictions, allowing policy-makers or individuals to make better

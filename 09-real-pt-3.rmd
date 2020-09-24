@@ -50,15 +50,15 @@ Remember that the `cohen.d` function uses a formula, but:
 `r hide("Show answers")`
 
 ```{r}
-gapminder::gapminder %>% filter(year==1967 | year==1987) %>% 
+gapminder::gapminder %>% filter(year==1967 | year==1987) %>%
   effsize::cohen.d(lifeExp~year, data=.)
 
 
-gapminder::gapminder %>% 
+gapminder::gapminder %>%
   # we need to change continent to a character variable first, or we get an error
-  mutate(continent=as.character(continent)) %>% 
-  filter(continent=="Asia" | continent =="Europe") %>% 
-  filter(year==1997) %>% 
+  mutate(continent=as.character(continent)) %>%
+  filter(continent=="Asia" | continent =="Europe") %>%
+  filter(year==1997) %>%
   effsize::cohen.d(lifeExp~continent, data=., na.rm=F)
 
 ```
@@ -152,7 +152,7 @@ stats::ks.test(A, B)
 
 
 
-There are other uses of the KS test too, so if this doesn't describe what you need see the help file: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/ks.test.html. 
+There are other uses of the KS test too, so if this doesn't describe what you need see the help file: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/ks.test.html.
 
 
 
@@ -227,9 +227,9 @@ The R cookbook also has some examples: http://www.cookbook-r.com/Statistical_ana
 ### Plots and other bits from the slides {#slidebits}
 
 
-The code chunks below should be reviewed in conjunction with the slides from today's session. 
+The code chunks below should be reviewed in conjunction with the slides from today's session.
 
-It's only included here to show I produced the images for the talk. Bear in mind that some contain code which we haven't explicitly covered in the course. The code is only included here for reference for those who are interested. 
+It's only included here to show I produced the images for the talk. Bear in mind that some contain code which we haven't explicitly covered in the course. The code is only included here for reference for those who are interested.
 
 
 ##### Correlations are effect sizes
@@ -240,14 +240,14 @@ This code simulates some correlated data and plots the result.
 library(GGally)
 
 N=500
-my_means <- c(0, 0)                     
+my_means <- c(0, 0)
 set.seed(1234)
 
 # correlations of r = 0.1, variance = 1.
 my_covariances <- matrix(c(1, .1, .1, 1), ncol = 2)
-MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>% 
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
   as_tibble() %>%
-  ggplot(aes(V1, V2)) + geom_point() + geom_smooth(method=lm, se=F) + 
+  ggplot(aes(V1, V2)) + geom_point() + geom_smooth(method=lm, se=F) +
   coord_cartesian(xlim=c(-2.5, 2.5), ylim=c(-2.5, 2.5))
 
 ```
@@ -255,45 +255,45 @@ MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
 
 ```{r}
 my_covariances <- matrix(c(1, .5, .5, 1), ncol = 2)
-MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>% 
-  as_tibble() %>% 
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
   ggplot(aes(V1, V2)) + geom_point() + geom_smooth(method=lm, se=F) +
   coord_cartesian(xlim=c(-2.5, 2.5), ylim=c(-2.5, 2.5))
-ggsave('~/Desktop/corrpoint5.png')
+ggsave('corrpoint5.png')
 
 my_covariances <- matrix(c(1, .5, .5, 1), ncol = 2)
-MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>% 
-  as_tibble() %>% 
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
   GGally::ggpairs(lower = list(continuous = wrap("smooth")))
 
-ggsave('~/Desktop/pairspoint5.png')
+ggsave('pairspoint5.png')
 
 # different means, but same variances and correlations
-my_means <- c(10, 100)                     
+my_means <- c(10, 100)
 my_covariances <- matrix(c(1, .5, .5, 1), ncol = 2)
-MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>% 
-  as_tibble() %>% 
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
   ggpairs(lower = list(continuous = wrap("smooth")))
-ggsave('~/Desktop/pairspoint5diffmeans.png')
+ggsave('pairspoint5diffmeans.png')
 
 
 # different means and variances, but same correlations
-my_means <- c(10, 100)                     
+my_means <- c(10, 100)
 my_covariances <- matrix(c(1/200, .5, .5, 200), ncol = 2)
-MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>% 
-  as_tibble() %>% 
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
   ggpairs(lower = list(continuous = wrap("smooth")))
-ggsave('~/Desktop/pairspoint5diffmeanscovars.png')
+ggsave('pairspoint5diffmeanscovars.png')
 
 # this example shows how adding noise to measurements attenuates the correlation
 N=200
-my_means <- c(0, 0)                     
+my_means <- c(0, 0)
 my_covariances <- matrix(c(1, .5, .5, 1), ncol = 2)
-MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>% 
-  as_tibble() %>% 
-  mutate(e1  =rnorm(N), e2  =rnorm(N),  V1e = V1+e1, V2e=V2+e2 ) %>% 
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
+  mutate(e1  =rnorm(N), e2  =rnorm(N),  V1e = V1+e1, V2e=V2+e2 ) %>%
   ggpairs(lower = list(continuous = wrap("smooth")))
-ggsave('~/Desktop/corrswitherrors.png')
+ggsave('corrswitherrors.png')
 
 ```
 
@@ -306,16 +306,16 @@ set.seed(1234)
 
 N=5000
 df <- tibble(
-  Outcome=rnorm(N), 
+  Outcome=rnorm(N),
   Group=sample(c("A","B"), N, replace=T)
-  ) 
+  )
 
-df %>% 
+df %>%
   ggplot(aes(Outcome, colour=Group, group=Group)) + geom_density()
 
 
-df %>% 
-  mutate(Outcome = ifelse(Group=="A", Outcome+2, Outcome)) %>% 
+df %>%
+  mutate(Outcome = ifelse(Group=="A", Outcome+2, Outcome)) %>%
   ggplot(aes(Outcome, colour=Group, group=Group)) + geom_density()
 
 ```
@@ -354,17 +354,17 @@ set.seed(12345)
 N <- 10000
 
 df1 <- tibble(
-    y = rnorm(N, mean=0, sd=1), 
+    y = rnorm(N, mean=0, sd=1),
     g=sample(0:1, N, replace=T)
-  ) %>% 
+  ) %>%
   mutate(y = y + .8 * as.numeric(g))
 
 effsize::cohen.d(y~g, data=df1)
 
 df2 <- tibble(
-    y = rnorm(N, mean=0, sd=2), 
+    y = rnorm(N, mean=0, sd=2),
     g=sample(0:1, N, replace=T)
-  ) %>% 
+  ) %>%
   mutate(y = y + .8 * as.numeric(g))
 
 # effect size is lower now because variance was higher, even through the
@@ -376,15 +376,13 @@ This simply plots the example data above:
 
 ```{r fig.width=3, fig.height=2}
 # this combines both simulated datasets, and adds a label column to each used in the plot
-bind_rows(df1 %>% 
-            mutate(data="Delta = .8, SD = 1"), 
-          df2 %>% 
-            mutate(data="Delta = .8, SD = 2") ) %>% 
+bind_rows(df1 %>%
+            mutate(data="Delta = .8, SD = 1"),
+          df2 %>%
+            mutate(data="Delta = .8, SD = 2") ) %>%
   # plots both datasets using a facet
-  ggplot(aes(y, color=factor(g), group=g)) + 
-  geom_density() + 
+  ggplot(aes(y, color=factor(g), group=g)) +
+  geom_density() +
   facet_wrap(~data) +
   xlab("Outcome") + ylab("Density")
 ```
-
-
