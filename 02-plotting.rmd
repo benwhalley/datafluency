@@ -245,6 +245,7 @@ gapminder::gapminder %>%
   facet_wrap(~continent)
 ```
 
+
 **Explanation**: We added the text `+ facet_grid(~continent)` to our earlier plot, but removed the
 part that said `color=continent`. This made `ggplot` create individual _panels_ for each continent.
 Splitting the graph this way makes it somewhat easier to compare the differences _between_
