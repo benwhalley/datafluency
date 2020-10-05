@@ -1,4 +1,17 @@
-# Regression {#regression}
+---
+title: 'Making Predictions: Regression'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
 
 ```{r include=F,echo=F}
 library(tidyverse)
@@ -12,7 +25,6 @@ knitr::opts_chunk$set(cache=T)
 
 ![](media/duck.jpg){width=40%}
 
-#### In brief
 
 > Regression is just a fancy term for drawing the 'best-fitting' line through a scatter-plot, and
 > summarising how well the line describes the data.

@@ -7,7 +7,7 @@ biblio-style: apa6
 link-citations: yes
 output: 
   webex::html_clean:
-    toc: true
+    after_body: footer.html
 ---
 
 
@@ -49,7 +49,7 @@ you in good stead in your future careers.
 # Sessions and worksheets
 
 
-10. [Getting started with Rstudio](01-using-rstudio.html) and [exploring data](01-exploring-data.html), plus [extension exercises](01-extensions.html)
+10. [Getting started with Rstudio](01-using-rstudio.html) and [exploring data](01-exploring-data.html), plus [extension exercises](01-extensions.html). Also read [how to use these worksheets](00-how-to-use-worksheets.html).
 11. [Data visualisation](02-plotting.html); also see [extension exercises](02-plotting-extensions.html)
 12. [Data wrangling](03-data-wrangling.html); also see [extension exercises](03-data-wrangling-extensions.html)
 13. Making predictions/Regression
@@ -77,6 +77,15 @@ you in good stead in your future careers.
 
 33. Effect sizes
 
+
+
+---
+
+
+Other guides/info:
+
+- [How to use these worksheets](00-how-to-use-worksheets.html)
+- [Glossary and cheat sheet](00-glossary-and-cheatsheet.html)
 
 :::
 

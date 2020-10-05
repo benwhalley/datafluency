@@ -5,7 +5,10 @@ date: "September 2020"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
-output: webex::html_clean
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
 ---
 
 

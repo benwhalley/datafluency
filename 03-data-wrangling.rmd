@@ -5,7 +5,10 @@ date: "September 2020"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
-output: webex::html_clean
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
 ---
 
 
@@ -30,7 +33,6 @@ library(webex)
 knitr::opts_chunk$set(cache=T)
 ```
 
-### In brief
 
 > Most time in data analysis is spent 'tidying up' data: getting it into a suitable format to get
 > started. Data scientists have a particular definition of _tidy_: Tidy datasets are "easy to
@@ -48,7 +50,7 @@ knitr::opts_chunk$set(cache=T)
 
 In previous worksheets we used various commands in the `tidyverse`, like `filter` and `group_by`. 
 
-If you want to recap these commands you can use the cheatsheet, especially
+If you want to recap these commands you can use [the cheatsheet](00-glossary-and-cheatsheet.html), especially
 the part on groups and summaries.
 
 
@@ -301,7 +303,7 @@ Combine the `pivot_longer`, `group_by` and `summarise` commands (in that order) 
 Hints:
 
 - You want to pivot all of the variables in the attitude dataset this time
-- We covered using `summarise` in the first and second worksheets. If you want a reminder, the cheatsheet might be the quickest place to look
+- We covered using `summarise` in the first and second worksheets. If you want a reminder, the [cheatsheet](00-glossary-and-cheatsheet.html) might be the quickest place to look
 
 
 :::
@@ -332,7 +334,7 @@ gapminder::gapminder %>%
 
 --- 
 
-As we saw before the `gapminder` data is a fairly long format. There are multiple rows per-country
+As we saw before, the `gapminder` data is a fairly long format. There are multiple rows per-country
 corresponding to different years.
 
 Let's say we want to pivot `gapminder` to a wide format to _compare_ GDP in different years. We first need to select the data we want --- country, year and GDP:
@@ -369,11 +371,3 @@ Experiment for yourself with `pivot_longer` and `pivot_wider`:
 
 
 
-
-------------
-
-
-All content on this site distributed under a [Creative Commons](https://creativecommons.org/)
-licence. CC-BY-SA 4.0.
-
------------------

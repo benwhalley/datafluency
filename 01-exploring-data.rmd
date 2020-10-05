@@ -5,7 +5,10 @@ date: "September 2020"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
-output: webex::html_clean
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
 ---
 
 
@@ -653,5 +656,3 @@ Apply the commands for summarising, grouping and plotting these data that we hav
 Some of this material was adapted from
 [Andy Wills' RminR](https://ajwills72.github.io/rminr/using_rstudio.html).
 
-All content on this site distributed under a [Creative Commons](https://creativecommons.org/)
-licence. CC-BY-SA 4.0.

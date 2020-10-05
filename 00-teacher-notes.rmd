@@ -2,8 +2,13 @@
 title: 'PSYC753: Teacher Notes and Session Plans'
 author: 'Ben Whalley'
 date: "September 2020"
-tufte::tufte_handout: default
-tufte::tufte_html: default
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
 ---
 
 
