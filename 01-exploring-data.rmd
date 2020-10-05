@@ -31,6 +31,8 @@ cpsdata <- read_csv("data/cps2.csv")
 Before starting this exercise, you should have had a brief introduction to using RStudio. If not,
 take a look at the *Using RStudio* worksheet.
 
+It would also help to see the live demo in the accompanying lecture (or watch it on Panopto, see the DLE site).
+
 :::
 
 
