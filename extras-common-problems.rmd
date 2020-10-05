@@ -1,4 +1,14 @@
-## Common problems {#common-problems}
+---
+title: 'Common problems with R/RStudio'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: webex::html_clean
+---
+
+
 
 ```{r}
 library(tidyverse)
@@ -6,6 +16,7 @@ library(tidyverse)
 
 Some of this material was adapted from
 [Andy Wills' RminR](https://ajwills72.github.io/rminr/using_rstudio.html).
+
 
 ### Try these things first...
 

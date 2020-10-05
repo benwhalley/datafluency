@@ -1,0 +1,26 @@
+---
+title: 'PSYC753: Teacher Notes and Session Plans'
+author: 'Ben Whalley'
+date: "September 2020"
+tufte::tufte_handout: default
+tufte::tufte_html: default
+---
+
+
+
+
+# 01 Beginners
+
+
+## Welcome and overview of the module
+
+
+- Skills to analyse data as independent researchers
+- Confidence in working with data
+- Transferable skill... not many careers don't need it
+
+
+
+
+
+- 20

@@ -1,31 +1,33 @@
 ---
 title: 'Data Fluency'
 author: 'Ben Whalley and Chris Berry'
-site: bookdown::bookdown_site
+date: "September 2020"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
+output: 
+  webex::html_clean:
+    toc: true
 ---
 
 
 ```{r, include=F, echo=F}
 knitr::opts_chunk$set(echo = TRUE,
-  collapse=TRUE, 
+  collapse=TRUE,
   comment=NA,
   cache = TRUE,
   message=FALSE)
 ```
 
-# {-}
-
-<!-- ![Image via [archive.org](https://archive.org/details/cu31924074275912/page/n131)](media/cow-small.png) -->
-
-![[photo](https://en.wikipedia.org/wiki/Tower_of_Babel)](media/1476px-Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_(Vienna)_-_Google_Art_Project.jpg)
 
 
 
 
-From the module aims:
+
+# Overview
+
+
+\noindent From the module aims:
 
 > The module aims to foster fluency and confidence in the handling,
 > visualisation and communication of quantitative data, alongside skills and
@@ -36,14 +38,50 @@ From the module aims:
 > a contemporary approach, emphasising prediction and model evaluation is
 > introduced.
 
-In a nutshell: we want to give you the skills to analyse your data as independent
+\noindent In a nutshell: we want to give you the skills to analyse your data as independent
 researchers, and to give you confidence in working with data which will stand
 you in good stead in your future careers.
 
 
 
+:::{.exercise}
 
-### Approach
+# Sessions and worksheets
+
+
+10. [Getting started with Rstudio](01-using-rstudio.html) and [exploring data](01-exploring-data.html), plus [extension exercises](01-extensions.html)
+11. [Data visualisation](02-plotting.html); also see [extension exercises](02-plotting-extensions.html)
+12. [Data wrangling](03-data-wrangling.html); also see [extension exercises](03-data-wrangling-extensions.html)
+13. Making predictions/Regression
+
+---
+
+15. Multiple Regression (categorical by continuous)
+16. Multiple continuous predictors
+17. Comparing Models
+18. Fitting Curves
+
+---
+
+
+26. Open Science and reproducible research
+27. Intervals and Uncertainty
+28. Reproducing a real paper
+29. Common analyses in practice
+
+---
+
+31. Follow-up and post-hoc tess
+
+---
+
+33. Effect sizes
+
+
+:::
+
+
+# Approach
 
 Psychology students often learn statistics through a "bag of tricks"
 approach. Workshops might teach how to "do an Anova", or "how run a multiple
@@ -57,10 +95,9 @@ adopt the model for the work of data scientists proposed by
 
 ![Wickham's model of a data science workflow](media/data-science.png)
 
-In this module we do cover specific skills, but these are embedded within a broader approach to working with data, and integrate it into your own
-research.
+In this module we do cover specific skills, but these are embedded within a broader approach to working with data, and integrate it into your own research.
 
-### Format of the sessions
+# Format of the sessions
 
 We have 16 sessions, which work as follows:
 
@@ -73,7 +110,11 @@ We have 16 sessions, which work as follows:
     finish early, other times you may be expected to complete the activities
     outside of class.
 
-### The most important thing of all
+
+In this course we'll learn R as we go, building a little at a time. If some of this is familiar, there will be extension exercises to enhance
+your knowledge.
+
+## The most important thing of all
 
 The most important thing of all is to **practice**.
 
@@ -82,7 +123,7 @@ all to be able to pass the course effectively.
 
 
 
-### Lab diary/R project archive
+# Lab diary/R project archive
 
 It's recommended that you keep a running note of all the work you do in class.
 This can take for form of a notebook in Word, a blog, or an R script (see first
@@ -96,7 +137,7 @@ and make suggestions/improvements.
 
 
 
-### Access to R
+# Access to R
 
 Throughout the module we use R for data processing and analysis.
 
@@ -111,3 +152,15 @@ code examples here is to the school's RStudio Server.
 ### Why do we use R? {#reasons-to-use-r}
 
 See <https://ajwills72.github.io/rminr/why-r-student.html>
+
+
+
+
+
+------------
+
+
+All content on this site distributed under a [Creative Commons](https://creativecommons.org/)
+licence. CC-BY-SA 4.0.
+
+-----------------
