@@ -5,7 +5,7 @@ date: "September 2020"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
-output: 
+output:
   webex::html_clean:
     includes:
       after_body: footer.html
@@ -79,7 +79,7 @@ The plot he builds plot is interesting because it uses many different features t
 -   Time (in the animation)
 
 These features are carefully selected to highlight important features of the data and support the
-narrative he provides. 
+narrative he provides.
 
 Although we need to have integrity in our plotting (we'll see bad examples later), this
 narrative aspect of a plot is important: we always need to consider our audience.
@@ -133,7 +133,7 @@ rosling1
 
 As you have already seen, `ggplot` uses the term **aesthetics** to refer to different dimensions of
 a plot. '_Aesthetics_' refers to 'what things look like', and the `aes()` command in `ggplot`
-creates links variables (columns in the dataset) to visual features of the plot. This is called a
+creates links between variables (columns in the dataset) to visual features of the plot. This is called a
 **mapping**.
 
 There are x visual features (aesthetics) of plots we will use in this session:
@@ -146,7 +146,7 @@ There are x visual features (aesthetics) of plots we will use in this session:
 
 
 
-### Recreate the Rosling plot 
+### Recreate the Rosling plot
 
 
 :::{.exercise}
@@ -154,7 +154,7 @@ There are x visual features (aesthetics) of plots we will use in this session:
 Rosling's plot looked something like this:
 
 ```{r, include=T, echo=F, message=F, error=F}
-rosling1 + 
+rosling1 +
   labs(size="Country Population", color="", x="Log GDP Per Capita", y="Life expectancy (years)") +
   ggtitle("World life expectancy and incomes in 2002")
 ```
@@ -166,10 +166,10 @@ this:
 ```{r, eval=F, echo=T}
 gapminder::gapminder %>%
   filter(BLANK==BLANK)  %>%
-  ggplot(aes(x=BLANK, 
-             y=BLANK, 
-             size=BLANK, 
-             color=BLANK)) + 
+  ggplot(aes(x=BLANK,
+             y=BLANK,
+             size=BLANK,
+             color=BLANK)) +
   geom_point()
 ```
 
@@ -237,7 +237,7 @@ grey-shaded area, which represents the standard error of the local average (agai
 
 1. Reopen the `cps2.csv` data, or use the `mtcars` or `iris` data. Create a scatter plot of any two
    continuous variables.
-   
+
 2. Add a smoothed line to the plot using `geom_smooth`
 
 
@@ -459,7 +459,9 @@ had.
 
 :::{.exercise}
 
-Optional: If you want to, do the section called 'Logarithmic scales' in the extensions worksheet.
+Optional: If you want to, do the section called 'Logarithmic scales' in the [extensions worksheet](02-plotting-extensions.html).
+
+:::
 
 
 
@@ -520,12 +522,11 @@ into the console) or use the [wikipedia page here](https://en.wikipedia.org/wiki
 
 :::{.exercise}
 
-Load the (simulated) dataset called `expdata.csv`. 
+Load the (simulated) dataset called `expdata.csv`.
 
 Either download the file and upload to your Rstudio project directory, or read it directly from this url: <https://gist.githubusercontent.com/benwhalley/f94baf447612e2434b181739dbba27df/raw/43df26022fff68f49918c795f27d7352dc0d3425/expdata.csv>
 
 -   Recreate the boxplot above
--   Adjust it so that `stimuli` is the variale on the x-axis
 -   Use a facet to recreate the plot you saw above, combining both `Condition` and `Stimuli`
 
 :::
@@ -544,7 +545,7 @@ expdata %>%
 **Explanation**: We used `Condition` and `RT` as our x and y axes, as before. This time we added
 `stat_summary()` instead of `geom_boxplot()`. By default this plots the mean and standard error (a
 measure of variability) in each group, using a **point-range plot**. This is better than a bar chart
-because it avoids multiple a known bias in how we read them. You can ignore the warning about
+because it avoids a known bias in how we read them. You can ignore the warning about
 `No summary function supplied, defaulting to mean_se()` for now.
 
 :::{.exercise}

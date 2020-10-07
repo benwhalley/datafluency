@@ -21,6 +21,17 @@ theme_set(theme_minimal())
 ```
 
 
+
+
+# Code review
+
+TODO ADD ACTIVITY HERE
+
+![](images/code_quality.png)
+
+
+
+
 # RMarkdown
 
 Markdown is a simple **text format** which can include writing, tables and images (see
