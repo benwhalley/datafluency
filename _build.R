@@ -15,3 +15,9 @@ rmarkdown::render('03-data-wrangling-extensions.rmd')
 
 rmarkdown::render('04-regression.rmd')
 rmarkdown::render('04-regression-extensions.rmd')
+
+
+
+
+rmarkdown::render('09-open-science.rmd')
+rmarkdown::render('09-open-science-extensions.rmd')
