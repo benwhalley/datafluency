@@ -52,7 +52,8 @@ you in good stead in your future careers.
 10. [Getting started with Rstudio](01-using-rstudio.html) and [exploring data](01-exploring-data.html), plus [extension exercises](01-extensions.html). Also read [how to use these worksheets](00-how-to-use-worksheets.html).
 11. [Data visualisation](02-plotting.html); also see [extension exercises](02-plotting-extensions.html)
 12. [Data wrangling](03-data-wrangling.html); also see [extension exercises](03-data-wrangling-extensions.html)
-13. [Making predictions/Regression](04-regression.html) and [extensions](04-regression-extensions.html)
+<!--13. [Making predictions/Regression](04-regression.html) and [extensions](04-regression-extensions.html)-->
+13. Making predictions/Regression
 
 ---
 
