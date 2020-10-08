@@ -30,6 +30,11 @@ theme_set(theme_minimal())
 
 
 
+# Before you start
+
+Note that I may add to this document as we move through the course, responding to questions/issues that arise. The RMarkdown task will remain though, so if you want to complete that in advance feel free.
+
+
 
 # RMarkdown
 
