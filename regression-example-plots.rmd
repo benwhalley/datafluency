@@ -1,6 +1,6 @@
 ---
 title: Example plots
-output: pdf_document
+output: powerpoint_presentation
 classoption: landscape
 ---
 
@@ -8,23 +8,23 @@ Print these plots before the workshop
 
 \clearpage
 
-```{r echo=F, include=T, results="asis", fig.width=9, fig.height=6}
-library(tidyverse)
+```{r echo=F, include=F}
 library(tidyverse)
 studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
 set.seed(1234)
+```
+
+```{r, results="asis", echo=F, message=F, warning=F}
 for (i in 1:16) {
   p <- studyhabits %>%
     sample_n(10) %>%
-    ggplot(aes(work_hours, grade)) + geom_point() + ggtitle(paste("Example", i))
-  print(p)
+    ggplot(aes(work_hours, grade)) + geom_point() + ggtitle(paste("Group", i))
+  pander::pandoc.p('')
+  print(p, dpi=150)
+  pander::pandoc.p('')
+    
+
 }
 
 ```
 
-```{r, eval=F, include=F, echo=F}
-# knit myself into a pdf
-Sys.setenv(PATH=paste0(Sys.getenv('PATH'),':/usr/local/bin/'))
-rmarkdown::render('regression-example-plots.rmd',
-                  output_format = "pdf_document")
-```

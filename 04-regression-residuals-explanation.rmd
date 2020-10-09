@@ -1,0 +1,59 @@
+---
+title: ' Description vs prediction: Residuals and overfitting'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+This explanation is related to the class activity in which we drew lines on scatterplots.
+
+You **_should_** have found that the total length of the residuals for the
+curved lines is _smaller_ than the residuals for the straight line. If this
+isn't the case, check your measurements.
+
+This is because a curved line will be better **description** of the data you had
+when fitting it, but will be a poorer **predictor** of new data.
+
+This is why fitting straight lines is such a common technique. We know that the
+line doesn't describe the data we have perfectly, but we hope it will be a
+better predictor of future events than anything else.
+
+
+
+### Worse is better!
+
+You should have found that:
+
+-   Curved lines have smaller residuals _for the original data_
+-   Straight lines have smaller residuals _when you swap samples_
+
+The reason for this is that there is a **_tradeoff_**:
+
+-   If we draw a curved line, to get close to the original data points, then our
+    lines reflect peculiarities in the sample. That is, our lines are drawn to
+    accomodate **_random variation_** in this specific sample.
+
+-   Because these random variations aren't repeated in new samples, the lines
+    fit **_less well_** when we swap datasets.
+
+In fact, because the straight line (mostly) ignores this sample variation it
+_can be_ a better estimate of the real relationship in the population as a
+whole^[It's not _always_ true, but it's a good rule of thumb.].
+
+So worse is sometimes better: Because they were simpler, straight lines were a
+worse fit for our original dataset. But they were a _better_ predictor in new
+random samples.
+
+This is an example of **_overfitting_**. By overfitting, we mean that a model
+(in this case the line) is too closely matched to a particular sample, and so
+might not be a good predictor of the population as a whole.
+
+Overfitting is the reason we prefer simpler models (lines) to more complicated
+ones.
