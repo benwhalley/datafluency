@@ -142,7 +142,7 @@ bmis %>%
  geom_density()
 ```
 
-What is the median BMI in the sample? `r fitb(answer=round(median(bmis$BMI),1))`
+What is the median BMI in the sample? `r fitb(answer=median(bmis$BMI), tol=.1, num=T, calculator=F)`
 
 
 `r hide("Show hints")`
@@ -318,7 +318,7 @@ ggsave('examples/pivotboxplot.png', width=4, height=2.5, dpi = 200)
 
 `r hide("Show hints")`
 
-- Check the [cheatsheet](00-glossary-and-cheatsheet.rmd) if you are not sure how to add a boxplot layer (hint, it starts with `geom_`, so you might be able to guess or autocomplete it without looking it up)
+- Check the [cheatsheet](00-glossary-and-cheatsheet.html) if you are not sure how to add a boxplot layer (hint, it starts with `geom_`, so you might be able to guess or autocomplete it without looking it up)
 - You need to select only the three variables shown first
 - It's not necessary to creat a person identifier for this plot (although it won't hurt if you do)
 
