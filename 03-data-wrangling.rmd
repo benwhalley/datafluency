@@ -133,6 +133,8 @@ divided by their squared height (`^2` means _to the power of 2_, or squared, in 
 
 :::{.exercise}
 
+**#1**
+
 Create a *density* plot of BMI scores in the `women` dataset. It should look like this:
 
 ```{r, echo=F}
@@ -292,6 +294,8 @@ attitude_with_person %>%
 
 :::{.exercise}
 
+**#2**
+
 Use some tidyverse commands you already know, plus `pivot_longer`, to produce this plot using the `attitude` dataset:
 
 ```{r echo=F, message=F, warning=F}
@@ -344,6 +348,8 @@ attitude %>%
 ```
 
 :::{.exercise}
+
+**#3**
 
 Combine the `pivot_longer`, `group_by` and `summarise` commands (in that order) to reproduce the table above.
 
@@ -410,6 +416,8 @@ The resulting table helps us compare years within countries, or between countrie
 
 :::{.exercise}
 
+**#4**
+
 Experiment for yourself with `pivot_longer` and `pivot_wider`:
 
 -   Try using pivot_longer with some different datasets, perhaps `iris` and `mtcars`
@@ -423,7 +431,9 @@ Experiment for yourself with `pivot_longer` and `pivot_wider`:
 
 :::{.exercise}
 
-- If you are on the Clinical Psychology pathways (or interested in clinical and applied psychology), read @dawes1989clinical and reflect on whether you agree that quantitative methods are under-used to support decision making in clinical practice? If so, what are the barriers to change?
+**#5**
+
+- If you are on the Clinical Psychology pathways (or at all interested in clinical and applied psychology) read @dawes1989clinical and reflect on whether you agree that quantitative methods are under-used to support decision making in clinical practice? If so, what are the barriers to change?
 
 If you have time, now try the [extension exercises](03-data-wrangling-extensions.html)
 

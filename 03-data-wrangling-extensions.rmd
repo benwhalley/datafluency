@@ -29,6 +29,8 @@ theme_set(theme_minimal())
 
 :::{.exercise}
 
+**#1**
+
 To gain more understanding of the way the format of our data is important to the way we analyse it, read this article on wide/long data formats and the tradeoffs between the two: <https://www.theanalysisfactor.com/wide-and-long-data/>
 
 :::
@@ -93,6 +95,8 @@ longrepeatmeasuresdata %>%
 
 :::{.exercise}
 
+**#2**
+
 This file contains sample contact and address data for 100 people: https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv
 
 
@@ -148,6 +152,8 @@ contacts %>%
 
 
 :::{.exercise}
+
+**#3**
 
 Use the `mtcars` data and facetting to produce these plots:
 
