@@ -330,6 +330,30 @@ ggsave('examples/pivotboxplot.png', width=4, height=2.5, dpi = 200)
 
 
 
+`r hide("Show more hints")`
+
+You will need to:
+- select 3 of the variables from the attitude file
+- pivot longer
+- pipe the output to ggplot and use geom_boxplot
+
+`r unhide()`
+
+
+
+`r hide("Show complete answer")`
+
+```{r}
+attitude %>%
+  select(rating, complaints, learning) %>%
+  pivot_longer(everything()) %>% 
+  ggplot(aes(name, value)) +
+  geom_boxplot()
+```
+
+`r unhide()`
+
+
 :::
 
 
