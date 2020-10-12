@@ -433,9 +433,10 @@ Experiment for yourself with `pivot_longer` and `pivot_wider`:
 
 **#5**
 
-- If you are on the Clinical Psychology pathways (or at all interested in clinical and applied psychology) read @dawes1989clinical and reflect on whether you agree that quantitative methods are under-used to support decision making in clinical practice? If so, what are the barriers to change?
-
-If you have time, now try the [extension exercises](03-data-wrangling-extensions.html)
+If you are on the Clinical Psychology pathways (or at all interested in clinical and applied psychology) read @dawes1989clinical and reflect on whether you agree that quantitative methods are under-used to support decision making in clinical practice? If so, what are the barriers to change?
 
 :::
+
+
+If you have time now, try the [extension exercises](03-data-wrangling-extensions.html).
 

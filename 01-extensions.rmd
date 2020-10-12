@@ -266,10 +266,11 @@ One important thing to note about Excel spreadsheets is that **each file can con
 'sheets'**. In R terms, each Excel file can contain multiple dataframes. So we need to specify which
 sheet we want to import.
 
-An example of an Excel file is bundled with this worksheet (`simple-excel-example.xlsx`)
+An example of an Excel file is bundled with this worksheet ([simple-excel-example.xlsx](simple-excel-example.xlsx))
 
 To use the example:
 
+- Download the file from here: [simple-excel-example.xlsx](simple-excel-example.xlsx)
 -   Download the file to your computer (use Firefox, and definitely not Edge)
 -   Upload to RStudio, make sure the file extension is `xslx` or `xls`
 
