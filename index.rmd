@@ -52,31 +52,30 @@ you in good stead in your future careers.
 10. [Getting started with Rstudio](01-using-rstudio.html) and [exploring data](01-exploring-data.html), plus [extension exercises](01-extensions.html). Also read [how to use these worksheets](00-how-to-use-worksheets.html).
 11. [Data visualisation](02-plotting.html); also see [extension exercises](02-plotting-extensions.html)
 12. [Data wrangling](03-data-wrangling.html); also see [extension exercises](03-data-wrangling-extensions.html)
-<!--13. [Making predictions/Regression](04-regression.html) and [extensions](04-regression-extensions.html)-->
-13. Making predictions/Regression
+13. [Making predictions/Regression](04-regression.html) and [extensions](04-regression-extensions.html)
 
 ---
 
-15. Multiple Regression (categorical by continuous)
-16. Multiple continuous predictors
-17. Comparing Models
-18. Fitting Curves
+15. [Multiple Regression](05-multiple-regression-contin-by-categ.html) (categorical by continuous) and [extensions](05-multiple-regression-extensions.html)
+16. Multiple continuous predictors [see Chris' website](https://chrisjberry.github.io/datafluencyCB/)
+17. Comparing Models [see Chris' website](https://chrisjberry.github.io/datafluencyCB/)
+18. Fitting Curves [see Chris' website](https://chrisjberry.github.io/datafluencyCB/)
 
 ---
 
 
 26. [Open Science and reproducible research](09-open-science.html) and [extension](09-open-science-extensions.html)
-27. Intervals and Uncertainty
+27. [Intervals and Uncertainty](10-intervals.html)
 28. Reproducing a real paper
 29. Common analyses in practice
 
 ---
 
-31. Follow-up and post-hoc tess
+31. [Causal interpretations; Follow-up and post-hoc tests](14-interpretation-and-followup-tests.html)
 
 ---
 
-33. Effect sizes
+33. [Effect sizes](15-effect-sizes.html)
 
 
 

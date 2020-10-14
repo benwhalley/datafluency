@@ -198,7 +198,11 @@ Some tips:
 
 # More practice
 
-For more practice using these techniques for common problems in psychological research you could work through Andy Will's 'better tables' worksheet here: https://ajwills72.github.io/rminr/better-tables.html
+For more practice using these techniques for common problems in psychological research you could work through Andy Will's 'better tables' worksheet here: 
+
+- <https://ajwills72.github.io/rminr/better-tables.html>
+- [Preprocessing data from experiments](https://ajwills72.github.io/rminr/preproc.html) and [part 2 of this](https://ajwills72.github.io/rminr/more-on-preproc.html)
+
 
 
 ------------

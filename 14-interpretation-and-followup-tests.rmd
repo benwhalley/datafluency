@@ -1,0 +1,26 @@
+---
+title: 'Causal interpretation & followup tests'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=">", message=FALSE)
+library(tidyverse)
+library(webex)
+library(pander)
+theme_set(theme_minimal())
+```
+
+
+
+Coming soon.

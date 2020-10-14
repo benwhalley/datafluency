@@ -1,0 +1,393 @@
+---
+title: 'Multiple regression'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output:
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+```{r include=F,echo=F}
+library(tidyverse)
+library(webex)
+library(cowplot)
+library(DiagrammeR)
+source('grvizpng.R')
+theme_set(theme_minimal())
+knitr::opts_chunk$set(cache=T, message=F, warning=F)
+
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+
+```{r, echo=F, message=F, fig.width=6, fig.height=3}
+grVizPng('
+    digraph {
+        Sunshine -> Happiness
+        Unicorns -> Happiness
+    }
+', width=600, height=300) %>% knitr::include_graphics(., dpi=72)
+```
+
+> Multiple regression is a technique which can describe the relationship between **_one outcome_**
+> and **_two or more predictors_**.
+
+> We can also use multiple regression to describe cases where two variables **_interact_**. That is,
+> when the effect of one predictor is increased or decreased by another (this is sometimes called moderation).
+
+> Multiple regression is important because it allows us to make more realistic models and better
+> predictions. But, like any sharp tool, it should be used carefully. If our statistical model
+> doesn't match the underlying network of causes and effects, or if we have used a biased sample, we
+> can be misled.
+
+> When evaluating our models we can ask two useful questions: First, _how much of the variability in
+> the outcome do my predictors explain?_ The $R^2$ statistic answers this. Secondly: _does the model
+> make better predictions than just taking the **average** outcome_ (or using a simpler model with
+> fewer predictors)? For this we can compute a Bayes Factor.
+
+
+
+# Different lines needed? {#regression-interaction}
+
+If you have a hypothesis that a relationship might differ for two different groups, **the first
+thing you should do is plot the data**.
+
+Before starting, let's load the tidyverse and the example dataset on student grades and study habits:
+
+```{r, cache=T}
+library(tidyverse)
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+
+We know there is a link (in these data) between study hours and grades because we can see it in the
+plot, and we modeled it using `lm` in a previous session:
+
+
+```{r}
+studyhabits %>%
+  ggplot(aes(work_hours, grade)) +
+  geom_point() +
+  geom_smooth(se=F, method=lm) + 
+  labs(x="Weekly hours of study", y="Grade")
+```
+
+We could also ask, is this relationship the same for men and women? To show the differences, we can
+use a coloured plot:
+
+```{r, echo=F}
+studyhabits %>%
+  ggplot(aes(work_hours, grade, color=female)) +
+  geom_point() +
+  geom_smooth(method="lm", se=F) +
+  labs(x="Weekly hours of study", y="Grade", color="Female")
+```
+
+
+
+:::{.exercise}
+
+Load the data and reproduce the colored plot from above.
+
+Agree within pairs or groups:
+
+-   What is the overall pattern of these ([simulated, see this note](#explain-not-real-data)    ), results?
+-   Does extra time spent working benefit men and women equally?
+
+:::
+
+
+
+
+# Using `lm` for multiple regression {#fit-multiple-regression}
+
+As [we did for single-predictor regression](04-regression.html) we can use `lm` to get numbers to describe the
+slopes of the lines in our plot.
+
+```{r}
+second.model <- lm(grade ~ work_hours * female, data = studyhabits)
+second.model
+```
+
+
+
+**Explanation of the `lm` code above** This time we have changed the [formula](#explain-formulae) and:
+
+-   Added `female` as a second predictor
+-   Used the `*` symbol between them, which allows the slope for `work_hours` to be *different* for
+    men and women.
+
+**Explanation of the `lm` output**: The output looks similar, but this time, we have 4 coefficients:
+
+```{r echo=F, results="asis"}
+second.model %>%
+  coefficients() %>%
+  names %>%
+  sprintf("`%s`", .) %>%
+  as.list() %>%
+  pander::pandoc.list()
+```
+
+**Interpreting the coefficients**: The coefficients have changed their meaning from those of model 1. But we can still think of them as either **points** or **slopes** on the graph with fitted lines. Again, I have extended the lines to the left to make things easier:
+
+```{r echo=F, message=F, warning=F}
+
+source('extend-smooth-lines.R')
+m2co <- second.model %>% coefficients()
+studyhabits %>%
+    ggplot(aes(work_hours, grade, colour=female)) +
+    geom_point(alpha=.3) +
+    geom_smooth(method="lm_left", fullrange=TRUE, se=F, linetype="dotted") +
+    geom_smooth(method=lm, se=F) +
+    geom_point(aes(x=0,y=0), alpha=0) +
+    labs(x="Hours of work", y="Grade", color="Female") + 
+    geom_point(aes(x=0, y=m2co[1]), color="black", shape=5, size=8)+
+    geom_segment(aes(x = 0, y = m2co[1]+1, xend = 0, yend = m2co[1]+m2co[3]-1),
+                 arrow = arrow(length = unit(0.1, "inches")),color="black",)
+
+
+```
+
+-   `(Intercept)` is the point for men, where `work_hours` = 0 (the point marked with a diamond where the red line would cross zero on the x axis).
+-   `femaleTRUE` is the difference between men and women, when `work_hours` = 0. In the plot this difference marked with an arrow between the blue and red lines, at the zero on the x axis.
+-   `work_hours` is the slope (relationship) between `work_hours` and `grade` _for men_. In the plot, that is the  steepness of the red line.
+-   `work_hours:femaleTRUE` is the _difference in slopes_ for work hours, for women. So to calculate the slope for women we have to add this number to the `work_hours` coefficient which was the slope for men. It's important to realise that the blue line is the combination of two coefficients; this number tells us the difference between the red and blue slopes, NOT the slope of the blue line.
+
+:::{.exercise}
+
+```{r include=F}
+cf2 <- second.model %>%
+  coefficients()
+
+femslope <- unname(round(cf2[2]+cf2[4], 3))
+```
+
+Double check you understand how to interpret the `work_hours:femaleTRUE` coefficient. It's very
+common for regression coefficients to represent **differences** in this way. But in this example it
+does mean we have to know both `work_hours` (the slope for men) and `work_hours:femaleTRUE` (the
+difference in slopes for men and women) to be able to work out the slope for women.
+
+To test your knowledge:
+
+-   Calculate the number that describes the slope for women in `second.model` above? `r fitb(femslope, num=T, tol=.1)`
+
+`r hide("Show answer")`
+
+To get the answer we need to add the slope for `work_hours` to the coefficient `work_hours:femaleTRUE`.
+
+- `work_hours` represents the slope for men
+- `work_hours:femaleTRUE` represents the difference in slopes between men and women
+
+So the slope for women = $`r cf2[2]` + `r cf2[4]` = `r cf2[2] + cf2[4]`$ (you can round this to `r femslope`).
+
+
+`r unhide()`
+
+
+:::
+
+
+
+
+### Linking coefficients with plots
+
+:::{.exercise}
+
+Compare the model output below with the plot:
+
+```{r, echo=F}
+second.model
+```
+
+```{r, echo=F}
+studyhabits %>%
+    ggplot(aes(work_hours, grade, colour=female)) +
+    geom_point(alpha=.3) +
+    geom_smooth(method="lm_left", fullrange=TRUE, se=F, linetype="dotted") +
+    geom_smooth(method=lm, se=F) +
+    geom_point(aes(x=0,y=0), alpha=0)
+```
+
+As a group:
+
+1. For each of the 4 coefficients, decide if it represents a point or a slope
+1. Find each of the points on the plot (i.e. which coefficient is it)
+1. Compare the slope coefficients to the lines on the plot - can you explain which coefficient
+   describes which slope?
+1. What would happen if the sign of each coefficient was reversed? E.g. if one of the coefficients
+   was now a negative number rather than positive? What would this mean for the plot?
+
+:::
+
+
+
+
+# Making predictions from models
+
+As in the [previous worksheet](04-regression.html) we can use `augment` from the `broom` package to make
+predictions.
+
+The steps are the same:
+
+1. Fit the model we want
+1. Load the `broom` package
+1. Create a new dataframe with a small number of rows, including only the values of the predictor
+   variables we want predictions for
+1. Use `augment` with the model and new dataframe
+1. Optionally, we can then plot the results.
+
+---
+
+1. We have already fitted the model we want to use, which was:
+
+```{r}
+second.model <- lm(formula = grade ~ work_hours * female, studyhabits)
+```
+
+2. Next we should load the broom package if we have not already:
+
+```{r}
+library(broom)
+```
+
+3. And make a dataframe with values of the predictor variables that would be of interest, or would provide good exemplars.
+
+For example, lets say we want predictions for men and women, who work either 20 or 40 hours each. We can write this out by hand:
+
+```{r}
+newdatatopredict = tibble(
+  female=c(TRUE,TRUE, FALSE,FALSE),
+  work_hours=c(20,40, 20,40)
+)
+
+newdatatopredict
+```
+(remember that a `tibble` is a special type of dataframe from the tidyverse) 
+
+
+4. The last step is to pass the model and the new data to `augment`:
+
+```{r}
+second.model.predictions <- augment(second.model, newdata=newdatatopredict)
+second.model.predictions
+```
+
+5. Optionally (it's a good idea) we can plot these new predictions using ggplot:
+
+```{r}
+second.model.predictions %>%
+  ggplot(aes(work_hours, .fitted, color=female)) +
+  geom_point(size=5)
+```
+
+(note that the predictions are in a column called `.fitted`. You need the full stop in `.fitted` - it's part of the name)
+
+
+
+# Plotting predictions
+
+This basic plot we made above is OK, but we can improve it by:
+
+-   Joining the points with lines to emphasize the difference in slopes for men v.s. women (remember the gestalt principles we discussed in the data visualisation session?)
+-   Adding error bars.
+-   Tidying the axis labels.
+
+To add lines to the plot we can use `geom_line()`. We have to add an additional argument called
+`group` to the `aes()` section of the plot. This tells `ggplot` which points should be connected by
+the lines:
+
+```{r, fig.height=2, fig.width=3}
+second.model.predictions %>%
+  ggplot(aes(work_hours, .fitted, color=female, group=female)) +
+  geom_point() +
+  geom_line()
+```
+
+Next we can add error bars. If we look at the dataframe that `augment` produced, there is a column
+called `.se.fit`. This is short for **standard error of the predicted value**:
+
+```{r}
+second.model.predictions
+```
+
+---
+
+In a [future session](10-intervals-uncertainty.html) we will cover *intervals* like the standard error and confidence or credible interval in much more detail.
+
+---
+
+
+We can use a new `geom_` function with this column to add error bars to the plot. 
+
+The `geom_errorbar` function needs two additional bits of information inside the `aes()` section. These are
+`ymin` and `ymax`, which represent the bottom and top of the error bars, respectively:
+
+```{r, fig.height=2, fig.width=3}
+second.model.predictions %>%
+  ggplot(aes(
+    x=work_hours,
+    y=.fitted,
+    ymin =.fitted - .se.fit,
+    ymax =.fitted + .se.fit,
+    color=female,
+    group=female)) +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(width=.5)
+```
+
+**Explanation of the code**: We added the `geom_errorbar` function to our existing plot. We also
+added two new arguments to the `aes()` section: `ymin` and `ymax`. We set the `ymin` value to the
+fitted value, **_minus_** the standard error of the fitted value (and the same for `ymax`, except we
+added on the SE).
+
+**Explanation of the resulting plot**: The plot now includes error bars which represent the [standard
+error](https://en.wikipedia.org/wiki/Standard_error) of the fitted values. We will cover more on intervals, including standard errors, in a later workshop.
+
+
+:::{.exercise}
+
+1. Recreate the plot and tidy up even further by adding axis labels (ggplot has a function called `labs`, which you can add to a plot, e.g. `labs(x="Time", y="Money)`)
+
+:::
+
+
+
+# Notes and explanations
+
+These are additional explanations or notes for the text above. There are no exercises here.
+
+
+## Why don't we always use real data? {#explain-not-real-data}
+
+Real data is often quite complicated, and it is sometimes easier to simulate
+data which illustrates a particular teaching point as clearly as possible. It
+also lets us create multiple examples quickly.
+
+It _is_ important to use real data though, and this course includes a mix of
+both simulated and real data.
+
+
+
+## R formulas {#explain-formulae}
+
+In R, **formulas** describe the relationship between variables.  They are used widely, e.g. in ggplot, functions like `t.test`, and especially in model-fitting functions like `lm`.
+
+Formulas for regression will always describe the link between one *outcome* and one or more *predictor* variables.
+
+The outcome goes on the left, and predictors go on the right. They are separated by the tilde symbol: the `~`.  When you read `~` you can say in your head *"is predicted by"*.
+
+You can add multiple variables by separating them with a `+` symbol. So `outcome ~ age + gender` is a model where the outcome is predicted by age and gender. This doesn't add interaction terms.
+
+If you want to include interaction terms (e.g. to let slopes vary for different groups) then you use a `*` symbol instead of a plus. So `outcome ~ age * gender` means the outcome is predicted by age, gender, and the interaction of age and gender.
+
+
+There is a more technical explanation of all of the formula syntax here: <https://stat.ethz.ch/R-manual/R-devel/library/stats/html/formula.html>
+
+

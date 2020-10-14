@@ -1,0 +1,482 @@
+---
+title: 'Multiple regression'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output:
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+```{r include=F,echo=F}
+library(tidyverse)
+library(webex)
+library(cowplot)
+library(DiagrammeR)
+source('grvizpng.R')
+theme_set(theme_minimal())
+knitr::opts_chunk$set(cache=T, message=F, warning=F)
+
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+
+
+> Multiple regression is a technique which can describe the relationship between **_one outcome_**
+> and **_two or more predictors_**.
+
+> We can also use multiple regression to describe cases where two variables **_interact_**. That is,
+> when the effect of one predictor is increased or decreased by another (this is called moderation,
+> as we saw in the session on causal models).
+
+> Multiple regression is important because it allows us to make more realistic models and better
+> predictions. But, like any sharp tool, it should be used carefully. If our statistical model
+> doesn't match the underlying network of causes and effects, or if we have used a biased sample, we
+> can be misled.
+
+> When evaluating our models we can ask two useful questions: First, _how much of the variability in
+> the outcome do my predictors explain?_ The $R^2$ statistic answers this. Secondly: _does the model
+> make better predictions than just taking the **average** outcome_ (or using a simpler model with
+> fewer predictors)? For this we can compute a BayesFactor.
+
+
+# Why use multiple regression? {#why-multiple-regression}
+
+- [Slides here](slides/multipleregression.pptx)
+
+Think back to our [last session on causes and effects](#regression-thinking-causes). When we drew
+causal diagrams of our research question we found cases where there were:
+
+-   Multiple causes of a single outcome, and where
+-   One variable might [alter the effect of another](#effect-modification)
+
+We drew diagrams like this for those cases:
+
+```{r, echo=F}
+grVizPng('
+    digraph {
+        A -> Y
+        B -> Y
+    }
+', height=200)%>% knitr::include_graphics(.)
+```
+
+And
+
+```{r, echo=F}
+grVizPng("
+    digraph {
+    A -> M [arrowhead=none];
+    M [style=invis fixedsize=true width=0 height=0]
+    B -> M
+    M -> Y
+    A -> B [style=invis];
+    A -> Y [style=invis];
+        subgraph{rank = same; A;M;Y }
+
+    A [label=Expertise]
+    B [label=Gender]
+    Y [label=Salary]
+    }
+", height=200)%>% knitr::include_graphics(.)
+```
+
+Another way to think about the diagram we say that effect modification is taking place is to draw it
+like this:
+
+```{r, echo=F}
+grVizPng("
+    digraph {
+        A -> Y
+        B -> Y
+        'Expert and Male'  -> Y
+
+        A [label=Expert]
+        B [label=Male]
+        Y [label=Salary]
+    }
+", height=200)%>% knitr::include_graphics(.)
+```
+
+We also came across the idea of [confounding](#confounding-explanation). This is where we see a
+pattern like this:
+
+```{r, echo=F}
+grVizPng("
+    digraph {
+        Smoking [style=dashed]
+        Smoking -> Matches
+        Smoking -> Cancer
+        Matches -> Cancer [style=dashed]
+    }
+", height=300)%>% knitr::include_graphics(.)
+```
+
+As we discussed, the problem is that if smoking causes us to use matches _and_ it causes cancer then
+if we look at correlations of match-use and cancer we might get mislead. This would be an example of
+a spurious correlation.
+
+### Some benefits of using multiple regression
+
+There are a number of benefits to using multiple regression:
+
+1. If we think that the relationship between two variables might be changed by another (for example,
+   if a relationship between expertise and earnings were different for men and women), we can
+   **test** if that is the case. I.e. we can test if moderation is occuring.
+
+2. If we include extra variables (e.g. smoking as well as matches-used) we can reduce the effect of
+   confounding, and make better inferences about cause-effect relationships (although this isn't
+   guaranteed and we need to be careful).
+
+3. From a practical perspective, including extra variables can also reduce noise in our predictions
+   and increase statistical power.
+
+4. Multiple regression can also be used to fit curved lines to data and avoid the assumption that
+   all relationships can be described by a straight line (Chris  will cover this later in the course).
+
+---
+
+**For now we are going to focus on the first example.** If you are interested in the second case,
+[you can read more here](#explanation-causal-estimates-hard).
+
+
+:::{.tip}
+A warning! You will sometimes see people claim that multiple regression provides a way of
+choosing between different possible predictors of an outcome. This is basically untrue;
+[see here for why](#explanation-regression-model-selection-really-hard).
+
+:::
+<!--
+
+
+
+
+ -->
+
+## Different relationships? {#regression-interaction}
+
+If you have a hypothesis that a relationship might differ for two different groups, **the first
+thing you should do is plot the data**.
+
+First let's reload the example dataset on student grades and study habits:
+
+```{r, cache=T}
+library(tidyverse)
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+We know there is a link (in these data) between study hours and grades because we can see it in the
+plot, and we modelled it using `lm` in a previous session:
+
+```{r}
+studyhabits %>%
+  ggplot(aes(work_hours, grade)) +
+  geom_point() +
+  geom_smooth(se=F, method=lm)
+```
+
+We could also ask, is this relationship the same for men and women? To show the differences, we can
+use a coloured plot:
+
+```{r, echo=F}
+studyhabits %>%
+  ggplot(aes(work_hours, grade, color=female)) +
+  geom_point() +
+  geom_smooth(method="lm", se=F)
+```
+
+### What is the main pattern in the data? {#task-multiple-regression-overall-pattern}
+
+:::{.exercise}
+
+First load the data and reproduce the coloured plot from above.
+
+Second, agree within your groups:
+
+-   What is the overall pattern of these ([imagined](<(#explain-not-real-data)>)) results?
+-   Does extra time spent working benefit men and women equally?
+
+:::
+
+## Using `lm` for multiple regression {#fit-multiple-regression}
+
+If you don't already have it loaded in RStudio, load the example dataset:
+
+<!-- this not run but included to make path appear correct for students -->
+
+```{r eval=F}
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+As [we did for a single predictor regression](#first-lm), we can use `lm` to get numbers to describe the
+slopes of the lines.
+
+```{r}
+second.model <- lm(grade ~ work_hours * female, data = studyhabits)
+second.model
+```
+
+#### Explanation of the `lm` code above
+
+This time we have changed the [formula](#explain-formulae) and:
+
+-   Added `female` as a second predictor
+-   Used the `*` symbol between them, which allows the slope for `work_hours` to be *different* for
+    men and women.
+
+#### Explanation of the `lm` output
+
+The output looks similar, but this time, we have 4 coefficients:
+
+```{r echo=F, results="asis"}
+second.model %>%
+  coefficients() %>%
+  names %>%
+  sprintf("`%s`", .) %>%
+  as.list() %>%
+  pander::pandoc.list()
+```
+
+#### Interpreting the `lm` coefficients
+
+The coefficients have changed their meaning from model 1. But we can still think of them as either
+**points** or **slopes** on the graph with fitted lines. Again, I have extended the lines to the
+left to make things easier:
+
+```{r echo=F, fig.width=5, fig.height=4}
+
+source('extend-smooth-lines.R')
+
+studyhabits %>%
+    ggplot(aes(work_hours, grade, colour=female)) +
+    geom_point(alpha=.3) +
+    geom_smooth(method="lm_left", fullrange=TRUE, se=F, linetype="dotted") +
+    geom_smooth(method=lm, se=F) +
+    geom_point(aes(x=0,y=0), alpha=0)
+
+```
+
+-   `(Intercept)` is the point for men, where `work_hours` = 0 (where the red line crosses zero on
+    the x axis).
+-   `femaleTRUE` is the difference between men and women, when `work_hours` = 0 (the difference
+    between the blue and red lines, at the zero point on the x axis)
+-   `work_hours` is the slope (relationship) between `work_hours` and `grade` _for men_ (the
+    steepness of the red line)
+-   `work_hours:femaleTRUE` is the _difference in slopes_ for work hours, for women. So this is the
+    slope for women _minus_ the slope for men (that is, the difference in steepness between the red
+    and blue lines. It's NOT the slope of the blue line).
+
+:::{.exercise}
+
+```{r include=F}
+cf2 <- second.model %>%
+  coefficients()
+
+femslope <- unname(round(cf2[2]+cf2[4], 1))
+```
+
+Double check you understand how to interpret the `work_hours:femaleTRUE` coefficient. It's very
+common for regression coefficients to represent **differences** in this way. But in this example it
+does mean we have to know both `work_hours` (the slope for men) and `work_hours:femaleTRUE` (the
+difference in slopes for men and women) to be able to work out the slope for women.
+
+To test your knowledge:
+
+-   What is the slope for women in `second.model` above? `r fitb(femslope, num=T)`
+
+`r hide("Show answer")`
+
+To get the answer we need to add the slope for `work_hours` to the coefficient `work_hours:femaleTRUE`.
+
+- `work_hours` represents the slope for men
+- `work_hours:femaleTRUE` represents the difference in slopes between men and women
+
+So the slope for women = $`r cf2[2]` + `r cf2[4]` = `r cf2[2] + cf2[4]`$ (you can round this to `r femslope`).
+
+
+`r unhide()`
+
+
+:::
+
+
+
+
+### Linking coefficients with plots
+
+:::{.exercise}
+
+Compare the model output below with the plot:
+
+```{r, echo=F}
+second.model
+```
+
+```{r, echo=F}
+studyhabits %>%
+    ggplot(aes(work_hours, grade, colour=female)) +
+    geom_point(alpha=.3) +
+    geom_smooth(method="lm_left", fullrange=TRUE, se=F, linetype="dotted") +
+    geom_smooth(method=lm, se=F) +
+    geom_point(aes(x=0,y=0), alpha=0)
+```
+
+As a group:
+
+1. For each of the 4 coefficients, agree if it represents a point or a slope
+1. Find each of the points on the plot (i.e. which coefficient is it)
+1. Compare the slope coefficients to the lines on the plot - can you explain which coefficient
+   describes which slope?
+1. What would happen if the sign of each coefficient was reversed? E.g. if one of the coefficients
+   was now a negative number rather than positive? What would this mean for the plot?
+
+:::
+
+### Making predictions
+
+[As before](#making-predictions-1), we can use `augment` from the `broom` package to make
+predictions.
+
+The steps are the same:
+
+0. Fit the model we want
+1. Load the `broom` package
+1. Create a new dataframe with a small number of rows, including only the values of the predictor
+   variables we want predictions for
+1. Use `augment` with the model and new dataframe
+
+Optionally, we can then plot the results.
+
+---
+
+We have already fit the model we want to use, which was:
+
+```{r}
+second.model$call
+```
+
+Next we should load the broom package:
+
+```{r}
+library(broom)
+```
+
+And make a dataframe (a tibble is a kind of dataframe) with values of the predictor variables that would be of interest, or would provide good exemplars.
+
+For example, lets say we want predictions for men and women, who work either 20 or 40 hours each. We can write this out by hand:
+
+```{r}
+newdatatopredict = tibble(
+  female=c(TRUE,TRUE, FALSE,FALSE),
+  work_hours=c(20,40, 20,40)
+)
+
+newdatatopredict
+```
+
+The last step is to pass the model and the new dataframe to `augment`:
+
+```{r}
+second.model.predictions <- augment(second.model, newdata=newdatatopredict)
+second.model.predictions
+```
+
+And we can plot these new predictions using ggplot:
+
+```{r, fig.height=2, fig.width=3}
+second.model.predictions %>%
+  ggplot(aes(work_hours, .fitted, color=female)) +
+  geom_point()
+```
+
+----------------
+
+
+This basic plot is OK, but we can improve it by:
+
+-   Adding lines to emphasise the difference in slopes for men and women.
+-   Adding error bars.
+-   Tidying the axis labels.
+
+To add lines to the plot we can use `geom_line()`. We have to add an additional argument called
+`group` to the `aes()` section of the plot. This tells `ggplot` which points should be connected by
+the lines:
+
+```{r, fig.height=2, fig.width=3}
+second.model.predictions %>%
+  ggplot(aes(work_hours, .fitted, color=female, group=female)) +
+  geom_point() +
+  geom_line()
+```
+
+Next we can add error bars. If we look at the datafram that `augment` produced, there is a column
+called `.se.fit`. This is short for **standard error of the predicted value**:
+
+```{r}
+second.model.predictions
+```
+
+We can use a new `geom_` function with this column to add error bars to the plot. The
+`geom_errorbar` needs two additional bits of information inside the `aes()` section. These are
+`ymin` and `ymax`, which represent the bottom and top of the error bars, respectively:
+
+```{r, fig.height=2, fig.width=3}
+second.model.predictions %>%
+  ggplot(aes(
+    x=work_hours,
+    y=.fitted,
+    ymin =.fitted - .se.fit,
+    ymax =.fitted + .se.fit,
+    color=female,
+    group=female)) +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(width=1)
+```
+
+**Explanation of the code**: We added the `geom_errorbar` function to our existing plot. We also
+added two new arguments to the `aes()` section: `ymin` and `ymax`. We set the `ymin` value to the
+fitted value, **_minus_** the standard error of the fitted value (and the same for `ymax`, except we
+added on the SE).
+
+**Explanation of the resulting plot**: The plot now includes error bars which represent the [standard
+error](https://en.wikipedia.org/wiki/Standard_error) of the fitted values. We will cover more on intervals, including standard errors, in a later workshop.
+
+### Extension exercises
+
+:::{.exercise}
+
+
+1. Tidy up the plot above by adding axis labels.
+
+1. In the example above we created a dataframe by hand to tell `augment` what predictions we wanted.
+   Now try using [`expand.grid`](#expand-grid) to make the new dataframe instead (we first used
+   `expand.grid` in the [first session](#expand-grid)). For example, try making predictions for men
+   and women who work 20, 25, 30, 35, or 40 hours per week.
+
+:::
+
+:::{.exercise}
+
+Data from a clinical trial of Functional Imagery Training [@solbrig2019functional, FIT] are
+available at <https://zenodo.org/record/1120364/files/blind_data.csv>. In this file, `group`
+represents the treatment group (FIT=2, motivational interviewing=1). The `kg1` and `kg3` variables
+represent the patients' weights in kilograms before and after treatment, respectively. Load these
+data and complete the following tasks:
+
+1. Plot the difference in weight between treatment groups at followup (`kg3`)
+
+2. Create a plot to show whether men or women benefitted most from the treatment (this will require
+   some thinking about what goes on the y-axis, and perhaps some pre-processing of the data).
+
+3. Create a plot to show whether older participants benefitted more or less than younger ones (again
+   this will require some thinking, and there are quite a number of different plot types which could
+   be used, each with different pros and cons).
+
+:::
+
