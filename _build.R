@@ -1,5 +1,8 @@
 setwd("~/dev/datafluency/")
 
+
+rmarkdown::render('index.rmd')
+
 rmarkdown::render('00-glossary-and-cheatsheet.rmd')
 rmarkdown::render('00-how-to-use-worksheets.html')
 rmarkdown::render('00-teacher-notes.rmd')
@@ -17,6 +20,8 @@ rmarkdown::render('04-regression.rmd')
 rmarkdown::render('04-regression-extensions.rmd')
 
 
+rmarkdown::render('05-multiple-regression-contin-by-categ.rmd')
+rmarkdown::render('05-multiple-regression-extensions.html')
 
 
 rmarkdown::render('09-open-science.rmd')

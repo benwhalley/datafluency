@@ -359,7 +359,7 @@ error](https://en.wikipedia.org/wiki/Standard_error) of the fitted values. We wi
 
 
 
-# Notes and explanations
+# Notes
 
 These are additional explanations or notes for the text above. There are no exercises here.
 

@@ -152,12 +152,40 @@ Create some experimental designs of your own
 2. Adapt the commands to allow for an experiment where the word position could be either top,
    bottom, left or right. How many different conditions would there be in this case?
 
-As a stretch task (this might be sligtly harder):
+As a stretch task (this might be sligtly harder): How would you create a design where 
+a sequence of 3 words is presented. Each word must be different, but each 3-word combination 
+can be presented in red or green text, and at the top or bottom of the screen?
 
-1. How would you create a design where the order of presentation of each word is also balanced? That
-   is, where it's equally likely to see Nobble, Wobble or Bobble in the first, second or third
-   trial?
 
+`r hide("Show solution")`
+
+```{r}
+expand.grid(colour=colours, position=positions, word1 = words, word2=words, word3=words) %>% 
+  filter(
+    word1 != word2 & word2 != word3 & word1 != word3
+  ) 
+```
+
+
+**Explanation of the command**: There may be a neater way of doing this, but here we simply:
+
+- Create all combinations of words, colors, spatial locations and positions in the sequence (1,2 or 3)
+- Filter our rows where two of the words are the same
+
+
+
+Another way to do the same thing using the `unique` and `length` functions might be:
+
+```{r}
+expand.grid(colour=colours, position=positions, word1 = words, word2=words, word3=words) %>% 
+  rowwise() %>% 
+  filter(length(unique(c(word1, word2, word3)))==3)
+```
+**Explanation**: Here we apply the sample filter, but using the `length` function to count the number of `unique` words among word 1, 2 and 3. The `rowwise` function is used to make R consider each row individually (it won't work without it because R tries to consider the whole of a column at once).
+
+
+
+`r unhide()`
    
 :::   
    
@@ -174,6 +202,53 @@ In the main worksheet we created a dataframe by hand to tell `augment` what pred
 Now try using `expand.grid` to make the new dataframe instead. 
 For example, try making predictions for men and women who work 20, 25, 30, 35, or 40 hours per week. Make this dataframe using `expand.grid` and without using the `c()` function.
    
+   
+`r hide("Show how")`
+
+
+```{r, messages=F, warning=F}
+# setup and read data
+library(tidyverse)
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+
+# run the model
+second.model <- lm(grade ~ work_hours * female, data = studyhabits)
+
+# made the new data grid for predictions
+prediction.grid <- expand.grid(work_hours=seq(20,40,5), female=c(TRUE, FALSE)) %>% 
+  as_tibble
+prediction.grid
+
+# make the predictions
+new.predictions <- broom::augment(second.model, newdata=prediction.grid)
+new.predictions
+
+# plot predictions from the model with SE
+new.predictions %>% 
+  ggplot(aes(work_hours, 
+             y=.fitted, 
+             ymin= .fitted-.se.fit, 
+             ymax= .fitted+.se.fit, 
+             color=female, group=female)) +
+  geom_line() +
+  geom_errorbar(width=.1) +
+  geom_point()
+
+
+# geom_ribbon is another way of showing the error of estimates
+new.predictions %>% 
+  ggplot(aes(work_hours, 
+             y=.fitted, 
+             ymin= .fitted-.se.fit, 
+             ymax= .fitted+.se.fit, 
+             color=female, group=female)) +
+  geom_ribbon(alpha=.1, color=NA) +
+  geom_line()
+```
+
+
+`r unhide()`
+
 :::
    
    
@@ -205,13 +280,4 @@ data and complete the following tasks:
 
 
 
-
-```{r}
-list.files()
-
-combined <- tibble(subject=list.files("data", "*.csv", full.names=T)) %>%
-  rowwise() %>% 
-  do(read_csv(.$subject) )
-  
-```
 

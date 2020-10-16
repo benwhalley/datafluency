@@ -11,7 +11,7 @@ grVizPng <- function(graph, width=400, height=200, caption=""){
   x = grViz(graph, width=width, height=height)
   x %>% export_svg %>% charToRaw %>% rsvg_png(fnpng)
   x %>% export_svg %>% charToRaw %>% rsvg_pdf(fnpdf)
-  return(fnpdf)
+  return(fnpng)
 }
 #
 # grVizPng('

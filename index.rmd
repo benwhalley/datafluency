@@ -6,8 +6,7 @@ bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
 output:
-  webex::html_clean:
-    after_body: footer.html
+  webex::html_clean
 ---
 
 
@@ -171,5 +170,3 @@ See <https://ajwills72.github.io/rminr/why-r-student.html>
 
 All content on this site distributed under a [Creative Commons](https://creativecommons.org/)
 licence. CC-BY-SA 4.0.
-
------------------
