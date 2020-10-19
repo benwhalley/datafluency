@@ -304,3 +304,29 @@ gapminder::gapminder %>%
   geom_point() +
   scale_x_log10()
 ```
+
+
+Adding 'jitter' or noise to scatterplots. For:
+
+```{r}
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+
+studyhabits %>% 
+  ggplot(aes(progress_everyday, grade)) +
+  geom_point(position=position_jitter()) 
+```
+
+`r hide("Show the comparison, without adding jitter")`
+
+We can see the 'lumpiness' in the data; adding noise makes it clearer where most data points lie.
+
+```{r}
+studyhabits %>% 
+  ggplot(aes(progress_everyday, grade)) +
+  geom_point() 
+```
+
+
+`r unhide()`
+
+
