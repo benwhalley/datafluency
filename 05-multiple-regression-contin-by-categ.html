@@ -2403,7 +2403,7 @@ img {
 <div id="causal-diagrams" class="section level1">
 <h1>Causal diagrams</h1>
 <div class="exercise">
-<p>Work in pairs to brainstorm what factors incfluence a phenomena that interests you in applied psychology. It might be related to something like clinical outcomes, or perhaps workplace stress.</p>
+<p>Work in pairs to brainstorm what factors incfluence a phenomena that interests you in applied psychology. If you’re stuck for idea perhaps pick a clinical outcome, or perhaps workplace stress.</p>
 <ol style="list-style-type: decimal">
 <li><p>Start by making a list of all the variables that you think might be important.</p></li>
 <li><p>Draw a causal diagram (using the rules presented in the workshop) of relationships between the variables you identified in the first task. Draw in all the paths where the variables might be related. Leave out paths where you don’t think there is any relationship.</p></li>
@@ -2679,7 +2679,7 @@ Show answer
 </div>
 </div>
 <div id="lm-bf" class="section level2">
-<h2>The ‘probability of your model’</h2>
+<h2>Bayes Factors: The ‘probability of your model’</h2>
 <p>How do we know it was worth running our model at all? Perhaps our predictors are actually no good, and don’t really help us explain the outcome?</p>
 <p>A Bayes Factor can help quantify how likely that is. A Bayes Factor can compare the probabilities of different <strong><em>hypotheses</em></strong>, for example:</p>
 <table>
@@ -2689,13 +2689,13 @@ Show answer
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left"><strong>‘No effects’ hypothesis, <span class="math inline">\(H_0\)</span></strong>:</th>
-<th align="left"><strong>Experimental hypothesis, <span class="math inline">\(H_1\)</span></strong></th>
+<th><strong>‘No effects’ hypothesis, <span class="math inline">\(H_0\)</span></strong> *</th>
+<th align="left">*Experimental hypothesis, <span class="math inline">\(H_1\)</span>**</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">The predictors <strong>are NOT</strong> related to the outcome (except by chance)</td>
+<td>The predictors <strong>are NOT</strong> related to the outcome (except by chance)</td>
 <td align="left">The predictors <strong>are</strong> related to the outcome</td>
 </tr>
 </tbody>
@@ -2729,7 +2729,7 @@ Show answer
 </ul>
 </div>
 <p>IMPORTANTLY, this only says how much evidence there is that this statistical model is better than <strong><em>no</em></strong> model at all. That’s not a very high bar to pass! We’ll talk more about using Bayes Factors dor specific model comparisons later.</p>
-<p>SPECIFICALLY: A BF &gt; 3 <strong>doesn’t</strong> prove that your <strong>psychological</strong> model is correct or true. To build a case for that you might want to compare this model with other more complex or ‘reasonable’ alternatives. But that needs to wait for a future module!</p>
+<p>SPECIFICALLY: A BF &gt; 3 <strong>doesn’t</strong> prove that your <strong>psychological</strong> model is correct or true. To build a case for that you might want to compare this model with other more complex or ‘reasonable’ alternatives. But that needs to wait for a future session!</p>
 <p>If you want, you can refer to these <a href="https://ajwills72.github.io/rminr/evidence.html">materials on ‘evidence’ which have more explanation of Bayes Factors</a>.</p>
 </div>
 <div id="reporting-a-bayes-factor" class="section level2">
@@ -2738,7 +2738,7 @@ Show answer
 <blockquote>
 <p>We found strong evidence that a model including work hours and gender predicted grades (adjusted <span class="math inline">\(R^2\)</span> = 0.21; BF for comparison with the intercept-only model &gt; 1000).</p>
 </blockquote>
-<p>Sometimes, you’ll see Bayes Factor written as BF<em>10</em>, which means the same thing as BF. You’ll also occasionally see BF<em>01</em>, which is the same idea but flipped, so BF01 &lt; 1/3 means substantial evidence for a difference, and BF01 &gt; 3 means substantial evidence for the null.</p>
+<p>Sometimes, you’ll see Bayes Factor written as BF<sub><strong>10</strong></sub>, which means the same thing as BF. You’ll also occasionally see BF<sub><strong>01</strong></sub>, which is the same idea but flipped, so BF<sub>01</sub> &lt; 1/3 means substantial evidence for a difference, and BF<sub>01</sub> &gt; 3 means substantial evidence for the null.</p>
 <div class="exercise">
 <ol style="list-style-type: decimal">
 <li><p>Use the mtcars dataset and run a <code>lm</code> model which predicts <code>mpg</code> from <code>wt</code> (weight) and <code>am</code> (automatic/manual transmission), and allow for a different slope for automatic vs manual cars.</p></li>
@@ -2837,7 +2837,7 @@ Show answers
         <li><a href="#how-good-is-our-model">How good is our model?</a>
         <ul>
         <li><a href="#variance-explained">Variance explained</a></li>
-        <li><a href="#lm-bf">The ‘probability of your model’</a></li>
+        <li><a href="#lm-bf">Bayes Factors: The ‘probability of your model’</a></li>
         <li><a href="#how-to-interpret-the-bf">How to interpret the BF</a></li>
         <li><a href="#reporting-a-bayes-factor">Reporting a Bayes Factor</a></li>
         </ul></li>

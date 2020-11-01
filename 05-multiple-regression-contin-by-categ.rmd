@@ -100,7 +100,7 @@ grViz("
 :::{.exercise}
 
 Work in pairs to brainstorm what factors incfluence a phenomena that interests you in applied psychology. 
-It might be related to something like clinical outcomes, or perhaps workplace stress.
+If you're stuck for idea perhaps pick a clinical outcome, or perhaps workplace stress.
 
 1. Start by making a list of all the variables that you think might be important.
 
@@ -292,7 +292,7 @@ studyhabits %>%
   ggplot(aes(work_hours, grade, color=female)) + 
   geom_point() +
   geom_abline(slope=coef(m1)[3], intercept=coef(m1)[1], color=gg_color_hue(2)[1]) + 
-  geom_abline(slope=coef(m1)[3], intercept=coef(m1)[1]+coef(m1)[2], color=gg_color_hue(2)[2]) +
+  geom_abline(slope=coef(m1)[3], intercept=coef(m1)[1]+coef(m1)[2]-5, color=gg_color_hue(2)[2]) +
   coord_cartesian(xlim=c(0,40)) + guides(color=F)
 
 ggsave("media/model1.png", width=2, height=2)
@@ -652,7 +652,7 @@ this.
 :::
 
 
-## The 'probability of your model' {#lm-bf}
+## Bayes Factors: The 'probability of your model' {#lm-bf}
 
 How do we know it was worth running our model at all? Perhaps our predictors are
 actually no good, and don't really help us explain the outcome?
@@ -662,7 +662,7 @@ the probabilities of different ***hypotheses***, for example:
 
 
 --------------------------------------------------------------------------------
-**'No effects' hypothesis, $H_0$**:        **Experimental hypothesis, $H_1$**
+**'No effects' hypothesis, $H_0$**        **Experimental hypothesis, $H_1$**
 ------------------------------------------ -------------------------------------
 The predictors **are NOT** related to      The predictors **are** related to 
 the outcome (except by chance)             the outcome
@@ -726,7 +726,7 @@ talk more about using Bayes Factors dor specific model comparisons later.
 SPECIFICALLY: A BF > 3 **doesn't** prove that your **psychological** model is
 correct or true. To build a case for that you might want to compare this model
 with other more complex or 'reasonable' alternatives. But that needs to wait for
-a future module!
+a future session!
 
 If you want, you can refer to these
 [materials on 'evidence' which have more explanation of Bayes Factors](https://ajwills72.github.io/rminr/evidence.html).
@@ -743,9 +743,9 @@ In this case, you could say something like:
 
 
 
-Sometimes, you’ll see Bayes Factor written as BF*10*, which means the same thing
-as BF. You’ll also occasionally see BF*01*, which is the same idea but flipped,
-so BF01 < 1/3 means substantial evidence for a difference, and BF01 > 3 means
+Sometimes, you’ll see Bayes Factor written as BF~**10**~, which means the same thing
+as BF. You’ll also occasionally see BF~**01**~, which is the same idea but flipped,
+so BF~01~ < 1/3 means substantial evidence for a difference, and BF~01~ > 3 means
 substantial evidence for the null.
 
 

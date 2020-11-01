@@ -283,7 +283,7 @@ data and complete the following tasks:
 
 
 
-# Preview: Multiple predictors
+# Preview: Multiple continuous predictors
 
 In the previous example plotting our data was quite simple: We had an x and y axis, and used colour to show the third.
 
@@ -316,17 +316,23 @@ Another alternative is to categorize one of the variables and make a faceted plo
 
 ```{r}
 states %>% 
-  mutate(Illiteracy_categorised = cut(Illiteracy, 3)) %>% 
-  ggplot(aes(Murder, Income)) + geom_point() +
-  facet_wrap(~Illiteracy_categorised, labeller = label_both) +
+  mutate(Illiteracy_categorised = cut(Illiteracy, breaks=3, 
+                                      labels=c("Low illiteracy", "Medium illiteracy", "Highilliteracy"))) %>% 
+  ggplot(aes(Murder, Income)) + 
+   geom_point() +
+  facet_wrap(~Illiteracy_categorised) +
   geom_smooth(method=lm, se=F)
 ```
 
 
 
+**Explanation of the code** In the code above, the `cut` command is used to split the `Illiteracy` variable
+into 3 categories (`breaks=3`) and give each category a label (`labels = c("Low", ...)`). We then use this categorical version to create a faceted plot for low, medium and high illiteracy values. 
+
+
 ----
 
-If you look at these plots it's just about possible to see that there is an **interaction** here: As `Illiteracy` increases, the relationship between `Murder` and `Income` changes (it starts positive but ends up slightly negative).
+If you look at these plots it's about possible to see that there is an **interaction** here: As `Illiteracy` increases, the relationship between `Murder` and `Income` changes (it starts positive but ends up slightly negative).
 
 
 :::{.exercise}
@@ -351,8 +357,6 @@ However, another way of displaying these data is to use a true 3d plot. An examp
 p1 <- plot_ly(data=states,
               x=~Murder, y=~Illiteracy, z=~Income, type = "scatter3d") 
 p1
-
-
 ```
 
 
@@ -360,7 +364,7 @@ p1
 
 ## Regression 'surfaces'
 
-In the previous session we saw we can represent the regression coefficients in a 2d plots. For example:
+In the main session we saw we can represent the regression coefficients in a 2D plots. For example:
 
 ```{r}
 states %>% 
@@ -398,14 +402,12 @@ p2
 
 Play with the interactive plot above. 
 
-Is the 3d surface a good 'fit' to these data?
-
+Is this 3d surface a good 'fit' to these data?
 
 :::
 
 
 
----
 
 
 In future sessions, as we increase the number of variables in our models, it will be difficult to 
