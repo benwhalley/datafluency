@@ -756,7 +756,7 @@ substantial evidence for the null.
 
 :::{.exercise}
 
-1. Use the mtcars dataset and run a `lm` model which predicts `mpg` from `wt` (weight) and `am` (automatic/manual transmission), and allow for a different slope for automatic vs manual cars.
+1. Use the mtcars dataset and run a `lm` model which predicts `mpg` from `wt` (weight) and `am` (automatic/manual transmission), and allow for a different slope for automatic vs. manual cars.
 
 2. Create a scatter plot with a fitted line on top, (use `geom_point` and `geom_smooth`) which is equivalent to this model.
 
@@ -794,6 +794,44 @@ lmBF(mpg ~ wt * am, data=mtcars)
 `r unhide()`
 
 :::
+
+
+## Testing a specific hypothesis
+
+
+In the example above we compared our full model to _no model_ (that is, a model that just calculates the average grade).
+
+We will often want to run a more specific test of moderation. Do do this we can calculate a BF to compare:
+
+- A model with `female` and `work_hours`, added separately
+- A model with `female` and `work_hours`, and where slopes can vary by gender.
+
+If you remember the formlulae for these models were:
+
+- `grade ~ work_hours + female`
+- `grade ~ work_hours * female`
+
+
+To calculate the BF specifically for *allowing the slopes vary between men and women*, vs. *not allowing them to vary*, we can:
+
+1. Calculate the BF for the model with same-slopes (call this model A)
+1. Calculate the BF for the model with different-slopes (call this model B)
+1. Divide BF~A~ by BF~B~
+
+The result is a new Bayes Factor for the comparison we are actually interested in.
+
+How to do it:
+
+```{r}
+A <- lmBF(grade ~ work_hours + female, data=studyhabits)
+B <- lmBF(grade ~ work_hours * female, data=studyhabits)
+
+B/A
+```
+
+**Explanation of the output**: We can now see a new BF for the comparison we were interested in: whether a model with varying slopes was more likely to be correct than one with same-slopes for men and women. The BF is roughly 64, which means we have substantial evidence in favour.
+
+
 
 
 
