@@ -24,7 +24,9 @@ library(plotly)
 source('grvizpng.R')
 theme_set(theme_minimal())
 knitr::opts_chunk$set(cache=T, message=F, warning=F)
+```
 
+```{r include=F,echo=F, cache=T}
 studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
 ```
 
@@ -339,9 +341,9 @@ If you look at these plots it's about possible to see that there is an **interac
 
 Try describing the plot above in words.
 
-Try re-plotting the data but with different values on different axes (e.g. swap x, y, color size etc).
+Try re-plotting the data but with different values on different axes (e.g. swap x, y, color, size etc).
 
-Which feels most 'natural' to you, easy to describe?
+Which combination feels most 'natural' to you; that is, which is easiest to describe?
 
 
 :::
@@ -349,15 +351,41 @@ Which feels most 'natural' to you, easy to describe?
 
 
 
-## 3d plots
+## 3D plots
 
-However, another way of displaying these data is to use a true 3d plot. An example is below:
+However, another way of displaying these data is to use a true 3D plot. An example is below:
 
 ```{r echo=F, include=T}
 p1 <- plot_ly(data=states,
               x=~Murder, y=~Illiteracy, z=~Income, type = "scatter3d") 
 p1
 ```
+
+
+**Explanation of this plot**: Rather than a standard x/y plot, this one adds a third dimension, z. 
+This means that to see all the data you need to click and drag on the image to rotate the axes.
+It can take a bit of getting used to, but one tip is to make sure you keep track of which axis
+is which as you move the viewing angle.
+
+
+`r hide("Show me how to make the 3d plot")`
+
+```{r, include=F, echo=T}
+library(plotly)
+plot_ly(data=states,
+        x=~Murder, 
+        y=~Illiteracy, 
+        z=~Income, 
+        type = "scatter3d") 
+```
+
+**Explanation of the code**: `ggplot` doesn't make 3D plots. Instead we use `plotly`, which is an
+alternative graphing library. We use the `plot_ly` function, and pass it the `states` data
+as the first argument. Then we define the x, y and z axes. Note that each variable name
+from the dataset is prefixed by a `~` (tilde) character. This is required by `plot_ly`; it's
+not consistent with `ggplot` which is a shame.
+
+`r unhide()`
 
 
 

@@ -212,7 +212,7 @@ studyhabits %>%
 
 `r unhide()`
 
-# Lines by numbers
+# Lines by numbers {#first-linear-model}
 
 The plot we made in the previous section is helpful, because we can _see_ the best-fit line.
 

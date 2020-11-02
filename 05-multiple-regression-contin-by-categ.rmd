@@ -99,7 +99,7 @@ grViz("
 
 :::{.exercise}
 
-Work in pairs to brainstorm what factors incfluence a phenomena that interests you in applied psychology. 
+Work in pairs to brainstorm what factors influence a phenomena that interests you in applied psychology. 
 If you're stuck for idea perhaps pick a clinical outcome, or perhaps workplace stress.
 
 1. Start by making a list of all the variables that you think might be important.
@@ -210,7 +210,7 @@ studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgr
 
 
 We know there is a link (in these data) between study hours and grades because we can see it in the
-plot, and we modeled it using `lm` in a previous session:
+plot, and we modeled it using `lm` in a [previous worksheet](04-regression.html#first-linear-model):
 
 
 ```{r}
@@ -236,7 +236,9 @@ studyhabits %>%
 
 :::{.exercise}
 
-Load the data from <https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv> and reproduce the colored plot from above.
+Load the data from `https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv` 
+
+Reproduce the coloured plot from above.
 
 Agree within pairs or groups:
 
@@ -316,8 +318,8 @@ ggsave("media/model2.png", width=2, height=2)
 
 # Using `lm` for multiple regression {#fit-multiple-regression}
 
-As [we did for single-predictor regression](04-regression.html#regression-in-r) we can use `lm` to get numbers to describe the
-slopes of the lines in our plot.
+As [we did for single-predictor regression](04-regression.html#regression-in-r) we
+can use `lm` to calculate numbers to describe the slopes of the lines in our plot.
 
 ```{r}
 second.model <- lm(grade ~ work_hours * female, data = studyhabits)
@@ -349,6 +351,7 @@ second.model %>%
 
 source('extend-smooth-lines.R')
 m2co <- second.model %>% coefficients()
+preds <- second.model %>% predict(newdata=tibble(work_hours=c(30,32),female=c(T,F) ))
 studyhabits %>%
     ggplot(aes(work_hours, grade, colour=female)) +
     geom_point(alpha=.3) +
@@ -358,9 +361,10 @@ studyhabits %>%
     labs(x="Hours of work", y="Grade", color="Female") + 
     geom_point(aes(x=0, y=m2co[1]), color="black", shape=5, size=8)+
     geom_segment(aes(x = 0, y = m2co[1]+1, xend = 0, yend = m2co[1]+m2co[3]-1),
-                 arrow = arrow(length = unit(0.1, "inches")),color="black",)
+                 arrow = arrow(length = unit(0.1, "inches")),color="black",) +
+   geom_curve(aes(x = 32, y = preds[1], xend = 30, yend = preds[2]), color="black", arrow = arrow(length = unit(0.03, "npc")))
 
-
+ggsave('media/coefplotwithcurve.png', width=4, height=3)
 ```
 
 -   `(Intercept)` is the point for men, where `work_hours` = 0 (the point marked with a diamond where the red line would cross zero on the x axis).
