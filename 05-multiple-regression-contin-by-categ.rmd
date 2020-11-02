@@ -823,6 +823,7 @@ The result is a new Bayes Factor for the comparison we are actually interested i
 How to do it:
 
 ```{r}
+library(BayesFactor)
 A <- lmBF(grade ~ work_hours + female, data=studyhabits)
 B <- lmBF(grade ~ work_hours * female, data=studyhabits)
 
@@ -832,6 +833,13 @@ B/A
 **Explanation of the output**: We can now see a new BF for the comparison we were interested in: whether a model with varying slopes was more likely to be correct than one with same-slopes for men and women. The BF is roughly 64, which means we have substantial evidence in favour.
 
 
+
+:::{.exercise}
+
+1. Try re-running the example from above yourself
+2. Try creating another test of moderation and calculate a BF. You could use the `mtcars` data. Remember to include one categorical and one continuous predictor.
+
+:::
 
 
 

@@ -2809,10 +2809,11 @@ Show answers
 </ol>
 <p>The result is a new Bayes Factor for the comparison we are actually interested in.</p>
 <p>How to do it:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">lmBF</span>(grade <span class="op">~</span><span class="st"> </span>work_hours <span class="op">+</span><span class="st"> </span>female, <span class="dt">data=</span>studyhabits)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a>B &lt;-<span class="st"> </span><span class="kw">lmBF</span>(grade <span class="op">~</span><span class="st"> </span>work_hours <span class="op">*</span><span class="st"> </span>female, <span class="dt">data=</span>studyhabits)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true"></a>B<span class="op">/</span>A</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="kw">library</span>(BayesFactor)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">lmBF</span>(grade <span class="op">~</span><span class="st"> </span>work_hours <span class="op">+</span><span class="st"> </span>female, <span class="dt">data=</span>studyhabits)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a>B &lt;-<span class="st"> </span><span class="kw">lmBF</span>(grade <span class="op">~</span><span class="st"> </span>work_hours <span class="op">*</span><span class="st"> </span>female, <span class="dt">data=</span>studyhabits)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true"></a>B<span class="op">/</span>A</span></code></pre></div>
 <pre><code>## Bayes factor analysis
 ## --------------
 ## [1] work_hours * female : 64.24212 ±0%
@@ -2822,6 +2823,12 @@ Show answers
 ## ---
 ## Bayes factor type: BFlinearModel, JZS</code></pre>
 <p><strong>Explanation of the output</strong>: We can now see a new BF for the comparison we were interested in: whether a model with varying slopes was more likely to be correct than one with same-slopes for men and women. The BF is roughly 64, which means we have substantial evidence in favour.</p>
+<div class="exercise">
+<ol style="list-style-type: decimal">
+<li>Try re-running the example from above yourself</li>
+<li>Try creating another test of moderation and calculate a BF. You could use the <code>mtcars</code> data. Remember to include one categorical and one continuous predictor.</li>
+</ol>
+</div>
 </div>
 </div>
 <div id="notes" class="section level1">
