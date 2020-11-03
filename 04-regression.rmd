@@ -429,7 +429,7 @@ augment(first.model) %>%
  head()
 ```
 
-**Explanation of the output**: `augment` has also made a prediction for each row, but returned it
+**Explanation of the output**: The first line loads the `broom` package, which contains the `augment` function we want to use. The `augment` function used in line 2 has also made a prediction for each row, but returned it
 with the original data (`grade` and `work_hours`) that were used to fit the model. Alongside the
 `.fitted` value, and the `.resid` (residual) there are some other columns we can ignore for now.
 

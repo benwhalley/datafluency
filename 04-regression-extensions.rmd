@@ -35,7 +35,7 @@ studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgr
 
 If you have time, try to answer the following questions based on other datasets built into R.
 
-Using the mtcars data:
+Using the `mtcars` data (which is built into R):
 
 -   What do you predict the `mpg` would be for a car with 4 cylinders?
 -   What is the difference in `mpg` between a car with 4 and 5 cylinders?
@@ -97,7 +97,7 @@ broom::augment(m2, newdata=tibble(wt=c(1,2,3,4,5,6))) %>%
 :::{.exercise}
 
 
-Using the iris dataset:
+Using the `iris` dataset which is also built into R:
 
 -   What is your prediction for `Sepal.Length` for specimens which are 2 or 4mm wide?
 -   What is your prediction for a specimen which was 8mm wide? How confident are you about this

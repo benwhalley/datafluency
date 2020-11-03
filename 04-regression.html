@@ -1382,7 +1382,7 @@ Check your predictions
 ## 4    70         33    66.0   0.970   3.99 0.0125    8.67 0.00136       0.463
 ## 5    55         25    59.3   0.500  -4.31 0.00334   8.67 0.000416     -0.499
 ## 6    50         20    55.1   0.706  -5.12 0.00664   8.67 0.00118      -0.593</code></pre>
-<p><strong>Explanation of the output</strong>: <code>augment</code> has also made a prediction for each row, but returned it with the original data (<code>grade</code> and <code>work_hours</code>) that were used to fit the model. Alongside the <code>.fitted</code> value, and the <code>.resid</code> (residual) there are some other columns we can ignore for now.</p>
+<p><strong>Explanation of the output</strong>: The first line loads the <code>broom</code> package, which contains the <code>augment</code> function we want to use. The <code>augment</code> function used in line 2 has also made a prediction for each row, but returned it with the original data (<code>grade</code> and <code>work_hours</code>) that were used to fit the model. Alongside the <code>.fitted</code> value, and the <code>.resid</code> (residual) there are some other columns we can ignore for now.</p>
 <hr />
 <p>Often though, we don’t want a prediction for each row in the original dataset. Rather, we want predictions for specific values of the predictors.</p>
 <p>To do this, we can use the <code>newdata</code> argument to <code>predict</code> or <code>augment</code>.</p>
