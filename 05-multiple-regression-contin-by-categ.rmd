@@ -686,27 +686,33 @@ library(BayesFactor)
 
 Then use the `lmBF` function (instead of `lm`) to re-run our multiple regression model:
 
-```{r}
+```{r, echo=T, eval=F}
 lmBF(grade ~ work_hours * female, data = studyhabits)
 ```
 
 **Explanation of the command**: We replaced `lm` with the `lmBF` command. This
 re-ran our regression model and computed a Bayes Factor.
 
+```{r, include=T, echo=F, warning=F}
+m1bf <- lmBF(grade ~ work_hours * female, data = studyhabits)
+m1bf.bf <- m1bf %>% as_tibble() %>% pull(bf)
+m1bf.bf.c <- sprintf("%g", m1bf.bf)
+m1bf
+```
+
+
 **Explanation of the output**: Ignore the warning message about data being
 'coerced' - it's not as bad as it sounds. You should see a line which says
-something like `[1] work_hours * female : 8.327853e+12 ±0%`. This is the Bayes
+something like ` `r paste("[1] work_hours * female : ", m1bf.bf.c, "±0%")` `. This is the Bayes
 Factor for the comparison of your model against a simpler model with no
 predictors. That is, a model which just computes the _average_ of all outcome
 scores (sometimes called the 'Intercept only' model).
 
 
-
-
 ## How to interpret the BF
 
 The output above uses scientific notation, but the Bayes Factor (BF) is VERY
-large: 8327852821118.31
+large: roughly `r sprintf("%.0f", round(m1bf.bf,-7))`
 
 This means you have very strong evidence that your model is better than no model
 at all. 

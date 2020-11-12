@@ -770,6 +770,7 @@ margin-top: 0.5em;
 });
 </script>
 <style type="text/css">
+
 .solveme {
 border: 2px dotted red;
 }
@@ -797,6 +798,7 @@ margin-bottom: 1.5em;
 .solution pre.sourceCode {
 border-color: green;
 }
+.solution-button { display: inline-block; float:right; }
 </style>
 <style type="text/css">body {
 font-family: "Garamond", "Palatino", "Georgia", serif;
@@ -890,7 +892,10 @@ i.glyphicon.glyphicon-info-sign {
 font-size: 70%;
 vertical-align: super;
 }
-iframe { margin-bottom: 2em;}</style>
+iframe { margin-bottom: 2em;}
+h1::before, h2::before, .exercise::before { display: block; content: " "; margin-top: -100px; height: 100px; visibility: hidden; pointer-events: none;
+}
+</style>
 <script>/* update total correct if #total_correct exists */
 update_total_correct = function() {
   if ((t = document.getElementById("total_correct"))) {
@@ -2418,7 +2423,7 @@ img {
 <li><p>Try to leave out some connections if you can. The simpler the set of interconnections the better.</p></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show an example diagram
 </button>
 <p>Notice that “Academic performance” has several arrows pointing at it. This shows that this is a model which would enable us to predict academic performance. Your model should also have at least one arrow pointing at “Academic performance”.</p>
@@ -2520,7 +2525,7 @@ ADD ANSWERS XXX
 <li>Calculate the number that describes the slope for women in <code>second.model</code> above? <span id="Q789537" class="webex-fitb"><input class="solveme  nospaces calculator" data-tol="0.1" data-digits="4" size="5" style="width:5em;" data-answer="[&quot;0.721&quot;,&quot;.721&quot;]"></input><span class="solvedme"></span></span></li>
 </ul>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show answer
 </button>
 <p>To get the answer we need to add the slope for <code>work_hours</code> to the coefficient <code>work_hours:femaleTRUE</code>.</p>
@@ -2706,6 +2711,7 @@ Show answer
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">library</span>(BayesFactor)</span></code></pre></div>
 <p>Then use the <code>lmBF</code> function (instead of <code>lm</code>) to re-run our multiple regression model:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="kw">lmBF</span>(grade <span class="op">~</span><span class="st"> </span>work_hours <span class="op">*</span><span class="st"> </span>female, <span class="dt">data =</span> studyhabits)</span></code></pre></div>
+<p><strong>Explanation of the command</strong>: We replaced <code>lm</code> with the <code>lmBF</code> command. This re-ran our regression model and computed a Bayes Factor.</p>
 <pre><code>## Bayes factor analysis
 ## --------------
 ## [1] work_hours * female : 1.084058e+13 ±0%
@@ -2714,12 +2720,11 @@ Show answer
 ##   Intercept only 
 ## ---
 ## Bayes factor type: BFlinearModel, JZS</code></pre>
-<p><strong>Explanation of the command</strong>: We replaced <code>lm</code> with the <code>lmBF</code> command. This re-ran our regression model and computed a Bayes Factor.</p>
-<p><strong>Explanation of the output</strong>: Ignore the warning message about data being ‘coerced’ - it’s not as bad as it sounds. You should see a line which says something like <code>[1] work_hours * female : 8.327853e+12 ±0%</code>. This is the Bayes Factor for the comparison of your model against a simpler model with no predictors. That is, a model which just computes the <em>average</em> of all outcome scores (sometimes called the ‘Intercept only’ model).</p>
+<p><strong>Explanation of the output</strong>: Ignore the warning message about data being ‘coerced’ - it’s not as bad as it sounds. You should see a line which says something like <code>[1] work_hours * female :  1.08406e+13 ±0%</code>. This is the Bayes Factor for the comparison of your model against a simpler model with no predictors. That is, a model which just computes the <em>average</em> of all outcome scores (sometimes called the ‘Intercept only’ model).</p>
 </div>
 <div id="how-to-interpret-the-bf" class="section level2">
 <h2>How to interpret the BF</h2>
-<p>The output above uses scientific notation, but the Bayes Factor (BF) is VERY large: 8327852821118.31</p>
+<p>The output above uses scientific notation, but the Bayes Factor (BF) is VERY large: roughly 10840580000000</p>
 <p>This means you have very strong evidence that your model is better than no model at all.</p>
 <div class="tip">
 <p>Some conventional thresholds and interpretations are:</p>
@@ -2748,7 +2753,7 @@ Show answer
 <li><p>Use <code>lmBF</code> to re-run the same model and calculate the BF for this model. Is it better than no model at all?</p></li>
 </ol>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show answers
 </button>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="co"># 1</span></span>
