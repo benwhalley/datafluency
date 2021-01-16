@@ -41,6 +41,15 @@ Try and find a few figures or statistics reported in the journal articles these 
 
 
 
+# Watch a master class
+
+This video shows Hadley Wickham (author of much of the tidyverse) working with a real dataset. It's interesting for a number of reasons, but especially because it shows a range of techniques to explore data in a fluent way, and also because he 'thinks aloud' as he makes data-analytical decisions, so gives you an insight into the strategies and habits of mind that can be useful when working with real data.
+
+
+<iframe width="662" height="372" src="https://www.youtube.com/embed/go5Au01Jrvs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
 
 
 

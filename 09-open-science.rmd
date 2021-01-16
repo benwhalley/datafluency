@@ -5,7 +5,7 @@ date: "September 2020"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
-output: 
+output:
   webex::html_clean:
     includes:
       after_body: footer.html
@@ -31,8 +31,6 @@ theme_set(theme_minimal())
 
 
 # Before you start
-
-Note that I may add to this document as we move through the course, responding to questions/issues that arise. The RMarkdown task will remain though, so if you want to complete that in advance feel free.
 
 
 
@@ -201,7 +199,7 @@ If you previously completed the plotting task ([in the extensions](02-plotting-e
 If you did not previously complete that exercise, either do it now and use the RScript, or use your RScript from our second session (on data visualisation).
 
 
-Create an RMarkdown file to report your analyses of the Berkley data, or to organise the work you did in the data visualization session. 
+Create an RMarkdown file to report your analyses of the Berkley data, or to organise the work you did in the data visualization session.
 
 Your RMarkdown file should:
 
@@ -240,8 +238,8 @@ iris %>% head %>% pander
 And we can add a caption to the table like this:
 
 ```{r}
-iris %>% 
-  head %>% 
+iris %>%
+  head %>%
   pander(caption="The first 6 rows from the iris dataset")
 ```
 
@@ -270,4 +268,3 @@ Details of how to use chunk options are here: <https://rmarkdown.rstudio.com/les
 Re-do the exercise above which used `pander` to create a table. Use chunk options to hide the code which created this table.
 
 :::
-

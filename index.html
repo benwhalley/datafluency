@@ -770,6 +770,7 @@ margin-top: 0.5em;
 });
 </script>
 <style type="text/css">
+
 .solveme {
 border: 2px dotted red;
 }
@@ -797,6 +798,7 @@ margin-bottom: 1.5em;
 .solution pre.sourceCode {
 border-color: green;
 }
+.solution-button { display: inline-block; }
 </style>
 <style type="text/css">body {
 font-family: "Garamond", "Palatino", "Georgia", serif;
@@ -890,7 +892,10 @@ i.glyphicon.glyphicon-info-sign {
 font-size: 70%;
 vertical-align: super;
 }
-iframe { margin-bottom: 2em;}</style>
+iframe { margin-bottom: 2em;}
+h1::before, h2::before, .exercise::before { display: block; content: " "; margin-top: -100px; height: 100px; visibility: hidden; pointer-events: none;
+}
+</style>
 <script>/* update total correct if #total_correct exists */
 update_total_correct = function() {
   if ((t = document.getElementById("total_correct"))) {
@@ -1121,19 +1126,27 @@ img {
 <li>Fitting Curves <a href="https://chrisjberry.github.io/datafluencyCB/">see Chris’ website</a></li>
 </ol>
 <hr />
+<ul>
+<li><a href="09-open-science.html">Open Science and reproducible research in RMarkdown</a> and <a href="09-open-science-extensions.html">extension</a></li>
+</ul>
 <ol start="26" style="list-style-type: decimal">
-<li><a href="09-open-science.html">Open Science and reproducible research</a> and <a href="09-open-science-extensions.html">extension</a></li>
-<li><a href="10-intervals.html">Intervals and Uncertainty</a></li>
-<li>Reproducing a real paper</li>
-<li>Common analyses in practice</li>
+<li><a href="workshop-intervals.html">Intervals and Uncertainty</a> (and <a href="workshop-intervals-extensions.html">extensions</a>)</li>
+</ol>
+<ul>
+<li>Data visualisation assessment due</li>
+</ul>
+<ol start="27" style="list-style-type: decimal">
+<li><a href="workshop-repeat-measures.html">Repeated measures designs</a></li>
+<li><a href="14-interpretation-and-followup-tests.html">Model interpretation; follow-up and post-hoc tests</a></li>
+<li><a href="workshop-reproducing-a-real-paper.html">Reproducing a real paper</a></li>
 </ol>
 <hr />
 <ol start="31" style="list-style-type: decimal">
-<li><a href="14-interpretation-and-followup-tests.html">Causal interpretations; Follow-up and post-hoc tests</a></li>
+<li><a href="15-effect-sizes.html">Effect sizes</a></li>
 </ol>
 <hr />
 <ol start="33" style="list-style-type: decimal">
-<li><a href="15-effect-sizes.html">Effect sizes</a></li>
+<li><a href="workshop-reproducing-a-real-paper.html">Reproducing a real paper - part 2</a></li>
 </ol>
 <hr />
 <p>Other guides/info:</p>

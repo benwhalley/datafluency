@@ -770,6 +770,7 @@ margin-top: 0.5em;
 });
 </script>
 <style type="text/css">
+
 .solveme {
 border: 2px dotted red;
 }
@@ -797,6 +798,7 @@ margin-bottom: 1.5em;
 .solution pre.sourceCode {
 border-color: green;
 }
+.solution-button { display: inline-block; }
 </style>
 <style type="text/css">body {
 font-family: "Garamond", "Palatino", "Georgia", serif;
@@ -890,7 +892,10 @@ i.glyphicon.glyphicon-info-sign {
 font-size: 70%;
 vertical-align: super;
 }
-iframe { margin-bottom: 2em;}</style>
+iframe { margin-bottom: 2em;}
+h1::before, h2::before, .exercise::before { display: block; content: " "; margin-top: -100px; height: 100px; visibility: hidden; pointer-events: none;
+}
+</style>
 <script>/* update total correct if #total_correct exists */
 update_total_correct = function() {
   if ((t = document.getElementById("total_correct"))) {
@@ -1106,6 +1111,12 @@ img {
 <p>Try and find a few figures or statistics reported in the journal articles these files support. Can you follow enough of the Rmd to work our where they are calculated? (You might not understand <em>all</em> the R code, but this should still be possible).</p>
 </div>
 </div>
+<div id="watch-a-master-class" class="section level1">
+<h1>Watch a master class</h1>
+<p>This video shows Hadley Wickham (author of much of the tidyverse) working with a real dataset. It’s interesting for a number of reasons, but especially because it shows a range of techniques to explore data in a fluent way, and also because he ‘thinks aloud’ as he makes data-analytical decisions, so gives you an insight into the strategies and habits of mind that can be useful when working with real data.</p>
+<iframe width="662" height="372" src="https://www.youtube.com/embed/go5Au01Jrvs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
 <div id="reproduce-a-plot" class="section level1">
 <h1>Reproduce a plot</h1>
 <div class="exercise">
@@ -1115,7 +1126,7 @@ img {
 <p>These files share the data from the experiments: <a href="https://zenodo.org/record/1221315#.X37O1C2ZOCM" class="uri">https://zenodo.org/record/1221315#.X37O1C2ZOCM</a></p>
 <p>Try to recreate one or both of the plots, using ggplot. Try to improve them if you can, based on Tufte’s principles of graphical excellence (see week 11 session on visualisation).</p>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show hints
 </button>
 <ul>
@@ -1126,7 +1137,7 @@ Show hints
 </ul>
 </div>
 <div class="solution">
-<button>
+<button class="solution-button">
 Show example plots produced in R
 </button>
 <p>In it’s simplest form, without any tidying up of labels or formatting and using ggplot defaults, the plot might look something like this:</p>
@@ -1169,6 +1180,7 @@ Show example plots produced in R
       	<button type="button" class="close">×</button>
         <ul>
         <li><a href="#zenodo">Zenodo</a></li>
+        <li><a href="#watch-a-master-class">Watch a master class</a></li>
         <li><a href="#reproduce-a-plot">Reproduce a plot</a></li>
         </ul>
       </div>

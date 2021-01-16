@@ -62,21 +62,23 @@ you in good stead in your future careers.
 
 ---
 
+- [Open Science and reproducible research in RMarkdown](09-open-science.html) and [extension](09-open-science-extensions.html) 
 
-26. [Open Science and reproducible research](09-open-science.html) and [extension](09-open-science-extensions.html)
-27. [Intervals and Uncertainty](10-intervals.html)
-28. Reproducing a real paper
-29. Common analyses in practice
+26. [Intervals and Uncertainty](workshop-intervals.html) (and [extensions](workshop-intervals-extensions.html))
+
+- Data visualisation assessment due
+
+27. [Repeated measures designs](workshop-repeat-measures.html)
+28. [Model interpretation; follow-up and post-hoc tests](14-interpretation-and-followup-tests.html) 
+29. [Reproducing a real paper](workshop-reproducing-a-real-paper.html)
 
 ---
 
-31. [Causal interpretations; Follow-up and post-hoc tests](14-interpretation-and-followup-tests.html)
+31. [Effect sizes](15-effect-sizes.html)
 
 ---
 
-33. [Effect sizes](15-effect-sizes.html)
-
-
+33. [Reproducing a real paper - part 2](workshop-reproducing-a-real-paper.html)
 
 ---
 
