@@ -68,7 +68,7 @@ you in good stead in your future careers.
 
 - Data visualisation assessment due
 
-27. [Repeated measures designs](workshop-repeat-measures.html)
+27. [Repeated measures designs](workshop-repeated-measures.html)
 28. [Model interpretation; follow-up and post-hoc tests](14-interpretation-and-followup-tests.html) 
 29. [Reproducing a real paper](workshop-reproducing-a-real-paper.html)
 
