@@ -22,11 +22,9 @@ theme_set(theme_minimal())
 ```
 
 
-
-
 > Previously you have used Bayes Factors to look at the strength of evidence for the presence (or absence) of a difference _between_ groups.  In this worksheet, we'll cover  how to calculate a Bayes Factor for a simple _within-subjects_ or repeated measures experiment. 
 
-> A within-subjects experiment is one where all the conditions of an experiment are done by all the participants. A repeated measures is one which includes two or more measurements of the same variable per participant. Both can be analysed in the same way.
+> A within-subjects experiment is one where all the conditions of an experiment are done by all the participants, and a measure of the outcome variable is taken for each condition. A repeated measures design is effectively the same, except that two or more measurements of the same variable are made per participant at different times. Both can be analysed in the same way.
 
 > Within-subjects and repeated measures designs are often a good idea because they are more efficient: They tend to allow us to give confident answers to questions while testing fewer people than would be needed in a between-subjects experiment.
 
@@ -137,6 +135,7 @@ words %>%
 
 :::{.exercise}
 
+
 - Select the control group participants, and calculate the average RT for each trial type for each person using `group_by` and `summarise`.
 
 - Save this summary to a new dataframe called `words_summarised_control`.
@@ -157,11 +156,16 @@ words_summarised_control %>%
   geom_density(aes(y=..scaled..))
 ```
 
+`r unhide()`
+
+
 :::
 
+.
 
 
-`r unhide()`
+
+
 
 
 
@@ -240,7 +244,7 @@ words_summarised_control_factors <- words_summarised_control %>%
   ) 
 ```
 
-**Explanation of the command** We make a new dataset called `words_summarised_control_factors`. The mutate part uses the `factor` function to convert the `subj` and `congru` columns to factors. 
+**Explanation of the command** We make a new dataset called `words_summarised_control_factors`. The mutate part uses the `factor` function to convert the `subj` and `congru` columns to factors. The part which says `words_summarised_control_factors <- ` means 'save the result of these changes in a new variable called `words_summarised_control_factors`.
 
 
 ## Evidence
@@ -271,7 +275,7 @@ The other part that's new is `whichRandom = "subj"`. The command `whichRandom` m
 
 :::{.tip}
 
-A random factor is one where, if you ran the experiment again, the levels of the factor would be different. If you ran this experiment again, you'd almost certainly want to test different people, so the levels of the `subj` factor would be different if you re-ran the experiment. This makes it a _random_ factor. In contrast, if you wanted to re-run this experiment in the same way as before, you would still have congruent and incongruent trials, so the levels of the `congru` factor aren't random. They're generally described as _fixed_. The command `anovaBF` assumes factors are fixed unless you tell it they are random. 
+**Random vs. fixed factors**: A random factor is one where, if you ran the experiment again, the levels of the factor would be different. If you ran this experiment again, you'd almost certainly want to test different people, so the levels of the `subj` factor would be different if you re-ran the experiment. This makes it a _random_ factor. In contrast, if you wanted to re-run this experiment in the same way as before, you would still have congruent and incongruent trials, so the levels of the `congru` factor aren't random. They're generally described as _fixed_. The command `anovaBF` assumes factors are fixed unless you tell it they are random. 
 
 :::
 
@@ -279,12 +283,18 @@ A random factor is one where, if you ran the experiment again, the levels of the
 
 ### Explanation of output
 
-The Bayes Factor is roughly `1.8e+14`, which is really very large ( [reminder on scientific notation here](https://www.bbc.com/education/guides/zxsv97h/revision)).  It is overwhelmingly in support of the conclusion that there is a difference between these three conditions.
+The Bayes Factor is roughly `1.8e+14`, which is really very large ([reminder on scientific notation here](https://www.bbc.com/education/guides/zxsv97h/revision)).  
+
+It overwhelmingly supports the conclusion that there *is* a difference between the three conditions.
 
 
 # Interactions {#interactions}
 
-To summarise, in this experiment participants had to name a word, and ignore a picture it was presented alongside. But we found they could not do so.  Reaction times were longer for _incongruent_ trials than _congruent_ trials, and there was substantial Bayesian evidence for that difference.
+To summarise:
+
+- in this experiment participants had to name a word, and ignore a picture it was presented alongside
+- but, ignoring the picture was hard:  reaction times were longer for _incongruent_ trials than _congruent_ trials, 
+- there was substantial Bayesian evidence for that difference
 
 However, these researchers were interested in the idea that learning how to meditate might increase your ability to attend to just the relevant aspects of a task. 
 
@@ -293,10 +303,10 @@ If this were true, the _congruency effect_ would be smaller for those trained in
 To test this idea, the experimenters randomly allocated 140 people to a week-long meditation training course, while another 140 people were randomly allocated to a no-training control condition (another 140 did relaxation training, but we are ignoring them for the moment). Everyone then did the word-naming task. 
 
 
-> Our goal now is to work out the level of evidence for the hypothesis that meditation training reduces the size of the congruency effect.
+> Our goal now is to work how much evidence there is that meditation training reduces the size of the congruency effect.
 
 
-In order to do this, we need to revisit the concept of an _interaction_ which we first discussed in the [multiple regression workshop](05-multiple-regression-contin-by-categ.html).
+To do this we revisit the concept of an _interaction_, which we first discussed in the [multiple regression workshop](05-multiple-regression-contin-by-categ.html).
 
 
 
@@ -368,14 +378,13 @@ words_summ %>%
 
 ### Interpreting the plot
 
-This plot is very much like the one we drew before when we were just looking at data from the control condition. 
-The curve for the control condition is identical. 
+This plot is much like the one we drew before for the control condition. 
 
-As before, we can see that in the control condition, most _congruency scores_ are positive, although there is of course a range (from about -200 to +300 ms). 
+As before, we can see that in the control condition, most _congruency scores_ are positive (although there is a range). 
 
-The new part of this graph is that we also have a curve for the meditation and relaxation conditions. It is the `colour=medit` part of the command that causes this to happen.
+Now, though, we have added a curve for the meditation and relaxation conditions.
 
-We can see that the curve for the `meditate` condition is approximately centred on zero. In other words, on average, there is no congruency effect after meditation training. 
+The curve for the `meditate` condition is approximately centred on zero. In other words, on average, there's no congruency effect after meditation training. 
 
 
 
@@ -391,10 +400,11 @@ To summarise:
 
 - this difference is smaller after meditation training than after no training. 
 
-- so, the results of this experiment can be described as a _difference of differences_. The RT difference is smaller for meditation than for control participants. 
+
+**The results of this experiment can be described as a _difference of differences_. The RT difference is smaller for meditation than for control participants. **
 
 
-The phrase _difference of differences_ is a bit clumsy, so we often use another, jargon, word for it. We say that the results of this experiment show an _interaction_ between trial type (congruent, incongruent) and training type (meditation, relaxation, control).  
+The phrase _difference of differences_ is a bit clumsy, so we often use another jargon word for it: We say that the results of this experiment show an _interaction_ between trial type (congruent, incongruent) and training type (meditation, relaxation, control).  
 
 This is just another way of saying the size of the difference between trial types is affected by meditation training.  
 
