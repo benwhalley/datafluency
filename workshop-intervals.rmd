@@ -33,6 +33,7 @@ theme_set(theme_minimal())
 Note: if you are in a live workshop you can [skip directly to the exercises below](#exercises). These notes are intended as a reference and additional coverage for the material in the mini-lecture.
 
 
+
 # Introduction 
 
 :::{.exercise}
@@ -169,7 +170,6 @@ And that's not the same thing at all.
 
 Remember, _p_ values are **_not_** the probability your hypothesis is right or wrong. And confidence intervals are **_not_** the range within which have 95% confidence the true answer will fall.
 
-If you want more explanation on this point, see this [additional explanation of confidence intervals](confidence-intervals.html)
 
 :::
 

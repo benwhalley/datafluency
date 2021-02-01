@@ -69,16 +69,16 @@ you in good stead in your future careers.
 - Data visualisation assessment due
 
 27. [Repeated measures designs](workshop-repeated-measures.html)
-28. [Model interpretation; follow-up and post-hoc tests](14-interpretation-and-followup-tests.html) 
-29. [Reproducing a real paper](workshop-reproducing-a-real-paper.html)
+28. [Reproducing a real paper - part 1](workshop-reproducing-a-real-paper.html)
+29. [Model interpretation; follow-up and post-hoc tests](14-interpretation-and-followup-tests.html) 
 
 ---
 
-31. [Effect sizes](15-effect-sizes.html)
+31. [Effect sizes](workshop-effect-sizes.html)
 
 ---
 
-33. [Reproducing a real paper - part 2](workshop-reproducing-a-real-paper.html)
+33. Reproducing a real paper - part 2
 
 ---
 

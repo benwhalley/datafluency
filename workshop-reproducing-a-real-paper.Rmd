@@ -1,0 +1,344 @@
+---
+title: 'Reproducing a real paper'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=">", message=FALSE)
+library(tidyverse)
+library(webex)
+library(pander)
+theme_set(theme_minimal())
+```
+
+
+> Reproducing a published analysis of data that authors have shared is an important 
+> part of open science. Published reports are often quite sparse, and journals don't 
+> provide enough space for exploratory analyses, alternative formulations models, or for sensitivity analyses.
+
+> Replicating a published analysis is important in it's own right (because it gives us)
+> more confidence in the results. But it can also be useful in developing new research
+> or making new discoveries based on existing data. Researchers conducing systematic
+> reviews may also want to replicate analyses to obtain additional information — e.g.
+> data on effect sizes or variability — to use in meta analyses.
+
+> Replicating published analyses can often be surprisingly tricky. Authors often don't provide full
+> information about their data processing or model specification, so it can take some guesswork.
+> It's also quite common to find errors in published analyses, which can be confusing.
+
+> The final coursework assignment for this module is to try and replicate a published analyses. 
+> Our intention is that this experience will give you a realistic experience of working with real data,
+> and also an heightended awareness of the value of adopopting good practices for open and replicable science.
+
+
+
+
+# Before you start
+
+
+:::{.exercise}
+
+1. Before you start make sure you are familiar with the material we have already covered on this module. In particular we will be using:
+
+  - ggplot, including scatter plots and boxplots
+  - linear models (`lm`)
+  - predictions and plots based on linear models
+
+1. Make a new R project for this activity (it will span multiple weeks). Give the project a descriptive name (e.g. `"psyc753-real-world-analysis"`)
+
+1. Create a new .Rmd file inside the project. The first code chunk should load the tidyverse and BayesFactor packages.
+
+:::
+
+
+
+
+
+
+
+# Reference code and tips
+
+Things that might be useful:
+
+These are _not_ a list of things you must work through. They are intended to be useful reminders of material we have covered already. In some places I extend what we have previously seen in ways that might be useful for the assessment task.
+
+Use these as a reference, if that's useful. 
+
+I will add to this page as questions arise in the course of the workshops.
+
+
+## Downloading a file from the internet
+
+```{r}
+download.file(url='https://github.com/benwhalley/datafluency/raw/master/data/pone.0192758.s002.xls', 
+              destfile = 'pone.0192758.s002.xls')
+```
+**Explanation**: The `download.file` function does what it says on the tin. Pass the URL of the file to download, and the name you want to save it as in your folder on the RStudio server. If you run it it will save a copy of the remote file into your RStudio folder/project.
+
+Watch out not to edit this saved file directly though — if you ran `download.file` a second time your changes would be lost. Use R to read in the file and work with that imported data in an Rmd script.
+
+
+
+## Reading Excel files
+
+The `readxl` library is useful for this:
+
+```{r}
+library(readxl)
+read_xls('pone.0192758.s002.xls')
+```
+
+Some tips on file handling:
+
+- Excel saves files with either either `.xls` (old style) or `.xlsx` (newer) file extensions. If you 
+are uploading files to the RStudio server make sure you preserve these.
+
+- If your Excel file has multiple 'sheets' then look at the help files for `read_xlx` and `read_xlsx`: They have options which let you specify which sheet you want, and whether to skip the first few rows or not (sometimes this can be useful)
+
+- Save your own data in CSV format. It's easier and more reliable to work with.
+
+
+
+
+## Rounding numbers
+
+For single numbers:
+
+```{r}
+round(3.141593, digits=2)
+```
+
+You can use `round` as part of mutate:
+
+```{r}
+mtcars %>% select(wt) %>% 
+  mutate(wt_integer = round(wt, 0)) %>% 
+  head()
+```
+
+And with this trick you can round multiple columns at once:
+
+```{r}
+mtcars %>% 
+  select(drat, wt, qsec) %>% 
+  mutate_if(is.numeric, round, digits=1)
+```
+
+
+How many digits to use? See http://my.ilstu.edu/~mshesso/apa_stats.htm
+
+
+
+
+
+## Pivoting
+
+
+When you want to make a table that compares groups you can use a combination of:
+
+- pivot_longer
+- summarise
+- pivot_wider
+
+Sometimes you have to use multiple pivots to get the effect you want:
+
+```{r}
+diamonds %>% select(carat, depth, price, cut) %>% 
+  pivot_longer(-cut) %>% 
+  group_by(cut, name) %>% 
+  summarise(mean = mean(value), sd = sd(value)) %>% 
+  pivot_longer(mean:sd, names_to="variable") %>% 
+  pivot_wider(names_from = cut)
+```
+
+
+:::{.exercise}
+
+- Try running the code above step by step to check you understand what each part is doing
+- Re-write the last line of code so that `carat`, `depth` and `price` appear in the column headings, as in the table below:
+
+
+```{r, echo=F, message=F, warning=F}
+diamonds %>% select(carat, depth, price, cut) %>% 
+  pivot_longer(-cut) %>% 
+  group_by(cut, name) %>% 
+  summarise(mean = mean(value), sd = sd(value)) %>% 
+  pivot_longer(mean:sd, names_to="variable") %>% 
+  pivot_wider(names_from = cut)
+```
+
+
+:::
+
+
+
+
+
+## Renaming columns
+
+If you just want to rename columns:
+
+```{r}
+mtcars %>% 
+  select(mpg, wt) %>% 
+  rename(MPG = mpg, Weight=wt) %>% 
+  head()
+```
+
+
+If you want to include spaces in your new column names, use backticks:
+
+```{r}
+mtcars %>% 
+  select(mpg, wt) %>% 
+  rename(`Miles per gallon` = mpg, `Weight in lbs`=wt) %>% 
+  head()
+```
+
+
+But don't include spaces in column names if you plan on using the dataset for anything other than making a table.
+
+
+
+
+
+
+
+## Working with text data
+
+
+Sometimes you want to make things start with a capital letter, to make tables tidy:
+
+```{r}
+tibble(fruit = c("Apple", "orange", "banana")) %>% 
+  mutate(fruit = tools::toTitleCase(fruit))
+```
+
+
+Sometimes you have data which is stored as text when it shouldn't be. The separate function splits up variables like `time`` in
+the dataset below:
+
+```{r}
+tibble(times = c("time_1", "time_2", "time_3"), score=c(33,21,24)) %>% 
+  separate(times, sep="_", into=c("unused", "time")) %>% 
+  select(-unused)
+```
+
+
+Another technique is to use `str_replace`. This function accepts a `string` (your variable containing letters and numbers) and a `pattern` and `replacement`. R searches through the string replacing all the text which matches the pattern with the replacement, as you can see below:
+
+```{r}
+tibble(times = c("time_1", "time_2", "time_3")) %>% 
+  mutate(time_number = str_replace(string = times, pattern = "time_", replacement = ""))
+```
+
+There are some special characters you can use in the `pattern` variable to match more than one character at a time. This is a
+pretty advanced technique, but can be very useful to know when working with text data. If you'd like to know more see [this](https://www.reddit.com/r/explainlikeimfive/comments/3yqvit/eli5_regex_regular_expressions/) for a very basic explanation, and [this](https://stackoverflow.com/questions/4736/learning-regular-expressions) for a bit more detail and pointers to other resources.
+
+
+
+
+
+
+## Output tables with `pander`
+
+
+So far we have used the Pander package to make tables in Rmarkdown:
+
+```{r}
+mtcars %>% 
+  select(mpg, wt, cyl) %>% 
+  head(3) %>% 
+  pander()
+```
+
+
+You can add captions to tables like this:
+
+```{r}
+diamonds %>% 
+  select(cut, clarity, carat) %>% 
+  head(3) %>% 
+  pander(caption="Some data about diamonds")
+```
+
+
+Sometimes you may fine that pander splits a table in two parts if it thinks the table will be too wide to display:
+
+
+```{r}
+mtcars %>% head(3) %>% pander()
+```
+
+
+
+To prevent this you can write:
+
+```{r}
+mtcars %>% head(3) %>% pander(split.tables=100)
+```
+
+The `split.tables=100` means, "only split the table if it's wider than 100 characters". You can set a larger number than 100 if you like, but that is pretty wide; if you make it much wider the results may not look that pretty.
+
+
+
+
+## Rotate your axis labels
+
+
+Sometimes axis labels don't fit neatly:
+
+```{r}
+europe <- gapminder::gapminder %>% 
+  filter(continent=="Europe") %>% 
+  ggplot(aes(country, gdpPercap)) + geom_boxplot() + xlab("") 
+
+europe
+```
+
+There are two ways of fixing the plot. 
+
+Sometimes `coord_flip` is helpful; it swaps the x and y axes so makes the labels easy to read:
+
+
+```{r}
+europe + coord_flip()
+```
+
+You can also just rotate the labels themselves:
+
+```{r}
+europe + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
+```
+
+
+
+
+## Sorting the values on an axis
+
+To continue the example above, sometimes we might want to see quickly which are the richest and poorest countries.
+
+To do this you need to mutate the `country` variable using the `fct_recode` variable:
+
+```{r}
+gapminder::gapminder %>% 
+  mutate(country = fct_reorder(country, gdpPercap)) %>% 
+  filter(continent=="Europe") %>% 
+  ggplot(aes(country, gdpPercap)) + geom_boxplot() + xlab("") + 
+  coord_flip() 
+```
+Explanation: `fct_recode` takes the names of two columns: The factor you want to reorder, and the column containing the values the you want to reorder _by_ (here it's GDP).
+
+
+
+
