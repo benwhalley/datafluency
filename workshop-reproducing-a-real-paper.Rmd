@@ -113,6 +113,18 @@ are uploading files to the RStudio server make sure you preserve these.
 
 
 
+:::{.exercise}
+
+To practice, try loading in a datafile from a paper published with data on the Plos One journal.
+
+Data files are normally saved in the 'supplementary materials' section.
+
+Depending on your browser, you can often 'right click' on a link to get the URL (i.e. to get the URL of the data file to download).
+
+
+:::
+
+
 
 ## Rounding numbers
 
@@ -138,9 +150,48 @@ mtcars %>%
   mutate_if(is.numeric, round, digits=1)
 ```
 
+**Explanation**: The `mutate_if` function is allowing us to selectively apply the `round` function to columns which hold numeric data. This is important because we can't round text data. The first part says `is.numeric`, which is used as the test to check which columns to mutate: if the column `is.numeric` then it will be mutated. The second part says `round`, which is the name of the function we want to apply to the columns. The final part says `digits=1`, which is an option that is passed to `round`. It means we will round each column to 1 decimal place. You can set digits to 2 or 3 for APA format tables.
+
 
 How many digits to use? See http://my.ilstu.edu/~mshesso/apa_stats.htm
 
+
+-----------------------------
+
+One very small nitpick with rounding numbers is that `"3.10"` rounded to 1 decimal place would end up being displayed as `"3.1"`. That is, without a trailing zero.
+
+Some people get annoyed by this because it sometimes makes tables look weird. If you want to output a fixed number of zeros you can use the `str_interp` function:
+
+**Note this section is totally optional; you will not get marked down for using `round` as described above**.
+
+```{r}
+mtcars %>% 
+  select(wt) %>% 
+  rowwise() %>% 
+  mutate(wt_fixed_width = str_interp("$[.2f]{wt}"))
+```
+
+
+**Explanation**: There are 3 important parts here. The `rowwise()` function is important, because it tells
+R to format each row in turn, rather than attempting to format the whole column in one go. It's quite hard to explain in words, but to understand try running to code without and see what happens. The `str_interp` function is used to *interpolate* columns into a string (a column containing letters and numbers). The part which says `"$[.2f]{wt}"` can be broken into 3. The `$` says 'this is a variable', i.e. a column from the dataframe. The `"{wt}"` part tells R it is the `wt` column we want to use. The `"[.2f]"` tells R we want to use a fixed width (`f`) format, with 2 decimal places.
+
+What's nice about `str_interp` is that it can also be used to make columns which contain a mix of numbers and text. 
+Although this makes your data hard to process further, it can be useful for some table displays seen in journals.
+
+```{r}
+mtcars %>% 
+  pivot_longer(everything(), names_to="Variable") %>% 
+  group_by(Variable) %>% 
+  summarise(Mean=mean(value), SD=sd(value)) %>% 
+  rowwise() %>% 
+  mutate(
+    `Mean (SD)` =  str_interp("$[.2f]{Mean} ($[.2f]{SD})" )) %>% 
+  pander()
+```
+
+**Explanation**: The only new part here is the format we used for `str_interp`: `"$[.2f]{Mean} ($[.2f]{SD})"`. This now has two `"$"` signs, and includes both the Mean and SD columns in a single column.
+
+Don't do this if you expect to use your data for further analysis. It can be useful for making tables however.
 
 
 
