@@ -70,11 +70,13 @@ you in good stead in your future careers.
 
 27. [Repeated measures designs](workshop-repeated-measures.html)
 28. [Reproducing a real paper - part 1](workshop-reproducing-a-real-paper.html)
-29. [Model interpretation; follow-up and post-hoc tests](14-interpretation-and-followup-tests.html) 
+29. ...continues
 
 ---
 
-31. [Effect sizes](workshop-effect-sizes.html)
+31. Model interpretation; follow-up and post-hoc tests, Effect sizes
+
+<!--[](14-interpretation-and-followup-tests.html)  ](workshop-effect-sizes.html) -->
 
 ---
 
