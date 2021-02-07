@@ -74,13 +74,13 @@ you in good stead in your future careers.
 
 ---
 
-31. Model interpretation; follow-up and post-hoc tests, Effect sizes
+31. Model interpretation; follow-up and post-hoc tests; effect sizes
 
 <!--[](14-interpretation-and-followup-tests.html)  ](workshop-effect-sizes.html) -->
 
 ---
 
-33. Reproducing a real paper - part 2
+33. Reproducing a real paper - part 3
 
 ---
 

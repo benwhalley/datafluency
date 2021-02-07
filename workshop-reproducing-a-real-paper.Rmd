@@ -511,6 +511,9 @@ europe + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
 
+**Explanation**: The `theme` function can be added to a ggplot to change aspects of the visual display. In this case we change the `axis.text.x` option. The `element_text` part tells R we can to define the text style. The `angle=90` part rotates the text. The `vjust` and `hjust` options (short for *h*orizontal/*v*ertical *just*ification) make sure the labels are aligned vertically and horizontally with the correct spot on the axis.
+
+
 
 
 ## Sorting the values on an axis
@@ -527,7 +530,8 @@ gapminder::gapminder %>%
   coord_flip() 
 ```
 
-Explanation: `fct_recode` takes the names of two columns: The factor you want to reorder, and the column containing the values the you want to reorder _by_ (here it's GDP).
+**Explanation**: `fct_recode` takes the names of two columns as options: First, fhe factor you want to reorder (here it's `country`), and second the column containing the values the you want to reorder _by_ (here it's GDP).
+The function makes a new version of the factor, making sure the different levels  of `country` are sorted in order of their `gdpPercap`.
 
 
 
