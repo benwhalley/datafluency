@@ -226,8 +226,8 @@ To do this use the `download.file` function:
 
 
 ```{r, cache=T}
-download.file(url='https://github.com/benwhalley/datafluency/raw/master/data/pone.0192758.s002.xls', 
-              destfile = 'pone.0192758.s002.xls')
+schaefferurl <- 'https://github.com/benwhalley/datafluency/raw/master/data/pone.0192758.s002.xls'
+download.file(url=schaefferurl, destfile = 'pone.0192758.s002.xls')
 ```
 **Explanation**:  `download.file`  does what it says on the tin. Pass the URL of the file to download, and the name you want to save it as in your folder on the RStudio server. If you run it it will save a copy of the remote file into your RStudio folder/project.
 
@@ -289,7 +289,8 @@ And with this trick you can round multiple columns at once:
 ```{r}
 mtcars %>% 
   select(drat, wt, qsec) %>% 
-  mutate_if(is.numeric, round, digits=1)
+  mutate_if(is.numeric, round, digits=1) %>% 
+  head()
 ```
 
 **Explanation**: The `mutate_if` function is allowing us to selectively apply the `round` function to columns which hold numeric data. This is important because we can't round text data. The first part says `is.numeric`, which is used as the test to check which columns to mutate: if the column `is.numeric` then it will be mutated. The second part says `round`, which is the name of the function we want to apply to the columns. The final part says `digits=1`, which is an option that is passed to `round`. It means we will round each column to 1 decimal place. You can set digits to 2 or 3 for APA format tables.
@@ -304,7 +305,8 @@ One very small nitpick with rounding numbers is that `"3.10"` rounded to 1 decim
 
 Some people get annoyed by this because it sometimes makes tables look weird. If you want to output a fixed number of zeros you can use the `str_interp` function:
 
-**Note this section is totally optional; you will not get marked down for using `round` as described above**.
+**Note this section is totally optional; you will not get marked down for using `round` as described above**. I only include it because I know it bothers some people and I get asked about it alot.
+
 
 ```{r}
 mtcars %>% 
@@ -315,7 +317,7 @@ mtcars %>%
 
 
 **Explanation**: There are 3 important parts here. The `rowwise()` function is important, because it tells
-R to format each row in turn, rather than attempting to format the whole column in one go. It's quite hard to explain in words, but to understand try running to code without and see what happens. The `str_interp` function is used to *interpolate* columns into a string (a column containing letters and numbers). The part which says `"$[.2f]{wt}"` can be broken into 3. The `$` says 'this is a variable', i.e. a column from the dataframe. The `"{wt}"` part tells R it is the `wt` column we want to use. The `"[.2f]"` tells R we want to use a fixed width (`f`) format, with 2 decimal places.
+R to format each row in turn, rather than attempting to format the whole column in one go. It's quite hard to explain in words, but to understand try running to code without and see what happens. The `str_interp` function is used to *interpolate* columns into a string (a column containing letters and numbers). The part which says `"$[.2f]{wt}"` can be broken into 3. The `$` says 'this is a variable', i.e. a column from the dataframe. The `{wt}` part tells R it is the `wt` column we want to use. The `[.2f]` tells R we want to use a fixed width (`f`) format, with 2 decimal places.
 
 What's nice about `str_interp` is that it can also be used to make columns which contain a mix of numbers and text. 
 Although this makes your data hard to process further, it can be useful for some table displays seen in journals.
@@ -337,9 +339,7 @@ Don't do this if you expect to use your data for further analysis. It can be use
 
 
 
-
 ## Pivoting
-
 
 When you want to make a table that compares groups you can use a combination of:
 
@@ -355,7 +355,8 @@ diamonds %>% select(carat, depth, price, cut) %>%
   group_by(cut, name) %>% 
   summarise(mean = mean(value), sd = sd(value)) %>% 
   pivot_longer(mean:sd, names_to="variable") %>% 
-  pivot_wider(names_from = cut)
+  pivot_wider(names_from = cut) %>% 
+  pander()
 ```
 
 
