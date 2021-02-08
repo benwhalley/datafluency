@@ -465,7 +465,7 @@ diamonds %>%
 ```
 
 
-Sometimes you may fine that pander splits a table in two parts if it thinks the table will be too wide to display:
+Sometimes you may find that pander splits a table in two parts if it thinks the table will be too wide to display:
 
 
 ```{r}
