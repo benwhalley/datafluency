@@ -428,8 +428,10 @@ tibble(fruit = c("Apple", "orange", "banana")) %>%
 Another technique is to use `str_replace`. This function accepts a `string` (your variable containing letters and numbers) and a `pattern` and `replacement`. R searches through the string replacing all the text which matches the pattern with the replacement, as you can see below:
 
 ```{r}
-tibble(times = c("time_1", "time_2", "time_3")) %>% 
-  mutate(time_number = str_replace(string = times, pattern = "time_", replacement = ""))
+tibble(timepoint = c("time_1", "time_2", "time_3")) %>% 
+  mutate(time_number = str_replace(string = timepoint, 
+                                   pattern = "time_", 
+                                   replacement = ""))
 ```
 
 There are some special characters you can use in the `pattern` variable to match more than one character at a time. This is a
