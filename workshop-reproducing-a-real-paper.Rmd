@@ -372,7 +372,8 @@ diamonds %>% select(carat, depth, price, cut) %>%
   group_by(cut, name) %>% 
   summarise(mean = mean(value), sd = sd(value)) %>% 
   pivot_longer(mean:sd, names_to="variable") %>% 
-  pivot_wider(names_from = cut)
+  pivot_wider(names_from = name) %>% 
+  pander()
 ```
 
 
