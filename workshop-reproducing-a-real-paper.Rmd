@@ -89,6 +89,7 @@ Work together in a pair to make both plots.  When you have finished:
 
 - Discuss your plots  with Paul or I. Please do highlight anything about your plots you would like to change but don't yet know how. If we are not immediately available feel free to move on to the next task before we get to you.
 
+
 `r hide("Show hints on how to get started")`
 
 Some good first steps:
@@ -98,7 +99,6 @@ Some good first steps:
 - Use `pivot_longer` to make the data long form (2 rows per person)
 - Think about which plotting technique you'd like to use (e.g. `stat_summary`, `geom_boxplot`)
 - Think about how to introduce additional variables to a plot (e.g. color or facets)
-
 
 `r unhide()`
 
@@ -533,7 +533,7 @@ europe + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 
 
-## Sorting the values on an axis
+## Sorting the values on an axis {#sortingfactor}
 
 To continue the example above, sometimes we might want to see quickly which are the richest and poorest countries.
 
@@ -551,6 +551,47 @@ gapminder::gapminder %>%
 The function makes a new version of the factor, making sure the different levels  of `country` are sorted in order of their `gdpPercap`.
 
 
+
+
+
+
+
+## Changing axis markers
+
+Sometimes you might want to change the axis labels in a plot. To do this you can 
+use the `scale_x_discrete` function from ggplot. Let's say we have a plot like this:
+
+```{r}
+mtcars %>% 
+  ggplot(aes(factor(am), mpg)) + 
+  geom_boxplot()
+  
+```
+
+We could add x axis labels like so:
+
+```{r}
+mtcars %>% 
+  ggplot(aes(factor(am), mpg)) + geom_boxplot() +
+  scale_x_discrete(labels=c("Manual", "Automatic")) + 
+  xlab("Transmission")
+```
+
+
+Note that this _doesn't_ allow you to reorder the labels. If you put labels in a different order
+to the one displayed your plot will simply be mislabelled!
+
+If you want to change the order in which Manual and Automatic appeared you can either use the [sorting technique just above](#sortingfactor), or set the levels and labels of the factor when you create it. Here' an example:
+
+
+```{r}
+mtcars %>% 
+  mutate(Transmission = factor(am, labels=c("Automatic", "Manual"), levels=c(1, 0))) %>% 
+  ggplot(aes(Transmission, mpg)) + 
+  geom_boxplot() 
+```
+
+**Explanation**: In the `mutate` part we use `factor` to create a new variable. We set the `levels` option to be a list of all the different values that `am` could take on, which is either zero or one. We use the `labels` option to tell R the meaningful labels we want to give to each level. The order in which you define the `levels` determines the order of the x axis in the plot (try doing it in reverse to check). Be careful that the values you use in `levels` match ***exactly*** what is in the data. If these don't match you will end up with some unlabelled data.
 
 
 
