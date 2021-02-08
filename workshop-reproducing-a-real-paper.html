@@ -1490,7 +1490,7 @@ Finding the comparison we want
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>cut) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(cut, name) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(value), <span class="dt">sd =</span> <span class="kw">sd</span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">pivot_longer</span>(mean<span class="op">:</span>sd, <span class="dt">names_to=</span><span class="st">&quot;variable&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">c</span>(mean, sd), <span class="dt">names_to=</span><span class="st">&quot;variable&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> cut) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">pander</span>()</span></code></pre></div>
 <table style="width:96%;">
