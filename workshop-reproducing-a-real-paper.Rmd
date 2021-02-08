@@ -89,6 +89,20 @@ Work together in a pair to make both plots.  When you have finished:
 
 - Discuss your plots  with Paul or I. Please do highlight anything about your plots you would like to change but don't yet know how. If we are not immediately available feel free to move on to the next task before we get to you.
 
+`r hide("Show hints on how to get started")`
+
+Some good first steps:
+
+- Read in the data 
+- Rename variables to be shorter/more manageable
+- Use `pivot_longer` to make the data long form (2 rows per person)
+- Think about which plotting technique you'd like to use (e.g. `stat_summary`, `geom_boxplot`)
+- Think about how to introduce additional variables to a plot (e.g. color or facets)
+
+
+`r unhide()`
+
+
 :::
 
 
