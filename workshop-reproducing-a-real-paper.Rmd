@@ -43,6 +43,62 @@ theme_set(theme_minimal())
 
 
 
+<!---
+
+Example code for the tables exercise
+
+wing_preproc <- read_csv('picture-naming-preproc.csv')
+wing_preproc %>% head() %>% pander(split.table = Inf)
+
+task_by_subj <- wing_preproc %>%
+  pivot_longer(cols = c(nc, np, pc, pp),
+               names_to = 'task',
+               values_to = 'correct') %>%
+  select(subj, gender, cards, task, correct)
+
+task_by_subj %>% head(5) %>% pander()
+
+
+descript <- task_by_subj %>%
+  group_by(task, gender) %>%
+  summarise(mean = mean(correct, na.rm = TRUE), 
+            sd = sd(correct, na.rm = TRUE))
+
+
+# our task names don't look so good
+descript
+
+descript.nicer <- descript %>%
+  mutate(task = recode(task, 
+                       nc = 'Noun Comprehension',
+                       np = 'Noun Production',
+                       pc = 'Predicate Comprehension',
+                       pp = 'Predicate Production'  ))
+
+descript.nicer
+
+
+# apa tables are wide
+descript_table <- descript.nicer %>%
+  pivot_wider(names_from = gender, values_from = c(mean, sd)) 
+
+# reorder columns
+descript_table <- descript_table %>% select(task, mean_female, sd_female, mean_male, sd_male) 
+
+# set_names is a quick way of renaming many columns
+descript_table %>% set_names( c("Task", "Female (M)", "Female (SD)", "Male (M)", "Male (SD)") )
+
+# pander is for rmarkdown output
+descript_table %>% pander()
+
+
+-->
+
+
+
+
+
+
 # Before you start
 
 
@@ -69,14 +125,21 @@ theme_set(theme_minimal())
 # Workshop tasks
 
 
-Data for Schaefer 2018 are available from:
-<https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0192758> (look in the supplementary information section).
+Tasks in these 3 linked workshops are based on Schaefer 2018. Data are available from:
+[the original article here](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0192758) (look in the supplementary information section).
+
+Our tasks mirror those in the final assessment, namely to:
+
+- Create updated figures
+- Re-analyse one of the main findings and calculate a Bayes Factor
+- Recreate Table 3.
 
 
+
+
+# Making a new figure
 
 :::{.exercise}
-
-### New figures
 
 In pairs:
 
@@ -108,9 +171,9 @@ Some good first steps:
 
 
 
-:::{.exercise}
+# Bayesian re-analysis
 
-### Bayesian re-analysis
+:::{.exercise}
 
 Find this section of the Schaeffer paper:
 
@@ -125,7 +188,7 @@ The [multiple regression](https://benwhalley.github.io/datafluency/05-multiple-r
 
 - If we want to run this model, what format would the data need to be in? Do the data shared by the authors match this? How can we process the data in the Excel file to match the format we need (try and do this now; feel free to check your results with Paul or I).
 
-- Run a model which allows you to calculate the Bayesian equivalent of the F test highlighted in the paragraph above.
+- Run a model which allows you to calculate the Bayesian equivalent of the *F* test highlighted in the paragraph above.
 
 
 `r hide("Show me some hints about the data")`
@@ -217,12 +280,418 @@ schaeffer.bf[9]/schaeffer.bf[8]
 
 
 
+# A better table
+
+In their paper, Schaeffer et al report this table:
+
+![Shaeffer et al 2018, Table 3](images/pone.0192758.t003.PNG_L.png)
+
+
+:::{.exercise}
+
+- What are some of the strengths and weaknesses of this table?
+
+- Sketch out (on paper, or in a Word document) how you think the numbers in this table _should_ be presented. 
+
+- How would your version improve the communication of these numbers?
+
+:::
+
+
+
+## A worked example
+
+We have previously used tidyverse functions to pre-process data. This exercise combines a number of things you have learned before t make a table of descriptive statistics.
+
+--------
+
+(This exercise adapted from [Sharpe et al.](https://ajwills72.github.io/rminr/better-tables.html))
+
+--------
+
+As with graphs, there is often an element of design involved in presenting tabular data in a format most useful for your reader. You often need a table which is customised to present your data in the most useful format. 
+
+We'll demonstrate this process by producing a table of descriptive statistics. The data we'll use comes from an experiment which evaluated children’s language development using the Words in Game (WinG) test. WinG consists of a set of picture cards which are used in four tests: noun comprehension, noun production, predicate comprehension, and predicate production. The Italian and English versions of the WinG cards use different pictures to depict the associated words. The experiment tested whether English-speaking children aged approximately 30 months, produce similar responses for the two sets of cards. We would like to produce a single table, containing descriptive statistics for all four tests.
+
+We start by loading the data from [this url](https://raw.githubusercontent.com/ajwills72/rminr/master/src/going-further/picture-naming-preproc.csv)
+
+```{r, include=F, eval=F}
+download.file('https://raw.githubusercontent.com/ajwills72/rminr/master/src/going-further/picture-naming-preproc.csv', 'picture-naming-preproc.csv')
+```
+
+
+
+```{r excel, message=FALSE}
+# Load data
+wing_preproc <- read_csv('picture-naming-preproc.csv')
+```
+
+The first few rows of `wing_preproc` look like this:
+
+```{r, echo=FALSE}
+wing_preproc %>% head() %>% pander(split.table = Inf)
+```
+
+
+### Table of descriptives
+
+These test scores are currently in _wide_ format (lots of columns, few rows), but R generally requires data to be in _long_ format 
+(lots of rows, few columns). This means we first have to make the data frame wider, so we can calculate summary statistics.
+
+```{r pivot}
+# wide to long
+task_by_subj <- wing_preproc %>%
+  pivot_longer(cols = c(nc, np, pc, pp),
+               names_to = 'task',
+               values_to = 'correct') %>%
+  select(subj, gender, cards, task, correct)
+```
+
+**Explanation of command:**
+
+In the [data wrangling worksheet](https://benwhalley.github.io/datafluency/03-data-wrangling.html#pivoting-reshaping), you learned how to use `pivot_wider()` to widen long data frames and `pivot_longer()`, which does the reverse. Here, the `pivot_longer` function is used to lengthen the wide data frames. The part which says: `cols = c(nc, np, pc, pp)` selects the columns we want to pivot. Each value in these columns is added to a row in a new column called `correct` (`values_to = 'correct'`). In the same row, a new column `task` is set to the name of the column which the value came from (`names_to = 'task'`). All of the values in the other columns are duplicated for each row. We `select` just the columns we want for our table of descriptive statistics.
+
+The first few rows of `task_by_subj` look like this:
+
+```{r echo=FALSE}
+task_by_subj %>% head(5) %>% pander()
+```
+
+
+Now we can calculate some summary statistics, using commands that we've already used in previous worksheets:
+
+```{r descriptives-1}
+# Table of descriptive statistics
+
+descript <- task_by_subj %>%
+  group_by(task, gender) %>%
+  summarise(mean = mean(correct, na.rm = TRUE), sd = sd(correct, na.rm = TRUE))
+```
+
+**Explanation of commands:**
+
+1. We've come across `group_by` [before in the worksheet called 'exploring data'](https://benwhalley.github.io/datafluency/01-exploring-data.html#grouping-data). Here we use it to group the data by two variables at the same time, `task` and `gender`, giving us eight groups overall. 
+
+2. We've also come across `summarize` before. In this example we also write `na.rm = TRUE`. This tells R to ignore the fact that there are some missing values in the dataset. If we didn't add `na.rm = TRUE` then any calculation involving a missing value would also end up missing, which is not what we want. 
+
+
+Our data now looks like this:
+
+```{r echo=FALSE}
+descript %>% pander()
+```
+
+### Meaningful labels {#recode}
+
+The `descript` data frame contains just the numbers we want to include in our report - the means and standard deviations for each of the eight groups. However, the row labels (`np`, etc.) are not particularly clear, so we replace them with something more human readable:
+
+
+```{r mean-labels}
+descript.nicer <- descript %>%
+  mutate(task = recode(task, 
+                       nc = 'Noun Comprehension',
+                       np = 'Noun Production',
+                       pc = 'Predicate Comprehension',
+                       pp = 'Predicate Production'  ))
+```
+
+**Explanation of commands**: We're using the `recode` command to replace the short non-descriptive names of the tasks with longer ones.
+
+1. We mutate the `task` columns of the `descript` dataframe using `recode`. The `recode` requires us to specify the old and new names we want to swap.
+
+2. Inside the `recode` function we specify pairs of old (e.g. `nc`) and new names (e.g. `Noun Comprehension`).
+
+3. We store the updated dataframe in a variable called `descript.nicer`
+
+
+
+:::{#recodenumbers .tip}
+
+
+<a id="recodenumbers">
+
+One caveat here is that when recode a numeric variable you need to escape the numbers using backticks.
+
+For example, let's say we wanted to add text labels to the number of cylinders in the `mtcars` data:
+
+```{r}
+# numbers need to be escaped with `backticks` when recoding
+mtcars %>% mutate(cylinders = recode(cyl, `4`="Low", `6`="Medium", `8`="High")) %>% 
+  select(cyl, cylinders) %>% 
+  head(5) %>% 
+  pander()
+```
+
+
+
+:::
+
+
+
+
+Our table now looks like this:
+
+```{r echo=FALSE}
+descript.nicer %>% pander()
+```
+
+
+### APA-format tables
+
+Our table is now clear and easy to read. We could include it in a report without much further effort, and the reader would be able to easily see what we wanted to show them. However, it is not quite in the format that psychologists are most familiar with (which is [APA format](https://apastyle.apa.org/style-grammar-guidelines/tables-figures/sample-tables#tests)). 
+
+In APA format, the table would look more like this: 
+
+```{r echo=FALSE}
+# Format wider
+descript_table <- descript.nicer %>%
+  pivot_wider(names_from = gender, values_from = c(mean, sd))
+
+# Order columns
+descript_table <- descript_table %>% select(task, mean_female, sd_female, mean_male, sd_male) 
+
+# Column names
+colnames(descript_table) <- c("Task", "Female (M)", "Female (SD)", "Male (M)", "Male (SD)")
+
+# Rounding
+descript_table[,2:5] <- round(descript_table[,2:5], 2)
+
+#Output
+descript_table %>% pander()
+
+# Clear vars
+rm(descript_table)
+```
+
+In other words, it would be _wider_: more columns and fewer rows. 
+
+We can widen the table, using the `pivot_wider` command we have previously used in the [within-subject differences](anova1.html#pivot) worksheet:
+
+```{r descriptives-2}
+# Widen table
+descript_table <- descript.nicer %>%
+  pivot_wider(names_from = gender, values_from = c(mean, sd)) 
+```
+
+Our table now has the same format as an APA table...
+
+```{r echo=FALSE}
+descript_table %>% pander()
+```
+
+...but the columns are in a different order. APA format dictates that means should be placed next to their associated standard deviations in a table (APA format is weirdly specific). Fortunately, we can rearrange columns using the `select` command that we've come across before:
+
+```{r rearrange}
+# Re-order columns
+descript_table <- descript_table %>% select(task, mean_female, sd_female, mean_male, sd_male) 
+```
+
+```{r echo=FALSE}
+descript_table %>% pander()
+```
+
+Finally, we can replace the column names with something a bit more human readable, using the `colnames` function:
+
+```{r rename-cols}
+# Column names
+descript_table <- descript_table %>% set_names( c("Task", "Female (M)", "Female (SD)", "Male (M)", "Male (SD)") )
+```
+
+```{r echo=FALSE}
+descript_table %>% pander()
+```
+
+Note that it would arguably be clearer to write "mean" rather than "M", but it's another quirk of APA style that we write "M" to stand for mean. 
+
+
+### Showing the results in Rmarkdown
+
+You may have noticed in previous worksheets that I used a function called `pander` to display tables within these web pages worksheets.
+
+The `pander` function is within a library that is also called `pander`, so to use it we can write:
+
+```{r}
+descript_table %>% pander()
+```
+
+
+We can also add captions to our tables:
+
+```{r}
+descript_table %>% pander(caption="Table 1: Descriptove statistics for each task.")
+```
 
 
 
 
 
-# Reference code and tips
+:::{.exercise}
+
+Work through the example above and ask questions about anything you don't fully understand.
+
+:::
+
+
+
+
+
+## Applying what we know
+
+The goal now is to apply the skills from the exercise above (and other workshops) to improve the Table 3 from Schaeffer et al 2018. As a reminder, this is what it looks like:
+
+![Shaeffer Table 3](images/pone.0192758.t003.PNG_L.png)
+
+
+:::{.exercise}
+
+- Load the raw data from [this url](https://github.com/benwhalley/datafluency/raw/master/data/pone.0192758.s002.xls)
+
+- Inspect the variables in the dataset: which columns do we need to create each part of the table above?
+
+- Make a better table of descriptives using a similar process to the exercise above. There is no single correct solution, but you are likely to need to:
+
+  - Load the raw data
+  - Rename the variables you will use so that they are easier to work with (names with spaces are more fiddly)
+  - Calculate the any difference scores while the data are in wide format (use `mutate`)
+  - Use `recode` on the `placebo` and `expectancy` variables to give the values nicer labels ([explained here](#recode))
+  - Pivot the data to long form
+  - Use `group_by` and `summarise` to calculate the means and standard deviations
+  - Optionally, use `pivot_wider` again to make the table closer to APA format
+  - Rename columns to make the table look pretty (see [`set_names`, explained here](#setnames))
+  - Round figures to two decimal places ([see hints below](#rounding))
+  - Output the finished table
+
+
+- If you get stuck, use the step by step hints below. 
+
+:::
+
+
+
+## Step-by-step hints
+
+This exercise above is hard not because any individual part of it is hard, but because it requires that you link together many different steps.
+
+To make things easier, I have broken the process down and show what the data will look like after each step as I create my version of the table.
+
+You might try to recreate each of these intermediate steps as you work on making your own table. At each step I show the current
+state of the table. Each step builds on the one before to make the final table.
+
+```{r, echo=F, warning=F, include=F, message=F}
+# read in the data
+library(readxl)
+df <- read_xls('pone.0192758.s002.xls')
+
+# rename variables, and recode placebo and expectancy factors to 
+# have better labels
+df.renamed <- df %>% 
+  rename(
+    pre_symptoms=`pre symptoms (compositve score)`,
+    post_symptoms=`post symptoms (compositve score)`,
+    pre_qol_physical = `pre HRQL (KSK)`,
+    post_qol_physical = `post HRQL (KSK)`,
+    pre_qol_mental = `pre HRQL (PSK)`,
+    post_qol_mental = `post HRQL (PSK)`,
+    placebo = `placebo (yes = 1)`,
+    expectancy = `expectancy (yes = 1)`
+    ) %>% 
+  mutate(placebo=recode(placebo, `1`="Placebo", `2`="Control"),
+    expectancy=recode(expectancy, `1`="Briefing", `2`="No briefing"))
+
+  # make into long form
+  df.long <- df.renamed %>% 
+  # compute the pre-post difference for symptoms (you migth also want to do this for the QOL variables)
+  mutate(diff_symptoms = pre_symptoms-post_symptoms) %>% 
+  # I use starts_with() to select all variable starting with the letters "pre_" or "post_" to pivot
+  pivot_longer(c(diff_symptoms, starts_with("pre_"), starts_with("post_")), names_to="variable") %>% 
+  # recode the new 'variable' column to have more descriptive names
+  mutate(variable = recode(variable, 
+                           diff_symptoms="Change in symptoms", 
+                           pre_symptoms="Symptoms before", 
+                           post_symptoms="Symptoms after",
+                           pre_qol_mental="HRQOL pre (mental)",
+                           post_qol_mental="HRQOL post (mental)",
+                           pre_qol_physical="HRQOL pre (physical)",
+                           post_qol_physical="HRQOL post (physical)",
+                           ))
+
+# take the long form data, group it, and summarise:
+df.summary <- df.long %>% 
+  group_by(placebo, expectancy, variable) %>% 
+  summarise(Mean=mean(value), SD=sd(value)) 
+
+# make the table wider to enable comparison of Control and Placebo groups
+df.wide.summary <- df.summary %>% 
+  pivot_wider(names_from=placebo, values_from=c(Mean, SD)) %>%
+  select(variable, expectancy, Mean_Control, SD_Control, Mean_Placebo, SD_Placebo) %>% 
+  set_names(c( "Variable","Expectancy", "M (Control)", "SD (Control)", "M (Placebo)", "SD (Placebo)")) 
+  
+# round digits to two decimal places; output using pander
+df.finaltable <- df.wide.summary %>% 
+  # sort the rows by Variable and Expectancy to make useful comparisons easier
+  arrange(Variable, Expectancy) %>% 
+  mutate_if(is.numeric, round, digits=2) 
+```
+
+
+#### Step 1: read in the raw data. This is what the first few rows look like:
+
+```{r, echo=F}
+df %>% head() %>% pander()
+```
+
+
+
+#### Step 2: rename things and recode the placebo and expectancy variables. Again, this is just the first few rows:
+
+```{r, echo=F}
+df.renamed %>% head() %>% pander()
+```
+
+
+HINT:  As mentioned above, when you recode numeric variables (e.g. the expectancy and placebo columns) you need to escape the numbers with backticks. [See the example above](#recodenumbers).
+
+
+
+#### Step 3: make the variables we want in our table into long form.
+
+```{r, echo=F}
+df.long %>% head(10) %>% pander()
+```
+
+
+#### Step 4: Group and summarise the data (first 10 rows shown):
+
+```{r, echo=F}
+ df.summary %>% head(10) %>% pander()
+```
+
+#### Step 5: Make wider again (to be like an APA table; first 10 rows shown)
+
+```{r, echo=F}
+df.wide.summary %>% head(10) %>% pander()
+```
+
+
+#### Step 6: Round numbers, sort the rows as we'd like, and output the final table (whole table shown):
+
+```{r, echo=F}
+df.finaltable %>% pander(split.tables=Inf)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Reference code 
 
 Below are a collection of examples, based on things we have covered already, which may be useful as you complete the assessment.
 
@@ -243,6 +712,7 @@ To do this use the `download.file` function:
 schaefferurl <- 'https://github.com/benwhalley/datafluency/raw/master/data/pone.0192758.s002.xls'
 download.file(url=schaefferurl, destfile = 'pone.0192758.s002.xls')
 ```
+
 **Explanation**:  `download.file`  does what it says on the tin. Pass the URL of the file to download, and the name you want to save it as in your folder on the RStudio server. If you run it it will save a copy of the remote file into your RStudio folder/project.
 
 Watch out not to edit this saved file directly though. If you ran `download.file` a second time any changes made to `destfile` would be lost/overwritten. Use R to read in the file once and work with that imported data in an Rmd script. If you want to edit the file manually (e.g. in Excel) then make a copy of it first.
@@ -282,7 +752,7 @@ Depending on your browser, you can often 'right click' on a link to get the URL 
 
 
 
-## Rounding numbers
+## Rounding numbers {#rounding}
 
 For single numbers:
 
@@ -397,9 +867,9 @@ diamonds %>% select(carat, depth, price, cut) %>%
 
 
 
-## Renaming columns
+## Renaming columns {#setnames}
 
-If you just want to rename columns:
+If you just want to rename individual columns you can use `rename`:
 
 ```{r}
 mtcars %>% 
@@ -419,7 +889,20 @@ mtcars %>%
 ```
 
 
-But don't include spaces in column names if you plan on using the dataset for anything other than making a table.
+Note - don't include spaces in column names if you plan on using the dataset for anything other than making a table.
+
+
+
+If you have lots of columns to rename at once you can use `set_names()`. This is especially helpful when renaming all the columns at once to produce a Table:
+
+```{r}
+mtcars %>% 
+  select(mpg, wt, cyl, disp) %>% 
+  set_names("Miles per gallon", "Weight", "No. Cylinders", "Displacement") %>% 
+  head() %>% 
+  pander()
+```
+
 
 
 
@@ -586,12 +1069,19 @@ If you want to change the order in which Manual and Automatic appeared you can e
 
 ```{r}
 mtcars %>% 
-  mutate(Transmission = factor(am, labels=c("Automatic", "Manual"), levels=c(1, 0))) %>% 
+  mutate(Transmission = factor(am, 
+                               labels=c("Automatic", "Manual"), 
+                               levels=c(1, 0))) %>% 
   ggplot(aes(Transmission, mpg)) + 
   geom_boxplot() 
 ```
 
 **Explanation**: In the `mutate` part we use `factor` to create a new variable. We set the `levels` option to be a list of all the different values that `am` could take on, which is either zero or one. We use the `labels` option to tell R the meaningful labels we want to give to each level. The order in which you define the `levels` determines the order of the x axis in the plot (try doing it in reverse to check). Be careful that the values you use in `levels` match ***exactly*** what is in the data. If these don't match you will end up with some unlabelled data.
+
+
+
+
+
 
 
 
