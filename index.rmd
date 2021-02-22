@@ -72,10 +72,10 @@ you in good stead in your future careers.
 
 
 28. [Reproducing a published paper](workshop-reproducing-a-real-paper.html)
-29. [...continues](workshop-reproducing-a-real-paper.html)
+29. [...continues: Bayesian reanalysis](workshop-reproducing-a-real-paper.html)
 
 
-31. [...continues](workshop-reproducing-a-real-paper.html)
+31. [...continues: a better table](workshop-reproducing-a-real-paper.html)
 
 <!-- Model interpretation; follow-up and post-hoc tests; effect sizes -->
 
