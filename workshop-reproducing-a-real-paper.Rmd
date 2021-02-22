@@ -659,8 +659,12 @@ df.renamed %>% head() %>% pander(split.tables=Inf)
 ```
 
 
-HINT:  As mentioned above, when you recode numeric variables (e.g. the expectancy and placebo columns) you need to escape the numbers with backticks. [See the example above](#recodenumbers).
 
+:::{.tip}
+
+As mentioned above, when you recode numeric variables (e.g. the expectancy and placebo columns) you need to escape the numbers with backticks. [See the example above](#recodenumbers).
+
+:::
 
 
 #### Step 3: make the variables we want in our table into long form.
