@@ -546,29 +546,30 @@ you apply these techniques to the Schaeffer dataset.
 
 ## Applying what we know
 
-The goal now is to apply the skills from the exercise above (and other workshops) to improve the Table 3 from Schaeffer et al 2018. As a reminder, this is what it looks like:
+The goal now is to apply the skills from the exercise above (and other workshops during the module) 
+to improve the Table 3 from Schaeffer et al 2018. As a reminder, this is what it looks like:
 
-![Shaeffer Table 3](images/pone.0192758.t003.PNG_L.png)
+![Shaeffer Table 3 ([see original](https://doi.org/10.1371/journal.pone.0192758.t003))](images/pone.0192758.t003.PNG_L.png)
 
 
 :::{.exercise}
 
 - Load the raw data from [this url](https://github.com/benwhalley/datafluency/raw/master/data/pone.0192758.s002.xls)
 
-- Inspect the variables in the dataset: which columns do we need to create each part of the table above?
+- Inspect the variables in the dataset. Which columns do we need to create each part of the table above?
 
 - Make a better table of descriptives using a similar process to the exercise above. There is no single correct solution, but you are likely to need to:
 
   - Load the raw data
-  - Rename the variables you will use so that they are easier to work with (names with spaces are more fiddly)
-  - Calculate the any difference scores while the data are in wide format (use `mutate`)
-  - Use `recode` on the `placebo` and `expectancy` variables to give the values nicer labels ([explained here](#recode))
+  - Rename the variables you will use so that they are easier to work with (names with spaces are fiddly and require escaping with backticks)
+  - Calculate the any difference scores while the data are in wide format (this wasn't shown in the exercise above, but use `mutate` to calculate the difference between pre and post scores and save this in a new column)
+  - Use `recode` on the `placebo` and `expectancy` variables to give the values nicer labels in the finished table ([explained here](#recode))
   - Pivot the data to long form
   - Use `group_by` and `summarise` to calculate the means and standard deviations
   - Optionally, use `pivot_wider` again to make the table closer to APA format
-  - Rename columns to make the table look pretty (see [`set_names`, explained here](#setnames))
-  - Round figures to two decimal places ([see hints below](#rounding))
-  - Output the finished table
+  - Rename and reorder columns to make the table closer to APA format (see [`set_names`, explained here](#setnames))
+  - Round figures to two decimal places (this wasn't shown above, but [see explanation below](#rounding))
+  - Output the finished table using `pander`.
 
 
 - If you get stuck, use the step by step hints below. 
@@ -646,7 +647,7 @@ df.finaltable <- df.wide.summary %>%
 #### Step 1: read in the raw data. This is what the first few rows look like:
 
 ```{r, echo=F}
-df %>% head() %>% pander()
+df %>% head() %>% pander(split.tables=Inf)
 ```
 
 
@@ -654,7 +655,7 @@ df %>% head() %>% pander()
 #### Step 2: rename things and recode the placebo and expectancy variables. Again, this is just the first few rows:
 
 ```{r, echo=F}
-df.renamed %>% head() %>% pander()
+df.renamed %>% head() %>% pander(split.tables=Inf)
 ```
 
 
@@ -665,20 +666,20 @@ HINT:  As mentioned above, when you recode numeric variables (e.g. the expectanc
 #### Step 3: make the variables we want in our table into long form.
 
 ```{r, echo=F}
-df.long %>% head(10) %>% pander()
+df.long %>% head(10) %>% pander(split.tables=Inf)
 ```
 
 
 #### Step 4: Group and summarise the data (first 10 rows shown):
 
 ```{r, echo=F}
- df.summary %>% head(10) %>% pander()
+ df.summary %>% head(10) %>% pander(split.tables=Inf)
 ```
 
 #### Step 5: Make wider again (to be like an APA table; first 10 rows shown)
 
 ```{r, echo=F}
-df.wide.summary %>% head(10) %>% pander()
+df.wide.summary %>% head(10) %>% pander(split.tables=Inf)
 ```
 
 
