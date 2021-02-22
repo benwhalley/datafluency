@@ -414,7 +414,12 @@ For example, let's say we wanted to add text labels to the number of cylinders i
 
 ```{r}
 # numbers need to be escaped with `backticks` when recoding
-mtcars %>% mutate(cylinders = recode(cyl, `4`="Low", `6`="Medium", `8`="High")) %>% 
+mtcars %>% 
+  mutate(cylinders = 
+           recode(cyl, 
+                  `4`="Low", 
+                  `6`="Medium", 
+                  `8`="High")) %>% 
   select(cyl, cylinders) %>% 
   head(5) %>% 
   pander()

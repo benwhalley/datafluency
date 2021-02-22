@@ -1670,10 +1670,15 @@ Finding the comparison we want
 <p>One caveat here is that when recode a numeric variable you need to escape the numbers using backticks.</p>
 <p>For example, let’s say we wanted to add text labels to the number of cylinders in the <code>mtcars</code> data:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co"># numbers need to be escaped with `backticks` when recoding</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">cylinders =</span> <span class="kw">recode</span>(cyl, <span class="st">`</span><span class="dt">4</span><span class="st">`</span>=<span class="st">&quot;Low&quot;</span>, <span class="st">`</span><span class="dt">6</span><span class="st">`</span>=<span class="st">&quot;Medium&quot;</span>, <span class="st">`</span><span class="dt">8</span><span class="st">`</span>=<span class="st">&quot;High&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(cyl, cylinders) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">pander</span>()</span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cylinders =</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>           <span class="kw">recode</span>(cyl, </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>                  <span class="st">`</span><span class="dt">4</span><span class="st">`</span>=<span class="st">&quot;Low&quot;</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>                  <span class="st">`</span><span class="dt">6</span><span class="st">`</span>=<span class="st">&quot;Medium&quot;</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>                  <span class="st">`</span><span class="dt">8</span><span class="st">`</span>=<span class="st">&quot;High&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(cyl, cylinders) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">pander</span>()</span></code></pre></div>
 <table style="width:25%;">
 <colgroup>
 <col width="8%" />
