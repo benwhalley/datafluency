@@ -408,8 +408,6 @@ descript.nicer <- descript %>%
 :::{#recodenumbers .tip}
 
 
-<a id="recodenumbers">
-
 One caveat here is that when recode a numeric variable you need to escape the numbers using backticks.
 
 For example, let's say we wanted to add text labels to the number of cylinders in the `mtcars` data:
