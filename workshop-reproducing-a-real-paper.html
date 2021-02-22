@@ -1890,7 +1890,8 @@ Finding the comparison we want
 </table>
 <p>…but the columns are in a different order. APA format dictates that means should be placed next to their associated standard deviations in a table (APA format is weirdly specific). Fortunately, we can rearrange columns using the <code>select</code> command that we’ve come across before:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="co"># Re-order columns</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>descript_table &lt;-<span class="st"> </span>descript_table <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(task, mean_female, sd_female, mean_male, sd_male) </span></code></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>descript_table &lt;-<span class="st"> </span>descript_table <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(task, mean_female, sd_female, mean_male, sd_male) </span></code></pre></div>
 <table>
 <colgroup>
 <col width="34%" />
@@ -1941,7 +1942,8 @@ Finding the comparison we want
 </table>
 <p>Finally, we can replace the column names with something a bit more human readable, using the <code>colnames</code> function:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="co"># Column names</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>descript_table &lt;-<span class="st"> </span>descript_table <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>( <span class="kw">c</span>(<span class="st">&quot;Task&quot;</span>, <span class="st">&quot;Female (M)&quot;</span>, <span class="st">&quot;Female (SD)&quot;</span>, <span class="st">&quot;Male (M)&quot;</span>, <span class="st">&quot;Male (SD)&quot;</span>) )</span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>descript_table &lt;-<span class="st"> </span>descript_table <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">set_names</span>( <span class="kw">c</span>(<span class="st">&quot;Task&quot;</span>, <span class="st">&quot;Female (M)&quot;</span>, <span class="st">&quot;Female (SD)&quot;</span>, <span class="st">&quot;Male (M)&quot;</span>, <span class="st">&quot;Male (SD)&quot;</span>) )</span></code></pre></div>
 <table>
 <colgroup>
 <col width="34%" />
@@ -1996,59 +1998,14 @@ Finding the comparison we want
 <h3>Showing the results in Rmarkdown</h3>
 <p>You may have noticed in previous worksheets that I used a function called <code>pander</code> to display tables within these web pages worksheets.</p>
 <p>The <code>pander</code> function is within a library that is also called <code>pander</code>, so to use it we can write:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>descript_table <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</span></code></pre></div>
-<table>
-<colgroup>
-<col width="34%" />
-<col width="17%" />
-<col width="18%" />
-<col width="14%" />
-<col width="15%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">Task</th>
-<th align="center">Female (M)</th>
-<th align="center">Female (SD)</th>
-<th align="center">Male (M)</th>
-<th align="center">Male (SD)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">Noun Comprehension</td>
-<td align="center">17.64</td>
-<td align="center">2.203</td>
-<td align="center">16.29</td>
-<td align="center">4.231</td>
-</tr>
-<tr class="even">
-<td align="center">Noun Production</td>
-<td align="center">12.09</td>
-<td align="center">3.239</td>
-<td align="center">10.43</td>
-<td align="center">3.952</td>
-</tr>
-<tr class="odd">
-<td align="center">Predicate Comprehension</td>
-<td align="center">16.2</td>
-<td align="center">1.814</td>
-<td align="center">14.83</td>
-<td align="center">1.602</td>
-</tr>
-<tr class="even">
-<td align="center">Predicate Production</td>
-<td align="center">8.4</td>
-<td align="center">1.955</td>
-<td align="center">8.5</td>
-<td align="center">2.345</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">library</span>(pander)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>descript_table <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">pander</span>()</span></code></pre></div>
 <p>We can also add captions to our tables:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>descript_table <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>(<span class="dt">caption=</span><span class="st">&quot;Table 1: Descriptove statistics for each task.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>descript_table <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">pander</span>(<span class="dt">caption=</span><span class="st">&quot;Table 1: Descriptive statistics for each task.&quot;</span>)</span></code></pre></div>
 <table>
-<caption>Table 1: Descriptove statistics for each task.</caption>
+<caption>Table 1: Descriptive statistics for each task.</caption>
 <colgroup>
 <col width="34%" />
 <col width="17%" />
@@ -2097,7 +2054,7 @@ Finding the comparison we want
 </tbody>
 </table>
 <div class="exercise">
-<p>Work through the example above and ask questions about anything you don’t fully understand.</p>
+<p>Work through the example above and ask questions about anything you don’t fully understand. The task below requires that you apply these techniques to the Schaeffer dataset.</p>
 </div>
 </div>
 </div>

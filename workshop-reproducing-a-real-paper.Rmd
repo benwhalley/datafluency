@@ -486,7 +486,8 @@ descript_table %>% pander()
 
 ```{r rearrange}
 # Re-order columns
-descript_table <- descript_table %>% select(task, mean_female, sd_female, mean_male, sd_male) 
+descript_table <- descript_table %>% 
+  select(task, mean_female, sd_female, mean_male, sd_male) 
 ```
 
 ```{r echo=FALSE}
@@ -497,7 +498,8 @@ Finally, we can replace the column names with something a bit more human readabl
 
 ```{r rename-cols}
 # Column names
-descript_table <- descript_table %>% set_names( c("Task", "Female (M)", "Female (SD)", "Male (M)", "Male (SD)") )
+descript_table <- descript_table %>% 
+  set_names( c("Task", "Female (M)", "Female (SD)", "Male (M)", "Male (SD)") )
 ```
 
 ```{r echo=FALSE}
@@ -513,15 +515,18 @@ You may have noticed in previous worksheets that I used a function called `pande
 
 The `pander` function is within a library that is also called `pander`, so to use it we can write:
 
-```{r}
-descript_table %>% pander()
+```{r, eval=F}
+library(pander)
+descript_table %>% 
+  pander()
 ```
 
 
 We can also add captions to our tables:
 
 ```{r}
-descript_table %>% pander(caption="Table 1: Descriptove statistics for each task.")
+descript_table %>% 
+  pander(caption="Table 1: Descriptive statistics for each task.")
 ```
 
 
@@ -530,7 +535,8 @@ descript_table %>% pander(caption="Table 1: Descriptove statistics for each task
 
 :::{.exercise}
 
-Work through the example above and ask questions about anything you don't fully understand.
+Work through the example above and ask questions about anything you don't fully understand. The task below requires that 
+you apply these techniques to the Schaeffer dataset.
 
 :::
 
