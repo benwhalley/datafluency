@@ -1,0 +1,114 @@
+---
+title: 'Tending a Garden of Forking Paths'
+author: 'Ben Whalley'
+date: "March 2021"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=">", message=FALSE)
+library(tidyverse)
+library(webex)
+library(pander)
+theme_set(theme_minimal())
+```
+
+
+
+In the seminar we discussed Simmons et al. (2011) and  Gelman and Loken (2013). The data from Simmons et al are available at: <https://zenodo.org/record/7664#.YFSoRi-l2CM>
+
+A short cut to download and unzip the data from the repository is shown below:
+
+```{r}
+# download the file directly from R
+dataurl <- "https://zenodo.org/record/7664/files/FalsePositive_Data_in_.txt_format.zip?download=1"
+download.file(dataurl, "simmons.zip")
+
+# unzip the file with R
+# this places the data files from the zip into the 
+# working directory (so use an RStudio project)
+unzip('simmons.zip')
+```
+
+
+This creates 2 data files and a codebook in the current directory (e.g. in your RStudio server account).
+
+You can read in the data like so:
+
+```{r}
+# note these are tab separated, not comma, so use read_tsv
+study1 <- read_tsv('Study 1 .txt')
+study2 <- read_tsv('Study 2.txt')
+```
+
+And take a peek at them:
+
+```{r}
+study1 %>% glimpse
+```
+
+
+The codebook for these data is:
+
+```
+Variable	Description
+age_days	Days since participant was born (based on their selfreported birthday)
+dad	What's is/would-be your father's age today (in years)
+mom	What is/would-be your mother's age today (in years)
+female	Subject is a woman?
+root	"Did they get correclty what the square root of 100 is? (1-yes, 0-no)"
+bird	Imagine a restaurant you really like offered a 30% discount for dining between 4 pm and 6 pm.  How likely would you be to take advantage of that offer? ? (1) Very unlikely ?(7) Very likely
+political	"In the political spectrum, where would you place yourself (1-Very liberal, 2-liberal, 3-centrist, 4-conservative, 5-very conservative)"
+quarterback	"if you had to guess who was chosen the quarterback of the year in Canada last year, which of the following four options would you choose? 
+1 Dalton Bell; 2 Daryll Clark; 3 Jarious Jackson ;4 Frank Wilczynski"
+olddays	"How often have you referred to some past part of your life as ""the good old days""?
+11 Never;12 almost never;13 sometimes;14 often;15 very often"
+potato	WHICH SONG were they assigned to?
+when64	
+kalimba	
+feelold	"How old do they feel (1 very young, 2 young, 3 neither young nor old, 4 old, 5 very old)"
+computer	Computers are complicated machines (1-strongly disagree?5-strongly agree)
+diner	"Imagine you were going to a diner for dinner tonight, how much do you think you would like the food?  (1 Dislike extremely?9 Like extremely)"
+cond	Condition
+aged365	age in years
+
+```
+
+
+
+
+# Grow a garden of forking paths!
+
+
+
+```{r, echo=F, include=F}
+study2.subset <- study2 %>% filter(when64==1|kaimba==1)
+m1 <- lm(aged365 ~ cond + dad, data=study2.subset)
+summary(m1)
+
+m1.bf0 <- BayesFactor::lmBF(aged365 ~  dad, data=study2.subset)
+m1.bf <- BayesFactor::lmBF(aged365 ~ cond + dad, data=study2.subset)
+m1.bf/m1.bf0
+```
+
+
+:::{.exercise}
+
+
+- Can you reproduce the result reported from study 1?
+- What's the smallest *p* value you can find that supports a publishable story?
+- How easy is it to 'disrupt' the finding reported in the paper?
+
+:::
+
+
+
+

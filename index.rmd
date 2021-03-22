@@ -87,7 +87,7 @@ you in good stead in your future careers.
 
 ---
 
-35. Assessment preparation
+35. [Tending a garden of forking paths](workshop-forking-paths.html)
 39. Final Q/A session
 
 ---
