@@ -640,7 +640,7 @@ df.wide.summary <- df.summary %>%
 df.finaltable <- df.wide.summary %>% 
   # sort the rows by Variable and Expectancy to make useful comparisons easier
   arrange(Variable, Expectancy) %>% 
-  mutate_if(is.numeric, round, digits=2) 
+  mutate_at(vars(matches("Control|Placebo")), round, digits=2) 
 ```
 
 
@@ -683,14 +683,16 @@ df.long %>% head(10) %>% pander(split.tables=Inf)
 #### Step 5: Make wider again (to be like an APA table; first 10 rows shown)
 
 ```{r, echo=F}
-df.wide.summary %>% head(10) %>% pander(split.tables=Inf)
+df.wide.summary %>% 
+  pander(split.tables=Inf)
 ```
 
 
 #### Step 6: Round numbers, sort the rows as we'd like, and output the final table (whole table shown):
 
 ```{r, echo=F}
-df.finaltable %>% pander(split.tables=Inf)
+df.finaltable %>% 
+  pander(split.tables=Inf)
 ```
 
 
