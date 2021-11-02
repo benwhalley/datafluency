@@ -1,0 +1,268 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+
+rwdf <- read_csv('~/teaching/modules/753/2020/real-world-analysis/repeated-measures-anova/OpenLabelPlaceboData.csv')
+   
+symptoms <- rwdf %>% rename(pre_symptoms=`pre symptoms comp score`,  post_symptoms=`post symptoms comp score`) %>% 
+   pivot_longer(ends_with("_symptoms"), names_to="time") %>% 
+   rename(symptoms=value) %>% 
+   select(patients, placebo, expectancy, age, sex, time, symptoms) %>% 
+   mutate_at(vars(patients,time,placebo,expectancy), factor)
+
+
+symptoms %>% 
+   ggplot(aes(fct_rev(time), symptoms)) + geom_boxplot() + facet_wrap(~placebo)
+
+library(BayesFactor)
+
+m.symptoms <- anovaBF(symptoms ~ expectancy*time*placebo+patients, 
+                      whichRandom="patients", 
+                      data=symptoms)
+
+m.symptoms
+
+# test placebo:time vs placebo+time
+m.symptoms[10]/m.symptoms[6]
+
+
+# test 3 way interaction
+m.symptoms[18]/m.symptoms[17]
+
+# test placebo:expectancy
+m.symptoms[4]/m.symptoms[3]
+
+m.symptoms
+```
+
+
+
+```{r}
+m.symptoms.ez <- ez::ezANOVA(data=symptoms, 
+                             dv=symptoms, 
+                             wid=patients, within=time, 
+                             type=3,
+                             between=c(expectancy, placebo))
+
+m.symptoms.ez
+```
+
+
+
+
+
+
+
+
+```{r}
+control <- read_csv('
+x, y
+1.487951807228916, 3.4907872696817424
+2.274096385542169, 3.716917922948074
+3.087349397590361, 3.3986599664991624
+4.117469879518072, 2.8961474036850925
+4.984939759036144, 3.825795644891122
+6.015060240963856, 3.8174204355108876
+6.746987951807229, 3.9179229480737017
+7.72289156626506, 3.892797319932998
+8.61746987951807, 3.0720268006700167
+9.539156626506022, 3.1222780569514237
+10.379518072289155, 3.9430485762144056
+11.328313253012047, 3.876046901172529
+12.25, 4.144053601340033
+13.090361445783133, 3.733668341708543
+')
+
+placebo <- read_csv('
+x, y
+1, 3.432160804020101
+2, 3.289782244556114
+3.1415662650602414, 3.423785594639866
+4.198795180722891, 3.2395309882747068
+4.957831325301205, 3.52428810720268
+6.015060240963856, 3.4656616415410384
+6.855421686746988, 3.2395309882747068
+7.72289156626506, 3.1809045226130657
+8.590361445783133, 2.7788944723618085
+9.566265060240964, 2.5025125628140703
+10.460843373493974, 3.1306532663316577
+11.246987951807228, 2.9045226130653266
+12.25, 2.8291457286432165
+13.14457831325301, 2.8040201005025125
+')
+
+
+df <- bind_rows(placebo %>% mutate(group="placebo"),control %>% mutate(group="control")) %>% group_by(group) %>% arrange(x) %>% mutate(x=row_number()) %>% 
+  rename(day=x, symptom_composite=y)
+  
+df %>% 
+  ggplot(aes(day,symptom_composite, group=group, color=group)) + 
+  geom_point() + geom_line()
+
+set.seed(12345)
+
+simdf <-
+  tibble(p=1:(46/2)) %>% 
+  group_by(p) %>% 
+  do(., {df}) %>% 
+  ungroup() %>% 
+  mutate(person=row_number()) %>% select(-p) %>% 
+  group_by(group, day) %>% 
+  mutate(e = rnorm(n(),0,sqrt(8)), e = e - mean(e)) %>% 
+  mutate(symptom_composite = symptom_composite+e) %>% select(-e) 
+  
+simdf %>% write_csv('open-label-placebo-allergy-daily.csv')
+
+
+simdf %>% 
+  ggplot(aes(day+.1*as.numeric(group=="placebo"),symptom_composite,group=group,color=group)) + 
+  stat_summary() +
+  stat_summary(geom="line")
+
+
+df %>% ggplot(aes(day,symptom_composite,group=group,color=group)) + 
+  stat_summary() + 
+  stat_summary(geom="smooth")
+
+
+
+
+
+simdf %>% 
+  group_by(day, group) %>% 
+  summarise(y=mean(symptom_composite)) %>% 
+  summarise(d = diff(y)) %>% 
+  ggplot(aes(day,d)) + 
+  geom_point() + geom_line() + geom_hline(yintercept = 0, color='red')
+
+
+
+```
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+egger <- readxl::read_xlsx('~/teaching/modules/753/2020/real-world-analysis/regression-or-anova/egger-2019.xlsx')
+
+egger %>% names
+```
+
+
+```{r}
+
+
+anova(lm(age_in_years~factor(condition), data=egger))
+```
+
+
+
+
+Table 3
+
+```{r}
+egger %>% 
+  mutate(condition = fct_recode(factor(condition), `Combination`="2", `Aerobic`="3", `Cognition`="4")) %>% 
+  select(condition, matches("maths|reading|spell")) %>% 
+  rename(maths_2 = mathst_2) %>% 
+  mutate(maths_change = maths_1 - maths_2,
+         reading_change = reading_1 - reading_2,
+         spelling_change = spelling_1 - spelling_2) %>% 
+  
+  pivot_longer(-condition) %>% 
+  group_by(condition, name) %>% 
+  summarise_at(vars(value), c(mean=mean, sd=sd)) %>%
+  rowwise() %>% 
+  mutate(result=str_interp("$[.2f]{mean} ($[.2f]{sd})")) %>% 
+  select(Variable=name, condition, result) %>% 
+  pivot_wider(names_from=condition, values_from=result) %>% 
+  mutate(Variable = tools::toTitleCase(str_replace(Variable, "_", " "))) %>% 
+  pander(caption="Table 3")
+```
+
+
+```{r}
+egger %>% 
+  mutate(condition = fct_recode(factor(condition), `Combination`="2", `Aerobic`="3", `Cognition`="4")) %>% 
+  select(condition, matches("maths|reading|spell")) %>% 
+  rename(maths_2 = mathst_2) %>% 
+  mutate(maths_change = maths_1 - maths_2,
+         reading_change = reading_1 - reading_2,
+         spelling_change = spelling_1 - spelling_2) %>% 
+  select(condition, matches("change")) %>% 
+  pivot_longer(-condition) %>% 
+  mutate(name = str_replace(name, "_change", "")) %>% 
+  ggplot(aes(condition, value)) + 
+    stat_summary(geom="bar", fill="black") + 
+  stat_summary(geom="errorbar", width=.2) + 
+    facet_wrap(~name) + geom_hline(yintercept = 0, color="red") +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("")
+```
+
+
+
+```{r}
+egger %>% 
+  mutate(condition = fct_recode(factor(condition), `Combination`="2", `Aerobic`="3", `Cognition`="4")) %>% 
+  select(condition, matches("maths|reading|spell")) %>% 
+  rename(maths_2 = mathst_2) %>% 
+  mutate(maths_change = maths_1 - maths_2,
+         reading_change = reading_1 - reading_2,
+         spelling_change = spelling_1 - spelling_2) %>% 
+  select(condition, matches("change")) %>% 
+  pivot_longer(-condition) %>% 
+  mutate(name = str_replace(name, "_change", "")) %>% 
+  ggplot(aes(condition, value)) + 
+    geom_boxplot() + 
+    facet_wrap(~name) + geom_hline(yintercept = 0, color="red") +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("")
+```
+
+
+ 
+ 
+
+
+
+```{r}
+egger %>% 
+  mutate(condition = fct_recode(factor(condition), `Combination`="2", `Aerobic`="3", `Cognition`="4")) %>% 
+  select(condition, matches("maths|reading|spell")) %>% 
+  rename(maths_2 = mathst_2) %>% 
+  mutate(maths_change = maths_1 - maths_2,
+         reading_change = reading_1 - reading_2,
+         spelling_change = spelling_1 - spelling_2) %>% 
+  select(condition, matches("change")) %>% 
+  pivot_longer(-condition) %>% 
+  mutate(name = str_replace(name, "_change", "")) %>% 
+  ggplot(aes(condition, value)) + 
+    stat_summary(fun.data=mean_cl_boot) + 
+    facet_wrap(~tools::toTitleCase(name)) + geom_hline(yintercept = 0) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  xlab("") + ylab("Change in score (95% confidence interval)")
+```

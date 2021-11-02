@@ -1,0 +1,203 @@
+---
+title: "Notes/code in response to queries in QA session, 19th April"
+output: html_notebook
+---
+
+
+
+
+```{r}
+library(tidyverse)
+```
+
+
+
+# Session 1
+
+
+## Formatting numbers with `paste`
+There were a number of queries about formatting numbers and combining them in a single column.
+
+These were the examples I gave:
+
+```{r}
+mtcars %>% 
+  # select just what we want
+  select(mpg, cyl) %>% 
+  # use paste0 to  combine into text
+  # note paste0 is like paste but doesn't include spaces
+  mutate(finaloutputcolumn = paste0(mpg, " (", cyl, ")"))
+
+```
+
+
+## Using `str_interp`
+
+The `str_interp` function is a more advanced version of `paste`.  This is NOT specifically required for the assessment, but in response to questions about it I gave this example code:
+
+```{r}
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarise(mean_wt=mean(wt)) %>% 
+  # remember to use rowwise or you will end up with all the data pasted into every row
+  rowwise() %>% 
+  # the $[.2f]{wt} part is explained below
+  mutate(mean_wt_fixed_width = str_interp("Mean =  $[.2f]{mean_wt}"))
+
+```
+
+
+In the code above, I write: `$[.2f]{wt}`.  Broken down this means:
+
+- `$` -- we are going to incude a column variable
+- `[.2f]` -- we want to format the number to 2 dp, and be fixed width (so include trailing zeros). This part is optional
+- `{wt}` -- this gives the name of the column variable
+
+
+
+
+In this example I showed how we could break up code into 2 steps to simplify:
+
+```{r}
+mtcars_summ <- mtcars %>% 
+  pivot_longer(everything(), names_to="Variable") %>% 
+  group_by(Variable) %>% 
+  summarise(Mean=mean(value), SD=sd(value)) 
+
+mtcars_summ %>% 
+  rowwise() %>% 
+  mutate(
+    `Mean (SD)` =  str_interp("$[.2f]{Mean} ($[.2f]{SD})" )) %>% 
+  select(-Mean, -SD)
+```
+
+
+
+## Removing repetition in tables
+
+Max asked about avoiding repetition in columns. I got stuck trying to make it work when live, but the working code is below:
+This is NOT required for the assessment. 
+
+
+```{r}
+mtcars %>% 
+  group_by(am, cyl) %>% 
+  summarise(wt=mean(wt)) %>% 
+  arrange(am, cyl) %>% 
+  group_by(am) %>% 
+  mutate(am  = ifelse(row_number()==1, am, ""))
+```
+
+
+
+## Sorting text and factor variables
+
+Hannah asked about sorting. Sometimes alphanumeric sorting isn't what we want for categorical variables. We
+can fix this by using an explicit order when creating a factor variable:
+
+```{r}
+# sorting alphabetically
+tibble(name = c("Apple", "Orange", "Banana")) %>% 
+  arrange(name)
+
+
+times_in_order <- c("Time 1", "Time 2", "Pre test",  "Afterward")
+
+example_data <- tibble(time = sample(times_in_order, 12, replace=T))
+
+# data is in random order
+example_data
+
+# now alphabetical sorting is not what we want
+example_data %>% 
+  arrange(time)
+
+
+# we convert time to a factor and explicitly tell R the ordering of the `levels` in the factor
+example_data %>% 
+  mutate(time = factor(time, levels = times_in_order)) %>% 
+  # now when we sort we get the order we want
+  arrange(time)
+  
+```
+
+
+
+You can also see this link for more info: http://www.cookbook-r.com/Manipulating_data/Changing_the_order_of_levels_of_a_factor/
+
+
+
+
+
+# Splitting of tables
+
+
+This is useful to make sure wide tables don't get split
+
+
+```{r}
+library(pander)
+
+# do this at the top, e.g. when you load tidyverse
+panderOptions('table.split.table', 100)
+
+```
+
+
+
+Or do it per-table:
+
+
+
+
+```{r}
+
+
+
+mtcars %>% head(3) %>% pander(split.tables=100)
+
+mtcars %>% head(3) %>% pander()
+```
+
+
+
+
+
+
+
+# Session 2
+
+
+
+Converting factors to numeric:
+
+```{r}
+sleep %>% 
+  mutate(grp_numeric = as.numeric(group))
+```
+
+Remember this won't always make sense — if the variable is truly categorical using it as a linear predictor in a regression would be inappropriate.
+
+
+
+## An example of pivoting to compare variables
+
+```{r}
+
+tibble(person = c(1,1,2,2), time = c("Time1", "Time2", "Time1", "Time2"), 
+       score = c(11,12,32,33)) %>% 
+  pivot_wider(names_from = time, values_from=score) %>% 
+  mutate(d = Time1 - Time2) %>% 
+  summarise(mean(d))
+
+```
+
+
+
+
+
+
+
+
+
+

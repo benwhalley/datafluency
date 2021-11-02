@@ -1,0 +1,188 @@
+
+
+Veritasium - is most science wrong?
+https://www.youtube.com/watch?v=42QuXLucH3Q
+
+
+
+
+
+Sometimes you have data which is stored as text when it shouldn't be. The separate function splits up variables like `time`` in
+the dataset below:
+
+```{r}
+tibble(times = c("time_1", "time_2", "time_3"), score=c(33,21,24)) %>% 
+  separate(times, sep="_", into=c("unused", "time")) %>% 
+  select(-unused)
+```
+
+
+
+
+# Extension activities
+
+
+
+```{r}
+words_summ %>% 
+  ggplot(aes(congru, rt, color=medit, group=medit)) + 
+  stat_summary() +
+  scale_x_discrete(limits=c("cong", "neutral", "incong")) + 
+  stat_summary(geom="line")
+```
+
+
+```{r}
+words_summ %>% 
+  pivot_wider(names_from = congru, values_from = rt) %>% 
+  ggplot(aes(medit, incong - cong)) + 
+  stat_summary() + 
+  geom_hline(yintercept = 0)
+```
+
+
+Use a line graph, similar to the ones you produced earlier, to show these nine means. Note that `ggplot` orders conditions alphabetically, so by default your x-axis would come out in the order `cong, incong, neutral`. It makes more sense to use the order `cong, neutral, incong` as the neutral trials (those without pictures) are, in some sense, in between the congruent trials (helpful pictures) and the incongruent trials (unhelpful pictures).  You can reorder the points on the x-axis of a graph using the `scale_x_discrete` command. In this case, you can set the correct order by adding this to your graph commands:
+
+`scale_x_discrete(limits=c("cong", "neutral", "incong"))`
+
+
+```{r ex-i, echo=FALSE}
+gdat %>%
+    ggplot(aes(x = congru, y = rt, group = medit)) +
+    geom_line(aes(colour=medit)) +
+    geom_point(aes(colour=medit)) +
+    scale_x_discrete(limits=c("cong", "neutral", "incong")) + 
+    theme_bw()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Pairwise comparisons
+
+Although that's the end of the exercise, in a full analysis you would probably want to go further and look at particular pairs of conditions within the experiment. You do this as before, by using the `filter` command to select the data you want to analyse. For more details, see the [within-subject differences](anova1.html) worksheet.
+
+<a name="bettergraphs"></a>
+
+
+
+# Multiple comparisons and replication
+
+Just before we finish, some notes on the issue of _multiple comparisons_, just because this is something you may hear about elsewhere.
+
+To explain the concept of multiple comparisons, I'd like you to imagine you had a factor with five levels. The command `anovaBF` would cope just fine with this. But, with five levels, there are ten pairwise comparisons you could do (1 versus 2, 1 versus 3, etc.). In traditional analysis techniques (i.e. techniques resulting in p values) you will sometimes hear people talking about 'correcting for multiple comparisons'. This is because the more tests you do, the more likely it is that one of them will be 'significant' ($p < .05$), even if there is in fact no difference between any of the levels of the factor. One common suggestion is to use a stricter significance level (e.g. $p < .01$) if you're doing a lot of tests. 
+
+This is not an approach covered  in these worksheets. This is for two reasons:
+
+First, we're using Bayesian methods, not traditional ANOVA. Although issues around multiple comparisons still occur with Bayesian techniques, the issues are not the same, the solutions are not same, and the whole thing is just  a bit too complex for this intermediate-level worksheet.
+
+Second, correcting for multiple comparisons is seldom the answer anyway. If you knew you needed to compare those two conditions before you looked at the data, this is known as a _confirmatory_ analysis, and we don't generally adjust for multiple comparisons for such analyses. Alternatively, you might be exploring your data after you collected it. For example, you might observe a difference you didn't expect to see, and do a test on this. This is called _exploratory_ analysis, and it's fine --- it's good to fully explore your data. But, results from _exploratory_ analysis should normally be replicated before we are particularly convinced by them, whatever the p value (or Bayes Factor). In other words, you should run the study again, predict you would see the difference again, and then test for it. This is because, if you look long and hard enough, you'll always find some pattern in a set of data, even if there is not actually anything to be found. 
+
+
+
+
+
+
+# Reporting Bayesian ANOVA
+
+When it comes to reporting the results of a Bayesian ANOVA, you just give the Bayes Factor in the appropriate part of your text. For example:
+
+There was a main effect of training type, $BF = 814$, a main effect of congruency, $BF = 2.8 \times 10^{16}$, and an interaction between these two factors, $BF = 5.4 \times 10^{7}$. 
+
+It's important to remember that Bayes Factors without means are basically meaningless. So, you need to show, for example, a graph of the means for each condition (as above) for the reader to make sense of your analysis.
+
+There are a number of different ways to do Bayesian calculations, and these can lead to somewhat different results. So, it's really important to also say exactly what calculation you did. In this case you would say:
+
+We performed a factorial Bayesian ANOVA with one within-subjects factor (congruency) and one between-subject factor (training type), using the BayesFactor package (Morey & Rouder, 2018) in R (R Core Team, 2019).
+
+It's also important to include those references in your Reference section. R will tell you the reference for a package if you type e.g.  `citation("BayesFactor")`. The reference for R itself is found by typing `citation()`. Note that R is what is doing your calculations, while _RStudio_ is a web page that makes it easier to use R. _RStudio_ does not have any affect on the output you get. So, you don't normally cite _RStudio_ in your writeups. 
+
+<a name="ordinal"></a>
+
+# Ordinal factors
+
+A final important thing to realise about ANOVA is that it does not care about the order of the levels in your factors. For example, the full data set you have been analyzing includes block number. Participants do 30 trials, then take a break, then do another 30 trials, and so on. So each response is either in block 1, 2, or 3. If people were getting tired, you might see reaction times rise from blocks 1 to 2 and again from blocks 2 to 3. You might also find Bayesian evidence for a main effect of block (e.g. BF = 30). 
+
+It's important to realise that this ANOVA Bayes Factor tells you only that the three groups differ, not that 3 is greater than 2 and 2 is greater than 1. There are two ways of finding evidence for that sort of question. First, you could do two pairwise comparisons (1 vs. 2, and 2 vs. 3). Alternatively, you could use a different analysis method that takes account of the fact that block is an _ordinal_ factor (i.e. that it has a specific order). [Regression](https://benwhalley.github.io/just-enough-r/linear-models-simple.html) is often a good choice in these cases.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Advanced/extension tips
+
+## Renaming lots of columns at once
+
+It's annoying when variables names contain a mix of upper and lower case letters. This is a quick way to fix this:
+
+```{r}
+gapminder::gapminder %>% 
+  set_names(names(.) %>% tolower())
+```
+
+Explanation: The `names(.)` means 'make a list of the variable names which appear from the dataset coming down the pipe'. The `tolower` function converts these to lower case. The `set_names` function changes the column names of the dataset
+we piped in.
+
+
+It's also useful when columns contain spaces or other 'special' characters:
+
+```{r}
+qualtrics_data <- tibble(`stupid data from QUALTRICS with weird variable names` = 1, `another CRAZY@!! variable`=2)
+qualtrics_data
+```
+
+```{r}
+qualtrics_data %>% 
+  set_names(
+    names(.) %>% tolower() %>% str_replace_all(pattern="[@!\\W]+", replacement="_")
+  )
+```
+
+Explanation: We use `str_replace_all` to replace multiple characters at once. 
+In the `pattern`, the `\\W` part means 'any whitespace character. The square brackets `[ ]` means
+'replace all of the characters inside these brackets'. The `+` after the second bracket means, match as 
+many of these characters as we can find consecutively, and replace them in a single hit.
+
+
+
+To show how flexible the patterns can be, this is another way of achieving the same outcome:
+
+```{r}
+qualtrics_data %>% 
+  set_names(
+    names(.) %>% tolower() %>% str_replace_all(pattern="[!\\W]+", replacement="_")
+  )
+```
+
+**Explanation**: Here we use `[!\\W]+` as the pattern. The `"!"` means 'not' and `"\\W"å` means 'any normal letter'. So this matches anything that isn't a letter and replaces it with `"_"`.
+
+
+
+
+

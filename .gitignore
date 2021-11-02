@@ -8,7 +8,7 @@ assessment-draft/*
 *.rds
 *_files
 assessments-draft
-
+*_cache
 # History files
 .Rhistory
 .Rapp.history
