@@ -1,0 +1,64 @@
+participants,age,FSIQ,Perpetrator,Parents,Perprel,numberofperpetrator,typeofabuse,TSCC_PTS,CBCL_SOM
+110012,10,96,male,single parents,Family member,single,molestation,38,42
+110013,12,101,male,relatives,Family member,single,molestation,34,50
+110016,11,84,male,both parents,stranger,single,molestation,40,62
+110019,13,108,male,both parents,acquaintance,single,rape,60,54
+110023,9,113,male,relatives,Family member,single,molestation,73,66
+110025,8,106,male,single parents,stranger,single,molestation,62,64
+110027,11,89,male,both parents,Family member,single,rape,40,61
+110033,9,89,male,both parents,stranger,single,molestation,,64
+110034,8,89,male,both parents,stranger,single,molestation,33,53
+110035,10,70,male,both parents,acquaintance,single,molestation,53,64
+110037,8,101,male,single parents,acquaintance,single,molestation,45,58
+110038,10,99,male,both parents,Family member,single,molestation,42,70
+110048,13,87,male,both parents,acquaintance,single,molestation,82,87
+110050,8,82,male,single parents,stranger,single,molestation,53,50
+110058,8,102,male,single parents,stranger,single,molestation,,50
+110064,8,93,male,single parents,acquaintance,single,molestation,45,53
+110068,8,100,male,both parents,stranger,single,molestation,40,50
+110077,8,85,male,both parents,acquaintance,single,molestation,54,69
+110080,9,118,male,both parents,Family member,single,molestation,42,53
+110084,11,91,male,both parents,Family member,single,molestation,45,61
+110093,9,95,male,both parents,Family member,single,molestation,54,58
+110099,12,49,male,both parents,Family member,single,molestation,54,58
+110103,12,73,male,single parents,acquaintance,multiple,molestation,36,53
+110104,12,78,male,single parents,acquaintance,single,rape,69,69
+120003,12,94,male,both parents,acquaintance,multiple,molestation,40,50
+120004,13,76,male,institution,acquaintance,single,rape,58,50
+120006,10,108,male,both parents,Family member,single,molestation,36,50
+120011,13,92,male,both parents,Family member,single,molestation,60,50
+120012,10,87,male,both parents,Family member,single,molestation,42,61
+120016,9,131,male,single parents,stranger,single,molestation,4,70
+120019,13,68,male,both parents,acquaintance,single,rape,39,55
+120020,9,110,male,both parents,Family member,single,molestation,58,64
+120023,11,115,male,both parents,acquaintance,single,rape,60,69
+120027,14,82,male,both parents,acquaintance,multiple,rape,47,64
+120028,14,89,male,relatives,acquaintance,multiple,rape,58,66
+120042,14,101,male,single parents,acquaintance,single,rape,58,69
+120043,12,82,male,both parents,acquaintance,single,molestation,43,50
+120047,10,86,male,single parents,acquaintance,single,molestation,49,61
+120053,8,111,male,institution,acquaintance,single,molestation,65,76
+120055,16,56,femal,single parents,Family member,single,rape,53,58
+120059,16,90,male,single parents,acquaintance,single,molestation,74,81
+120062,8,95,male,both parents,acquaintance,single,molestation,38,50
+120064,13,87,male,single parents,acquaintance,single,rape,42,85
+120065,12,98,male,both parents,acquaintance,single,molestation,36,71
+120073,8,116,male,single parents,acquaintance,single,molestation,38,53
+120079,9,82,male,single parents,stranger,single,molestation,44,63
+120080,10,93,male,both parents,stranger,single,rape,47,63
+120088,14,99,male,single parents,Family member,single,molestation,46,50
+120095,13,102,male,single parents,Family member,single,molestation,34,61
+120097,11,102,male,single parents,Family member,single,molestation,40,53
+120103,12,57,male,relatives,acquaintance,single,molestation,40,50
+120108,16,88,male,single parents,acquaintance,single,molestation,50,61
+120111,14,34,male,single parents,acquaintance,single,rape,33,50
+120117,10,91,male,single parents,Family member,single,molestation,38,53
+120119,12,75,male,single parents,acquaintance,single,rape,74,50
+120120,12,70,male,single parents,acquaintance,single,rape,47,50
+120122,11,108,male,both parents,stranger,single,molestation,56,53
+120129,11,100,male,both parents,acquaintance,single,molestation,34,50
+120138,8,100,male,both parents,stranger,single,molestation,45,61
+120146,12,86,male,relatives,acquaintance,single,rape,53,53
+120152,12,77,male,single parents,acquaintance,single,molestation,,50
+120154,16,99,male,both parents,stranger,single,molestation,49,58
+120159,13,75,male,both parents,Family member,single,rape,46,61

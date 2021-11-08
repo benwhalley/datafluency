@@ -45,26 +45,23 @@ researchers, and to give you confidence in working with data which will stand
 you in good stead in your future careers.
 
 
-:::{.exercise}
-
 # Sessions and worksheets
 
 ### Pre-requisite 
 
 - The short [LifesavR course](http://benwhalley.github.io/lifesavR/). 
-
-Multiple choice test
+- Pass the lifesavR multiple choice test
 
 
 ### Data handling and visualisation 
 
-- Data visualisation (1)
+- [Data visualisation (1)](visualisation1.html)
 - Data visualisation (2)
 - Data wrangling (1)
 - Data wrangling (2)
 - Working with real data (practical)
 
-First assessment
+*First assessment*
 
 
 ### Data analysis and modelling
@@ -77,6 +74,7 @@ First assessment
 - Anova: 'repeat measures'
 - Effect size and clinically significant change
 
+*Second assessment*
 
 
 
@@ -102,7 +100,7 @@ To provide a common thread to our teaching, research methods modules at Plymouth
 adopt the model for the work of data scientists proposed by
 [Wickham, 2017](http://r4ds.had.co.nz/introduction.html) (see figure):
 
-![Wickham's model of a data science workflow](media/data-science.png)
+![Wickham's model of a data science workflow](images/data-science.png)
 
 In this module we do cover specific skills, but these are embedded within a broader approach to working with data, and integrate it into your own research.
 
