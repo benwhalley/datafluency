@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
 )
 options(dplyr.summarise.inform = FALSE)
 
-
 makermds <- function(video_data){
   identifier <- video_data$identifier
   fs::file_create(paste0("_content/", identifier, "_code.rmd"))

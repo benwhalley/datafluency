@@ -32,6 +32,7 @@ revision exercises...
 
 
 <!--
+
 ## Learning outcomes
 
 At the end of the session you should be able to:
@@ -47,6 +48,17 @@ At the end of the session you should be able to:
    comparison.
  -->
 
+
+:::{.exercise}
+
+Before your start, use the files pane to make a new folder on the RStudio server to save your work. Call this `datafluency_2021`. 
+
+Inside this new folder,  make a new RMarkdown file (use the 'file' menu and choose 'new'). When you save the file make sure it has the extension `.rmd`, so call it `datavis.rmd` for example.
+
+Use this new `.rmd` file to save your work during this session.
+
+
+:::
 
 
 In the session we watched Hans Rosling's "200 countries and 200 years
@@ -169,13 +181,6 @@ Some hints:
 
 :::
 
-
-### Summary so far
-
--   Plots can have multiple dimensions; that is, they can display several variables at once
--   Colour, shape, size and line-type are common ways of displaying Dimensions
--   In ggplot, these visual features are called **aesthetics**
--   The mapping between visual features and variables is created using the `aes()` command
 
 
 # Using multiple layers
@@ -312,6 +317,10 @@ added `se=FALSE` which hides the shaded area that `geom_smooth` adds by default 
 
 **Comment on the result**: It's pretty hard to read!
 
+
+----------------
+
+
 To increase the information density, and explore patterns within the data, we might add another
 dimension and aesthetic. The next plot colours the lines by continent:
 
@@ -346,7 +355,6 @@ continents.
 
 Use the `iris` dataset which is built into R.
 
-1. Try to recreate this plot, by adapting the code from the example above:
 
 ```{r, echo=F}
 iris %>%
@@ -357,9 +365,11 @@ iris %>%
 ```
 
 
+1. Try to recreate the plot just above, by adapting the code explained previously.
+
 1. Create a new plot which uses colours to distinguish species and does not use Facets
 
-2. In this example, which plot do you prefer? What influences when facets are more useful the just
+1. In this example, which plot do you prefer? What influences when facets are more useful the just
    using colour?
 
 
@@ -375,14 +385,118 @@ research question that motivated us to draw it?
 
 `r unhide()`
 
-3. Try replacing `facet_grid(~continent)` with `facet_grid(continent~.)`. What happens?
+1. Try replacing `facet_grid(~continent)` with `facet_grid(continent~.)`. What happens?
 
-4. With the `development` example from above, try replacing `facet_grid` with
+1. With the `development` example from above, try replacing `facet_grid` with
    `facet_wrap(~continent)`. What happens?
 
-5. To see more facetting examples, see
-   [the ggplot cookbook documentation](<http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/>).
+1. To see more facetting examples, see
+   [the `ggplot` cookbook documentation](<http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/>).
 
+
+:::
+
+
+
+
+# Spit and polish
+
+`ggplot` is great at setting sensible defaults for most things (axes, colours etc). When exploring your data these defaults typically suffice. But for publication you will need to polish your plots, perhaps including:
+
+-   Label your plot axes
+-   Add lines or text
+-   Change plot colours etc
+-   Saving to a pdf or other output format
+
+## Labelling axes
+
+By default, `ggplot` uses variable names and the values in your data to label plots. Sometimes these
+are abbreviations, or otherwise need changing.
+
+To relabel axes we simply add the `labs(...)` function to an existing plot:
+
+```{r}
+mtcars %>% ggplot(aes(wt, mpg, colour=factor(cyl))) +
+  geom_point() +
+  labs(x="Weight (1000s of lbs)", 
+       y="Fuel economy (miles per gallon)", 
+       color="Cylinders")
+```
+
+:::{.exercise}
+
+Try adding axis labels to one of your existing plots.
+
+:::
+
+
+
+## Adding lines
+
+Sometimes it can be helpful to add lines to a plot: for example to show a clinically meaningful
+cutoff, or the mean of a sample.
+
+
+For example, let's say we want to make a box plot of weight lost in the `funimagery` dataset, but add a line at zero to provide a reference point for readers. We can achieve this like so:
+
+
+```{r}
+funimagery %>% 
+  ggplot(aes(intervention, weight_lost_end_trt)) + 
+  geom_hline(yintercept = 0, linetype="dotted") + 
+  geom_boxplot() 
+  
+```
+
+
+**Explanation of the code** This time we have added `geom_hline` which draws a
+**h**orizontal line. The `yintercept` is the place on the y axis where our line should cross (i.e. zero). If we had wanted a vertical line (e.g. on a density plot or histogram) we would have used `geom_vline(xintercept=?)` instead of `geom_hline`.
+
+
+**Explanation of the output**: We now have a boxplot with a horizontal line at zero. This makes it easy for readers to compare positions in the plot with this meaningful value which represents "no change".
+
+
+
+## Saving plots to a file
+
+So far we have created plots in the RStudio web interface. This is fine when working interactively,
+but sometimes you need to save the plot to a file (e.g. to send to a journal).
+
+The `ggsave` function lets us do this.
+
+The first step is to make a plot, and save it (give it a name, like `myfunkyplot`).
+
+```{r}
+myfunkyplot <- fuel  %>% 
+  ggplot(aes(weight, mpg, color=factor(cyl))) + 
+  geom_point()
+```
+
+**Explanation**: We used the assignment operator `<-` to save our plot to a new name
+(`myfunkyplot`). This means that when we run the code RStudio won't generate any output immediately,
+so we don't see the plot yet.
+
+---
+
+Next, we use `ggsave` to save the plot to a particular file:
+
+```{r}
+ggsave('myfunkyplot.pdf', myfunkyplot, width=8, height=4)
+```
+
+You can see the output of the `ggsave` command by downloading the file from the files directory of your RStudio window. It should end up in the same place as your R Script, provided you have created  a project (and you should always create a project).
+
+
+
+
+:::{.exercise}
+
+Try the following with plots you have already made:
+
+1. Add axis labels
+2. Add a horizontal line to a scatter plot at a fixed value (e.g. at zero, or some other score).
+3. If your plot uses colour, change the label of the color legend
+4. Save a copy of this plot to a `png` file, and also to a `pdf` and download these files to your local computer.
 
 :::
 
@@ -391,20 +505,27 @@ research question that motivated us to draw it?
 
 
 
-
-
 # 'Real world' tasks
 
-These tasks are optional extensions; only complete them if you have time. We will be doing more of this practice in the next session.
 
 
 :::{.exercise}
 
-1. Use the `fuel` data. Make two plots which show the relationship between engine size and power. In the first, use colour to distinguish cars with different numbers of gears. In the second use facets to make the same distinction. Which do you think is more helpful and why?
+1. Use the `fuel` data. Make two plots which show the relationship between engine size and power. In the first, use colour to distinguish cars with different numbers of gears. In the second use facets to make the same distinction. 
+
+1. Which do you think is more helpful and why?
+
+
+:::
 
 
 
-2. Is there a relationship between age and weight-lost in the `funimagery` data? Make a plot to explore this. Is the pattern consistent between genders and intervention groups? Which plots are most helpful for this?
+:::{.exercise}
+
+
+1. Is there a relationship between age and weight-lost in the `funimagery` data? Make a plot to explore this.
+
+2. Is the pattern consistent between genders and intervention groups? Which additional plots are most helpful to check this?
 
 
 ```{r, include=F, echo=F}
@@ -414,12 +535,60 @@ psydata::fuel %>%
 ```
 
 
+:::
+
+
+
+
+:::{.exercise}
+
+@bae2018ptsd reported findings on somatisation and PTSD in children who had been abused. From the abstract:
+
+
+>Purpose. Somatization is a major post-traumatic symptom in sexually abused children. Thus, the present study aimed to determine the relationship between post-traumatic stress disorder (PTSD) symptoms and somatization, and between intelligence and somatization in child sexual abuse victims and to elucidate whether type of abuse had an effect on the relationship between PTSD symptoms and somatization.
+
+>Methods. This study evaluated the somatizations (Child Behavioral Checklist/6–18 [CBCL]), PTSD symptoms (Trauma Symptom Checklist for Children [TSCC]), and intelligence levels of 63 sexually abused children. Correlation and regression analyses were performed to predict somatization based on PTSD symptoms, intelligence, age, and type of sexual abuse, and to find moderating effect of type of abuse on the effect of PTSD symptom on somatization.
+
+>Results. PTSD symptoms (β = 0.471, p = 0.001) and intelligence (β = 0.327, p = 0.021) were associated with somatization. Type of abuse was not, by itself, correlated with somatization (β = 0.158, p = 0.281), but it did have a moderating effect on the effect of PTSD symptoms on somatization (Type of abuse*PTSD symptoms, β = -0.299, p = 0.047). PTSD symptoms were associated with somatization only among those who experienced the molestation type of abuse.
+
+>Conclusions. Somatization in sexually abused children was influenced by the severity of PTSD symptoms and intelligence, and the effect of the PTSD symptoms on somatization was moderated by type of abuse. Specifically, the rape type of abuse may attenuate the effect of post-traumatic symptoms on somatization.
+
+
+1. Using the `bae2018` dataset (in `psydata`) reproduce the figure below, but using color instead of different point shapes and line-types to represent the types of abuse. Don't worry about the added text for now.  You will find that the slopes on your plot don't extend all the way across the figure — this doesn't matter either.
+
+2. Use the tips in the *spit and polish* section to label your plot and save a copy as a pdf.
+
+
+
+![](images/bae-fig-1.png)
+
+
+
+```{r, echo=F, include=F}
+bae2018 %>% 
+  ggplot(aes(tscc_pts, cbcl_som, color=type_of_abuse)) + 
+  geom_point(position = position_jitter()) + geom_smooth(method="lm", se=F)
+```
+
+
 
 :::
 
 
 
 
+:::{.exercise}
+
+**Extension exercise: Adding text**
+
+To learn how to add text to the plot above, see this brief guide:
+
+<http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-in-r-software>
+
+
+1. Try adding text to your new version ogf Bae Fig. 1 which includes the text from the original (note that the original Figure itself is a little misguided in providing two separate *p* values — but we will deal with that in a later workshop).
+
+:::
 
 
 
@@ -516,3 +685,7 @@ development %>%
 
 ```
 
+
+
+
+# References

@@ -55,8 +55,7 @@ you in good stead in your future careers.
 
 ### Data handling and visualisation 
 
-- [Data visualisation (1)](visualisation1.html)
-- Data visualisation (2)
+- [Data visualisation](visualisation1.html)
 - Data wrangling (1)
 - Data wrangling (2)
 - Working with real data (practical)
