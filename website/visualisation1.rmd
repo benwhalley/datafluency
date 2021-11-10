@@ -141,7 +141,7 @@ There are x visual features (aesthetics) of plots we will use in this session:
 -   `linetype` (i.e. dotted/patterned or solid)
 
 
-# Recreate the Rosling plot
+## Recreate the Rosling plot
 
 :::{.exercise}
 
@@ -577,22 +577,62 @@ bae2018 %>%
 
 
 
-:::{.exercise}
+# Extension exercises
 
-**Extension exercise: Adding text**
 
-To learn how to add text to the plot above, see this brief guide:
+## Adding text 
+
+To learn how to add text to a plot, see this brief guide:
 
 <http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-in-r-software>
 
+:::{.exercise}
 
-1. Try adding text to your new version ogf Bae Fig. 1 which includes the text from the original (note that the original Figure itself is a little misguided in providing two separate *p* values — but we will deal with that in a later workshop).
+
+1. Try adding text to your new version of Bae et al. Figure 1 which includes the text from the original (note that the original Figure itself is a little misguided in providing two separate *p* values — but we will deal with that in a later workshop).
 
 :::
 
 
 
 
+## Publication-ready plots
+
+Some journals have specific requirements for submitting journals; common ones include submitting in
+particular formats (e.g. pdf or tiff), using particular fonts etc.
+
+There are also some common types of plots which ggplot almost, but not quite, makes out of the box.
+
+When trying to go the last mile and polish plots for publication several additional packages may be
+useful. 
+
+:::{.exercise}
+
+If you have time, you could work through some of the examples on this page
+
+-   ggpubr:
+    http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/78-perfect-scatter-plots-with-correlation-and-marginal-histograms/
+
+
+Try applying the same techniques to some of the built-in datasets, or any other data you have.
+
+:::
+
+
+
+## Tufte-style plots
+
+As mentioned in the session, Edward Tufte's books have been influential in the field of data
+visualisation. His book 'The display of quantitative information' [@tufte2001visual] is a great
+resource and guide.
+
+:::{.exercise}
+
+http://motioninsocial.com/tufte/ shows how to implement many of Tufte's ideas in ggplot. It
+would be a nice exercise to work through this, and attempt to plot some of `psydata` or your own data in this
+style.
+
+:::
 
 
 
