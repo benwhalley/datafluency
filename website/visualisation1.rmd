@@ -58,6 +58,8 @@ Inside this new folder,  make a new RMarkdown file (use the 'file' menu and choo
 Use this new `.rmd` file to save your work during this session.
 
 
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ek9rFSAq3QU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 :::
 
 
@@ -465,6 +467,10 @@ but sometimes you need to save the plot to a file (e.g. to send to a journal).
 The `ggsave` function lets us do this.
 
 The first step is to make a plot, and save it (give it a name, like `myfunkyplot`).
+
+```{r, echo=F, include=F}
+set.seed(1234)
+```
 
 ```{r}
 myfunkyplot <- fuel  %>% 
