@@ -226,7 +226,7 @@ grey-shaded area, which represents the standard error of the local average (agai
 
 ### Make a smoothed-line plot
 
-1. Use the `incomes` dataset from `psydata`. Create a scatter plot of any two
+1. Use the `earnings` dataset from `psydata`. Create a scatter plot of any two
    continuous variables.
 
 2. Add a smoothed line to the plot using `geom_smooth()`
