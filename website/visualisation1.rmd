@@ -490,7 +490,7 @@ Next, we use `ggsave` to save the plot to a particular file:
 ggsave('myfunkyplot.pdf', myfunkyplot, width=8, height=4)
 ```
 
-You can see the output of the `ggsave` command by downloading the file from the files directory of your RStudio window. It should end up in the same place as your R Script, provided you have created  a project (and you should always create a project).
+You can see the output of the `ggsave` command by downloading the file from the files directory of your RStudio window. It will end up in the same place as your R script.
 
 
 
