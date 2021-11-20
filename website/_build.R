@@ -14,7 +14,17 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 # rebuild docs into /docs which is where github serves them from
 rmarkdown::render('index.Rmd', output_dir = "../docs")
 rmarkdown::render('visualisation1.rmd', output_dir = "../docs")
-rmarkdown::render('teacher-notes.rmd', output_dir = "../docs")
+rmarkdown::render('visualisation-extensions.rmd', output_dir = "../docs")
 
+rmarkdown::render('data-wrangling1.rmd', output_dir = "../docs")
+rmarkdown::render('data-wrangling-extensions.rmd', output_dir = "../docs")
+rmarkdown::render('data-wrangling2.rmd', output_dir = "../docs")
+
+
+#rmarkdown::render('visualisation2.rmd', output_dir = "../docs")
+#rmarkdown::render('real-data-practical.rmd', output_dir = "../docs")
+
+rmarkdown::render('teacher-notes.rmd', output_dir = "../docs")
+rmarkdown::render('how-to-use-worksheets.rmd', output_dir = "../docs")
 
 

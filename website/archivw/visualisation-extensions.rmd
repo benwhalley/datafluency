@@ -1,0 +1,336 @@
+---
+title: "Data Visualisation: Extension Exercises"
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+```{r, include=F}
+library(tidyverse)
+library(webex)
+knitr::opts_chunk$set(cache=T, message=F, warning=F)
+```
+
+
+# Logarithmic scales
+
+A common problem when plotting some types of data is dealing with extreme values, or skewed distributions. Income data and reaction times are two notable examples: both are typically highly skewed.
+
+We already saw in first worksheet the `cps2` dataset that income is very unevenly distributed, and
+a small number of people earn **_much_** more than the average. This means a plot of income data can obscure interesting details around the median; the scale is forced to include extreme values, even though they represent very few people. This is obvious in the CPS2 data, even without including billionares like Jeff Bezos:
+
+```{r}
+cps2 <- read_csv('data/cps2.csv')
+cps2  %>%
+  ggplot(aes(income, color=sex, y=..scaled..)) + geom_density()
+```
+
+In the previous worksheet we dealt with this by using `filter` to remove cases
+where people earned more than \$150000.
+
+However there is another way to replot all of the data, but still see the gender pay gap: we can
+change the scale so that the units on the x axis are not evenly spaced: we can make it so that each
+marker represents an increasingly large difference:
+
+```{r, message=F, warning=F}
+cps2 %>%
+  ggplot(aes(income, color=sex, y=..scaled..)) +
+  geom_density() +
+  scale_x_log10()
+```
+
+**Explanation of the code**: We added `+ scale_x_log10()` to our previous density plot. This command
+makes each unit on the x axis increase in size by a factor of 10. For this example I also filtered
+out individuals earning < \$500 (there were very few of them, and it wasted space on the plot).
+
+**Explanation of the output**: Two warnings may be shown about 'infinite values' and 'removing
+non-finite values'; you can ignore these for now. The y axis of the graph has stayed the same, but
+the x axis has now changed. Rather than being equally-sized, the gaps in income represented by the
+gridlines are now uneven. Specifically, the difference between each vertical grid line is 10 times
+bigger than the previous one (you can find out
+[more about what `logn and log10` means here if you are interested](https://www.khanacademy.org/math/algebra2/x2ec2f6f830c9fb89:logs/x2ec2f6f830c9fb89:log-intro/v/logarithms)).
+R has (somewhat unhelpfully) switched to using
+[scientific notation](https://www.khanacademy.org/math/pre-algebra/pre-algebra-exponents-radicals/pre-algebra-scientific-notation/v/scientific-notation-old).
+This means that `1e+02` is equal to $1 \times$ 10^2$, or 100 to you an me. `1e+04` means  $1
+\times$ 10^4$, or 10,000, and so on. We can now see the gender pay gap much more clearly  (as we also did when we
+simply filtered-out very high earners).
+
+**Comments on interpreting the log-scaled graph**: Although the log scale helps us see the
+differences between men and women, we must remember that we are interpreting a log-scaled plot. You
+will notice that --- in contrast to the previous plot where we simply removed very high earners ---
+the gender differences in this plot are more obvious at lower levels of income, **even though the
+absolute size of the difference in dollars is just as large for high as for low earners**. This is
+an artefact of the plotting method because the scale is unevenly spaced: For a fixed difference in
+income between men and women (say
+$500) it will be easier to see at the bottom than at the top of the scale. Of course, the counter argument is that a $500
+difference is _more important_ if you earn less than $10,000 than if you earn > $200,000, so this
+extra emphasis is helpful. But there is no _correct_ answer: the different plots emphasise different
+aspects of the data.
+
+
+## Task 1: Use a log scale with CPS data
+
+
+:::{.exercise}
+
+Use the `gapminder` dataset again.
+
+1. Filter the data so you are only using observations from a single year
+2. Plot GDP per capita (x axis) against life expectancy (y axis) using a normal scale for GDP.
+3. Now replot using a log scale for GDP.
+4. If it's possible, discuss with others: what are the advantages of using a log scale in this
+   instance? (if you are alone, perhaps make some notes on the pros and cons and have a discussion in the next session)
+
+:::
+
+## Task 2: Use a log scale for reaction time data 
+
+::: {.exercise}
+
+```{r, include=F, eval=F}
+download.file('https://doi.org/10.1371/journal.pone.0189598.s001', 'journal.pone.0189598.s001.xlsx')
+rtdata <- readxl::read_excel('journal.pone.0189598.s001.xlsx')
+rtsubset <- rtdata %>%
+  transmute(gender = `Sex (M=1)`, rt_hand_dominant = `RTH-D`, age_years = `Age`)
+rtsubset %>%
+  write_csv('data/journal_pone_0189598_subset.csv')
+```
+
+This paper presents data on reaction times in a cross sectional sample of participants of different
+ages: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0189598#sec016
+
+The data are available in Excel format from PlosOne, but I have provided a (tidied up) subset of the
+data here: [subset of RT data](data/journal_pone_0189598_subset.csv).
+
+1. Import this subset of the data, and recreate the scatterplot from Figure 1 in the paper (use
+   `geom_smooth` for the lines, and don't worry if the lines are not exactly the same).
+
+2. Use the `scale_y_log10` command to adjust the scale of the Y axis. The result should look
+   something like this:
+
+
+```{r, echo=F, inclue=F}
+rtsubset <- read_csv('data/journal_pone_0189598_subset.csv')
+rtsubset  %>%
+  ggplot(aes(age_years, rt_hand_dominant, colour=factor(gender))) +
+  geom_point() +
+  geom_smooth(se=FALSE) +
+  scale_y_log10()
+```
+
+
+3. If you have time look at the help files for `scale_y_log10` (type `?scale_y_log10` into the console). See if you can work out how to change the years that are labelled on the x axis (the scale breaks or 'ticks'). You may find the help files quite cryptic to begin with, but it's often a good idea to check right down at the bottom of the document — there may be examples of usage shown there.
+
+
+:::
+
+
+
+
+# Real world plotting
+
+
+```{r, include=F}
+library(tidyverse)
+library(webex)
+knitr::opts_chunk$set(cache=T)
+```
+
+So far we have learned about `ggplot` and worked through lots of examples. You might have noticed
+though: we focused mostly on the technique and didn't really think about what the data meant, or what the plots were trying to communicate.
+
+In reality, given a dataset, you will need to work creatively to explore patterns and communicate results. Your decisions will be informed by:
+
+-   Your research questions
+-   Prior knowledge about the domain
+-   Prior knowledge about the research design and the data collection process
+-   What your learn about the data as you work (this is an interative process)
+
+---
+
+In these exercises we are going to work through a series of examples. Each time we will start with a
+scenario which describes the domain and data collection, and some research questions we may have
+had.
+
+You should work in pairs (if possible) to:
+
+-   Explore the dataset
+-   Develop one or two plots which illustrate key features of the data
+
+We will then join to form larger groups online to share findings, and justify decisions made.
+
+
+## Scenario 1: Secret agent
+
+
+::: {.exercise}
+
+You are a MI6 agent, and have been sent a mystery dataset by one of your spies. She said it contains
+highly important information which will be of great interest to your superiors. 
+
+Use your ggplot wizardry to recover this classified information.
+
+```{r, include=F}
+
+dino <- read_tsv('data/DatasaurusDozen.tsv')
+
+dino %>%
+  rename(group=dataset) %>%
+  mutate(group = as.numeric(factor(group))) %>%
+  write_csv('data/mystery.csv')
+
+df <- read_csv('data/mystery.csv')
+
+df  %>%  ggplot(aes(x, y )) + geom_point() + facet_wrap(~group)
+
+```
+
+The data are available to download here: [data/mystery.csv](data/mystery.csv)
+
+
+:::
+
+
+
+## Scenario 2
+
+
+::: {.exercise}
+
+
+In the 1970s the University of California, Berkley, was concerned about the fairness of their
+admissions procedures. They collected data from across the university for a number of years,
+recording the:
+
+-   Number of applicants
+-   The department the student applied to
+-   The students' gender
+-   Number of students accepted
+-   The percentage students of each gender who were accepted in each department
+
+A summary of these data are available at this link: [data/berkley.csv](data/berkley.csv).
+
+Your job is to:
+
+-   Describe the pattern of applications
+-   Decide if the university was fair in it's admissions procedures
+-   Prepare a short presentation for the university governors which includes plots
+
+Techniques/commands you might want to use:
+
+-   `filter`
+-   `group_by` and `summarise`
+-   `stat_summary` to plot means and standard errors or deviations
+-   `facet_wrap(~VARNAME)` to split a plot by a categorical variable
+
+
+
+
+```{r, include=F, echo=F}
+# don't re-run... probs added to this file by hand
+# expand.grid(gender=c("Male", "Female"), department=LETTERS[1:6]) %>% mutate(p.admitted=NA, n.applicants=NA) %>% write_csv('data/berkley-setup.csv')
+
+b <- read_csv("data/berkley-setup.csv")
+set.seed(1234)
+berkley <-  b %>% expand(year = 1976:1981, gender, department) %>%
+  left_join(., b) %>%
+  group_by(year) %>%
+  mutate(
+    n.applicants = n.applicants + rpois(n(), round(n.applicants*.3)),
+    n.admitted = round(n.applicants * (p.admitted + runif(n(), -.1, .1))),
+    percent.admitted = round(n.admitted / n.applicants * 100, 2)
+  ) %>%
+  select(-p.admitted)
+
+berkley %>% write_csv('data/berkley.csv')
+berkley <- read_csv('data/berkley.csv')
+```
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(gender, n.admitted)) +
+  stat_summary()
+```
+
+```{r, include=F, echo=F}
+berkley  %>%
+  ggplot(aes(gender, percent.admitted)) +
+  stat_summary()
+```
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(gender, n.applicants, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)
+```
+
+```{r, include=F, echo=F, fig.height=2}
+berkley %>%
+  ggplot(aes(gender, n.admitted, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)
+```
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(gender, percent.admitted, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)
+```
+
+
+:::
+
+
+
+# Publication-ready plots
+
+Some journals have specific requirements for submitting journals; common ones include submitting in
+particular formats (e.g. pdf or tiff), using particular fonts etc.
+
+There are also some common types of plots which ggplot almost, but not quite, makes out of the box.
+
+When trying to go the last mile and polish plots for publication several additional packages may be
+useful. 
+
+:::{.exercise}
+
+If you have time, you could work through some of the examples on this page
+
+-   ggpubr:
+    http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/78-perfect-scatter-plots-with-correlation-and-marginal-histograms/
+
+
+Try applying the same techniques to some of the built-in datasets, or to the plos-one datasets included in the Team site class materials, or any other data you have.
+
+:::
+
+----------
+
+As mentioned in the session, Edward Tufte's books have been influential in the field of data
+visualisation. His book 'The display of quantitative information' [@tufte2001visual] is a great
+resource and guide.
+
+:::{.exercise}
+
+http://motioninsocial.com/tufte/ shows how to implement many of Tufte's ideas in ggplot. It
+would be a nice exercise to work through this, and attempt to plot some of your own data in this
+style.
+
+:::
+
+------------
+
+All content on this site is distributed under a [Creative Commons](https://creativecommons.org/)
+licence. CC-BY-SA 4.0.

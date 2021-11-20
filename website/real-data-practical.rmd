@@ -1,0 +1,31 @@
+---
+title: 'Real data practical'
+author: 'Ben Whalley'
+date: "November 2021"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output:
+  webex::html_clean
+---
+
+
+```{r, include=F}
+source('_first_chunk.R')
+```
+
+
+
+
+
+
+
+- rename
+- select
+- filter
+- mutate
+- summarise
+- pivot
+- facet_grid
+
+

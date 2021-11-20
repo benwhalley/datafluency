@@ -1,0 +1,38 @@
+---
+title: 'Data wrangling: Extension Exercises'
+author: 'Ben Whalley'
+date: "November 2021"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output:
+  webex::html_clean
+---
+
+
+
+
+# More on Long vs wide data
+
+
+## Further reading
+
+:::{.exercise}
+
+**#1**
+
+To gain more understanding of the way the format of our data is important to the way we analyse it, read this article on wide/long data formats and the tradeoffs between the two: <https://www.theanalysisfactor.com/wide-and-long-data/>
+
+:::
+
+
+
+
+
+# More practice
+
+For more practice using these techniques for common problems in psychological research you could work through Andy Will's 'better tables' worksheet here: 
+
+- <https://ajwills72.github.io/rminr/better-tables.html>
+- [Preprocessing data from experiments](https://ajwills72.github.io/rminr/preproc.html) and [part 2 of this](https://ajwills72.github.io/rminr/more-on-preproc.html)
+

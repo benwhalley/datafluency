@@ -10,6 +10,27 @@ output:
 ---
 
 
+
+<!-- 
+
+add log scale stuff back in
+make forward pointer to labs() function qhich comes later... say not to worry yet about labels
+
+
+This morning I noticed that "craft" might be a useful simile for plotting. If you can continously keep in mind the "customer" rather than the tools, then you're likely to optimise the happiness.
+
+e.g.
+don't build someone a chair when they want a table because that's all you know how to make
+be prepared to add new tools to your bag to deliver what's required
+copy master craftspersons
+...
+Putting the reader first seems to be the secret to making continuous improvement.
+
+
+
+-->
+
+
 ```{r, include=F}
 source('_first_chunk.R')
 ```
@@ -166,7 +187,9 @@ development %>%
              y=BLANK,
              size=BLANK,
              color=BLANK)) +
-  geom_point()
+  geom_point() + 
+  scale_x_log10() + 
+  labs(x=BLANK, y=BLANK, color=BLANK, size=BLANK)
 ```
 
 I have removed some parts of the code. Your job is to edit the parts which say `<BLANK>` and replace
@@ -179,6 +202,8 @@ Some hints:
 -   All the `BLANK`s represent variable names in the dataset. You can see a list of the column names available by typing `glimpse(development)`
 -   Use `mutate` to alter the `population` column to represent *millions*
 - If you are confused by the `filter(BLANK==BLANK)` check the title of the plot above. Remember that `filter` selects particular rows from the data, so we can use it to restrict what is shown. What data do we need to select for *this* plot? 
+- The part which reads `scale_log_10()` is [explained in more detail in this extension exercise](extensions-visualisation.html#logscales)
+- The part which reads `labs(...)` is [explained below](#labellingaxes).
 
 
 :::
@@ -410,7 +435,7 @@ research question that motivated us to draw it?
 -   Change plot colours etc
 -   Saving to a pdf or other output format
 
-## Labelling axes
+## Labelling axes {#labellingaxes}
 
 By default, `ggplot` uses variable names and the values in your data to label plots. Sometimes these
 are abbreviations, or otherwise need changing.
@@ -585,72 +610,20 @@ bae2018 %>%
 
 # Extension exercises
 
-
-## Adding text 
-
-To learn how to add text to a plot, see this brief guide:
-
-<http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-in-r-software>
-
-:::{.exercise}
-
-
-1. Try adding text to your new version of Bae et al. Figure 1 which includes the text from the original (note that the original Figure itself is a little misguided in providing two separate *p* values — but we will deal with that in a later workshop).
-
-:::
+[Extension exercises to supplement this worksheet are available here](visualisation-extensions.html)
 
 
 
 
-## Publication-ready plots
+<!-- 
 
-Some journals have specific requirements for submitting journals; common ones include submitting in
-particular formats (e.g. pdf or tiff), using particular fonts etc.
+# For the PPT Slides 
 
-There are also some common types of plots which ggplot almost, but not quite, makes out of the box.
-
-When trying to go the last mile and polish plots for publication several additional packages may be
-useful. 
-
-:::{.exercise}
-
-If you have time, you could work through some of the examples on this page
-
--   ggpubr:
-    http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/78-perfect-scatter-plots-with-correlation-and-marginal-histograms/
+-->
 
 
-Try applying the same techniques to some of the built-in datasets, or any other data you have.
-
-:::
-
-
-
-## Tufte-style plots
-
-As mentioned in the session, Edward Tufte's books have been influential in the field of data
-visualisation. His book 'The display of quantitative information' [@tufte2001visual] is a great
-resource and guide.
-
-:::{.exercise}
-
-http://motioninsocial.com/tufte/ shows how to implement many of Tufte's ideas in ggplot. It
-would be a nice exercise to work through this, and attempt to plot some of `psydata` or your own data in this
-style.
-
-:::
-
-
-
-
-
-
-<!-- For the PPT Slides -->
-
-
-```{r, echo=F, include=F}
+```{r, echo=F, include=F, eval=F}
 # for slides
-
 development %>% sample_n(10)
 
 development %>% 

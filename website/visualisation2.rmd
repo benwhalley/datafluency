@@ -124,7 +124,163 @@ As an extension exercise:
 
 
 
-------------
 
-All content on this site is distributed under a [Creative Commons](https://creativecommons.org/)
-licence. CC-BY-SA 4.0.
+
+# Real world plotting
+
+
+```{r, include=F}
+library(tidyverse)
+library(webex)
+knitr::opts_chunk$set(cache=T)
+```
+
+So far we have learned about `ggplot` and worked through lots of examples. You might have noticed
+though: we focused mostly on the technique and didn't really think about what the data meant, or what the plots were trying to communicate.
+
+In reality, given a dataset, you will need to work creatively to explore patterns and communicate results. Your decisions will be informed by:
+
+-   Your research questions
+-   Prior knowledge about the domain
+-   Prior knowledge about the research design and the data collection process
+-   What your learn about the data as you work (this is an interative process)
+
+---
+
+In these exercises we are going to work through a series of examples. Each time we will start with a
+scenario which describes the domain and data collection, and some research questions we may have
+had.
+
+You should work in pairs (if possible) to:
+
+-   Explore the dataset
+-   Develop one or two plots which illustrate key features of the data
+
+We will then join to form larger groups online to share findings, and justify decisions made.
+
+
+
+
+
+::: {.exercise}
+
+### Scenario 1: Secret agent
+
+You are a MI6 agent, and have been sent a mystery dataset by one of your spies. She said it contains
+highly important information which will be of great interest to your superiors. 
+
+Use your ggplot wizardry to recover this classified information.
+
+```{r, include=F}
+
+dino <- read_tsv('data/DatasaurusDozen.tsv')
+
+dino %>%
+  rename(group=dataset) %>%
+  mutate(group = as.numeric(factor(group))) %>%
+  write_csv('data/mystery.csv')
+
+df <- read_csv('data/mystery.csv')
+
+df  %>%  ggplot(aes(x, y )) + geom_point() + facet_wrap(~group)
+
+```
+
+The data are available to download here: [data/mystery.csv](data/mystery.csv)
+
+
+:::
+
+
+
+
+
+::: {.exercise}
+
+### Scenario 2: Admissions tutor
+
+In the 1970s the University of California, Berkley, was concerned about the fairness of their
+admissions procedures. They collected data from across the university for a number of years,
+recording the:
+
+-   Number of applicants
+-   The department the student applied to
+-   The students' gender
+-   Number of students accepted
+-   The percentage students of each gender who were accepted in each department
+
+A summary of these data are available at this link: [data/berkley.csv](data/berkley.csv).
+
+Your job is to:
+
+-   Describe the pattern of applications
+-   Decide if the university was fair in it's admissions procedures
+-   Prepare a short presentation for the university governors which includes plots
+
+Techniques/commands you might want to use:
+
+-   `filter`
+-   `group_by` and `summarise`
+-   `stat_summary` to plot means and standard errors or deviations
+-   `facet_wrap(~VARNAME)` to split a plot by a categorical variable
+
+
+
+```{r, include=F, echo=F}
+# don't re-run... probs added to this file by hand
+# expand.grid(gender=c("Male", "Female"), department=LETTERS[1:6]) %>% mutate(p.admitted=NA, n.applicants=NA) %>% write_csv('data/berkley-setup.csv')
+
+b <- read_csv("data/berkley-setup.csv")
+set.seed(1234)
+berkley <-  b %>% expand(year = 1976:1981, gender, department) %>%
+  left_join(., b) %>%
+  group_by(year) %>%
+  mutate(
+    n.applicants = n.applicants + rpois(n(), round(n.applicants*.3)),
+    n.admitted = round(n.applicants * (p.admitted + runif(n(), -.1, .1))),
+    percent.admitted = round(n.admitted / n.applicants * 100, 2)
+  ) %>%
+  select(-p.admitted)
+
+berkley %>% write_csv('data/berkley.csv')
+berkley <- read_csv('data/berkley.csv')
+```
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(gender, n.admitted)) +
+  stat_summary()
+```
+
+```{r, include=F, echo=F}
+berkley  %>%
+  ggplot(aes(gender, percent.admitted)) +
+  stat_summary()
+```
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(gender, n.applicants, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)
+```
+
+```{r, include=F, echo=F, fig.height=2}
+berkley %>%
+  ggplot(aes(gender, n.admitted, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)
+```
+
+```{r, include=F, echo=F}
+berkley %>%
+  ggplot(aes(gender, percent.admitted, group=department)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)
+```
+
+
+:::
