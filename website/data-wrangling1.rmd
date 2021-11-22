@@ -66,6 +66,84 @@ Make a new `rmd` file in your datafluency directory, called `data-wrangling.rmd`
 
 
 
+The `mtcars` data also contains variables for weight (`wt`) and power (`hp`, short for horsepower).
+
+We can select just these columns and save them to a smaller dataframe like this:
+
+```{r}
+carperformance <- mtcars %>% select(mpg, wt, hp)
+```
+
+#### Explanation of the commands
+
+On the far left we have the name of the new variable which we will create: `carperformance`.
+
+We can tell this will be a new variable because the `<-` symbol is just to the right, pointing at
+it.
+
+To work out what `carperformance` will contain, we look to the right of the `<-` There are two parts
+here, linked with the pipe symbol (`%>%`) which passes data from one command to the next, from left
+to right.
+
+First we see the `mtcars` data. Using a pipe we pass this to the `select` command, which selects the
+`mpg,`wt`, and`hp` columns.
+
+#### Explanation of the result
+
+When running the command you won't see any output --- but something **has** happened behind the
+scenes: A new object was created called `carperformance` which contained copies of the columns from
+`mtcars` we selected.
+
+We can see the first few rows of our new smaller dataframe like this:
+
+```{r}
+carperformance %>% head()
+```
+
+
+
+
+
+
+# Selecting columns
+
+The `fuel` data also contains variables for weight and power.
+
+We can select just these columns and save them to a smaller dataframe like this:
+
+```{r}
+carperformance <- fuel %>% select(mpg, weight, power)
+```
+
+#### Explanation of the commands
+
+- On the far left we have the name of the new variable which we will create: `carperformance`.
+- We can tell this will be a new variable because the `<-` symbol is just to the right, pointing at
+it.
+- To see what `carperformance` contains, look to the right of the `<-`. We pipe the `fuel` data to the `select` command, which selects the`mpg`,`weight`, and`power` columns.
+
+#### Explanation of the result
+
+When running the command you won't see any output --- but a new object was created called `carperformance` which contained copies of the columns from `fuel` we selected.
+
+We can see the first few rows of our new smaller dataframe like this:
+
+```{r}
+carperformance %>% head()
+```
+
+
+
+:::{.exercise}
+
+Try selecting columns in a dataset for yourself:
+
+- Use any of the built in dataset, creating a copy with just a subset of 3 of its columns.
+
+:::
+
+
+
 
 # Pivoting longer
 
@@ -337,7 +415,7 @@ development1990s %>%
 - use `select` to make a dataset with `intervention` and each of the `kg1-3` columns from `funimagery`
 - Use `pivot_longer`, `group_by` and `summarise` to calculate the average weight of participants at each timepoint
 - Adapt the `group_by` function to calculate the mean at each timepoint for each group separately
-- Add `pivot_longer` to the end of your code to create a separate column for each group. When you finish your data should look like this:
+- Add `pivot_wider` to the end of your code to create a separate column for each group. When you finish your data should look like this:
 
 
 ```{r, echo=F}
