@@ -66,43 +66,6 @@ Make a new `rmd` file in your datafluency directory, called `data-wrangling.rmd`
 
 
 
-The `mtcars` data also contains variables for weight (`wt`) and power (`hp`, short for horsepower).
-
-We can select just these columns and save them to a smaller dataframe like this:
-
-```{r}
-carperformance <- mtcars %>% select(mpg, wt, hp)
-```
-
-#### Explanation of the commands
-
-On the far left we have the name of the new variable which we will create: `carperformance`.
-
-We can tell this will be a new variable because the `<-` symbol is just to the right, pointing at
-it.
-
-To work out what `carperformance` will contain, we look to the right of the `<-` There are two parts
-here, linked with the pipe symbol (`%>%`) which passes data from one command to the next, from left
-to right.
-
-First we see the `mtcars` data. Using a pipe we pass this to the `select` command, which selects the
-`mpg,`wt`, and`hp` columns.
-
-#### Explanation of the result
-
-When running the command you won't see any output --- but something **has** happened behind the
-scenes: A new object was created called `carperformance` which contained copies of the columns from
-`mtcars` we selected.
-
-We can see the first few rows of our new smaller dataframe like this:
-
-```{r}
-carperformance %>% head()
-```
-
-
-
-
 
 
 # Selecting columns
