@@ -18,12 +18,6 @@ source('_first_chunk.R')
 ![](images/ropesnarrow.png)
 
 
-```{r include=F}
-library(tidyverse)
-library(webex)
-knitr::opts_chunk$set(cache=T)
-```
-
 
 > Most time in data analysis is spent 'tidying up' data: getting it into a suitable format to get
 > started. Data scientists have a particular definition of _tidy_: Tidy datasets are "easy to
@@ -108,7 +102,7 @@ Try selecting columns in a dataset for yourself:
 
 
 
-# Pivoting longer
+# Pivoting longer {#pivotlonger}
 
 Data is commonly stored in either
 [_wide_ or _long_ format](https://www.theanalysisfactor.com/wide-and-long-data/).

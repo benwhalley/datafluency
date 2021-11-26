@@ -10,20 +10,51 @@ output:
 ---
 
 
+```{r, include=F}
+source('_first_chunk.R')
+```
 
+
+
+
+
+
+# Before you start
+
+:::{.exercise}
+
+Continue to work in the `rmd` file you made in the last session, in your datafluency directory (it should be called `data-wrangling.rmd` or similar).
+
+
+:::
+
+
+
+
+
+# Overview
+
+In this session we cover 3 common tasks when tidying up real datasets:
 
 1. Recoding data (e.g. questionnaire responses) from text to numeric values
 2. Separating 'untidy' variables into tidy, long-form data:
 
+Additionally, as an optional extension activity, we cover:
 
-EXTENSION
 3. Joining two sources of data (e.g. two spreadsheets) into a single dataframe
 
 
 
 
 
-## Separating 'untidy' variables into tidy, long-form data:
+# Separating variables
+
+Sometimes we need to separate 'untidy' variables into tidy, long-form data.
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NRaKlYGaXEs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 
 The code below generates simulated data for 100 individuals at three time points. The format is
 similar to the way you might record experimental data in a spreadsheet.
@@ -38,10 +69,10 @@ repeatmeasuresdata <- tibble(person = 1:N,
 repeatmeasuresdata %>% head(8)
 ```
 
-`repeatmeasuresdata` is in **wide** format. Each row contains data for one participant, and each
+This variable, `repeatmeasuresdata`, is in **wide** format. Each row contains data for one participant, and each
 participant has three observations.
 
-We can *pivot* --- i.e., reshape --- the data into longer format like so:
+As [we saw previously](data-wrangling1.html#pivotlonger), we can *pivot* --- i.e., reshape --- the data into longer format like so:
 
 ```{r}
 repeatmeasuresdata %>%
@@ -51,7 +82,7 @@ repeatmeasuresdata %>%
 ```
 
 The problem we have now is that `name` contains text which describes at which time the
-observation was made. We probably want a number for each timepoint, so we can make a plot with time
+observation was made. We probably want to store a *number* for each time-point, so we can make a plot with time
 on the x axis.
 
 The `separate` command separates a single character column (`name`) into multiple columns.
@@ -77,53 +108,73 @@ longrepeatmeasuresdata %>%
 ```
 
 
+### How does R know where to split the text?
+
+
+In the example above, `separate` split data like `"time_1"`, `"time_2"` etc into two columns: `variable` and `time`.
+
+Q: How did it know to use the underscore (`_`) to split the data?
+
+A: The default is to split on anything which is not a letter or number. So `_` or a space, or `,` would all work.
+
+
+Sometimes though we need to tell R explicitly what to use to sepatate the values.
+
+If we had a column of email addresses we could split `ben.whalley@plymouth.ac.uk` into the username (e.g. `ben.whalley`) and domain name (`plymouth.ac.uk`) using the `@` symbol.
+
+To do this we just write `sep="@"` when we use separate.
+
+
 
 :::{.exercise}
 
-**#2**
-
-This file contains sample contact and address data for 100 people: https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv
+1. This file contains sample contact and address data for 100 people: <https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv>
 
 
-- Read the data into R
-- Use the `separate` function to make a new variable which contains the *domain name* of these contacts' email address (e.g. yahoo.com, hotmail.com)
+  - Read the data into R (you can either use the URL above directly inside the `read_csv()` function, or download then re-upload the data to the server to do this)
 
-Use the `distinct` and/or `count` functions on the new variable you create containing the domain name. Look them up in the help file if you don't know which to use to answer these questions:
+  - Use the `separate` function to make a new variable which contains the *domain name* of these contacts' email address (e.g. yahoo.com, hotmail.com)
 
-- How many different domains do the contacts have addresses with?
-- How many people had a gmail account?
-- Which domains had more than 10 users?
+> Note, you will need to use `sep="@"` to split the email addresses at the `@` symbol
+
+2. Use the `distinct` and/or `count` functions on the new variable you create containing the domain name. Look them up in the help file if you don't know which to use to answer these questions:
+
+  - How many different domains do the contacts have addresses with?
+  - How many people had a gmail account?
+  - Which domains had more than 10 users?
 
 
 `r hide("Show workings")`
 
 
 ```{r}
+# read the data directly from the URL
 contacts <- read_csv('https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv') %>% 
-  separate(email, into=c("user", "domain"), sep ="@") 
+  separate(email, into=c("user", "domain"), sep ="@")  # uses the @ symbol as a separator
+```
 
-
-# how many different domains
+```{r}
+# how many _different_ domains are there?
 contacts %>% 
   distinct(domain) %>% 
   count()
+```
 
+```{r}
 # how many people use gmail
 contacts %>% 
   count(domain) %>% 
   filter(domain=="gmail.com")
+```
 
+```{r}
 # which domains had more than 10 users?
 contacts %>% 
   count(domain) %>% 
   filter(n > 10) 
 ```
 
-
 `r unhide()`
-
-
-
 
 
 :::
@@ -133,46 +184,499 @@ contacts %>%
 
 
 
-# More `pivot_longer` and plotting
+
+
+
+
+# Questionnaire data
+
+## Importing from Excel
+
+You [should always keep your data in csv format](#why-use-csv). Don't use Excel
+or other proprietary formats to store data unless absolutely necessary.
+
+Unfortunately, some tools (including Office 365 Forms) provide data in `xlsx` format, and
+for this we need to use a special function in R. You can import this data to RStudio by:
+
+-   Uploading the `xlsx` file to the RStudio server, as you have done before
+-   Loading the `rio` package
+-   Using the `import()` function in that package, instead of `read_csv()`
+
+The example data linked below were exported from an Office 365 Form, so they are in a similar format 
+to that which you might expect using other online survey tools.
+
+
+- **`r xfun::embed_file('data/sweets.xlsx', text="Download 'sweets' example in xslx format")` (`sweets.xlsx`)**
+
+
+```{r, echo=T, eval=F, include=F}
+library(rio)
+sweets <- import('sweets.xlsx')
+```
+
+```{r, echo=F, include=F}
+# chunk above is 'faked' to hide data/ path which confused students in the first year we ran this
+library(rio)
+sweets <- import('data/sweets.xlsx')
+```
+
+We can look at the first few rows of the data, using the `head` command:
+
+```{r}
+sweets %>% head()
+```
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/oKpdIxG-7ak" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 
 
 :::{.exercise}
 
-**#3**
 
-Use the `mtcars` data and facetting to produce these plots:
+- Import the `r xfun::embed_file('data/sweets.xlsx', text="sweets data")` into RStudio, as shown above
 
-```{r, echo=F, message=F, warning=F}
-mtcars %>%
-  select(mpg, wt, disp) %>%
-  pivot_longer(everything()) %>% 
-  mutate(variable=Hmisc::capitalize(as.character(name))) %>%
-  ggplot(aes(value, y=..scaled..)) +
-  geom_density() +
-  facet_wrap(~variable, scales="free_x") +
-  labs(x="", y="Scaled density")
+- Save it to a new variable called `sweets`
+
+:::
+
+
+
+
+## Tidying questionnaires
+
+When we look at the imported data it's useful to note:
+
+1. There are extra columns we don't need (at least for now).
+
+2. Some of our variable names are very long and annoying to type (for example
+   `How much do you like sweets?` is the name of one of our columns).
+
+3. Our responses are in **text** format, rather than as numbers. For example,
+   the data say `"I don't like them"` or `"I'm neutral"` rather than numbers
+   from a 1-5 scale.
+
+4. We may have other data on the same participants that are stored in separate files.
+
+
+We need to sort each of these problems to make things more manageable for our
+analysis.
+
+
+
+
+## Selecting and renaming 
+
+> Remember, R makes using columns with spaces or other special characters very hard. We want to avoid this.
+
+### Selecting 
+
+To use columns with spaces in we must 'escape' the spaces and **let R know they are part of the name** rather than a gap between two different names.
+
+This video shows how (or read below):
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/aIMgsj5hTVA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+To escape spaces and use columns with long names we use the backtick character (the
+backwards facing apostrophe) to *wrap* the column name.  
+
+**In general, if your columns contain spaces or other odd characters like hyphens or question marks then you will need to wrap them in backticks.**
+
+
+
+
+### Renaming  {#renaming}
+
+Some of the imported variable names in the `sweets` data are long and awkward to use.
+
+Most researchers would rename these variables, to make them more usable in R code.
+
+You can rename variables like this:
+
+```{r, eval=F}
+datasetname %>% 
+  rename(NEW_COLUMN_NAME = OLD_COLUMN_NAME)
 ```
 
-```{r, echo=F}
-mtcars %>%
-  select(mpg, wt, disp) %>%
-  pivot_longer(everything()) %>% 
-  mutate(variable=Hmisc::capitalize(as.character(name))) %>%
-  ggplot(aes(value)) +
-  geom_histogram(bins=7) +
-  facet_wrap(~variable, scales="free_x") +
-  labs(x="", y="Scaled density")
+So for this example:
+
+```{r}
+sweets %>%
+  rename(
+    like_sweets = `How much do you like sweets?`,
+    like_chocolate = `How much do you like chocolate`,
+  )
 ```
 
-Some tips:
+**Explanation of the code**: We used `rename` to change the names of our
+variables. We needed to wrap the long names of the questions in 'backtick'
+symbols to make sure R understood it was a single column name.
 
--   Add `scales="free_x"` to the `facet_wrap` function. So, it will read:
-    `facet_wrap(~VARNAME, scales="free_x")`
+You should create a new variable to save the renamed dataset (with a descriptive name for use later on):
 
--   For the histogram, replace `geom_density()` with `geom_histogram()`
+```{r}
+sweets.renamed <- sweets %>%
+  rename(
+    like_sweets = `How much do you like sweets?`,
+    like_chocolate = `How much do you like chocolate`,
+  )
+```
 
--   Adjust the number of vertical bars in the histogram by adding `bins=7` (or some other number) to
-    `geom_histogram()`
+
+
+:::{.exercise}
+
+1. Create a copy of the sweets data in which you have selected only the two columns with long names.
+
+1. Create a second copy of the data where you have renamed the columns with long names to something short, and without spaces.
+
+:::
+
+
+
+## Recoding text {#using-recode}
+
+We noticed above that our responses were stored as text labels like
+`"I don't like them"` rather than on a numeric scale. This makes it hard to use in
+an analysis.
+
+**We need to _recode_ the text variables into numeric versions.**
+
+### How to do it
+
+First we must tell R what number we want to use for each text label. That is, we
+create a **_mapping of numbers to labels_**.
+
+This takes a few steps:
+
+1. Check **exactly** what the text values are which need to be mapped. 
+2. Make a **mapping variable** which assigns each text value a number value
+3. Use the `recode` function with `mutate` to create a new, numeric column
+
+
+This video walks you through the steps below:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/vaGrKPIHN4Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### Step 1: Check EXACTLY what text labels we have
+
+To check which labels we need to recode, I select the column in question and use the `unique()` function.
+
+```{r}
+sweets %>% 
+  select(`How much do you like sweets?`) %>% 
+  unique()
+```
+
+:::{.exercise}
+
+Do the same to find out the possible values of the `How much do you like chocolate` column.
+
+`r hide("Show answer")`
+
+```{r}
+sweets %>% 
+  select(`How much do you like chocolate`) %>% 
+  distinct()
+```
+
+`r unhide()`
+
+:::
+
+
+
+### Step 2: Make a mapping variable
+
+We do this by creating what R calles a **named vector**, which is a special kind of list.
+
+To make a named vector we use the the `c()` function. The letter `c`
+here just stands for 'combine' --- i.e. 'combine these things into a list'.
+
+This is a simple example:
+
+
+```{r}
+mapping.list <- c("No" = 0, "Yes" = 1)
+```
+
+
+We could then use this mapping to recode a column of data which contained the words "No" or "Yes
+
+
+<br>
+
+
+*A useful trick* when creating your own mappings is to use R to do the formatting for you (see the video above for a demo).
+
+Re-using the code from the previous step, we use `unique()` to show us the *unique values* for the quuestion about sweets.
+
+We then pipe the result to the `paste()` and `cat()` functions, like this:
+
+```{r}
+sweets %>% 
+  select(`How much do you like sweets?`) %>% 
+  unique() %>% 
+  paste() %>% cat()
+```
+
+**Explanation of the output**: Using `paste` and `cat` is a bit of a hack. When we run this code we see the output `c("I don't like them", "I'm neutral", "I like them")`. This is a list of the values in the `sweets` data for this question, formatted in a way that will be useful to us in the next step.
+
+
+We then copy and paste this output into a NEW code block, and edit it to assign our mappings:
+
+```{r}
+preference.mappings <- c("I don't like them" = -1, "I'm neutral" = 0, "I like them" = 1)
+```
+
+**Explanation of the code**: We used the previous output to create a mapping. By adding the `= -1` and `= 0` etc, we have told R what value we want to assign for each label.
+
+
+
+:::{.tip}
+
+Q: How do you know what number values to assign?
+
+A: It doesn't matter, provided:
+
+- The intervals between each options are the same and 
+- Each text value has a different number
+
+So, if we had a Likert-scale ranging from "Completely agree" to "Completely disagree" in 7 increments, we could score this from `0 - 6` or `1 - 7`, or `-3 - 3`. These would all be fine.
+
+
+:::
+
+
+
+### Step 3: Use the mapping variable to recode the column
+
+We can use our new mapping with the `mutate` and `recode` functions to make a **new column**, containing numbers rather than text:
+
+```{r}
+sweets.recoded <-  sweets %>%
+    mutate(
+        like_sweets_numeric =
+            recode(`How much do you like sweets?`, !!!preference.mappings)
+    )
+```
+
+We can see this new column if we use `glimpse`:
+
+```{r}
+sweets.recoded %>% glimpse()
+```
+
+
+**Explanation of the code**: 
+- The start of the first line is `sweets.recoded <-` which means
+make a new variable called `sweets.recoded`.
+- Then we use `mutate` to create a **new** column called `like_sweets_numeric`. 
+- We make this column using `recode` on the question about liking sweets. 
+- We use the `preference.mappings` mapping to specify what numeric score to give each of the text values.
+
+**Watch out for the exclamations marks`!!!`**: In the code there are
+[three exclamation marks](#explain-exclamationmarks), `!!!`, before the mapping; make sure you do the same.
+
+
+
+## Summary/video explanation
+
+This is one of the trickiest bits of R code we use. I've included an annotated video of just these steps as a reference below:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/DCeAlHUZsF0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
+
+:::{.exercise}
+
+- Use this three-step process to create a recoded version of the `like_chocolate` variable.
+
+- Remember to watch the video at the start of this section, or the short version in the green box above, if anything is unclear.
+
+:::
+
+
+
+
+
+## Reverse codings
+
+Watch out for "reverse coded" items. Imagine a questionnaire that includes two items:
+
+- "I really love sweets"
+- "I really hate sweets"
+
+Participants respond on a scale of "Agree", "Disagree", and "Neutral".
+
+
+Using the same mapping to both these questions would not be appropriate. Instead, we should use
+two separate mappings for the different questions to ensure the ***direction*** of the 
+coding has the same meaning:
+
+
+```{r}
+agree.disagree.responses <- c(
+            "Agree" = 3,
+            "Neutral" = 2,
+            "Disagree" = 1)
+```
+
+
+
+```{r}
+agree.disagree.responses.REVERSED <- c(
+            "Agree" = 1,
+            "Neutral" = 2,
+            "Disagree" = 3)
+```
+
+
+Coded in this way, scores for the questions _could_ be added or averaged to provide a summary score.
+
+
+
+## Multiple new columns
+
+You can create multiple new columns at once using mutate, to recode each of our
+variables:
+
+```{r}
+sweets.recoded  <- sweets.renamed %>%
+    mutate(
+        like_sweets_numeric = recode(like_sweets, !!!preference.mappings),
+        like_chocolate_numeric = recode(like_chocolate, !!!preference.mappings)
+    )
+```
+
+**Explanation of the code**: We combined the two examples above to create 3 new
+columns with recoded (numeric) values. We saved this to the variable called
+`sweets.recoded`.
+
+  
+
+
+
+
+# Combining scores {#summary-score-of-questionnaire}
+
+Often questionnaires are designed to make repeated measurements of the same phenomena, which can then be summed or averaged to 
+create a more reliable measure.
+
+We've already seen how  `mutate()` creates a new column. We can use this again to create the *sum* of
+responses to both questions:
+
+```{r}
+sweets.recoded %>%
+  mutate(liking = like_sweets_numeric + like_chocolate_numeric) %>%
+  select(starts_with('like'))
+```
+
+
+**Explanation of the code**: 
+- We added both the questions which asked about 'liking' together. This
+created a new column containing the combined score, called `liking`. 
+- In the third line we selected only columns with names that *started with* the word 'like', to make the output easier to view.
+
+
+
+
+# Consolidation activity
+
+:::{.exercise}
+
+Use this example dataset: `r xfun::embed_file('data/sleep.xlsx', text="sleep.xlsx")`
+
+- Read in the data using the `import` function in the `rio` package
+- Rename the long column names to something short, and without spaces
+- Recode at least three of the columns with data about sleep quality to be numeric
+- Save the result of this work in a new variable called `sleep.tidy`
+- Pivot the recoded variables and make a boxplot of responses to these questions
+- Create a summary score called `sleep_quality` which is the sum of these recoded questions (use mutate)
+- Create a [density plot](#makingdensity) of this summary score and interpret what you see (describe the pattern in plain English)
+
+
+`r hide("Show complete code example")`
+
+```{r, include=F, echo=F}
+sleep <- import('data/sleep.xlsx')
+```
+
+
+```{r, eval=F}
+# this block assumes you have already uploaded the data to the server
+library(rio)
+sleep <- import('sleep.xlsx')
+```
+
+```{r}
+# used to check what response values are in each question
+sleep %>% 
+  select(`My sleep is affected by my study commitments`) %>% 
+  unique() %>% paste %>% cat
+
+sleep %>% 
+  select(`My electronic device usage negatively affects my sleep`) %>% 
+  unique() %>% paste %>% cat
+```
+
+
+```{r}
+# we will use the same mapping for both questions because they have the same responses
+sleep.map <- c("Agree"=2, 
+               "Somewhat agree"=1, 
+               "Somewhat disagree"=-1, 
+               "Disagree"=-2, 
+               "Neither agree nor disagree"=0, 
+               "Strongly agree"=3, 
+               "Strongly disagree"=-3)
+
+
+sleep.tidy <- sleep %>% 
+  # now we recode the two text variables (we only need use mutate once though)
+  mutate(
+    sleep_study = recode(`My sleep is affected by my study commitments`, !!!sleep.map), 
+    sleep_electronic = recode(`My electronic device usage negatively affects my sleep`, !!!sleep.map)
+  )
+
+```
+
+```{r}
+# now we can pivot longer to make a plot
+sleep.tidy %>% 
+  pivot_longer(c(sleep_study, sleep_electronic)) %>% 
+  ggplot(aes(name, value)) + geom_boxplot()
+```
+
+And make a summary score combining both questions
+
+```{r}
+sleep.tidy.withsumary <- sleep.tidy %>% 
+  # and create the summary score
+  mutate(sleep_quality = sleep_study + sleep_electronic ) 
+  
+# check the result. it looks ok
+sleep.tidy.withsumary %>% glimpse
+```
+
+
+```{r}
+# finally, make the requested density plot
+# make the density plot
+sleep.tidy.withsumary %>% 
+  ggplot(aes(sleep_quality)) + 
+  geom_density()
+```
+
+
+
+`r unhide()`
+
 
 :::
 
@@ -181,17 +685,130 @@ Some tips:
 
 
 
-# More practice
 
-For more practice using these techniques for common problems in psychological research you could work through Andy Will's 'better tables' worksheet here: 
+# Joining data
 
-- <https://ajwills72.github.io/rminr/better-tables.html>
-- [Preprocessing data from experiments](https://ajwills72.github.io/rminr/preproc.html) and [part 2 of this](https://ajwills72.github.io/rminr/more-on-preproc.html)
+:::{.tip}
 
+This is an optional extension section. It's not needed for the assessment.
 
-
-------------
+:::
 
 
-All content on this site distributed under a [Creative Commons](https://creativecommons.org/)
-licence. CC-BY-SA 4.0.
+
+Often we will have data from two different sources which must be combined. This section explains how to do that.
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/D32xVe3-YVg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          
+          
+
+```{r, echo=F, include=F}
+personal_data <- tibble(Identifier=c("123ABC", "456DEF", "678FGH"),
+  Name=c("Ben", "Helen", "Esther"))
+research_data <- tibble(Identifier=c("123ABC", "456DEF", "678FGH"),
+  `Worst ever record purchase`=c("Europe, the final countdown", "Spice Girls Wannabe", "One Direction - Night changes"))
+```
+
+
+Imagine we have two datasets like this, one containing identifying information:
+
+```{r, echo=F}
+personal_data %>% pander::pander()
+```
+
+And a second dataset containing sensitive questionnaire data:
+
+```{r, echo=F}
+research_data %>% pander::pander()
+```
+> Note that the `Identifier` column is common to both datasets.
+
+We can use a new `tidyverse` function which joins these two datasets into a combined table:
+
+```{r}
+left_join(personal_data, research_data, by="Identifier")
+```
+
+#### Explanation of `left_join`
+
+The `left_join` function takes two dataframes as input. We call the
+first input the 'left hand side', and the second input the 'right hand side'.
+
+Both left and right sides have to **share at least one column**. In this case it's
+called `Identifier`.
+
+When the left and right hand side match then `left_join` copies the extra columns *from the right hand side into the left hand side*. 
+
+**It returns a combined dataframe.**
+
+
+
+Any extra rows in the right hand side which don't match the left hand
+side are dropped. This might happen if we have research data for people we don't have personal data for.
+There are [other functions like `full_join`](https://dplyr.tidyverse.org/reference/join.html#join-types)
+which do this a bit differently, but we don't need them for now.
+
+
+:::{#joining-data-task .exercise}
+
+- Have a look at the `heroes_meta` and `heroes_personal` datasets, in `psydata`.
+
+- Adapt the code for `left_join()` shown above to combine these datasets.
+
+- Pipe the result of `left_join()` to `count()` to check how many rows are in the final dataset
+
+- Does it matter which order you join the datasets in? Can you explain the number of rows in the resulting dataset?
+
+- Save the combined dataset into a new csv file using `write_csv()`. Check you can find this in the RStudio files pane, and download a copy to be sure.
+
+
+`r hide("Show answers")`
+
+Do the join:
+
+```{r}
+left_join(heroes_meta, heroes_personal)
+```
+
+
+Count the rows:
+
+```{r}
+left_join(heroes_meta, heroes_personal) %>% count()
+left_join(heroes_personal, heroes_meta) %>% count()
+```
+
+We get slightly different numbers depending on which order we join the data in.
+
+This is because `left_join` only keeps rows in the right hand dataset IF they have a match in the left hand side.
+If the number of rows in the left and right hand sides differ, you can get a different result.
+
+Other functions like `inner_join` and `full_join` take different approaches. Type `?dplyr::inner_join` for an explanation.
+
+This code would export a csv file to the same location as your `rmd` file:
+
+```{r, eval=F}
+left_join(heroes_meta, heroes_personal) %>% rio::export('combined.csv')
+```
+
+
+`r unhide()`
+
+
+:::
+
+
+
+# Extra bits
+
+
+## Making a density plot {#makingdensity}
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/0r8rRvNF73c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
+
+
