@@ -128,6 +128,35 @@ To do this we just write `sep="@"` when we use separate.
 
 :::{.exercise}
 
+The `messy_exp` dataset in `psydata` contains simulated RT data on 100 participants in 2 conditions (A and B) at three time points (1, 2, and 3).
+
+- Use the `separate()` function to split up the `condition` variable in this dataset and draw the following plot:
+
+```{r, echo=F}
+messy_exp %>% 
+  separate(condition, into=c("participant", "condition", "time")) %>% 
+  ggplot(aes(time, rt, color=condition)) + 
+  geom_boxplot(width=.5) + 
+  labs(x="Time", y="Reaction time (ms)", color="Condition")
+```
+`r hide("Show the code")`
+
+```{r, echo=T, eval=F}
+messy_exp %>% 
+  separate(condition, into=c("participant", "condition", "time")) %>% 
+  ggplot(aes(time, rt, color=condition)) + 
+  geom_boxplot(width=.5) + 
+  labs(x="Time", y="Reaction time (ms)", color="Condition")
+```
+
+`r unhide()`
+
+:::
+
+
+:::{.exercise}
+
+
 1. This file contains sample contact and address data for 100 people: <https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv>
 
 
@@ -145,7 +174,6 @@ To do this we just write `sep="@"` when we use separate.
 
 
 `r hide("Show workings")`
-
 
 ```{r}
 # read the data directly from the URL
@@ -178,10 +206,6 @@ contacts %>%
 
 
 :::
-
-
-
-
 
 
 
