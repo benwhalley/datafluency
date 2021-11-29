@@ -55,7 +55,6 @@ Sometimes we need to separate 'untidy' variables into tidy, long-form data.
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NRaKlYGaXEs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-
 The code below generates simulated data for 100 individuals at three time points. The format is
 similar to the way you might record experimental data in a spreadsheet.
 
@@ -90,6 +89,7 @@ Rather than have a column with labels of the form 'time_1', it can create two co
 'time' and '1' in each.
 
 ```{r}
+# convert to long form; extract the `time` as a new numeric column
 longrepeatmeasuresdata <- repeatmeasuresdata %>%
   pivot_longer(starts_with("time")) %>%
   separate(name, into = c("variable", "time"))
@@ -168,8 +168,7 @@ messy_exp %>%
 
 2. Use the `distinct` and/or `count` functions on the new variable you create containing the domain name. Look them up in the help file if you don't know which to use to answer these questions:
 
-  - How many different domains do the contacts have addresses with?
-  - How many people had a gmail account?
+  - How many people had a Gmail account?
   - Which domains had more than 10 users?
 
 
@@ -234,6 +233,7 @@ to that which you might expect using other online survey tools.
 
 
 ```{r, echo=T, eval=F, include=F}
+# import an excel file using rio
 library(rio)
 sweets <- import('sweets.xlsx')
 ```
@@ -341,6 +341,7 @@ symbols to make sure R understood it was a single column name.
 You should create a new variable to save the renamed dataset (with a descriptive name for use later on):
 
 ```{r}
+# create a new variable containing the renamed dataset
 sweets.renamed <- sweets %>%
   rename(
     like_sweets = `How much do you like sweets?`,
@@ -390,6 +391,7 @@ This video walks you through the steps below:
 To check which labels we need to recode, I select the column in question and use the `unique()` function.
 
 ```{r}
+# check exactly what text values are in the dataset?
 sweets %>% 
   select(`How much do you like sweets?`) %>% 
   unique()
@@ -441,6 +443,7 @@ Re-using the code from the previous step, we use `unique()` to show us the *uniq
 We then pipe the result to the `paste()` and `cat()` functions, like this:
 
 ```{r}
+# the hack we use as a short-cut to creating a mapping variable
 sweets %>% 
   select(`How much do you like sweets?`) %>% 
   unique() %>% 
@@ -482,6 +485,7 @@ We can use our new mapping with the `mutate` and `recode` functions to make a **
 
 ```{r}
 sweets.recoded <-  sweets %>%
+    # use recode to convert text response using preference.mappings
     mutate(
         like_sweets_numeric =
             recode(`How much do you like sweets?`, !!!preference.mappings)
@@ -545,6 +549,7 @@ coding has the same meaning:
 
 
 ```{r}
+# mapping for items like "I really love sweets"
 agree.disagree.responses <- c(
             "Agree" = 3,
             "Neutral" = 2,
@@ -554,6 +559,7 @@ agree.disagree.responses <- c(
 
 
 ```{r}
+# reversed mapping for items like "I really hate sweets"
 agree.disagree.responses.REVERSED <- c(
             "Agree" = 1,
             "Neutral" = 2,
@@ -572,6 +578,7 @@ variables:
 
 ```{r}
 sweets.recoded  <- sweets.renamed %>%
+    # create two columns at once using mutate
     mutate(
         like_sweets_numeric = recode(like_sweets, !!!preference.mappings),
         like_chocolate_numeric = recode(like_chocolate, !!!preference.mappings)
@@ -597,6 +604,7 @@ responses to both questions:
 
 ```{r}
 sweets.recoded %>%
+  # mutate to create column containing sum of both recoded questions
   mutate(liking = like_sweets_numeric + like_chocolate_numeric) %>%
   select(starts_with('like'))
 ```
