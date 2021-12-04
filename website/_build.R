@@ -22,7 +22,7 @@ rmarkdown::render('data-wrangling2.rmd', output_dir = "../docs")
 
 
 #rmarkdown::render('visualisation2.rmd', output_dir = "../docs")
-#rmarkdown::render('real-data-practical.rmd', output_dir = "../docs")
+rmarkdown::render('real-data-practical.rmd', output_dir = "../docs")
 
 rmarkdown::render('teacher-notes.rmd', output_dir = "../docs")
 rmarkdown::render('how-to-use-worksheets.rmd', output_dir = "../docs")

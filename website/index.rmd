@@ -58,7 +58,7 @@ you in good stead in your future careers.
 - [Data visualisation](visualisation1.html) ([extensions](visualisation-extensions.html))
 - [Data wrangling (1)](data-wrangling1.html) 
 - [Data wrangling (2)](data-wrangling2.html) 
-
+- [Working with real data (practical)](real-data-practical.html)
 
 <!-- 
 
@@ -83,7 +83,6 @@ controlling axis limits
 
 -->
 
-- Working with real data (practical)
 
 
 

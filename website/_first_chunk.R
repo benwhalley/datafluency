@@ -7,7 +7,7 @@ library(psydata)
 
 knitr::opts_chunk$set(
   echo = TRUE,
-  collapse = TRUE,
+  collapse = F,
   comment = NA,
   cache = FALSE,
   message = FALSE
