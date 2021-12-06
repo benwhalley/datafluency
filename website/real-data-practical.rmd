@@ -349,7 +349,7 @@ Use tidyverse commands including `pivot_longer`, `separate` and `mutate` to crea
 
 ```{r, echo=F}
 step1 <- egger.subset %>% 
-  set_names(c("id", "condition", "gender", "maths 1", "maths 2", "spelling 1", "spelling 2", "reading 1", "reading 2")) %>% 
+  set_names(c("id", "condition", "gender", "maths_1", "maths_2", "spelling_1", "spelling_2", "reading_1", "reading_2")) %>% 
   pivot_longer(c(-id, -condition)) 
 step1 %>% head(12)
 ```
