@@ -160,7 +160,8 @@ funimagery.long %>%
 
 You can improve this plot again by connecting the dots:
 
-```{r, echo=F, include=F}
+```{r, echo=T, include=F}
+# re-make the same plot and store it in a variable
 previous.pointrange.plot <- funimagery.long %>% 
   ggplot(aes(paste("Time", time), value, color=intervention)) + 
   stat_summary(position=position_dodge(width=.1)) +
@@ -169,6 +170,7 @@ previous.pointrange.plot <- funimagery.long %>%
 
 
 ```{r}
+# add the extra lines to the saved plot
 previous.pointrange.plot + 
   stat_summary(geom="line", aes(group=intervention))
 ```
@@ -233,7 +235,7 @@ funimagery.long %>%
 # Adding lines to a plot
 
 Sometimes it can be helpful to add lines to a plot: for example to show a clinically meaningful
-cut-off, or the mean of a sample.
+cut-off, or the median of a sample.
 
 For example, let's say we want to make a scatter plot of income in the `earnings` data, but adding a
 line showing the median income. First we calculate the median:
@@ -283,7 +285,6 @@ funimagery %>%
   ggplot(aes(intervention, kg2-kg1)) + 
   stat_summary(fun.data = mean_cl_normal) +
   geom_hline(yintercept = 0) + 
-  geom_hline(yintercept = -1, color="blue", linetype="dotted") + 
   labs(y="Change in weight post intervention (kg)")
 ```
 
@@ -472,7 +473,7 @@ However as we saw above we can use point-range plots to plot these same data.
 
 :::{.exercise}
 
-- Use `stat_summary` (as shown above) to plot the mean and standard errors, as shon in Egger Figure 2 (an example is shown below).
+- Use `stat_summary` (as shown above) to plot the mean and standard errors, as shown in Egger Figure 2 (an example is shown below).
 
 
 
