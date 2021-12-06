@@ -143,7 +143,7 @@ funimagery.long %>%
 However, when we want to show the _average difference_ between groups plotting the full range of data can be
 distracting. Sometimes, showing only the mean and standard error _is_ what you want. 
 
-If so, a point-range plot is better:
+If so, a point-range plot is better. We can generate one using `stat_summary`, which is a bit like `summarise`, except that it applies a new graphic layer to a plot:
 
 ```{r, }
 funimagery.long %>% 
