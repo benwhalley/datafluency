@@ -49,16 +49,37 @@ you in good stead in your future careers.
 
 ### Pre-requisite 
 
-- The short [LifesavR course](http://benwhalley.github.io/lifesavR/). 
+- The short [LifesavR course](http://benwhalley.github.io/lifesavR/).
+
+- Session 1: [Getting started](http://benwhalley.github.io/lifesavR/session-1.html)
+- Session 2: [Working with R](http://benwhalley.github.io/lifesavR/session-2.html)
+- Session 3:  [Grouped data](http://benwhalley.github.io/lifesavR/session-3.html)
+- Session 4:  [Describing patterns, answering questions](http://benwhalley.github.io/lifesavR/session-4.html)
+- Session 5:  [Quantifying evidence](http://benwhalley.github.io/lifesavR/session-5.html)
+
+<br>
+
 - Pass the lifesavR multiple choice test
+
+
+
 
 
 ### Data handling and visualisation 
 
-- [Data visualisation](visualisation1.html) ([extensions](visualisation-extensions.html))
-- [Data wrangling (1)](data-wrangling1.html) 
-- [Data wrangling (2)](data-wrangling2.html) 
-- [Working with real data (practical)](real-data-practical.html)
+- [Data visualisation 1](visualisation1.html)
+- Data visualisation 2
+- Data wrangling 1
+- Data wrangling 2
+
+
+<!-- - [Data wrangling 1](data-wrangling1.html)  -->
+<!-- - [Data visualisation 2](visualisation2.html) -->
+<!-- - [Data wrangling 2](data-wrangling2.html)  -->
+
+<!-- - [Working with real data (practical)](real-data-practical.html) -->
+
+<!-- ([extensions](visualisation-extensions.html)) -->
 
 <!-- 
 
