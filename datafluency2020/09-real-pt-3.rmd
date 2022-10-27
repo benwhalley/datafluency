@@ -1,0 +1,388 @@
+## Session 4: Effect sizes and discrepancies
+
+```{r, include=F}
+library(tidyverse)
+library(webex)
+library(BayesFactor)
+library(pander)
+library(DiagrammeR)
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=FALSE, comment=NA, message=FALSE)
+```
+
+
+
+### In brief
+
+> To end our journey, we return to where we started: thinking about the size of the effects we have found, and how to interpret them.
+
+
+
+
+[Slides from the session](slides/real_4_sm.pptx)
+
+See the [section at the end](#slidebits) for the code to make the plots from todays slides.
+
+
+
+### Code Examples and exercises
+
+
+#### Cohen's D
+
+For small samples (<50) use the corrected method offered by the `effsize` package. This example us based on the mtcars data:
+
+```{r}
+effsize::cohen.d(mpg~am, data=mtcars, method="corrected")
+```
+
+
+Remember that the `cohen.d` function uses a formula, but:
+
+- You can only include one predictor
+- It must be dichotomous (i.e. the predictor has two possible values)
+
+:::{.exercise}
+
+- Using the gapminder dataset, compute Cohen's D for the difference in life expectancy between 1987 and 1967. Is this a small, medium or large effect?
+- Do the same for the difference between Asia and Europe in 1997. You will need to convert the `continent` variable from a a factor to a character, using the `as.character` function, for this to work properly.
+
+
+`r hide("Show answers")`
+
+```{r}
+gapminder::gapminder %>% filter(year==1967 | year==1987) %>%
+  effsize::cohen.d(lifeExp~year, data=.)
+
+
+gapminder::gapminder %>%
+  # we need to change continent to a character variable first, or we get an error
+  mutate(continent=as.character(continent)) %>%
+  filter(continent=="Asia" | continent =="Europe") %>%
+  filter(year==1997) %>%
+  effsize::cohen.d(lifeExp~continent, data=., na.rm=F)
+
+```
+
+
+`r unhide()`
+
+:::
+
+
+
+:::{.exercise}
+
+For a more extended challenge which combines a number of techniques we have covered:
+
+- Run an Anova model using on any of the datasets used in the course. The anova should have at least one categorical predictor (i.e. a variable with at least 2 groups) but it could also be more complex.
+- Use `emmeans` (see last session for details) to calculate the estimated difference between two cells in the design (i.e. a pairwise difference).
+- Use `group_by` and `summarize` with the `var` function to calculate the variance in those same two groups
+- Use the pooled SD formula (repeated below) to calculate the pooled standard deviation.
+- Divide the estimated difference by the pooled SD: this is Cohen's D.
+
+
+
+Formula for pooled SD ($\sigma^2$ stands for variance, A and B stand for the groups):
+
+$\sqrt{(\sigma_A^2 + \sigma_B^2)} / 2$
+
+
+
+:::
+
+
+
+
+#### Eta and omega-squared
+
+Eta squared and Omega squared can be calculated for Anova models using the sjstats package:
+
+```{r}
+m <- lm(mpg~cyl, data=mtcars)
+m.aov <- car::Anova(m)
+sjstats::anova_stats(m.aov)
+```
+
+
+
+
+:::{.exercise}
+
+If you have a 2x2 or similar Anova in the paper you want to replicate, use `anova_stats` after you have run it to extract partial eta squared and omega squared.
+
+
+:::
+
+
+
+### Other specific tests people have asked about
+
+##### Chi Squared
+
+Chi squared is covered in some detail here: https://benwhalley.github.io/just-enough-r/crosstabs.html#crosstabs
+
+
+
+##### Tests of normality
+
+You can use the `stats` package to run common tests of normality.
+
+For the Shapiro-Wilk test of normality:
+
+```{r}
+stats::shapiro.test(mtcars$mpg)
+```
+
+
+Here we used the `$` symbol to extract a single column from the `mtcars` dataset. You can do this with your own datasets too.
+
+
+
+If you have two samples, The Kolmogorov-Smirnov test asks the question "were these sets of values drawn from the same distribution".
+
+For example, we could split the `mpg` variable into two separate lists. Here `A` comprises the first 15 values, and `B` the second 15. We can see that we fail to reject the hypothesis that they come from different distributions:
+
+```{r}
+set.seed(1234)
+A <- mtcars$mpg[1:15]
+B <- mtcars$mpg[16:30]
+
+stats::ks.test(A, B)
+```
+
+
+
+There are other uses of the KS test too, so if this doesn't describe what you need see the help file: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/ks.test.html.
+
+
+
+##### Levene's test
+
+
+There is a `leveneTest` function in the `car` library. This tests the null hypothesis that there is no difference in variances between two groups. As with the `t.test` function and `cohen.d` you can use a formula:
+
+
+An example with two groups:
+
+```{r}
+car::leveneTest(mpg~factor(cyl), data=mtcars)
+```
+
+
+And with 3 or more (note the different degrees of freedom which should be reported):
+
+```{r}
+car::leveneTest(lifeExp~continent, data=gapminder::gapminder)
+```
+
+
+One thing to watch is that, by default, the `car` package doesn't report Levene's original test. Rather than centering values around the mean it uses the median. To replicate a value from elsewhere you may have to explicitly say you want to center on the mean and not the median:
+
+
+
+
+
+```{r}
+car::leveneTest(mpg~factor(cyl), data=mtcars, center="mean")
+```
+
+
+
+
+##### Cronbach's alpha
+
+
+For Cronbach's alpha (a measure of inter-iterm reliability) you can use the `alpha` function in the `pysch` package.
+
+The dataset in `lavaan::HolzingerSwineford1939` contains a very old sample of data on the mental abilities of children, including:
+
+- x1: Visual perception
+- x2: Cubes
+- x3: Lozenges
+- x4: Paragraph comprehension
+- x5: Sentence completion
+- x6: Word meaning
+- x7: Speeded addition
+- x8: Speeded counting of dots
+- x9: Speeded discrimination straight and curved capital
+
+We can select these items and run Cronbach's alpha on them like so. Often you will only need the single `raw_alpha` value from the summary of the output:
+
+```{r}
+df <- lavaan::HolzingerSwineford1939 %>% select(starts_with("x"))
+summary(psych::alpha(df))
+```
+
+
+
+
+###### Inter-rater reliability
+
+The `irr` package has many functions to test inter-rater reliability, see: https://cran.r-project.org/web/packages/irr/index.html and the manual here: https://cran.r-project.org/web/packages/irr/irr.pdf
+
+The R cookbook also has some examples: http://www.cookbook-r.com/Statistical_analysis/Inter-rater_reliability/
+
+
+
+### Plots and other bits from the slides {#slidebits}
+
+
+The code chunks below should be reviewed in conjunction with the slides from today's session.
+
+It's only included here to show I produced the images for the talk. Bear in mind that some contain code which we haven't explicitly covered in the course. The code is only included here for reference for those who are interested.
+
+
+##### Correlations are effect sizes
+
+This code simulates some correlated data and plots the result.
+
+```{r fig.width=3, fig.height=2}
+library(GGally)
+
+N=500
+my_means <- c(0, 0)
+set.seed(1234)
+
+# correlations of r = 0.1, variance = 1.
+my_covariances <- matrix(c(1, .1, .1, 1), ncol = 2)
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
+  ggplot(aes(V1, V2)) + geom_point() + geom_smooth(method=lm, se=F) +
+  coord_cartesian(xlim=c(-2.5, 2.5), ylim=c(-2.5, 2.5))
+
+```
+
+
+```{r}
+my_covariances <- matrix(c(1, .5, .5, 1), ncol = 2)
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
+  ggplot(aes(V1, V2)) + geom_point() + geom_smooth(method=lm, se=F) +
+  coord_cartesian(xlim=c(-2.5, 2.5), ylim=c(-2.5, 2.5))
+ggsave('corrpoint5.png')
+
+my_covariances <- matrix(c(1, .5, .5, 1), ncol = 2)
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
+  GGally::ggpairs(lower = list(continuous = wrap("smooth")))
+
+ggsave('pairspoint5.png')
+
+# different means, but same variances and correlations
+my_means <- c(10, 100)
+my_covariances <- matrix(c(1, .5, .5, 1), ncol = 2)
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
+  ggpairs(lower = list(continuous = wrap("smooth")))
+ggsave('pairspoint5diffmeans.png')
+
+
+# different means and variances, but same correlations
+my_means <- c(10, 100)
+my_covariances <- matrix(c(1/200, .5, .5, 200), ncol = 2)
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
+  ggpairs(lower = list(continuous = wrap("smooth")))
+ggsave('pairspoint5diffmeanscovars.png')
+
+# this example shows how adding noise to measurements attenuates the correlation
+N=200
+my_means <- c(0, 0)
+my_covariances <- matrix(c(1, .5, .5, 1), ncol = 2)
+MASS::mvrnorm(n = N, mu = my_means, Sigma = my_covariances) %>%
+  as_tibble() %>%
+  mutate(e1  =rnorm(N), e2  =rnorm(N),  V1e = V1+e1, V2e=V2+e2 ) %>%
+  ggpairs(lower = list(continuous = wrap("smooth")))
+ggsave('corrswitherrors.png')
+
+```
+
+
+
+##### Examples of between-groups effects
+
+```{r}
+set.seed(1234)
+
+N=5000
+df <- tibble(
+  Outcome=rnorm(N),
+  Group=sample(c("A","B"), N, replace=T)
+  )
+
+df %>%
+  ggplot(aes(Outcome, colour=Group, group=Group)) + geom_density()
+
+
+df %>%
+  mutate(Outcome = ifelse(Group=="A", Outcome+2, Outcome)) %>%
+  ggplot(aes(Outcome, colour=Group, group=Group)) + geom_density()
+
+```
+
+
+#####  Pooled standard deviation
+
+As mentioned, the formula for a pooled standard deviation is:
+
+ $\sqrt{(\sigma_1^2 + \sigma_2^2)} / 2$
+
+Remember that you can't simple add or average the variances... it doesn't produce the correct result.
+
+
+##### Calculating Cohen's D in R:
+
+The `effsize` package is probably the easiest route:
+
+```{r}
+effsize::cohen.d(mpg~am, data=mtcars)
+```
+
+For small samples (<50) use the corrected method:
+
+```{r}
+effsize::cohen.d(mpg~am, data=mtcars, method="corrected")
+```
+
+
+##### Illustrating the dangers of cohen's D:
+
+This sections shows how effect sizes change as a function of measurement variance. This might be obvious, given the formula, but I though it might be worth highlighting because it's sometimes ignored:
+
+```{r}
+set.seed(12345)
+N <- 10000
+
+df1 <- tibble(
+    y = rnorm(N, mean=0, sd=1),
+    g=sample(0:1, N, replace=T)
+  ) %>%
+  mutate(y = y + .8 * as.numeric(g))
+
+effsize::cohen.d(y~g, data=df1)
+
+df2 <- tibble(
+    y = rnorm(N, mean=0, sd=2),
+    g=sample(0:1, N, replace=T)
+  ) %>%
+  mutate(y = y + .8 * as.numeric(g))
+
+# effect size is lower now because variance was higher, even through the
+# difference between the groups was the same
+effsize::cohen.d(y~g, data=df2)
+```
+
+This simply plots the example data above:
+
+```{r fig.width=3, fig.height=2}
+# this combines both simulated datasets, and adds a label column to each used in the plot
+bind_rows(df1 %>%
+            mutate(data="Delta = .8, SD = 1"),
+          df2 %>%
+            mutate(data="Delta = .8, SD = 2") ) %>%
+  # plots both datasets using a facet
+  ggplot(aes(y, color=factor(g), group=g)) +
+  geom_density() +
+  facet_wrap(~data) +
+  xlab("Outcome") + ylab("Density")
+```

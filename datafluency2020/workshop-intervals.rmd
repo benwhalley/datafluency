@@ -1,0 +1,615 @@
+---
+title: 'Uncertainty and intervals'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=">", message=FALSE)
+library(tidyverse)
+library(webex)
+library(pander)
+theme_set(theme_minimal())
+```
+
+
+
+
+> After running models we want to answer to two linked questions: First how good is models at explaining the data overall? And second, how good are specific predictions we make from the model? <!-- #todo - fix this link when it's incorporated into this site  -->
+> In the session on ['building models'](https://chrisjberry.github.io/datafluencyCB/building2.html) we saw ways to choose which model explains the data best, and how closely it fits the data in absolute terms.
+> In this session we'll learn how to quantify: how good are the specific predictions we make?
+> There are two main types of interval which describe our uncertainty about the _average_ value or uncertainty around predictions for _individuals_. Each of these can be used in a frequentist or Bayesian context. Here we learn how to calculate all 4 types.
+
+
+
+Note: if you are in a live workshop you can [skip directly to the exercises below](#exercises). These notes are intended as a reference and additional coverage for the material in the mini-lecture.
+
+
+
+# Introduction 
+
+:::{.exercise}
+
+If you had to make a prediction, about the value of $y$, would you prefer to use plot A or B?
+
+```{r, echo=F, message=F, warning=F}
+N <- 150
+set.seed(1234)
+d <- tibble(x = rnorm(N), e = rnorm(N),  A = .5*x +e, B = .5*x + 2*e)
+dl <- d %>%
+  select(-e) %>%
+  data.table::melt(id.var="x")
+
+dl %>%
+  rename(example=variable) %>%
+  ggplot(aes(x, value)) + geom_point() +
+  geom_smooth(method=lm, se=F) +
+  facet_wrap(~example) + xlab("x") + ylab("y")
+ggsave('images/confidence-which-bette.png', width=5, height=3)
+```
+
+```{r, echo=F, include=F}
+dl %>% 
+  group_by(variable) %>% 
+  do({
+    df <- .;
+    lm(value~x, data=df) %>% 
+      augment(df)
+  }) %>% 
+  ggplot(aes(.resid)) + geom_histogram() +
+  facet_wrap(~variable) + xlab("Error in prediction")
+ggsave('images/confidence-error.png', width=5, height=3 )
+```
+
+
+
+```{hint}
+Show answer
+
+You should prefer A, because the points are more tightly bunched around the prediction line.
+
+This means we can make *better predictions*, in the sense that we will be *less wrong* more of the time.
+```
+
+:::
+
+
+
+## "How much better?"
+
+If we took the data from the plot above and ran two separate regression models we would find that we make almost identical predictions.
+
+This should be clear from plot of the regression lines; but we can test it by running the `lm` and then using `predict` for some new data.
+
+You don't have to run these models yourself — just look at the output below. Not all of the output is shown to keep things short, but the models would be run like this:
+
+```{r, eval=F}
+# data from the first example plot above
+lm(y ~ x, data=exampleA)
+
+# and the second
+lm(y ~ x, data=exampleB)
+```
+
+```{r, include=F}
+modelA <- lm(A~x, data=d)
+modelB <- lm(B~x, data=d)
+```
+
+We might decide to make predictions for when `x` = 1 to 4, and create a `new.observations` dataframe to hold these:
+
+```{r}
+new.observations <- tibble(x= c(1,2,3,4))
+new.observations
+```
+
+And as before, we'd use `predict`  with model A, and with model B:
+
+```{r}
+predict(modelA, newdata=new.observations)
+predict(modelB, newdata=new.observations)
+```
+
+
+The linear predictions from both model A and B are very close. So how can we tell that the second set are less reliable?
+
+
+The answer is that various kinds of **interval** can quantify our uncertainty.
+
+
+# Different kinds of interval
+
+If we make an estimate then, in plain English, it's common to add quantifying adjectives to indicate our uncertainty. 
+
+We might say: "he's _about_ 6 feet tall" or "assistant psychologists earn _roughly_ £19,000 per year".
+
+When we are using statistical models intervals represent our uncertainty in terms of _probabilities_. **That is, the probability of some event happening.**
+
+There are a number of different types of interval and each refers to _the probability of a different things happening_. 
+
+
+The main types of interval are:
+
+-   Confidence intervals
+-   Prediction intervals
+-   Bayesian credible intervals
+-   Bayesian predictive intervals
+
+
+Each type can have different 'levels' (e.g. 80%, 95% or 99% level). But regardless of the level **_the most important difference between them is what event the probability refers to_**. Examples are given below.
+
+
+
+## Confidence intervals {#confidence-intervals}
+
+You may have learnt about _p_ values and confidence intervals as part of your undergraduate studies. Nonetheless, it's likely you're still not 100% clear on how to interpret them and you're in good company! Despite extensive training in research methods, many reseachers are also confused, and [frequently misinterpret them in peer reviewed journals](http://www.ejwagenmakers.com/inpress/HoekstraEtAlPBR.pdf).
+
+Stated baldly, the problem is that confidence intervals don't tell scientists what they want to know. But the terms sound as if they might. They remain a common technique in practice because of tradition, inertia and (until recently) lack of a practical alternative.
+
+#### The problem with _p_ values and confidence intervals
+
+In classical statistics _p_ values and intervals are related to probabilities. But these probabilities don't refer to your hypothesis directly. Instead, they relate to **_properties of the statistical test procedure_**.
+
+Your hypothesis might be that 'experimental participants will score higher' on some outcome, or that there is 'a positive relationship between mother and child IQ scores'. 
+
+But the _p_ value and confidence interval _do not_ relate to the chance these relationships really exist and cause the patterns in the data we collect. Instead, they relate to *the probability the test procedure will mislead you if you used it over many repetitions of the same experiment*. 
+
+And that's not the same thing at all.
+
+
+
+:::{.tip}
+
+Remember, _p_ values are **_not_** the probability your hypothesis is right or wrong. And confidence intervals are **_not_** the range within which have 95% confidence the true answer will fall.
+
+
+:::
+
+
+
+**Despite frequently misinterpreting them, psychologists do often use confidence intervals to report uncertainty. They are also easy to compute, so we do cover how in the workshop.**
+
+
+
+## Prediction intervals {#prediction-intervals}
+
+In many applications of psychology we want to make predictions _for an individual_. For example, when a doctor meets a patient with depression they want to be able to give them an idea of their prognosis if they undergo a treatment like CBT.
+
+
+As we saw before, we can use data to make predictions: Data from an RCT might let us predict that, on average, clients given CBT report symptoms about 3 points lower on a standard scale.
+
+But **_nobody is the average patient_**. The hypothetical doctor wants to give an idea of the *range of outcomes that are possible or likely for and individual*.
+
+---
+
+
+Classical prediction intervals are one attempt to define this range of likely outcomes. We can describe them like this:
+
+> Imagine we replicate our study many times. Each time we run a regression and calculate the classical prediction interval. If we then collect a new observation, we would expect it to fall within the prediction interval a certain percent of the time.
+
+Like confidence intervals, classical prediction intervals are a bit tricky to think about.
+
+Unfortunately (although it seems like it should) we can't say that 95% of all new observations will fall within any single prediction interval calculated using a single sample.
+
+To calculate the range in which we think 95% of new observations would fall we must use the Bayesian posterior predictive interval, described below.
+
+
+
+## Bayesian intervals
+
+Scientists (and humans) aim to collect and use data to update their beliefs to fit the facts.
+
+When we generate hypotheses, we'd often like to make statements about how **_probable_** they are.
+That is, we often want to know:
+
+-   $P(hypothesis | data)$ (the probability of the hypothesis given the data)
+
+This isn't possible with classical statistics, which instead tells us:
+
+-   $P(data | !hypothesis)$ (the probability of the data, if the hypothesis were _not_ true)
+
+
+:::{.tip}
+
+For a nice expansion of this, and an example involving bananas and exhaust pipes, see: [the evidence section of the undergraduate teaching materials](https://ajwills72.github.io/rminr/evidence.html#p-wrong).
+
+:::
+
+
+In the exercises below we compute two types of Bayesian intervals that are analogous to -- but easier to interpret than -- classical confidence/prediction intervals.
+
+-   Baysian credible intervals: The range within which we are 95% confident the average value is.
+
+-   Bayesian predictive intervals: The range within which we expect 95% of new observations to fall.
+
+
+
+
+<!-- # Workshop intro -->
+
+<!-- XXX TODO -->
+
+<!-- Short introduction recapping material above, and introducing some of the ideas from: http://science.sciencemag.org/content/sci/243/4899/1668.full.pdf -->
+
+
+
+
+# Workshop exercises {#exercises}
+
+## Learning goals
+
+At the end of the session, you should be able to:
+
+-   Make predictions with confidence or prediction intervals from a simple linear model.
+-   Re-fit the same model and calculate a Bayesian credible interval.
+-   Correctly interpret confidence, prediction and credible intervals.
+
+
+## Geting started
+
+To give us an example to work with, let's load a dataset called `kidiq` which has observations of the IQ scores for mothers and their children, plus some extra information about the mothers:
+
+```{r, eval=F}
+kidiq <- read_csv("http://bit.ly/arm-kids-iq")
+```
+
+```{r, echo=F, include=F}
+kidiq <- read_csv('data/kidiq.csv')
+```
+
+Lets start by running a model to predict kids' IQ using their mothers' IQ and whether their mum completed high school (`mom_hs`) as predictors:
+
+```{r}
+iqmodel <- lm(kid_score ~ mom_iq + mom_hs, data=kidiq)
+summary(iqmodel)
+```
+
+:::{.exercise}
+
+Load the data and run `iqmodel`; then move on to the next section.
+
+:::
+
+
+
+# Confidence intervals
+
+To calculate intervals for a model prediction there are 2 steps:
+
+1. Create a dataframe which contains values of the _predictor variables_, at the levels we want to make predictions for.
+2. Make the predictions, and request the type of interval we want.
+
+This code makes a new dataframe containing values of `mom_iq` and `mom_hs` which we'd like a prediction for; in this case, just one mother who completed high school:
+
+```{r}
+new.mother = tibble(mom_iq=97, mom_hs="Completed")
+```
+
+We make predictions like before, but now adding the argument `interval="confidence"`
+
+```{r}
+predict(iqmodel, newdata = new.mother, interval="confidence")
+```
+
+So this is the prediction (`fit`) and the lower and upper bounds of the confidence interval. The 95% interval is used by default.
+
+:::{.exercise}
+
+Use the `predict` function with `iqmodel` to answer the following questions:
+
+```{r, include=F, echo=F}
+p1 <- predict(iqmodel, newdata = new.mother, interval = "confidence") %>% round(1)
+```
+
+-   What is the predicted `kid_score` for mothers with IQ = 97 who completed high school? `r fitb(answer=p1[1], tol=1)`
+
+-   Make a new tibble, and then predict values for 3 different mothers, with different scores on `mom_iq` and `mom_hs`
+
+-   95% of mothers with IQ = 97 who completed high school will have a child with an IQ < 88.4: `r mcq(c("True", answer="False"))`
+
+-   Fewer than 2.5% of mothers with IQ = 97 who completed high school will have a child with an IQ > 88.4 `r mcq(c("True", answer="False"))`
+
+
+```{hint}
+Explain the answers
+
+`r p1[1] %>% round()` is the prediction from the output shown above.
+
+To create a new tibble and predict scores for different mothers, repeat the code above but changing the values for `mom_iq` or `mom_hs`.
+
+Both the 2nd and 3rd answers are false because the confidence interval is the range within which we think the true average for mothers with IQ = 97 who completed high school would fall, if we repeated the study many times.
+
+We can't make probability statements about the quality of the predictions we actually made using classical statistics: We can only say how we think the method used to make them will perform, if we repeat it many times.
+
+
+```
+
+
+:::
+
+# Prediction intervals
+
+We can repeat the process above to make the classical _prediction_ interval instead. We just change `interval = "confidence"` to `interval = "prediction"`
+
+```{r}
+predict(iqmodel, newdata = new.mother, interval = "prediction")
+```
+
+So this is the prediction (`fit`) and the lower and upper bounds of the prediction interval (again, the 95% interval is used by default).
+
+
+:::{.exercise}
+
+```{r, include=F, echo=F}
+p1 <- predict(iqmodel, newdata = new.mother, interval = "prediction") %>% round(1)
+```
+
+-   Is the prediction itself (the `fit`) the same or different when we request the prediction interval (as compared with the confidence interval)? `r mcq(c(answer="Same", "Higher", "Lower"))`
+
+-   If we met a mother of IQ = 97 who had completed high school, and we predicted their child would have an IQ between `r p1[2]` and `r p1[3]`, we would be right 95% of the time : `r mcq(c("True", answer="False"))`
+
+`r hide("Explain the answers")`
+
+The prediction is the same, because it's the point on the regression line for these values of `mom_iq` in both cases, and both models had near-identical parameter estimates.
+
+The second answer is false because the prediction interval says that:
+
+-   if we repeated our sample many times _and_
+-   calculated the prediction interval each time _then_
+-   the true `kid_score` of the new mother we meet will fall within 95% of these intervals
+
+Like with confidence intervals, can't make statements about the quality of the prediction we made: We can only say how we think the method used to make the predictions will perform, if repeated many times.
+
+`r unhide()`
+
+:::
+
+
+
+# Bayesian intervals
+
+Bayesian analysis requires making explicit our assumptions about what is most likely to happen _before you analyse the data_. If you have taken statistics courses before, this might seem counterintuitive but it's actually something humans seem to do all the time: For example, [our perception of visual stimili is strongly influenced by how probable we think they are](https://www.ncbi.nlm.nih.gov/pubmed/14744217). We call this our **_prior_**; that is, our prediction prior to seeing the data.
+
+
+To begin, though, you won't have to do this for yourself. In these examples we use the `rstanarm` package which tries to look as much like regular linear models as possible, and sets sensible defaults to make it easy to use Bayesian methods; `rstanarm` works in three steps:
+
+1. It makes some assumptions that small effects are quite likely, but very large effects (i.e. very large regression coefficients) are much less likely. This is our **_prior_**. We can adjust it if we like, but the defaults are quite sensible.
+
+2. It then runs the model, calculating the most likely parameter values (much like `lm` would).
+
+3. It combines these estimates with our prior assumptions using Bayes rule. The result is the posterior probability distribution, or **_posterior_**.
+
+As it works, `rstanarm` repeats steps 2 & 3 many thousands of times as part of a simulation. The variation between runs of the simulation allow us to quantify how uncertain we are about our predictions.
+
+---
+
+Doing this is simpler than describing it. First we need to load `rstanarm` and the `tidybayes` package:
+
+```{r, include=F, echo=T}
+library(rstanarm)
+library(tidybayes)
+```
+
+Then we just replace the `lm` function with `stan_glm`. Everything else remains the same apart from lots of extra output as the model fits, which you can ignore for now:
+
+```{r, echo=F, message=F, warning=F, include=F}
+# code included here and below so we can exclude the output....
+iqmodel.bayes <- stan_glm(kid_score ~ mom_iq + mom_hs, data=kidiq)
+```
+
+```{r, echo=T, eval=F}
+library(rstanarm) # load this first to make stan_glm available
+iqmodel.bayes <- stan_glm(kid_score ~ mom_iq + mom_hs, data=kidiq)
+```
+
+By saving the model we can use `tidy` and `summary`, just like with `lm`. These functions show us the estimates for the model parameters (regression coefficients), and their standard error. For example:
+
+```{r}
+library(broom)
+tidy(iqmodel.bayes)
+```
+
+
+:::{.exercise}
+
+Try re-running using `stan_glm` in place of `lm`. Use the formula: `kid_score ~ mom_iq + mom_hs`.
+
+Use `summary` or `tidy` to see the coefficients and standard errors.
+
+Compare your results with the results using `lm`
+
+
+`r hide("Why don't my result match my friends' exactly?")`
+
+Because of the way Bayesian models are fit, results can vary very slightly each time you run them. There are ways of minimising this variation, but don't be worried about it; trying to estimate regression coefficients to more than a few decimal places is probably an example of [false precision](https://en.wikipedia.org/wiki/False_precision).
+
+`r unhide()`
+
+:::
+
+
+
+### Bayesian credible intervals
+
+When using `stan_glm` we make predictions and calculate _credible_ or _predictive_ intervals using the `fitted_draws` and `predicted_draws` functions.
+
+
+
+We calculate the *credible* interval in two steps:
+
+1. Make predictions (draws) from the simulation used to fit the model; usually many thousands of them.
+2. Calculate the 2.5th and 97.5th percentiles of all of the draws
+
+The `mean_qi` function makes this almost automatic. 
+
+In the code below we calculate the Bayesian *predictive interval* for an individual new mother  who has an IQ of 97 and who completed high school:
+
+```{r}
+# load this package first to make add_predicted_samples available
+library(tidybayes)
+
+new.mother = tibble(mom_iq=97, mom_hs="Completed")
+
+# credible interval for new observations
+predicted_draws(iqmodel.bayes, newdata=new.mother) %>%
+  mean_qi()
+```
+
+
+**Explanation of the code**. We use `predicted_draws` to make many predictions from the model simulation for a `new.mother`. We then use `mean_qi` to calculate the interval which includes 95% of these predictions.
+
+
+--- 
+
+We do almost the same thing to calculate the *credible interval* for the _average_ of a group of new mothers with the same characteristics:
+
+
+```{r}
+# credible interval for the mean
+fitted_draws(iqmodel.bayes, newdata=new.mother) %>%
+  mean_qi()
+```
+
+
+If you're curious about how this actually works, see [this note](#explainrstanarm)
+
+
+
+# Recap  - types of interval
+
+The table below shows the links between the different types of intervals we have covered:
+
+```{r, echo=F}
+tribble(~`**Describes...**`, ~`Classical`, ~`Bayesian`,
+        "The expected/average value", "Confidence interval", "Credible interval",
+        "Individuals", "Prediction interval", "Posterior predictive interval") %>%
+  pander(, justify=rep("left", 3), split.table=Inf)
+```
+
+
+Interpretations for 95% intervals of each type are as follows:
+
+-   Prediction interval: complicated, see above
+-   Confidence interval: complicated, see above
+-   Posterior predictive interval: the range in which we expect 95% of future observations to fall.
+-   Credible interval: the range in which we are 95% sure the mean is.
+
+
+## Quick code reference
+
+The code to get each type of interval (after fitting a model) is:
+
+-   Prediction interval: `predict(model, newdata, interval="prediction")`
+
+-   Confidence interval: `predict(model, newdata, interval="confidence")`
+
+-   Posterior predictive interval: `predicted_draws(model, newdata) %>% mean_qi()`
+
+-   Credible interval: `fitted_draws(model, newdata) %>% mean_qi()`
+
+
+
+## Final exercise
+
+:::{.exercise}
+
+Use the model formula `kid_score ~ mom_iq * mom_hs`, and assume a mother of IQ=100, who completed high school.
+
+
+Calculate:
+
+-   Classical confidence intervals
+-   Bayesian credible and posterior predictive intervals.
+
+
+```{hint}
+Tell me how to do it!
+
+For the Classical intervals, use `predict(model, newdata=..., interval="...")`
+
+For the Bayesian intervals you need to use  `predicted_draws` or  `fitted_draws` to get the simulations, and then use `mean_qi` to get the 95% interval.
+
+```
+
+
+`r hide("I give up, show me exactly how to do it...")`
+
+Classical:
+
+```{r}
+model <- lm(kid_score ~ mom_iq * mom_hs, data=kidiq)
+new.mother = tibble(mom_iq=100, mom_hs="Completed")
+
+# prediction interval
+predict(model, newdata=new.mother, interval="prediction")
+
+# confidence interval
+predict(model, newdata=new.mother, interval="confidence")
+```
+
+
+Bayesian:
+
+```{r, echo=T, include=F}
+model <- stan_glm(kid_score ~ mom_iq * mom_hs, data=kidiq)
+```
+
+```{r, echo=T, eval=F}
+model <- stan_glm(kid_score ~ mom_iq * mom_hs, data=kidiq)
+```
+
+```{r}
+new.mother = tibble(mom_iq=100, mom_hs="Completed")
+
+# posterior predictive interval
+add_predicted_samples(model, newdata=new.mother) %>% mean_qi()
+
+# credible interval for the mean
+add_fitted_samples(model, newdata=new.mother) %>% mean_qi() #
+```
+
+
+If you used this code, why not try calculating predictions for some different values of the model predictors?
+
+`r unhide()`
+
+:::
+
+
+
+
+
+
+
+
+
+# Extras
+
+## Extension exercises
+
+If you have the time and inclination there are a number of [extension exercies here](workshop-intervals-extensions.html).
+
+
+## How intervals are calculated with rstanarm {#explainrstanarm}
+
+Behind the scenes, the model is being used to _simulate_ new data: `fitted_draws` does thousands of simulations for what the average prediction will be, and then the `mean_qi` function summarises them, giving us mean, and the 2.5 and 97.5th percentiles. That is, we say in 95% of the simulations the mean was between `conf.low` and `conf.high`.
+
+Because of the way the model was fitted, this is the same as making real probability statements about our prediction.
+
+It might be useful to know that these simulations are said to be _samples from the posterior distribution_ --- that is, the distribution of probabilities once we combined our data with our _prior probability_.
+
+If you want to read more about using Bayesian inference in your own work I'd recommend these texts:
+
+- @kruschke2014doing (more practical)
+- @mcelreath2018statistical (more conceptual)
+
+
+

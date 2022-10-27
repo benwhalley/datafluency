@@ -1,0 +1,127 @@
+### How good was our _hypothesis_?
+
+:::{.tip}
+
+This is an extension exercise for those who are interested. It is not
+specifically required for the assessment.
+
+:::
+
+In the previous section we computed a Bayes Factor for the difference between:
+
+-   A model with no predictors (this just estimates the average grade) _and_
+-   A model with two different slopes for work hours, for men and women
+
+The Bayes Factor we calculated showed that the model with predictors was vastly
+more likely, given the data, than the model with no predictors.
+
+**But, this probably doesn't tell everything we _wanted_ to know!**
+
+It's likely we are actually interested in whether men and women had different
+slopes. That is, does the relationship between `work_hours` and outcomes
+_differ_ between men and women?
+
+To do this, we have to calculate a Bayes Factor which compares two models:
+
+-   First, where men and women have the same slope, vs.
+-   A second where men and women have _different_ slopes.
+
+We can do this with the `BayesFactor`. package. The steps to follow are:
+
+1. Run each of the models we want to compare
+2. Save the models with different variable names
+3. "Divide" one model by the other
+
+Here's how it works in practice:
+
+-   Load the dataset here first [data/studyhabitsandgrades.csv]
+
+(Before we start, we also have to load the `BayesFactor` package, and the data).
+
+```{r}
+library(BayesFactor)
+studyhabits <-  read_csv('data/studyhabitsandgrades.csv') %>%
+  as.data.frame()
+```
+
+
+:::{.tip}
+
+The BayesFactor package can be fussy about your data. When you use your own
+dataset you may or may not see warnings about missing data or your data being
+'coerced'. If you have trouble with this you can try to:
+
+-   Convert your data to a `data.frame` by running the `as.data.frame(yourdata)`
+    function on it.
+-   Drop all the missing values in your data by running
+    `completeonly <- na.omit(yourdata)`. This makes a new dataframe with only
+    rows with complete data. IMPORTANT: you should use `select` on your dataset
+    first to choose only the columns you need to run the model.
+
+A full example might be:
+
+```{r eval=F}
+datawithnomissingforlmbf <- fulldataset %>%
+  # select only the variables you need for your model
+  select(outcome, predictor, female) %>%
+  na.omit() %>%
+  as.data.frame()
+```
+
+lmBF(outcome ~ predictor*female, data=datawithnomissingforlmbf)
+:::
+
+
+
+Once we have the data sorted then we run the models:
+
+```{r}
+single.slope <- lmBF(grade ~ work_hours, data = studyhabits)
+two.slopes <- lmBF(grade ~ work_hours * female, data = studyhabits)
+
+testoftwoslopes <- two.slopes / single.slope
+testoftwoslopes
+```
+
+`r hide("...")`
+
+Ignore this!!!
+
+```{r}
+studyhabits %>% head()
+two.slopes
+single.slope
+testoftwoslopes
+
+```
+
+`r unhide()`
+
+**Explanation of the code**: We ran two different models and saved them with the
+names `single.slope` and `two.slopes`. The first had one slope for `work_hours`
+-- effectively making the slope the same for men and women. The second model had
+two slopes, separately for men and women. We then used the regular `division`
+operator (`/`) to 'divide' one model by the other.
+
+**Explanation of the Bayes Factor output**: When we divided one model by the
+other, the BayesFactor package was really dividing the _probability_ of one
+model, by the probability of the second. It turns out the `two.slopes` model is
+more probable than the `single.slope` model, and so the resulting Bayes Factor
+is positive---in this case, about 14. We can interpret this using the standard
+rules of thumb for BF given in the previous section. You should interpret this
+as evidence that the effect of `work_hours` really is different for men and
+women, in this data.
+
+:::{.exercise}
+
+Try doing the same for your own data. Create two models:
+
+-   One with a single slope
+-   One with two slopes
+
+Divide one by the other. If the Bayes Factor is > 1 (and especially if it
+is > 3) then we have evidence for an 'interaction' or 'effect modification'.
+
+After this, re-examine your causal diagram. Do you now have evidence for paths
+in the model? Do you have evidence for effect modification? Does your original
+diagram actually reflect the data analysis you have done?

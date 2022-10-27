@@ -1,0 +1,559 @@
+## Session 3: Comparisons and tests
+
+```{r, include=F}
+library(tidyverse)
+library(webex)
+library(BayesFactor)
+library(pander)
+library(DiagrammeR)
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=NA, message=FALSE)
+```
+
+
+
+
+### In brief
+
+> A single statistical model can test many different hypotheses. Sometimes these
+> hypotheses can, superficially, sound similar---but selecting the relevant test
+> and reporting it correctly can sometimes be a challange. R packages exist to
+> make specifying and reporting tests easier, but none can automate the process:
+> Testing hypotheses always requires thought about both the research question in
+> hand alongside statistical issues. The replication crisis has brought renewed
+> focus on the pitfalls of multiple testing and researcher degrees of freedom.
+> Both technical strategies and research policies can mitigate this risk to some
+> degree, but research integrity is crucial.
+
+
+[Slides from the session](slides/real_3.pptx)
+
+
+### Hierarchical regression example
+
+(Feel free to skip this if it doesn't apply to your analysis).
+
+The R `attitude` data are:
+
+> From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments. The numbers give the percent proportion of favourable responses to seven questions in each department.
+
+Columns in the data include:
+
+- Overall rating
+- Handling of employee complaints
+- Does not allow special privileges
+- Opportunity to learn
+- Raises based on performance
+- Too critical
+
+
+Imagine we wanted to predict overall ratings from individual items:
+
+- In `m1` we add three predictors of overall `rating`.
+
+- In `m2` we keep these same predictors, adding 3 more.
+
+
+```{r}
+m1 <- lm(rating ~ complaints + privileges + learning, data=attitude)
+m2 <- lm(rating ~ complaints + privileges + learning + raises + critical + advance, data=attitude)
+```
+
+- We then use the `anova` function to calculate the F test for the increase in R^2. That is we ask: do the additional predictors improve the model?
+
+
+```{r}
+anova(m1, m2)
+```
+
+- The F test has 3 degrees of freedom because there are 3 additional parameters to be estimated in `m2`.
+
+- The F test suggests that adding `raises + critical + advance` to `m1` doesn't explain more variance (above that which we would expect by chance).
+
+------------------
+
+If we check the R^2 values for each model we can see that although the unadjusted value goes up when we add predictors, the adjusted values actually goes down. This suggests we risk over-fitting by including the additional predictors.
+
+```{r}
+library(broom)
+glance(m1) %>% select(matches('squared'))
+glance(m2) %>% select(matches('squared'))
+```
+
+:::{.exercise}
+
+Fit two models with different sets of predictors to your own data. Remember to:
+
+- Include all the predictors from model 1 in model 2 (i.e., you can't compare `y ~ A + B` with `y ~ B + C`... you would need to inlude `A` in both models)
+- Report the F test
+- Check the R^2 values (and adjusted R^2)
+- Check the APA guidelines for how to report regression results.
+:::
+
+
+
+
+### Moderation example
+
+
+Moderation, interaction, effect modification: These are all ways of saying that the relationship between two variables varies in some way, and this is predictable if we have information about a third variable.
+
+To give a concrete example, the plot below shows two simulated datasets which show how likely a person is to eat cake.
+
+- In the first panel, we imagine that kids are more likely to eat cake than adults, and people are more likely to eat cake on their birthday.  But being a kid AND having a birthday doesn't make eating cake even more likely.
+
+- In the second panel of the plot we still imagine that kids are more likely to eat cake than adults, and that people are more likely to eat cake on their birthday. But we also speculate that kids on their birthday will almost **always** be offered cake.
+
+```{r, echo=F}
+inter.df <- expand.grid(female=0:1, older=0:1, interaction=0:1) %>%
+  as_tibble() %>%
+  mutate(severity.of.injury = 50 + 10 * female + 10* older + 20 * female*older*interaction) %>%
+  mutate(female=factor(female, labels=c("Not your birthday", "Birthday"))) %>%
+  mutate(older=factor(older, labels=c("Adult", "Children"))) %>%
+  mutate(interaction=factor(interaction, labels=c("No Interaction", "Interaction")))
+
+inter.df %>%
+  ggplot(aes(older, severity.of.injury, group=female, color=female)) +
+    geom_point() +
+    geom_line() +
+    facet_wrap(~interaction) +
+    scale_color_discrete(name="") +
+    ylab("Chance of eating cake today") + xlab("")
+ggsave('images/birthday.png', width=4, height=3)
+```
+
+
+In the second panel we'd say the two variables (age and birthdays) **interact**. Or alternatively, we might say that age **moderates** the effect of birthdays on cake-eating.
+
+
+
+#### How do we test moderation?
+
+To test moderation we are looking for 'interactions' in our models (either regression or Anova/Ancova).
+
+- When both variables are categorical, we'd call this an Anova
+- When one variable is categorical and one is continuous we often call it Ancova
+- When both are continuous we call it multiple regression.
+
+
+In all cases though we'd use the `car::Anova` function or the Bayes Factor package to test the interaction.
+
+In all cases we just run a model with a `*` to indicate the interaction term:
+
+```{r, eval=F}
+m <- lm( outcome ~ factor(A) * factor(B), data=df)
+m <- lm( outcome ~ factor(A) * X, data=df)
+m <- lm( outcome ~ X1 * X2, data=df)
+```
+
+
+And then use car::Ancova to check the F test:
+
+```{r, eval=F}
+car::Anova(m, type=3)
+```
+
+Alternatively, we could run both models using BayesFactor and then use division to get the Bayes Factor:
+
+```{r, eval=F}
+m1 <- lmBF( outcome ~ X1 + X2, data=df)
+m2 <- lmBF( outcome ~ X1 * X2, data=df)
+
+m2/m1
+```
+
+The result of `m2/m1` is the $BF_{10}$, and gives the evidence *in favour* of the interaction.
+
+
+
+
+
+### Regression, Anova and T tests
+
+As mentioned in class, regression and Anova are both linear models and will often be equivalent. This exercise illustrates that point, and also shows how to compute *t* tests in R.
+
+The `guyer` dataset is made available in the `carData` package. We can make a shortcut to it by copying it to a new variable name:
+
+```{r}
+guyer <- carData::Guyer
+guyer %>% head()
+```
+
+From the description (see `?Guyer`):
+
+> The Guyer data frame has 20 rows and 3 columns. The data are from an experiment in which four-person groups played a prisoner's dilemma game for 30 trials, each person making either a cooperative or competitive choice on each trial. Choices were made either anonymously or in public; groups were composed either of females or of males. The observations are 20 groups.
+
+The data frame contains the following columns:
+
+```
+cooperation
+Number of cooperative choices (out of 120 in all).
+
+condition
+A factor with levels: anonymous, Anonymous choice; public, Public choice.
+
+sex
+Sex. A factor with levels: female and male.
+```
+
+If we plot the data we can see that being in public seems to increase cooperation, but there don't seem to be very large gender differences:
+
+```{r echo=F, fig.width=6, fig.height=3}
+guyer %>%
+  ggplot(aes(condition, cooperation)) +
+  geom_boxplot() +
+  facet_grid(~sex)
+```
+
+:::{.exercise}
+
+Create a shortcut to the `carData::Guyer` dataset, as shown above (it will be easiest if you also name your shortcut `guyer`).
+
+As above, create your own boxplot (or similar) to show the group means and variation.
+
+`r hide("Show hint")`
+To mimic the plot you will need to use a `geom_boxplot()` and also `facet_grid(~sex)`.
+`r unhide()`
+
+`r hide("Show answer")`
+
+```{r echo=T, eval=F}
+guyer <- carData::Guyer
+guyer %>%
+  ggplot(aes(condition, cooperation)) +
+  geom_boxplot() +
+  facet_grid(~sex)
+```
+
+`r unhide()`
+
+Swap the plot around, so that `condition` is split across the panels, and `sex` is on the x axis.
+
+:::
+
+
+#### Independent samples T tests
+
+To start, let's say we wanted to run a *t*-test comparing men with women, in their level of cooperativeness. We can do this with a model formula, as we use for `lm`.
+
+Here `cooperation` is our outcome. This is to the left of the `~` symbol, followed by the predictor variable, `sex`.
+
+```{r}
+t.test(cooperation~sex, data=guyer, var.equal=T)
+```
+
+
+Because independent samples t-tests, Anova and linear regression are all related, we could equally well have written:
+
+```{r}
+model1 <- lm(cooperation ~ sex, data=guyer)
+model1 %>% broom::tidy()
+```
+
+In the output above, the `statistic` column is the _t_ value, with 1 degree of freedom. It's identical to the output from `t.test`, barring any small rounding differences.
+
+
+#### Using Anova for a t-test
+
+To show off, we can also run the same test using an Anova. To do this, we actually re-use our same `model1` from above:
+
+```{r}
+car::Anova(model1)
+```
+
+This shows how linked Anova and regression are: Anova is really just a diffent way of summarising the results from a linear model.
+
+Where there are only two groups, we get the same _p_ value each time. The only difference is that Anova reports an _F_ statistic rather than a _t_.
+
+You might write up these results as:
+
+```{r, echo=F, include=F}
+g <- guyer %>% group_by(sex) %>% summarise(m=mean(cooperation)) %>% pull(m)
+diff(g)
+```
+
+> The difference in rates of cooperation between men and women was relatively small `r g[2]` vs `r g[1]`, `r apastats::describe.ttest(t.test(cooperation~sex, data=guyer, var.equal=T))`).
+
+Or, if you must:
+
+> The difference in rates of cooperation between men and women was not statistically significant, `r g[2]` vs `r g[1]`, `r apastats::describe.Anova(car::Anova(model1))[1]`.
+
+
+
+#### Testing for an interaction/moderation
+
+In this case it doesn't look like there is an interaction between gender and condition:
+
+```{r}
+guyer.interaction.model <- lm(cooperation ~ condition * sex, data=guyer)
+guyer.interaction.model %>%
+  car::Anova(type=3)
+```
+
+
+Because there is no interaction, some authors would argue that using type 2 sums of squares would be more appropriate in this instance:
+
+```{r}
+guyer.interaction.model %>%
+  car::Anova(type=2)
+```
+
+
+Indeed, the type 2 test is more powerful in this case and reveals a 'significant' main effect of `condition`.
+You should be cautious about over-interpreting such a result, no matter how tempting; pre-specifying analyses is an important means by which we can mitigate the risks of excessive flexibility in our analyses.
+
+
+
+Where we don't find 'significant' interactions, it can also be helpful to calculate the Bayes Factor to let us know how much evidence we have *against* the proposition (rather than simply failing to reject a null hypotheses):
+
+```{r}
+guyer.bf <- anovaBF(cooperation ~ condition * sex, data=guyer)
+guyer.bf/guyer.bf
+```
+
+This table shows us the Bayes Factor for each comparison between possible models. We can see that the
+
+
+
+### Test and contrasts
+
+The `carData::Adler` data reports results from a study of experimenter effects. From the R help file:
+
+> The “experimenters” were the actual subjects of the study. They collected ratings of the apparent success of people in pictures who were pre-selected for their average appearance of success. The experimenters were told prior to collecting data that particular subjects were either high or low in their tendency to rate appearance of success, and were instructed to get good data, scientific data, or were given no such instruction. Each experimenter collected ratings from 18 randomly assigned subjects. This version of the Adler data is taken from Erickson and Nosanchuk (1977). The data described in the original source, Adler (1973), have a more complex structure.
+
+
+
+We can plot the results like so:
+
+```{r}
+carData::Adler %>%
+  ggplot(aes(expectation, rating)) + geom_boxplot() + facet_wrap(~instruction)
+ggsave('images/adlerplot.png', width=4, height=3)
+```
+
+This is a classic 2x3 Anova, which we can run like this:
+
+```{r}
+adler.m <- lm(rating ~ expectation * instruction, data=carData::Adler)
+car::Anova(adler.m, type=3)
+```
+
+
+Let's imagine we have a particular, *a-priori* hypothesis that `expectation` would play a role in the "good data" condition but not in the "no instructions" condition. We can use `emmeans` and `contrast` to calculate the t test statistics for these comparisons.
+
+First we calculate the effect of expectation *within* each level of instruction:
+
+```{r}
+library(emmeans)
+adler.expectation.within.instruction <- emmeans(adler.m, ~expectation|instruction)
+```
+
+Then we can compute pairwise tests for the differences between high and low expectation, for each instruction:
+
+
+```{r}
+contrast(adler.expectation.within.instruction, method="pairwise")
+```
+
+
+
+<!-- other exmaples for slides -->
+
+```{r, include=F, echo=F}
+emmeans(adler.m, ~expectation*instruction)
+plot(emmeans(adler.m, ~expectation*instruction)) + geom_vline(xintercept=0)
+```
+
+
+```{r, include=F, echo=F}
+emmeans(adler.m, ~ expectation | instruction)
+plot(pairs(emmeans(adler.m, ~ expectation | instruction))) + geom_vline(xintercept = 0)
+```
+
+
+```{r, include=F, echo=F}
+pairs(emmeans(adler.m, ~expectation*instruction))
+plot(pairs(emmeans(adler.m, ~expectation*instruction))) + geom_vline(xintercept = 0)
+```
+
+
+```{r, include=F, echo=F}
+pairs(emmeans(adler.m, ~ expectation | instruction))
+pairs(emmeans(adler.m, ~ expectation * instruction))
+```
+
+```{r, include=F, echo=F}
+contrast(emmeans(adler.m, ~ expectation * instruction),
+         interaction="pairwise")
+
+plot(contrast(emmeans(adler.m, ~ expectation * instruction),
+         interaction="pairwise")) + geom_vline(xintercept = 0)
+```
+
+
+### Other contrasts
+
+Now imagine our hypothesis had actually been that, because students are by default scientifically-minded, we would not see an effect of expectation without an instruction to get good data. This implies that there should be:
+
+- No difference in the effect of expectation between "no-instruction" and "scientific" instructions
+- A significant difference in the effect of expectation between "good data" instructions and no instruction
+- A significant difference in the effect of expectation between "good data" instructions and "scientific" instructions
+
+
+Using interaction contrasts we can test these predictions directly. First we calculate all the cell means:
+
+```{r}
+adler.means.all <- emmeans(adler.m, ~expectation*instruction)
+adler.means.all
+```
+
+
+This can be useful in its own right: we now have the mean and CI for each group.
+
+However we use the `interaction` setting of the `contrast` function:
+
+```{r}
+contrast(adler.means.all, interaction="pairwise")
+```
+
+These are now the ***tests of differences in differences***.
+
+As predicted, we have differences in the effect of expectancy between 'none' vs. 'good', and also for 'good' vs 'scientific', but not for 'none' vs. 'scientific'.
+
+At this point it makes sense to plot the result. Calling `plot` with the results of an `emmeans` command returns a ggplot. Below, I add a vertical line at zero so we can easily see where the 95% CI overlaps, and also make the axis labels more decriptive:
+
+```{r}
+plot(contrast(adler.means.all, interaction="pairwise")) +
+  geom_vline(xintercept=0) +
+  xlab("Difference in the effect of expectation") +
+  ylab("Differences in differences")
+```
+
+
+
+:::{.exercise}
+
+1. Think of a dataset (preferably your own) with two categorical variables (if you are stuck you can use `mtcars` which is built in)
+
+2. Run a model with two categorical predictors and their interaction.
+
+3. Compute tests for all pairwise comparisons in this.
+
+4. Test the effect of `am` within each level of `cyl`
+
+5. Compute and interpret interaction contrasts (i.e. tests of differences in differences). Write down what the numbers mean in prose.
+
+
+`r hide("Show the code")`
+
+
+```{r}
+# plot should always come first
+mtcars %>% ggplot(aes(factor(am), mpg )) + geom_boxplot() + facet_wrap(~cyl)
+
+# q2
+mt.model <- lm(mpg~factor(am)*factor(cyl), data=mtcars)
+(mtcars.means <- emmeans(mt.model, ~factor(am)*factor(cyl)))
+car::Anova(mt.model, type=3)
+
+# q3
+contrast(mtcars.means, "pairwise")
+# or pairs(mtcars.means)
+
+# q4
+contrast(emmeans(mt.model, ~factor(am) | factor(cyl)))
+
+# q5
+contrast(mtcars.means, interaction="pairwise")
+```
+
+
+`r unhide()`
+
+
+
+`r hide("Show the explanation for Q4 and 5")`
+
+The Anova shows there is a significant 'main effect' of  `am`. The plot shows that  such that `am=1` cars tend to have higher fuel consumption, but this effect is most marked for 4-cylinder cars.
+
+The within-cylinder tests show that the effect of `am`=1 is only statistically significant for 4-cylinder cars.
+
+However the tests of differences-in-differences (interaction contrasts) show that the effect of `am` is not itself significantly different between levels of `cyl`. This is expected, because the Anova table shows the interaction (`factor(am):factor(cyl)`) is not statistically significant.
+
+We should be cautious in rejecting this hypothesis though. The dataset is small, and power may play a role. Based on the plot we certainly seem to have evidence in favour of the hypothesis. At this point we might want to test the interaction directly using a Bayes Factor:
+
+
+```{r}
+library(BayesFactor)
+mtfac <- mtcars %>% mutate(am=factor(am), cyl=factor(cyl))
+
+full.model <- anovaBF(mpg~ am * cyl, data=mtfac, iterations = 1e5)
+
+# this is a trick to get all combinations of BayesFactors
+full.model / full.model
+```
+
+We can see the BF for  `cyl + am + cyl:am` / `cyl + am` = 1.4, which means we don't have as much evidence as the plot would suggest. We probaly need to collect more data!
+
+
+`r unhide()`
+
+
+
+:::
+
+
+
+#### Adjusting for multiple comparisons
+
+
+If we want to adjust p values for multiple comparisons we use the `adjust='type'` syntax. This corrects p values to maintain a false discovery rate:
+
+```{r}
+contrast(adler.means.all, interaction="pairwise", adjust="fdr")
+```
+
+
+
+And this applies Bonferroni correction:
+
+```{r}
+contrast(adler.means.all, interaction="pairwise", adjust="bonf")
+```
+
+In both cases, the inferences survive correction of p values for multiple comparisons.
+
+
+
+#### Optional: Adjust for a specific family size
+
+If you wanted set the family size to be larger (e.g. to account for all the tests within the analysis of an experiment), you can do this with `p.adjust`:
+
+
+```{r}
+# save the table of tests as a dataframe
+table.of.tests <- contrast(adler.means.all, "pairwise", interaction="pairwise", adjust="none") %>%
+  as_tibble
+
+# use mutate and p.adjust to correct the p values:
+table.of.tests %>%
+  mutate(p.adj = p.adjust(p.value, method="bonf", n=2000)) %>%
+  # use a special function from apastats package to round p values nicely
+  mutate_at(vars(starts_with('p.')), funs(apastats::round.p)) %>%
+  # rename columns so the table looks nice
+  rename(`Expectation effect` = expectation_pairwise,
+         Comparison=instruction_pairwise,
+         Estimate=estimate) %>%
+  pander(caption="Interaction contrasts adjusted for familywise error rate (family size=2000!)")
+```
+
+In this instance the adjustment doesn't change the inference, but it often will.
+
+
+
+:::{.exercise}
+
+1. Adapt the code above to perform FDR adjustment for a family size of 10 tests.
+
+2. For more explanation and exercises see: <https://benwhalley.github.io/just-enough-r/multiple-comparisons.html>
+
+:::

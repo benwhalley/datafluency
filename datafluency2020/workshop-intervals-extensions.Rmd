@@ -1,0 +1,341 @@
+---
+title: 'Uncertainty and intervals'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=">", message=FALSE)
+library(tidyverse)
+library(webex)
+library(pander)
+library(rstanarm)
+library(tidybayes)
+theme_set(theme_minimal())
+```
+
+
+
+# Beyond intervals
+
+One of the nice things about modern Bayesian methods is that we don't have to pick just a single number to represent our estimate, or a single interval to represent our uncertainty.
+
+As mentioned in [the main workshop notes](workshop-intervals.html#explainrstanarm), to fit the model, the computer runs a simulation thousands of time. On each run, it can make a prediction.
+
+Because of the way the method works, predictions from the simulation are made _in proportion_ to their probability.
+
+<!-- TODO ADD link to JustEnoughR explanation). -->
+
+This means that:
+
+1. If we plot the simulation results, we can see what is the most likely _distribution_ of outcomes.
+
+2. By counting different outcomes within the simulation, and doing simple arithmetic, we can calculate the _probability_ of different outcomes occuring.
+
+
+
+
+## Before you start
+
+Make sure you have the data loaded and have run the Rstanarm version of the model in your current R session:
+
+
+
+```{r, eval=F}
+kidiq <- read_csv("http://bit.ly/arm-kids-iq")
+```
+
+```{r, echo=F, include=F}
+kidiq <- read_csv('data/kidiq.csv')
+```
+
+
+```{r, echo=T, eval=F}
+library(rstanarm) # load this first to make stan_glm available
+iqmodel.bayes <- stan_glm(kid_score ~ mom_iq + mom_hs, data=kidiq)
+```
+
+
+```{r, echo=F, message=F, warning=F, include=F}
+# code included here and below so we can exclude the output....
+library(rstanarm)
+library(tidybayes)
+iqmodel.bayes <- stan_glm(kid_score ~ mom_iq + mom_hs, data=kidiq)
+```
+
+
+
+## Visualising the posterior distribution
+
+Many experts in Bayesian methods recommend avoiding single-number summaries rather than trying to summarise the simulation results as a single value or range (e.g. see [Gabry et al](https://arxiv.org/abs/1709.01449), although this covers many more advanced topics too).
+
+In the code above we used `mean_qi` to calculate the mean and percentile intervals of the predictions from the simulations. But we can also use `ggplot` to look at the _distribution_ of simulated predictions directly:
+
+```{r}
+new.mother = tibble(mom_iq=100, mom_hs="Completed")
+fitted_draws(iqmodel.bayes, newdata=new.mother) %>%
+  ggplot(aes(.value)) +
+  geom_histogram(bins=15) +
+  ylab("Probability in simulation") +
+  xlab("Predicted kid_score")
+```
+
+
+
+:::{.exercise}
+
+Make new predictions (using `fitted_draws`) for the _average_ `kid_score` for a mother with an IQ of 120 who completed school.
+
+Visualise these predictions using `ggplot`. It should look something like this if you use a density plot (`geom_density`) instead of a histogram:
+
+```{r, echo=F, fig.width=5, fig.height=3}
+tibble(mom_iq=120, mom_hs="Completed") %>%
+fitted_draws(iqmodel.bayes, newdata=.) %>%
+  ggplot(aes(.value)) +
+  geom_density()
+```
+
+Now make predictions for new _individuals_, who have the same IQ and who completed school (i.e. use the `predicted_draws` function). Plot the predictions; they should look something like this:
+
+```{r, echo=F, fig.width=5, fig.height=3}
+tibble(mom_iq=120, mom_hs="Completed") %>%
+predicted_draws(iqmodel.bayes, newdata=.) %>%
+  ggplot(aes(.prediction)) +
+  geom_density()
+```
+
+Are you more certain about the future _average_ prediction, or the future _individual_ prediction? How is this shown in your plots?
+
+:::
+
+
+
+
+
+
+
+### Bayesian boxplots
+
+
+:::{.exercise}
+
+Using `iqmodel.bayes`, predict _average_ IQs for children of mothers with an IQ of 100, with OR without high school education.
+
+Create a boxplot to compare the range of _average_ outcomes for groups of mothers who had these characteristics. It should look something like this:
+
+```{r, echo=F}
+ tibble(mom_iq=100, mom_hs = c("Completed", "Did not complete")) %>%
+  fitted_draws(iqmodel.bayes, .) %>%
+  ggplot(aes(mom_hs, .value))  +
+  xlab("Mother's high schooling") +
+  geom_boxplot()
+```
+
+:::
+
+
+
+
+
+
+# Being a Bookie
+
+
+Being a bookie is all about uncertainty for individual cases.
+
+A bookmaker wants to know how often she will lose a particular bet, based on the information availale.
+If they can estimate this uncertainty they can  make money! If they know how often they will win/lose a bet they
+can change the odds approprately.
+
+Imagine a mother with an IQ of 100 wants to place a bet that their child will have an IQ > 110.
+If we know, from the data, that this will only happen around 5% of the time you could offer odds of around 19:1 and break even. To make money you would have to offer odds of less than that (say 18:1 or lower).
+
+
+Applied psychologists, clinicians or policy makers might also want to do this. 
+For example, they might want to base decisions on probability statements like:
+
+-   "There's a 65% chance CBT will reduce your depression by more than 10 points."
+-   "If you have an IQ of 100, there's a 5% chance your child's IQ will be < 90."
+
+
+To do this we can just run a model with rstanarm and **_count_** the number of times each outcome happened within our Bayesian simulation. For example:
+
+
+```{r}
+new.mother = tibble(mom_iq=100, mom_hs="Completed")
+
+predicted_draws(iqmodel.bayes, newdata=new.mother) %>%
+  summarise(mean(.prediction < 60))
+```
+
+**Explanation of the code:**
+
+In the code above, `predicted_draws` makes predictions for `new.mother`... that is a new mother with an IQ = 100, and who completed high school. Rather than just one prediction, this makes many (thousands) of predictions for this new mother, one for each run of the model simulation.
+
+It returns a predicted_draws, with a `.prediction` column, which is the predicted value for this individual in each simulation run.
+
+We then use `summarise` to count how many times `pred < 60`. We do this within the `mean(...)` function; this converts the `TRUE` and `FALSE` values to `0` and `1` first, so the average of `c(TRUE, FALSE)` is 0.5.
+
+In short, `mean(pred < 60)` gives us the **_probability_** that `.prediction` was less than 60 in all of the simulation runs.
+
+So that's about 7% of cases where the `mom_iq` was 97 and `kid_score` is predicted to be less than 60.
+
+
+
+:::{.exercise}
+
+What bet should we offer a mother with an IQ of 70 that her baby will have an IQ > 120?
+
+If you don't know how to convert probabilities into betting odds this calculator will do that for you: https://www.aceodds.com/bet-calculator/odds-converter.html
+Use the "implied probability" box.
+
+
+`r hide("Hint")`
+
+Remember to use `predicted_draws` rather than `fitted_draws`
+
+`r unhide()`
+
+
+`r hide("What is a good answer to this?")`
+
+The answer depends a bit on whether you think the mother completed high school. We can calculate the probability 
+for those who did/did not complete like this:
+
+```{r}
+new.mothers = tibble(mom_iq=70, mom_hs=c("Completed", "Did not complete"))
+
+predicted_draws(iqmodel.bayes, newdata=new.mothers) %>%
+  summarise(mean(.prediction > 120))
+```
+
+The highest probability (worst case for us as a bookie) is about 0.005%.
+
+If we convert that to betting odds we get: 19999 to 1.
+
+If we are a bookmaker we want to make a profit so we should offer less than this.
+
+However we might also know that gamblers are subject to many biases in their reasoning and might not be able to [discriminate effectively when the odds are so large](https://en.wikipedia.org/wiki/Prospect_theory): we might get away with offering only 1000/1 because punters won't notice the difference!
+
+
+`r unhide()`
+
+
+:::
+
+
+
+
+
+## Football predictions
+
+![](images/octopus.png)
+
+Data from the 2019 and 2020 seasons of the UK premier league are available here: https://www.football-data.co.uk/englandm.php
+
+- Read in the CSV data for 2019
+- Use `stan_glm` to predict the difference in goals scored between the home and away teams (`FTHG` and `FTAG` variables)
+- What probability do you give Arsenal of winning if they play Chelsea at home?
+- What is the chance that Liverpool would beat Newcastle by 4 goals, playing at home?
+- What is the chance any home team would win by 6 or more goals?
+
+
+`r hide("Show me how")`
+
+Run the model:
+
+```{r}
+football.2020 <- read_csv('https://www.football-data.co.uk/mmz4281/2020/E0.csv')
+
+gd <- football.2020 %>% 
+  mutate(GD_home = FTHG - FTAG) 
+
+m1.stan <- stan_glm(GD_home ~ HomeTeam + AwayTeam, data=gd) 
+```
+
+
+Make predictions:
+
+```{r}
+matches <- expand.grid(AwayTeam=unique(gd$HomeTeam), HomeTeam=unique(gd$HomeTeam))
+
+football.probabilities <- m1.stan %>% 
+  predicted_draws( newdata=matches) 
+```
+
+
+Do arithmetic with the predictions:
+
+```{r}
+# Do Arsenal beat Chelsea at home?
+football.probabilities %>% 
+  filter(HomeTeam=="Arsenal", AwayTeam=="Chelsea") %>% 
+  summarise(
+    prob_home_win=mean(.prediction>0)
+  )
+```
+
+```{r}
+# Do Liverpool beat Newcastle by 2 goals?
+football.probabilities %>% 
+  filter(HomeTeam=="Liverpool", AwayTeam=="Newcastle") %>% 
+  summarise(
+    prob_home_win_2_goals=mean(.prediction>=2)
+  )
+```
+
+```{r}
+# Does any team win by 6 goals?
+football.probabilities %>% 
+  ungroup() %>% 
+  summarise(
+    prob_home_win_6_goals=mean(.prediction>=6)
+  )
+```
+
+
+
+
+As an extension: Does our model from 2019 generalise to 2020? If we used the predictions from 2019 to make bets on the 2020 season how often would we win?
+
+
+`r hide("Show one way of answering this question")`
+
+We would read in the new seasons' data and compare that to our predictions by 'joining' the datasets together:
+
+```{r}
+# read  2021 data
+football.2021 <- read_csv('https://www.football-data.co.uk/mmz4281/2021/E0.csv')
+
+football.2021 %>%
+  # select just what we need
+  select(HomeTeam, AwayTeam, FTHG, FTAG) %>% 
+  # join with our predictions from above
+  left_join(., football.probabilities) %>% 
+  # make a variable indexing if we predicted the home team won
+  mutate(predicted_home_win = .prediction > .5 ) %>% 
+  # make a variable indexing if the home team actually won
+  mutate(actual_home_win = (FTHG - FTAG) > 0) %>% 
+  # this is needed because predicted_draws gives us a grouped dataset 
+  ungroup() %>% 
+  # calculate how often our prediction was right
+  summarise(mean(predicted_home_win == actual_home_win))
+```
+
+It looks like the answer is yes: we'd win about 61% of the time. 
+
+Whether we would make any money betting this way is another matter: The bookmakers don't always offer even-odds on the favourite to win, so 10% above chance might not be good enough to beat them.
+
+
+`r unhide()`
+
+

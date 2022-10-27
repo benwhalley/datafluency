@@ -1,0 +1,31 @@
+---
+title: 'PSYC753: Teacher Notes and Session Plans'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+
+# 01 Beginners
+
+
+## Welcome and overview of the module
+
+
+- Skills to analyse data as independent researchers
+- Confidence in working with data
+- Transferable skill... not many careers don't need it
+
+
+
+
+
+- 20

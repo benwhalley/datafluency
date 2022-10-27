@@ -1,0 +1,171 @@
+---
+title: 'Regression: Extension exercises'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output:
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+```{r include=F,echo=F}
+library(tidyverse)
+library(webex)
+library(cowplot)
+library(DiagrammeR)
+source('grvizpng.R')
+theme_set(theme_minimal())
+knitr::opts_chunk$set(cache=T, message=F, warning=F)
+
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+
+
+
+
+### Extension exercises
+
+:::{.exercise}
+
+If you have time, try to answer the following questions based on other datasets built into R.
+
+Using the `mtcars` data (which is built into R):
+
+-   What do you predict the `mpg` would be for a car with 4 cylinders?
+-   What is the difference in `mpg` between a car with 4 and 5 cylinders?
+-   Is your prediction for a car with 4 cylinders the same as the _mean_ mpg for cars with 4
+    cylinders? Can you explain why/why not?
+
+*   Run a model using `wt` to predict `mpg`
+*   Using `augment` with the `newdata` argument, make a ggplot (using `geom_smooth`) showing the
+    prediction for all weight values between 1 and 6.
+
+
+`r hide("Show workings")`
+
+
+```{r}
+m1 <- lm(mpg ~ cyl, data=mtcars)
+predict(m1, newdata=tibble(cyl=4))
+```
+
+
+Calculate predictions for 4 and 5 cyl cars and then the difference (you might have done this by hand):
+```{r}
+(fourandfvecylcars <- predict(m1, newdata=tibble(cyl=c(4,5))))
+diff(fourandfvecylcars) # this shows the difference
+```
+
+
+The prediction and the mean for 4 cylinder cars is not quite the same:
+
+```{r}
+predict(m1, newdata=tibble(cyl=4))
+mtcars %>% filter(cyl==4) %>% summarise(mean(mpg))
+```
+The reason is that the prediction comes from the *regression line*... the line of best fit. Although in this case they are close it won't always match the mean exactly.
+
+
+
+This shows the new model using `wt` as a predictor. Then we use augment to make new predictions and plot them:
+
+```{r}
+m2 <- lm(mpg~wt, mtcars)
+broom::augment(m2, newdata=tibble(wt=c(1,2,3,4,5,6))) %>% 
+  ggplot(aes(wt, .fitted)) + 
+  geom_smooth(color="black") +
+  geom_point(color="red") 
+```
+
+
+
+`r unhide()`
+
+
+
+:::
+
+
+
+
+:::{.exercise}
+
+
+Using the `iris` dataset which is also built into R:
+
+-   What is your prediction for `Sepal.Length` for specimens which are 2 or 4mm wide?
+-   What is your prediction for a specimen which was 8mm wide? How confident are you about this
+    prediction?
+
+
+`r hide("Show answers")`
+
+The numeric answers for each question are shown below:
+
+```{r}
+library(broom)
+lm(mpg~cyl, data=mtcars)  %>%
+  augment(newdata=tibble(cyl=c(3,4,5,6)))
+```
+
+```{r}
+lm(Sepal.Length~Sepal.Width, data=iris) %>%
+  augment(newdata=tibble(Sepal.Width=c(2,4)))
+```
+
+
+`r unhide()`
+
+:::
+
+
+
+
+:::{.exercise}
+
+Using the CPS data saved here <http://www.willslab.org.uk/cps2.csv>, what you
+
+-   Is hours a good predictor of income in this dataset?
+-   What is your predicted income for someone who works 40 hours per week?
+
+
+
+`r hide("Show answers")`
+
+Prediction for 40 hours:
+
+```{r}
+cps<- read_csv('http://www.willslab.org.uk/cps2.csv')
+lm(income~hours, data=cps) %>%
+  augment(newdata=tibble(hours=40))
+```
+
+
+`r unhide()`
+
+:::
+
+
+<!--
+
+```{r}
+fit <- read_csv('https://zenodo.org/record/1120364/files/blind_data.csv')
+fit %>% glimpse
+
+fit %>% ggplot(aes(gender, kg3-kg1, color=factor(group))) + stat_summary()
+fit %>% ggplot(aes(age>45, kg3-kg1, color=factor(group))) + stat_summary()
+
+m1 <- lm(kg3 ~ group*gender, data=fit)
+augment(m1, newdata=expand.grid(group=c(1,2), gender=c("f", "m"))) %>%
+  ggplot(aes(gender, .fitted, ymin=.fitted-.se.fit, ymax=.fitted+.se.fit, colour=factor(group))) +
+    geom_point() +
+    geom_errorbar(width=.5)
+```
+
+-->

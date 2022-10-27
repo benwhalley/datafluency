@@ -1,0 +1,449 @@
+---
+title: 'Multiple regression'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output:
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+```{r include=F,echo=F}
+library(tidyverse)
+library(webex)
+library(cowplot)
+library(DiagrammeR)
+library(pander)
+library(broom)
+library(plotly)
+source('grvizpng.R')
+theme_set(theme_minimal())
+knitr::opts_chunk$set(cache=T, message=F, warning=F)
+```
+
+```{r include=F,echo=F, cache=T}
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+```
+
+
+
+
+NOTE: if you are not sure why the following exercises are useful or relevant to the multiple regression session then bear with me to the end; it will become clearer!
+
+
+
+# Sequences and designs for sampling and allocation
+
+One trick you may find useful later in the course is making **sequences** of numbers.
+
+There are a few ways to do this, but the simplest is to write: `1:10`. That is, the number to start
+from (`1`), a colon (`:`), and then the number to end with (`10`).
+
+Copy and paste these examples to see the output:
+
+```{r}
+1:10
+20:30
+```
+
+**Explanation**: The output shows that R has created a sequence of whole numbers between the start
+and finish number.
+
+To get a sequence with only even numbers, we can use the `seq` function, and set the `by` argument
+to 2:
+
+```{r}
+seq(from=2, to=10, by=2)
+```
+
+You can set `by` to any number, including a decimal:
+
+```{r}
+seq(0, 27, by=3)
+seq(0, 1, by=0.2)
+```
+
+If your sequence doesn't have a simple pattern, you can also write out the numbers by hand using the
+`c()` function E.g.:
+
+```{r}
+c(1,40,92,188)
+```
+
+**Explanation**: `c(...)` is short for `combine`, so this command combines the numbers 1, 40, 92,
+188 into a new sequence. This is sometimes called a **vector** in R-speak.
+
+:::{.exercise}
+
+Make some sequences which include:
+
+-   Even numbers from 10 to 20
+-   Numbers in the 8 times table less than 200
+-   20 evenly spaced numbers between zero and 1 (including zero and 1)
+-   The words "Wibble", "Wobble" and "Bobble"
+
+`r hide("Show answers")`
+
+We can use `seq` for numbers:
+
+```{r}
+seq(10,20,by=2)
+seq(0,200, 8)
+seq(0,1, by=1/19)
+```
+
+But we need to use c() for lists of words:
+
+```{r}
+c("Wibble", "Wobble", "Bobble")
+```
+
+`r unhide()`
+
+:::
+
+# Combinations of sequences {#expand-grid}
+
+In designing experiments, or creating a grid of numbers for making predictions, we often want to create combinations of different categories which represent conditions or stimuli.
+
+Imagine a hypothetical study with a test phase where participants are presented with multiple words,
+in either red or green text, and shown at either the bottom or top of the computer screen.
+
+The combinations look something like this:
+
+```{r echo=F}
+expand.grid(
+   colour=c("Red", "Green"),
+   position=c("Top", "Bottom"),
+   word = c("Nobble", "Wobble", "Hobble")) %>%
+   as_tibble() %>%
+mutate(condition = row_number())%>% select(condition, everything())%>%
+pander()
+```
+
+R provides quick ways of creating combinations of variables, using a command called `expand.grid`.
+
+First, we need to create a sequence of each of the possible values for our categories:
+
+```{r}
+colours = c("Red", "Green")
+positions = c("Top", "Bottom")
+words = c("Nobble", "Wobble", "Hobble")
+```
+
+Then we can use `expand.grid` to give us all the possible combinations of these:
+
+```{r}
+expand.grid(colour=colours, position=positions, words = words)
+```
+
+**Explanation**: The `expand.grid` function has taken the items in the three input sequences
+(colours, positions and words) and created a dataframe which contains all the possible combinations. We could save these to a file if we wanted to use them as part of our experiment.
+
+
+:::  {.exercise}
+
+Create some experimental designs of your own
+
+1. Reproduce the experiment design above by copying and pasting
+
+2. Adapt the commands to allow for an experiment where the word position could be either top,
+   bottom, left or right. How many different conditions would there be in this case?
+
+As a stretch task (this might be sligtly harder): How would you create a design where 
+a sequence of 3 words is presented. Each word must be different, but each 3-word combination 
+can be presented in red or green text, and at the top or bottom of the screen?
+
+
+`r hide("Show solution")`
+
+```{r}
+expand.grid(colour=colours, position=positions, word1 = words, word2=words, word3=words) %>% 
+  filter(
+    word1 != word2 & word2 != word3 & word1 != word3
+  ) 
+```
+
+
+**Explanation of the command**: There may be a neater way of doing this, but here we simply:
+
+- Create all combinations of words, colors, spatial locations and positions in the sequence (1,2 or 3)
+- Filter our rows where two of the words are the same
+
+
+
+Another way to do the same thing using the `unique` and `length` functions might be:
+
+```{r}
+expand.grid(colour=colours, position=positions, word1 = words, word2=words, word3=words) %>% 
+  rowwise() %>% 
+  filter(length(unique(c(word1, word2, word3)))==3)
+```
+**Explanation**: Here we apply the sample filter, but using the `length` function to count the number of `unique` words among word 1, 2 and 3. The `rowwise` function is used to make R consider each row individually (it won't work without it because R tries to consider the whole of a column at once).
+
+
+
+`r unhide()`
+   
+:::   
+   
+
+
+:::{.exercise}
+
+
+
+Take the model from the main worksheet were we predicted grades from work hours for men and women.
+
+In the main worksheet we created a dataframe by hand to tell `augment` what predictions we wanted.
+
+Now try using `expand.grid` to make the new dataframe instead. 
+For example, try making predictions for men and women who work 20, 25, 30, 35, or 40 hours per week. Make this dataframe using `expand.grid` and without using the `c()` function.
+   
+   
+`r hide("Show how")`
+
+
+```{r, messages=F, warning=F}
+# setup and read data
+library(tidyverse)
+studyhabits <- read_csv('https://benwhalley.github.io/rmip/data/studyhabitsandgrades.csv')
+
+# run the model
+second.model <- lm(grade ~ work_hours * female, data = studyhabits)
+
+# made the new data grid for predictions
+prediction.grid <- expand.grid(work_hours=seq(20,40,5), female=c(TRUE, FALSE)) %>% 
+  as_tibble
+prediction.grid
+
+# make the predictions
+new.predictions <- broom::augment(second.model, newdata=prediction.grid)
+new.predictions
+
+# plot predictions from the model with SE
+new.predictions %>% 
+  ggplot(aes(work_hours, 
+             y=.fitted, 
+             ymin= .fitted-.se.fit, 
+             ymax= .fitted+.se.fit, 
+             color=female, group=female)) +
+  geom_line() +
+  geom_errorbar(width=.1) +
+  geom_point()
+
+
+# geom_ribbon is another way of showing the error of estimates
+new.predictions %>% 
+  ggplot(aes(work_hours, 
+             y=.fitted, 
+             ymin= .fitted-.se.fit, 
+             ymax= .fitted+.se.fit, 
+             color=female, group=female)) +
+  geom_ribbon(alpha=.1, color=NA) +
+  geom_line()
+```
+
+
+`r unhide()`
+
+:::
+   
+   
+
+# Clinical trial example
+
+
+:::{.exercise}
+
+Data from a clinical trial of Functional Imagery Training [@solbrig2019functional, FIT] are
+available at <https://zenodo.org/record/1120364/files/blind_data.csv>. In this file, `group`
+represents the treatment group (FIT=2; Motivational Interviewing=1). The `kg1` and `kg3` variables
+represent the patients' weights in kilograms before and after treatment, respectively. Load these
+data and complete the following tasks:
+
+1. Plot the difference in weight between treatment groups at followup (`kg3`)
+
+2. Create a plot to show whether men or women benefited most from the treatment (this will require
+   some thinking about what goes on the y-axis, and perhaps some pre-processing of the data).
+
+3. Create a plot to show whether older participants benefited more or less than younger ones (again
+   this will require some thinking, and there are quite a number of different plot types which could
+   be used, each with different pros and cons).
+   
+4. Run a linear model which is equivalent to the plot you created. Can you match the coefficients in the model output to the points and lines on your graph?
+
+:::
+
+
+
+
+
+
+# Preview: Multiple continuous predictors
+
+In the previous example plotting our data was quite simple: We had an x and y axis, and used colour to show the third.
+
+If we have two continuous predictors we _can_ do the same, using color or size to indicate the third dimension.
+Here are two examples using some data on the income, murder and illiteracy rates of US states:
+
+
+
+```{r}
+# the data called state.x77 are in an old fashioned format, 
+# so do this first to make them into a dataframe
+states <- as_tibble(state.x77)
+```
+
+
+```{r fig.cap="3 dimensions using x, y and color"}
+states %>% 
+  ggplot(aes(x = Murder, y = Income, color=Illiteracy)) + geom_point()
+```
+
+
+```{r fig.cap="3 dimensions using x, y and point size"}
+states %>% 
+  ggplot(aes(x = Murder, y = Income, size=Illiteracy)) + geom_point()
+```
+
+
+
+Another alternative is to categorize one of the variables and make a faceted plot:
+
+```{r}
+states %>% 
+  mutate(Illiteracy_categorised = cut(Illiteracy, breaks=3, 
+                                      labels=c("Low illiteracy", "Medium illiteracy", "Highilliteracy"))) %>% 
+  ggplot(aes(Murder, Income)) + 
+   geom_point() +
+  facet_wrap(~Illiteracy_categorised) +
+  geom_smooth(method=lm, se=F)
+```
+
+
+
+**Explanation of the code** In the code above, the `cut` command is used to split the `Illiteracy` variable
+into 3 categories (`breaks=3`) and give each category a label (`labels = c("Low", ...)`). We then use this categorical version to create a faceted plot for low, medium and high illiteracy values. 
+
+
+----
+
+If you look at these plots it's about possible to see that there is an **interaction** here: As `Illiteracy` increases, the relationship between `Murder` and `Income` changes (it starts positive but ends up slightly negative).
+
+
+:::{.exercise}
+
+Try describing the plot above in words.
+
+Try re-plotting the data but with different values on different axes (e.g. swap x, y, color, size etc).
+
+Which combination feels most 'natural' to you; that is, which is easiest to describe?
+
+
+:::
+
+
+
+
+## 3D plots
+
+However, another way of displaying these data is to use a true 3D plot. An example is below:
+
+```{r echo=F, include=T}
+p1 <- plot_ly(data=states,
+              x=~Murder, y=~Illiteracy, z=~Income, type = "scatter3d") 
+p1
+```
+
+
+**Explanation of this plot**: Rather than a standard x/y plot, this one adds a third dimension, z. 
+This means that to see all the data you need to click and drag on the image to rotate the axes.
+It can take a bit of getting used to, but one tip is to make sure you keep track of which axis
+is which as you move the viewing angle.
+
+
+`r hide("Show me how to make the 3d plot")`
+
+```{r, include=F, echo=T}
+library(plotly)
+plot_ly(data=states,
+        x=~Murder, 
+        y=~Illiteracy, 
+        z=~Income, 
+        type = "scatter3d") 
+```
+
+**Explanation of the code**: `ggplot` doesn't make 3D plots. Instead we use `plotly`, which is an
+alternative graphing library. We use the `plot_ly` function, and pass it the `states` data
+as the first argument. Then we define the x, y and z axes. Note that each variable name
+from the dataset is prefixed by a `~` (tilde) character. This is required by `plot_ly`; it's
+not consistent with `ggplot` which is a shame.
+
+`r unhide()`
+
+
+
+
+## Regression 'surfaces'
+
+In the main session we saw we can represent the regression coefficients in a 2D plots. For example:
+
+```{r}
+states %>% 
+  ggplot(aes(Income, Illiteracy)) + geom_point() + geom_smooth(method="lm", se=F)
+```
+
+
+This regression line looks problematic. The residuals (gaps from point to line) are quite large.
+
+But, if we try to add `Murder` as another predictor of `Income` we can't represent the model as a simple line. Instead we need to think of the regression model as a 3d surface:
+
+
+```{r, echo=F, include=T}
+m <- lm(Income ~ Illiteracy *+ Murder, data=states)
+axis_x <- with(states, seq(min(Murder), max(Murder), diff(range(Murder))/100))
+axis_y <- with(states, seq(min(Illiteracy), max(Illiteracy), diff(range(Illiteracy))/100))
+grid <- expand_grid(Murder=axis_x,Illiteracy=axis_y)
+vals <- broom::augment(m, newdata = grid)
+
+surf <- reshape2::acast(vals, Murder~Illiteracy, value.var = ".fitted")
+
+p2 <- plot_ly(data=states,
+              x=~Murder, y=~Illiteracy, z=~Income, type = "scatter3d") %>% 
+  add_trace(z = surf,
+                       x = axis_x,
+                       y = axis_y,
+                       type = "surface")
+p2
+
+```
+
+
+
+:::{exercise}
+
+Play with the interactive plot above. 
+
+Is this 3d surface a good 'fit' to these data?
+
+:::
+
+
+
+
+
+In future sessions, as we increase the number of variables in our models, it will be difficult to 
+keep hold of simple graphical equivalents to our models because it's hard to think in 5 or 6 or more dimensions.
+
+It's good to remember this type of plot though. As we add more variables the `lm` function is still 
+trying to minimise the gaps between the predicted line or surface and the actual data.
+
+
+
+

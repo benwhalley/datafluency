@@ -1,0 +1,37 @@
+---
+output:
+    pdf_document: 
+      latex_engine: xelatex
+    html_document: default
+---
+
+
+# An example paper
+
+If you are wholly stuck in finding a paper, this is one example:
+
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0218243
+
+[The pdf is here](data/journal.pone.0218243.pdf)
+
+To find this, I searched on the PlosOne website for the terms: `(multiple regression OR Ancova)  AND RCT`.
+
+I then looked for a title that seemed interesting and looked through the main paper. Specifically, I:
+
+- Read the "Statistical analyses" section to make sure the methods were suitable
+- Clicked the "Supporting information" menu to make sure data were available (they are)
+
+I then checked the data looked ok by downloading them, using the RStudio GUI to look at the data, and also this code to check the contents of the files:
+
+```{r}
+library(tidyverse)
+s005 <- haven::read_spss('../data/journal.pone.0218243.s005.sav')
+s006 <- haven::read_spss('../data/journal.pone.0218243.s006.sav')
+
+s005 %>% skimr::skim()
+s006 %>% skimr::skim()
+```
+
+
+
+

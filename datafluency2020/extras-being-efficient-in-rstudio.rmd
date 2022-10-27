@@ -1,0 +1,25 @@
+---
+title: 'Being efficient with R/RStudio'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: webex::html_clean
+---
+
+
+
+## Keyboard shortcuts {#keyboard-shortcuts}
+
+There are a two very useful keyboard shortcuts it is definitely worth learning:
+
+
+### To insert a pipe: `%>%`
+
+Type `CTRL + SHIFT + M`
+
+
+### To add an assignment arrow: `<-`
+
+Type `ALT + –`  (that is, ALT + the hyphen/minus key)

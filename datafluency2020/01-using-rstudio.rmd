@@ -1,0 +1,123 @@
+---
+title: 'BeginneRs: Getting familiar with R Studio'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=">", message=FALSE)
+library(tidyverse)
+library(webex)
+library(pander)
+theme_set(theme_minimal())
+```
+
+
+![](media/leggy.jpg)
+
+<!-- Photo:  [1ksmiles.com](http://www.1ksmiles.com/wp-content/uploads/2014/03/standing-up-first-time-giraffe.jpg) -->
+
+
+\noindent A big part of psychology is collecting data about people, visualizing it (graphs etc.), and
+drawing conclusions. Working with data is a core skill for researchers, and increasingly important
+in many professions.
+
+RStudio, like Excel, is computer software that helps us to do that. RStudio is rapidly becoming
+the standard tool for serious data analysis in psychology and other sciences, because it's
+powerful, relatively easy to use, and free.
+
+
+
+## Getting started with RStudio {#getting-started-rstudio}
+
+Open a web browser (e.g. [Firefox](https://www.mozilla.org/en-US/firefox/new/), Safari, Chrome,
+_not_ Edge) and go to an
+[RStudio server, like the one at: https://rstudio.plymouth.ac.uk](https://rstudio.plymouth.ac.uk).
+Log on, using the username and password you have been given.
+
+
+If that works, you should see something like this:
+
+
+![RStudio on first opening](media/rstudio-new.png)
+
+We'll go through what it all means in a bit. But, first, we're going to...
+
+
+## Create a new project
+
+RStudio uses **_projects_** to help you keep your work organized, and to make sure you have a record
+of your analyses. You should start a new project each time you start a new module in your degree
+(possibly more frequently, but we'll come back to that later). Here's how to create a new project:
+
+1. At the top right of RStudio, you will see a little blue cube, with the text "Project: (none)".
+   Click on this, and select "New project".
+
+![RStudio without a project open](media/rstudio-new.png)
+
+2. Now click "New Directory"
+
+![Project dialog #1](media/create1.png)
+
+3. Now click "New Project"
+
+![Project dialog #2](media/create2.png)
+
+4. Next, type in a name for the project that makes sense to you in the "Directory name" box. I've
+   typed _psyc411_, but you should pick something more meaningful to you (e.g. _beginning-r_). Then
+   click "Create project".
+
+![Project dialog #3](media/create3.png)
+
+5. Now, create a _R script_. An R script is a record of the analyses you have done. You create an R
+   Script by clicking on the white plus sign on a green background (see below), and then clicking on
+   "R Script".
+
+![Script menu](media/script1.png)
+
+If everything worked well, your screen should now look like this:
+
+![Project created](media/project-made.png)
+
+You should be able to see four parts:
+
+1. The **Script** window - This is the rectangle on the top left. This is where you will tell R what
+   to do. It only does what you tell it.
+
+2. The **Console** window - This is the rectangle on the bottom left. This is where R prints the
+   answers to your questions.
+
+3. The **Environment** window - This is the rectangle on the top right. It's where R keeps a list of
+   the data it knows about. It's empty at the moment, because we haven't given R any data yet.
+
+4. The **Files** - This is the rectangle on the bottom right. This is a bit like the _File Explorer_
+   in Windows, or the _Finder_ on a Mac. It shows you what files are in your R project.
+
+That's it! You're all set to start learning how to analyse data in R.
+
+
+
+
+
+# Tasks to complete now
+
+1. Check the video on the DLE that demo's how to login and create a project.
+2. Make your own project 
+3. Make an R Script file and save some calculations in it.
+
+
+
+
+---
+
+
+Distributed under a [Creative Commons](https://creativecommons.org/) licence. CC-BY-SA 4.0.
+

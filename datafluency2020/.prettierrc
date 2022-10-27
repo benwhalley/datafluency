@@ -1,0 +1,12 @@
+{
+    "proseWrap": "always",
+    "printWidth": 88,
+    "tabWidth": 4,
+    "singleQuote": true,
+    "overrides": [
+        {
+            "files": "*.rmd",
+            "options": { "parser": "markdown" }
+        }
+    ]
+}

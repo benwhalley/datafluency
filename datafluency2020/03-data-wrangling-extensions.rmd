@@ -1,0 +1,212 @@
+---
+title: 'Data wrangling: Extension Exercises'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=">", message=FALSE)
+library(tidyverse)
+library(webex)
+library(pander)
+theme_set(theme_minimal())
+```
+
+
+
+# More on Long vs wide data
+
+
+## Further reading
+
+:::{.exercise}
+
+**#1**
+
+To gain more understanding of the way the format of our data is important to the way we analyse it, read this article on wide/long data formats and the tradeoffs between the two: <https://www.theanalysisfactor.com/wide-and-long-data/>
+
+:::
+
+
+
+
+## Separating 'untidy' variables into tidy, long-form data:
+
+The code below generates simulated data for 100 individuals at three time points. The format is
+similar to the way you might record experimental data in a spreadsheet.
+
+```{r}
+N <- 20
+repeatmeasuresdata <- tibble(person = 1:N,
+  time_1 = rnorm(N),
+  time_2 = rnorm(N, 1),
+  time_3 = rnorm(N, 3))
+
+repeatmeasuresdata %>% head
+```
+
+`repeatmeasuresdata` is in **wide** format. Each row contains data for one participant, and each
+participant has three observations.
+
+We can melt or reshape the data into longer format like so:
+
+```{r}
+repeatmeasuresdata %>%
+  pivot_longer(starts_with("time")) %>%
+  arrange(person, name) %>%
+  head(8)
+```
+
+The problem we have now is that `name` contains text which describes at which time the
+observation was made. We probably want a number for each timepoint, so we can make a plot with time
+on the x axis.
+
+The `separate` command separates a single character column (`name`) into multiple columns.
+Rather than have a column with labels of the form 'time_1', it can create two columns, with labels
+'time' and '1' in each.
+
+```{r}
+longrepeatmeasuresdata <- repeatmeasuresdata %>%
+  pivot_longer(starts_with("time")) %>%
+  separate(name, into = c("variable", "time"))
+
+longrepeatmeasuresdata %>% head
+```
+
+
+Now the data are in long format, we can plot the points over time:
+
+```{r}
+longrepeatmeasuresdata %>%
+  sample_n(30) %>%
+  ggplot(aes(x=time, y=value)) +
+  geom_point()
+```
+
+
+
+:::{.exercise}
+
+**#2**
+
+This file contains sample contact and address data for 100 people: https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv
+
+
+- Read the data into R
+- Use the `separate` function to make a new variable which contains the *domain name* of these contacts' email address (e.g. yahoo.com, hotmail.com)
+
+Use the `distinct` and/or `count` functions on the new variable you create containing the domain name. Look them up in the help file if you don't know which to use to answer these questions:
+
+- How many different domains do the contacts have addresses with?
+- How many people had a gmail account?
+- Which domains had more than 10 users?
+
+
+`r hide("Show workings")`
+
+
+```{r}
+contacts <- read_csv('https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv') %>% 
+  separate(email, into=c("user", "domain"), sep ="@") 
+
+
+# how many different domains
+contacts %>% 
+  distinct(domain) %>% 
+  count()
+
+# how many people use gmail
+contacts %>% 
+  count(domain) %>% 
+  filter(domain=="gmail.com")
+
+# which domains had more than 10 users?
+contacts %>% 
+  count(domain) %>% 
+  filter(n > 10) 
+```
+
+
+`r unhide()`
+
+
+
+
+
+:::
+
+
+
+
+
+
+# More `pivot_longer` and plotting
+
+
+:::{.exercise}
+
+**#3**
+
+Use the `mtcars` data and facetting to produce these plots:
+
+```{r, echo=F, message=F, warning=F}
+mtcars %>%
+  select(mpg, wt, disp) %>%
+  pivot_longer(everything()) %>% 
+  mutate(variable=Hmisc::capitalize(as.character(name))) %>%
+  ggplot(aes(value, y=..scaled..)) +
+  geom_density() +
+  facet_wrap(~variable, scales="free_x") +
+  labs(x="", y="Scaled density")
+```
+
+```{r, echo=F}
+mtcars %>%
+  select(mpg, wt, disp) %>%
+  pivot_longer(everything()) %>% 
+  mutate(variable=Hmisc::capitalize(as.character(name))) %>%
+  ggplot(aes(value)) +
+  geom_histogram(bins=7) +
+  facet_wrap(~variable, scales="free_x") +
+  labs(x="", y="Scaled density")
+```
+
+Some tips:
+
+-   Add `scales="free_x"` to the `facet_wrap` function. So, it will read:
+    `facet_wrap(~VARNAME, scales="free_x")`
+
+-   For the histogram, replace `geom_density()` with `geom_histogram()`
+
+-   Adjust the number of vertical bars in the histogram by adding `bins=7` (or some other number) to
+    `geom_histogram()`
+
+:::
+
+
+
+
+
+
+# More practice
+
+For more practice using these techniques for common problems in psychological research you could work through Andy Will's 'better tables' worksheet here: 
+
+- <https://ajwills72.github.io/rminr/better-tables.html>
+- [Preprocessing data from experiments](https://ajwills72.github.io/rminr/preproc.html) and [part 2 of this](https://ajwills72.github.io/rminr/more-on-preproc.html)
+
+
+
+------------
+
+
+All content on this site distributed under a [Creative Commons](https://creativecommons.org/)
+licence. CC-BY-SA 4.0.

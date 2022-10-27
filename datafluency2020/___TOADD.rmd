@@ -1,0 +1,98 @@
+
+XXX THIS SHOWS UPLOADING NOT LOADING FROM WEB
+
+
+
+
+### Random samples
+
+In our example, each of the experimental conditions is allocated between-participants, which (as
+you'll learn elsewhere in the programme) means we need recruit quite a large number of participants.
+In this case we can imagine we might need at least 250 participants.
+
+Allocating participants to condition is another boring task R can help with. The trick is to combine
+sequences with randomness and random sampling.
+
+For example, we might create a sequence of the numbers from 1:10:
+
+```{r}
+1:10
+```
+
+The `sample` function lets us take a random sample from this sequence:
+
+```{r}
+sample(1:10)
+```
+
+**Explanation** `sample` has shuffled the input sequence and gives us the original numbers (1...12)
+in a random order.
+
+---
+
+If we want to take a larger sample, longer than the input sequence, we have to add the text
+`replace=TRUE`:
+
+```{r}
+sample(1:10, size = 20, replace=TRUE)
+```
+
+**Explanation**: Using `replace=TRUE` is like picking a number from a hat, but then putting the
+chosen number back into the hat so it can be picked again. This allows us to make longer random
+sequences where numbers in the initial sequence are repeated.
+
+### In-use: Randomising participants to conditions/groups
+
+If we combine our experimental design from above with this idea of randomness we can randomise
+participants to conditions in our experiment.
+
+If we look again at our design we can see there are 12 possible combinations:
+
+```{r}
+expand.grid(colour=colours, position=positions, words = words)
+```
+
+We can use `sample` to make sure we allocate participants randomly to conditions, as they are
+recruited:
+
+```{r}
+sample(1:12, size=250, replace=TRUE)
+```
+
+So, we would allocate participants to their condition in this order as they are recruited.
+
+Alternatively, we could simply run this every time a new participant showed up:
+
+```{r}
+(new_allocation <- sample(1:12, size=1))
+```
+
+#### Task: Randomise your own participants {.exercise}
+
+1. Re-use the design you created above, and randomise 5 participants to conditions within it.
+
+2. Try and create a design which might work for your own study (either this year, based on your UG
+   project, or on any other study you might like to run).
+
+As an optional stretch task:
+
+1. [Read this extension, which shows how to sample from datasets as well as sequences](#sample_n)
+
+
+# Extension tasks {#optional-extensions}
+
+### Missing data: Try the same code on another dataset {.exercise}
+
+The `mice` package includes example datasets with missing data. We can look at one of these like so:
+
+```{r}
+mice::boys %>% glimpse
+```
+
+1. Identify the patterns of missing dataset in the `mice::boys` dataset.
+
+2. How many participants provided complete data?
+
+
+
+<!-- mice::boys %>% mice::md.pattern() -->

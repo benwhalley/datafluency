@@ -1,0 +1,184 @@
+# https://www.coresystemtrust.org.uk/instruments/core-om-information/
+
+
+
+
+
+```{r}
+
+core34responsemapping <- c("Not at all"=0,
+"Only occasionally"=1,
+"Sometimes"=2,
+"Often"=3,
+"Most or all the time"=4)
+
+```
+
+```{R}
+corequestions <- c(
+"1. I have felt terribly alone and isolated",
+"2. I have felt tense, anxious or nervous",
+"3. I have felt I have someone to turn to for support when needed",
+"4. I have felt O.K. about myself",
+"5. I have felt totally lacking in energy and enthusiasm",
+"6. I have been physically violent to others",
+"7. I have felt able to cope when things go wrong",
+"8. I have been troubled by aches, pains or other physicalproblems",
+"9. I have thought of hurting myself",
+"10. Talking to people has felt too much for me",
+"11. Tension and anxiety have prevented me doing important things",
+"12. I have been happy with the things I have done",
+"13. I have been disturbed by unwanted thoughts and feelings",
+"14. I have felt like crying",
+"15. I have felt panic or terror",
+"16. I made plans to end my life",
+"17. I have felt overwhelmed by my problems",
+"18. I have had difficulty getting to sleep or staying asleep",
+"19. I have felt warmth or affection for someone",
+"20. My problems have been impossible to put to one side",
+"21. I have been able to do most things I needed to",
+"22. I have threatened or intimidated another person",
+"23. I have felt despairing or hopeless",
+"24. I have thought it would be better if I were dead",
+"25. I have felt criticised by other people",
+"26. I have thought I have no friends",
+"27. I have felt unhappy",
+"28. Unwanted images or memories have been distressing me",
+"29. I have been irritable when with other people",
+"30. I have thought I am to blame for my problems and difficulties",
+"31. I have felt optimistic about my future",
+"32. I have achieved the things I wanted to",
+"33. I have felt humiliated or shamed by other people",
+"34. I have hurt myself physically or taken dangerous risks with my health")
+
+```
+
+
+
+```{r}
+library(lavaan)
+
+pop<-'
+
+f1 =~ 0.85 * x0 +  c(1.4,0.7) * x1 +  1.25 * x2 +  c(2,1) * x3 +  0.5 * x4 +  c(0.75,0.38) * x5 + 0.85 * x6 +  c(1.4,0.7) * x7 +  1.25 * x8 +  c(2,1) * x9 +  0.5 * x10 +  c(0.75,0.38) * x11 + 0.85 * x12 +  c(1.4,0.7) * x13 +  1.25 * x14 +  c(2,1) * x15 +  0.5 * x16 +  c(0.75,0.38) * x17 + 0.85 * x18 +  c(1.4,0.7) * x19 +  1.25 * x20 +  c(2,1) * x21 +  0.5 * x22 +  c(0.75,0.38) * x23 + 0.85 * x24 +  c(1.4,0.7) * x25 +  1.25 * x26 +  c(2,1) * x27 +  0.5 * x28 +  c(0.75,0.38) * x29 + 0.85 * x30 +  c(1.4,0.7) * x31 +  1.25 * x32 +  c(2,1) * x33 + c(2,1) * x34 
+f2 =~ 0.55*y1 + 1.4*y2 + 1.1*y3 + 0.8*y4
+
+f1 + f2 ~ 0*1
+
+f2 ~ 0.22*f1
+
+f1 ~~ 1*f1
+f2 ~~ 0.9516*f2
+
+x0  ~~ 1*x0
+x1  ~~ 1*x1
+x2  ~~ 1*x2
+x3  ~~ 1*x3
+x4  ~~ 1*x4
+x5  ~~ 1*x5
+x6  ~~ 1*x6
+x7  ~~ 1*x7
+x8  ~~ 1*x8
+x9  ~~ 1*x9
+x10  ~~ 1*x10
+x11  ~~ 1*x11
+x12  ~~ 1*x12
+x13  ~~ 1*x13
+x14  ~~ 1*x14
+x15  ~~ 1*x15
+x16  ~~ 1*x16
+x17  ~~ 1*x17
+x18  ~~ 1*x18
+x19  ~~ 1*x19
+x20  ~~ 1*x20
+x21  ~~ 1*x21
+x22  ~~ 1*x22
+x23  ~~ 1*x23
+x24  ~~ 1*x24
+x25  ~~ 1*x25
+x26  ~~ 1*x26
+x27  ~~ 1*x27
+x28  ~~ 1*x28
+x29  ~~ 1*x29
+x30  ~~ 1*x30
+x31  ~~ 1*x31
+x32  ~~ 1*x32
+x33  ~~ 1*x33
+x34  ~~ 1*x34
+
+
+x0 | -1.7*t1 + 1.5*t2
+x1 | c(-0.4,-1.2)*t1 + 1.9*t2
+x2 | 0.7*t1 + 2.3*t2
+x3 | c(-0.45,-1.45)*t1 + 2.75*t2
+x4 | 0.8*t1 + 2.2*t2
+x5 | c(1.2,-0.2)*t1 + 2*t2
+x6 | -1.7*t1 + 1.5*t2
+x7 | c(-0.4,-1.2)*t1 + 1.9*t2
+x8 | 0.7*t1 + 2.3*t2
+x9 | c(-0.45,-1.45)*t1 + 2.75*t2
+x10 | 0.8*t1 + 2.2*t2
+x11 | c(1.2,-0.2)*t1 + 2*t2
+x12 | -1.7*t1 + 1.5*t2
+x13 | c(-0.4,-1.2)*t1 + 1.9*t2
+x14 | 0.7*t1 + 2.3*t2
+x15 | c(-0.45,-1.45)*t1 + 2.75*t2
+x16 | 0.8*t1 + 2.2*t2
+x17 | c(1.2,-0.2)*t1 + 2*t2
+x18 | -1.7*t1 + 1.5*t2
+x19 | c(-0.4,-1.2)*t1 + 1.9*t2
+x20 | 0.7*t1 + 2.3*t2
+x21 | c(-0.45,-1.45)*t1 + 2.75*t2
+x22 | 0.8*t1 + 2.2*t2
+x23 | c(1.2,-0.2)*t1 + 2*t2
+x24 | -1.7*t1 + 1.5*t2
+x25 | c(-0.4,-1.2)*t1 + 1.9*t2
+x26 | 0.7*t1 + 2.3*t2
+x27 | c(-0.45,-1.45)*t1 + 2.75*t2
+x28 | 0.8*t1 + 2.2*t2
+x29 | c(1.2,-0.2)*t1 + 2*t2
+x30 | -1.7*t1 + 1.5*t2
+x31 | c(-0.4,-1.2)*t1 + 1.9*t2
+x32 | 0.7*t1 + 2.3*t2
+x33 | c(-0.45,-1.45)*t1 + 2.75*t2
+x34 | 0.8*t1 + 2.2*t2
+
+y1 ~~ 1*y1
+y2 ~~ 1*y2
+y3 ~~ 1*y3
+y4 ~~ 1*y4
+
+y1 ~*~ y1
+y2 ~*~ y2
+y3 ~*~ y3
+y4 ~*~ y4
+
+y1 | -2*t1 + -0.8*t2 + 0.2*t3 + 1.7*t4
+y2 | -2.5*t1 + -0.9*t2 + 0.3*t3 + 1.9*t4
+y3 | -1.5*t1 + -0.2*t2 + 0.8*t3 + 2.3*t4
+y4 | -1.7*t1 + 0.3*t2 + 1*t3 + 2.5*t4
+
+
+'
+
+
+
+
+sampledata<-simulateData(model=pop,parameterization="theta",sample.nobs = c(3000,3000))
+coredata <-  
+  sampledata %>% 
+  select(starts_with("x"), -x0) %>% 
+  setNames(corequestions) %>% 
+  mutate(i=row_number()) %>%
+
+  mutate(core_om_sum = rowSums(select(., -i))) %>%  
+  pivot_longer(c(-i, -core_om_sum)) %>%
+  mutate(value = factor(value, labels=names(core34responsemapping), levels=core34responsemapping)) %>% 
+  pivot_wider(names_from = name, values_from=value) %>% 
+  
+  select(core_om_sum, everything(), -i) %>% 
+  filter(core_om_sum > 40)
+
+coredata$core_om_sum %>% hist
+```
+

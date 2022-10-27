@@ -1,0 +1,84 @@
+---
+title: 'How to use the worksheets'
+author: 'Ben Whalley'
+date: "September 2020"
+bibliography: [references.bib]
+biblio-style: apa6
+link-citations: yes
+output: 
+  webex::html_clean:
+    includes:
+      after_body: footer.html
+---
+
+
+
+
+```{r, echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, cache=TRUE, comment=">", message=FALSE)
+library(tidyverse)
+library(webex)
+library(pander)
+theme_set(theme_minimal())
+```
+
+
+
+Throughout this worksheet (and others on the course), you'll see the commands you should type into
+RStudio inside a grey box, followed by the output you should expect to see in one or more white
+boxes. Any differences in the colour of the text in these boxes can be ignored.
+
+New commands in the worksheets are followed by one or more _explanation_ sections - those are there
+to help you understand how the commands work and how to read the output they produce.
+
+In some cases there will also be hidden answers or additional explanations. To see these, you can:
+
+`r hide("Click the boxes like this")`
+
+And text will appear!
+
+`r unhide()`
+
+---
+
+In other places you will see sections in blue, like this:
+
+:::{.exercise}
+
+These sections are exercises for you to complete. The are the most important sections in the
+worksheet, and you should always work through all of these problems.
+
+:::
+
+---
+
+Finally, sometimes you will see questions with text boxes next to them. You just need to type in the
+right answer ([42](https://www.urbandictionary.com/define.php?term=42)), and the box outline will go
+blue:
+
+**The answer to life, the universe and everything is:**
+`r fitb(answer="42", num=TRUE, calculator=F)`
+
+Other questions might ask you to make calculations. For these the text box acts like a mini
+calculator. Try typing `1000 * 1024` into this box: `r fitb(answer=1000*1024, num=TRUE)`
+
+[Why do we use `*` and not $\times$?](#compoperators)).
+
+:::{#compoperators .sidenote}
+
+In most computer languages (and also in Excel) the arithmetic operators are:
+
+-   `*` for multiplication
+-   `/` for division
+-   `^` for powers (e.g. `2^4` = $2^4$ = 16)
+
+:::
+
+
+
+
+---
+
+
+
+Distributed under a [Creative Commons](https://creativecommons.org/) licence. CC-BY-SA 4.0.
