@@ -1,140 +1,78 @@
 ---
 title: Data Visualisation
 author: 'Ben Whalley'
-date: "October 2021"
+date: "October 2022"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
 output:
   webex::html_clean
+editor_options: 
+  markdown: 
+    wrap: 100
 ---
 
-
-
-<!-- 
-
-add log scale stuff back in
-make forward pointer to labs() function qhich comes later... say not to worry yet about labels
-
-
-This morning I noticed that "craft" might be a useful simile for plotting. If you can continously keep in mind the "customer" rather than the tools, then you're likely to optimise the happiness.
-
-e.g.
-don't build someone a chair when they want a table because that's all you know how to make
-be prepared to add new tools to your bag to deliver what's required
-copy master craftspersons
-...
-Putting the reader first seems to be the secret to making continuous improvement.
-
-
-
--->
 
 
 ```{r, include=F}
 source('_first_chunk.R')
 ```
 
-
-![Nothing new under the sun: Mediaeval line plot, circa 1010. Image: [wikimedia](https://commons.wikimedia.org/wiki/File:Clm_14436_ecliptic_diagram.png)](images/Clm_14436_ecliptic_diagram.png)
-
-----------------
+![](images/rosling.png){width="66%"}
 
 
-<!-- TODD
+# Inspiration
 
-better explanation of facets
-more problems at the end
+In the session we watched Hans Rosling's "200 countries and 200 years in 4 minutes", which we
+(hopefully) agreed is something to aspire to. Combined with his enthusiastic presentation, the
+visualisations in this clip support a clear narrative and help us understand a complex dataset.
 
-check your knowledge questions
-revision exercises...
+<iframe width="640" height="360" src="//www.youtube.com/embed/jbkSRLYSojo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 
--->
+</iframe>
 
-
-<!--
-
-## Learning outcomes
-
-At the end of the session you should be able to:
-
-1. Use graphical tools in R to visualise linear relationships and group
-   differences.
-
-2. Explore visualisation strategies for situations where linear relationships
-   and group differences occur together in the same dataset (e.g. grouping with
-   color).
-
-3. Transform data, creating new columns using logical operators and string
-   comparison.
- -->
-
-
-:::{.exercise}
-
-Before your start, use the files pane to make a new folder on the RStudio server to save your work. Call this `datafluency_2021`. 
-
-Inside this new folder,  make a new RMarkdown file (use the 'file' menu and choose 'new'). When you save the file make sure it has the extension `.rmd`, so call it `datavis.rmd` for example.
-
-Use this new `.rmd` file to save your work during this session.
-
-
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ek9rFSAq3QU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-:::
-
-
-In the session we watched Hans Rosling's "200 countries and 200 years
-in 4 minutes", which we (hopefully) agreed is something to aspire to.
-Combined with his enthusiastic presentation, the visualisations in this clip support a clear narrative
-and help us understand this complex dataset.
-
-
-<iframe width="640" height="360"
-src="https://www.youtube.com/embed/jbkSRLYSojo"
-frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-The plot he builds plot is interesting because it uses many different visual attributes (aesthetics) to express features in the data:
+The plot he builds is interesting because it uses many different visual attributes (aesthetics)
+to express features in the data, including:
 
 -   X and Y axes
--   Size of the points
 -   Colour
+-   Size of the points
 -   Time (in the animation)
 
 These features are carefully selected to highlight important features of the data and support the
-narrative he provides. Although we need to have integrity in our plotting (we saw bad examples in the session), this narrative aspect of a plot is important: we always need to consider our audience.
+narrative he provides. Although we need to have integrity in our plotting (we discuss bad examples
+in the session), this narrative aspect of a plot is important: we always need to consider our
+audience.
 
 
-## Multi-dimensional plotting
 
-This sounds fancy, but as we saw it just means linking different visual or perceptual features of a plot to different variables in the data.
+# Before you start
 
-<!-- We can determine how complex a plot is by how many **dimensions** it has. -->
+::: exercise
 
-<!-- For example, this plot has one dimension representing how revolting particular fruits and vegatables -->
-<!-- are: -->
+Use the 'files pane' in RStudio to make a new folder on the RStudio server to save your work.
+Call this `datafluency2022`.
 
+Inside this new folder, make a new RMarkdown file (use the 'file' menu and choose 'new'). When you
+save the file make sure it has the extension `.rmd`, so call it `datavis.rmd` for example.
 
-<!-- ``` -->
-<!-- Mango    Pear                 Aubergine                         Snozzcumber -->
-<!-- |        |                    |                                 | -->
-<!-- ————————————————————————————————————————————————————————————————— -->
-<!-- ``` -->
+Use this new `.rmd` file to save your work during this session.
 
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ek9rFSAq3QU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 
-<!-- Scatter plots are _more_ complex because they have two dimensions --- that is, they show two -->
-<!-- variables at once. The variables are represented by the position of each point on the X and Y axes: -->
-
-<!-- ```{r, echo=F, fig.cap="Life expectancy and GDP per capita in countries around the world in 2002"} -->
-<!-- development %>% -->
-<!--   filter(year==2002)  %>% -->
-<!--   ggplot(aes(gdp_per_capita, life_expectancy)) + geom_point() -->
-
-<!-- ``` -->
+</iframe>
+:::
 
 
-And Rosling's plot is appealing/informative because it adds multiple dimensions of colour and size, and uses a
-special [**logarithmic** scale](https://blog.datawrapper.de/weeklychart-logscale/) for the x-axis.
+
+
+# Recreate the Rosling plot
+
+*"Multi-dimensional plotting"* sounds fancy, but it just means linking different visual features of
+a plot to columns in the dataset.
+
+In the example, Rosling's plot is appealing and informative because it adds multiple dimensions, and uses a special [logarithmic
+scale](https://blog.datawrapper.de/weeklychart-logscale/) for the x-axis.
 
 ```{r, echo=F}
 rosling1 <- development %>%
@@ -144,30 +82,71 @@ rosling1 <- development %>%
 rosling1
 ```
 
+:::{.exercise}
+
+```{r, echo=F, include=F}
+ndims <- c(1, 2, 3, answer=4, 5, 6)
+extradims <- c(
+  "Country",
+  "Population",
+  "Transparency",
+  "Wellbeing",
+  answer="Time"
+)
+development
+```
+
+
+- The Rosling plot shown above has `r mcq(ndims)` dimensions
+
+- The additional dimension in the plot shown in the BBC video is: `r mcq(extradims)`
+
+
+`r hide("Show answers")`
+
+- x axis (GDP)
+- y axis (life exp.)
+- color (continent)
+- size (population)
+
+
+***Time*** is the extra dimension, because it shows these other values changing across years.
+
+`r unhide()`
+
+
+:::
 
 
 
 
-### Defining dimensions/aesthetics in `ggplot` {#dimsinggplot}
 
-As a reminder: `ggplot` uses the term **aesthetics** to refer to different dimensions of
-a plot. '_Aesthetics_' refers to 'what things look like', and the `aes()` command in `ggplot`
-creates links between variables (columns in the dataset) to visual features of the plot. 
-This is called a **mapping**.
 
-There are x visual features (aesthetics) of plots we will use in this session:
+## Defining dimensions/aesthetics {#dimsinggplot}
+
+As a reminder: `ggplot` uses the term **aesthetics** to refer to different dimensions of a plot.
+
+
+'*Aesthetics*' refers to 'what things look like', and the `aes()` command in `ggplot` maps variables (columns in the dataset) to visual features of the plot. 
+
+There are 4 visual features (aesthetics) of plots we will use in this session:
 
 -   `x` and `y` axes
 -   `colour`
 -   `size` (of a point, or thickness of a line)
+
+We could also use:
+
 -   `shape` (of points)
--   `linetype` (i.e. dotted/patterned or solid)
+-   `linetype` (of added lines, i.e. dotted/patterned or solid)
 
 
-## Recreate the Rosling plot
 
-:::{.exercise}
+<br><br>
+Additionally, we will control the scale of the axes in the plot to improve the presentation of the data.
 
+
+::: exercise
 Rosling's plot looked something like this:
 
 ```{r, include=T, echo=F, message=F, error=F}
@@ -175,7 +154,6 @@ rosling1 +
   labs(size="Population (millions) ", color="", x="Log GDP Per Capita", y="Life expectancy (years)") +
   ggtitle("World life expectancy and incomes in 2002")
 ```
-
 
 To create a (slightly simplified) version of the plot above, the code would look something like
 this:
@@ -193,43 +171,45 @@ development %>%
 ```
 
 I have removed some parts of the code. Your job is to edit the parts which say `<BLANK>` and replace
-them with the names of variables from the `development` dataset (available in the `psydata` package).
+them with the names of variables from the `development` dataset (available in the `psydata`
+package).
 
 Some hints:
-
--   Check the title of the figure above to work out which rows of the data you need to plot (and so
-    define the filter)
--   All the `BLANK`s represent variable names in the dataset. You can see a list of the column names available by typing `glimpse(development)`
--   Use `mutate` to alter the `population` column to represent *millions*
-- If you are confused by the `filter(BLANK==BLANK)` check the title of the plot above. Remember that `filter` selects particular rows from the data, so we can use it to restrict what is shown. What data do we need to select for *this* plot? 
-- The part which reads `scale_log_10()` is [explained in more detail in this extension exercise](extensions-visualisation.html#logscales)
-- The part which reads `labs(...)` is [explained below](#labellingaxes).
-
-
+  
+-   All the `BLANK`s represent variable names in the dataset. You can see a list of the column names
+    available by typing `glimpse(development)`
+<!-- -   Use `mutate` to alter the `population` column to represent *millions* -->
+-   If you are confused by the `filter(BLANK==BLANK)` check the *title* of the plot above. Remember
+    that `filter` [selects particular rows from the data](https://plymouthpsychology.github.io/cheatR/lifesavr_cheatsheet.html#filtering-datasets), so we can use it to restrict what is shown in the plot.
+    What data do we need to select for *this* plot?
+-   The part which reads `scale_log_10()` is explained in more detail below
+-   The part which reads `labs(...)` is [explained below](#labellingaxes).
 :::
+
+
+
 
 
 
 # Using multiple layers
 
-When visualising data, there's always more than one way to do things. As well as plotting different
-dimensions, different _types_ of plot can highlight different features of the data. In ggplot,
-different types of plots are called **geometries**. Multiple layers can be combined in the same
-plot by adding together commands which have the prefix `geom_`.
+When visualizing data, there's always more than one way to do things. As well as plotting different
+dimensions, different *types* of plot can highlight different features of the data. In ggplot,
+different types of plots are called **geometries**. Multiple layers can be combined in the same plot
+by adding together commands which have the prefix "`geom_`".
 
-As we have already seen, we can use `geom_point(...)` to create a scatter plot:
+As we have already seen, `geom_point()` is used to create a scatter plot:
 
-```{r echo=F, fig.cap="Life expectancy and GDP in Asia"}
-development %>% filter(continent=="Asia") %>%  ggplot(aes(life_expectancy, gdp_per_capita)) + geom_point()
+```{r echo=F}
+fuel %>% 
+  ggplot(aes(weight, mpg)) + geom_point()
 ```
 
-To add additional layers to this plot, we can add extra `geom_<NAME>` functions. For example,
-`geom_smooth` overlays a smooth line to any x/y plot:
+To add additional layers to this plot, we can add extra `geom_<NAME>` functions. For example, `geom_smooth` is used to overlay a smooth line to any x/y plot:
 
 ```{r}
-development %>%
-  filter(continent=="Asia") %>%
-  ggplot(aes(life_expectancy, gdp_per_capita)) +
+fuel %>% 
+  ggplot(aes(weight, mpg)) + 
   geom_point() +
   geom_smooth()
 ```
@@ -237,79 +217,50 @@ development %>%
 **Explanation of the command**: We added `+ geom_smooth()` to our previous plot. This means we now
 have two geometries added to the same plot: `geom_point` and `geom_smooth`.
 
-**Explanation of the output**: If you run the command above you will see some warning messages which
-say `geom_smooth() using method = 'gam' and formula 'y ~ s(x, bs = "cs")'`. You can ignore this for
-the moment. The plot shown is the same as the scatterplot before, but now has a smooth blue line
-overlaid. This represents the local-average of GDP, for each level of `lifeExp`. There is also a
-grey-shaded area, which represents the standard error of the local average (again there will be
-[more on this later](#plotting-intervals)).
+**Explanation of the output**: The plot shown is the same as the previous scatterplot, but now has a smooth blue line overlaid. This represents the local-average of `mpg`, for each level of `weight`. There is also a grey-shaded area, which represents the standard error of the local average (again there will be more on this later in the course.
 
 
-
-:::{.exercise}
-
-
-### Make a smoothed-line plot
-
-1. Use the `earnings` dataset from `psydata`. Create a scatter plot of any two
-   continuous variables.
-
-2. Add a smoothed line to the plot using `geom_smooth()`
-
-3. Add the colour or size aesthetics to the plot above (i.e., using a third column of data)
-
-:::
+----------
 
 
-<!-- ### Summary of this section -->
+We could add other layers to the plot with other `geom_` functions.
 
-<!-- -   `ggplot` doesn't restrict you to a single view of the data -->
-<!-- -   Plots can have multiple layers, presenting the same data different ways -->
-<!-- -   Each layer is called a 'geometry', and the functions to add layers all start with `geom_` -->
-<!-- -   Smoothed-line plots show the *local average* -->
-
-
-
-
-# Making a straight-line plot
-
-
-`geom_smooth()` can use a variety of different methods to calculate where to draw the line through the points.
-
-One useful feature is that we can use a *linear model* to draw a straight line through the points. These straight lines are the same as those calculated by a ***regression model***, which we cover in more detail later in the course.
-
-Adding a straight line is a helpful way to check if the *assumption of linearity* made by correlations (and regression) is valid.
-
-For example, if we add a line to a plot of `power` and `mpg` in the `fuel` dataset, we can see that a straight line *doesn't* fit the data all that well:
-
+For example, we could calculate the average `mpg` and weight of all cars in the dataset and overlay that as a horizontal or vertical line:
 
 ```{r}
 fuel %>% 
-  ggplot(aes(power, mpg)) + 
-  geom_point() + 
-  geom_smooth(method=lm, se=F)
+  ggplot(aes(weight, mpg)) + 
+  geom_point() +
+  geom_smooth() + 
+  geom_hline(yintercept = median(fuel$mpg), color="red") 
+
 ```
 
+***Explanation of the code*** We added `geom_hline` and `geom_vline` functions to 
+our existing plot. We set the `yintercept` option to the median of `mpg`, and this defines the height of the line. We added `color="red"` to make these added lines distinctive.
 
-**Explanation of the code**: We used `geom_smooth()` as before, but added `method=lm` to force R to draw a straight line. We also added `se=F` to remove the shaded area representing the *standard error* of the line.
+***Explanation of the output*** The plot is the same as before, but now has a red line marked at the mean of the `mpg` column. The red line is on top of the other plot elements because we added this line at the end of our plotting code.
 
-**Explanation of the output**: The plot features a straight line, rather than a  smooth curve. We can see more clearly that the relationship between `power` and `mpg` is NOT linear (so using a correlation would not be appropriate).
+::: exercise
 
+***Make your own layered plot***
 
+1.  Use the `mentalh` data-set from `psydata`. Create a scatter plot of screen time and anxiety scores, adapting the code above. 
 
-:::{.exercise}
+2.  Add a smoothed line to the plot using `geom_smooth()`
 
-1. Draw a plot using the `funimagery` data showing the relationship between `kg1` and `kg2`. Add a straight line to this plot.
+3.  Colour the plot, using the `education` variable.
 
-2. Do these variables exhibit a linear relationship? `r webex::mcq(c(answer="Yes", "No"))`
+4. Add a horizontal line to the plot, with the `yintercept` set to the average anxiety score.
 
-`r hide("Show the plot")`
+`r hide("Show the plot and code")`
 
-We can see that a straight line describes the relationship quite well. All points are clustered on the line.
-
-```{r, echo=F}
-funimagery %>% 
-  ggplot(aes(kg2, kg1)) + geom_smooth(method=lm, se=F) + geom_point()
+```{r, echo=T}
+mentalh %>% 
+  ggplot(aes(screen_time, anxiety_score, color=education)) + 
+  geom_point() + 
+  geom_smooth(se=F) + 
+  geom_hline(yintercept = mean(mentalh$anxiety_score))
 ```
 
 `r unhide()`
@@ -319,392 +270,334 @@ funimagery %>%
 
 
 
-# Facets
 
-As we add layers our plots become more complex. We run into trade-offs between information density and
-clarity.
+# Scales
 
-To give one example, this plot shows life expectancies for each country in the gapminder data,
-plotted by year:
 
+## Incomes are "not normal"
+
+If we re-plot the development data using the default settings in ggplot you might notice that the result looks quite different to the one shown in the video or the exercise above.
+
+In particular, the *placement* of the points looks quite different:
+
+```{r, echo=F, fig.width=4, fig.height=2}
+a <- development %>%
+  ggplot(aes(gdp_per_capita, life_expectancy, color=continent)) +
+  geom_point(alpha=.5) + 
+  guides(color="none") +
+  ggtitle("Default settings")
+
+
+b <- development %>%
+  ggplot(aes(gdp_per_capita, life_expectancy, color=continent)) +
+  geom_point(alpha=.5) + 
+  scale_x_log10() +  
+  guides(color="none") +
+  ggtitle("Rosling's plot")
+
+cowplot::plot_grid(a,b)
+
+```
+
+Specifically, we can see that in the left hand panel the points are mostly compressed to the left hand of the frame. In contrast, in the original plot, the points are fairly evenly spread across the x-axis.
+
+These plots are showing the same data. The only difference is that *the original plot
+uses a **log scale***.
+
+
+<br>
+
+
+We can recognise the log scale by looking at the markings on the x axis: 
+
+- In the left hand panel the markings go up by 30,000 each time. 
+- In the original plot, each marker represents a value *10 times larger* than the previous. So, 1000, 10,0000 and 100,000 (the values shown are in [scientific notation](https://www.calculatorsoup.com/calculators/math/scientific-notation-converter.php), so `1e+03` means 1000).
+
+
+---------
+
+
+Another way to see why this helps is to plot the distribution of incomes:
+
+```{r, fig.width=3, fig.height=1.5}
+development %>% 
+  ggplot(aes(gdp_per_capita)) + 
+  geom_histogram()
+```
+
+
+***Explanation of the code*** We used the `geom_histogram` function to make histogram of the GDP per capita variable.
+
+***Explanation of the output*** The histogram shows that most GDP values are below $20,000, but a small number 
+are much, much larger (i.e. > $100,000). This is quite typical of incomes data.
+
+
+We can then add `scale_x_log10()` to the same plot:
+
+```{r}
+development %>% 
+  ggplot(aes(gdp_per_capita)) + 
+  geom_histogram() + 
+  scale_x_log10()
+```
+
+***Explanation of the code*** We make another, histogram this time adding `scale_x_log10()`.
+
+***Explanation of the output*** The plot changes, and the distribution is less skewed. We can see that the scale markers are again in scientific notation, and the gaps between points of the scale are not equal: each point on the scale is 10 times larger than the previous one (1000, 10,000, 100,0000), stretching out the values across the x axis and reducing the skew.
+
+
+
+## Reaction times
+
+In the example above we saw that incomes were not normally distributed and benefited from a
+log scale. Another common example of 'non-normal' data are those from reaction time studies.
+
+For example:
+
+```{r rt1}
+rtdata <- read_csv('https://raw.githubusercontent.com/lindeloev/shiny-rt/master/mrt_data.csv')
+
+rtdata %>% 
+  ggplot(aes(rt)) + 
+  geom_histogram()
+```
+
+***Explanation of the code*** The line with `read_csv` takes a web address (URL) and reads a 'comma separated values' data file from it. The next part makes a histogram using the reaction time (RT) data it contains.
+
+***Explanation of the output*** The RT data are strongly skewed. Consequently the median, `r median(rtdata$rt) %>% round(2)`, is lower than the mean value, `r mean(rtdata$rt) %>% round(2)`.
+
+
+
+:::{.exercise}
+
+1. Copy and paste the line of code which reads the CSV data and run it.
+2. Recreate the histogram above (use `geom_histogram`) or a density plot (use `geom_density`)
+3. Add the correct scale function to recreate this plot:
+
+```{r rtlognormplot, echo=F}
+rtdata %>% 
+  ggplot(aes(rt)) + 
+  geom_histogram() + 
+  scale_x_log10()
+```
+
+
+
+`r hide("Show code")`
+
+```{r rtlognormplotshowcode, eval=F}
+rtdata <- read_csv('https://raw.githubusercontent.com/lindeloev/shiny-rt/master/mrt_data.csv')
+
+rtdata %>% 
+  ggplot(aes(rt)) + 
+  geom_histogram() + 
+  scale_x_log10()
+```
+
+Or
+
+```{r rtlognormplotshowcode2, eval=F}
+rtdata <- read_csv('https://raw.githubusercontent.com/lindeloev/shiny-rt/master/mrt_data.csv')
+
+rtdata %>% 
+  ggplot(aes(rt)) + 
+  geom_density() + 
+  scale_x_log10()
+```
+
+
+
+`r unhide()``
+
+:::
+
+
+
+# Animation!
+
+*This is an advanced exercise and is not required for the course assessment. Skip to the final section
+if you are short on time.*
+
+--------
+
+
+The `gganimate` package allows us to create animations using ggplot. The package has good documentation here: https://gganimate.com.
+
+As an example we can load the package:
+
+```{r}
+library(gganimate)
+```
+
+And then adapt our previous ggplot by adding `transition_time(year)`. This adds `year` as a time-based
+dimension, animating the plot.
+
+We need to save the resulting plot in a variable, and then send that to the `animate` function. 
+Here we use a variable  called `progress_plot`.
+
+```{r}
+progress_plot <- development %>%
+  ggplot(aes(gdp_per_capita, life_expectancy, color=continent)) +
+  geom_point() +
+  scale_x_log10() +  
+  transition_time(year)
+
+progress_plot %>% animate()
+```
+
+
+
+:::{.exercise}
+
+
+Try this for yourself. Change the code, using the example above, to animate the following plot
+across all the years in the dataset:
 
 ```{r}
 development %>%
-  ggplot(aes(year, life_expectancy, group=country)) +
-  geom_smooth(se=FALSE)
+  filter(year == 1952) %>% 
+  ggplot(aes(continent, life_expectancy)) +
+  geom_boxplot() +
+  labs(title="Year: 1952")
 ```
 
-**Explanation**: This is another x/y plot. However this time we have not added points, but rather
-smoothed lines (one for each country).
+`r hide("Show what the result should look like")`
 
-**Explanation of the code**:We have created an x/y plot as before, but this time we only added
-`geom_smooth` (and not `geom_point`), so we can't see the individual datapoints. We have also added
-the text `group=country` which means we see one line per-country in the dataset. Finally, we also
-added `se=FALSE` which hides the shaded area that `geom_smooth` adds by default representing the standard error of the line.
+```{r, echo=F}
+p <- development %>%
+  ggplot(aes(continent, life_expectancy)) +
+  geom_boxplot() + 
+  labs(title = "Year: {frame_time}") + 
+  transition_time(year)
 
-**Comment on the result**: It's pretty hard to read!
-
-
-----------------
-
-
-To increase the information density, and explore patterns within the data, we might add another
-dimension and aesthetic. The next plot colours the lines by continent:
-
-```{r}
-development %>%
-  ggplot(aes(year, life_expectancy, colour=continent, group=country)) +
-  geom_smooth(se=FALSE)
+p %>% animate()
 ```
 
-However, even with colours added it's still a bit of a mess. We can't see the differences between
-continents easily. To clean things up we can use a technique called **facetting**:
+`r unhide()`
 
-```{r fig.height=3}
+
+`r hide("Show the code")`
+
+```{r, eval=F, echo=T}
+library(tidyverse)
+library(psydata)
+library(gganimate)
+
+p <- development %>%
+  ggplot(aes(continent, life_expectancy)) +
+  geom_boxplot() + 
+  labs(title = "Year: {frame_time}") + 
+  transition_time(year)
+
+p %>% animate()
+```
+
+`r unhide()`
+
+:::
+
+
+
+# Graphics are for answering questions
+
+*Note: you do not need to have completed the extension exercise using animation to engage with this activity.*
+
+Consider the following plots, which include the animation we made above:
+
+
+### Animated boxplot
+
+```{r, echo=F}
+p <- development %>%
+  ggplot(aes(continent, life_expectancy)) +
+  geom_boxplot() + 
+  labs(title = "Year: {frame_time}",  x="Continent", y="Life expectancy (years)") + 
+  transition_time(year)
+
+p %>% animate()
+```
+
+
+### Boxplot
+
+```{r, echo=F}
 development %>%
-  ggplot(aes(year, life_expectancy, group=country)) +
-  geom_smooth(se=FALSE) +
+  filter(year == 1952 | year == 2002) %>% 
+  ggplot(aes(factor(year), life_expectancy)) +
+  geom_boxplot() + 
+  labs(title = "Life expectancy 1952 vs. 2022", x="Year", y="Life expectancy (years)") +
   facet_grid(~continent)
 ```
 
 
-**Explanation**: We added the text `+ facet_grid(.~continent)` to our earlier plot, but removed the
-part that said `color=continent`. This made `ggplot` create individual _panels_ for each continent.
-Splitting the graph this way makes it somewhat easier to compare the differences _between_
-continents.
+### Line graph
+
+This plot shows the median life expectancy in 1952 and 2002.
+
+```{r, echo=F, fig.height=3, fig.width=3}
+median_iqr <- function(x){ 
+  tibble(x=x) %>% summarise(ymin=quantile(x, probs=.25), y=median(x), ymax=quantile(x, probs=.75))}
+
+development %>%
+  filter(year == 1952 | year == 2002) %>% 
+  ggplot(aes(year+as.numeric(as.factor(continent))/5, life_expectancy, color=continent)) +
+  stat_summary(fun.data = median_iqr, geom="point") + 
+  theme_minimal() +
+  stat_summary(geom="line", fun.data=median_iqr) + 
+  labs(title = "Life expectancy 1952 vs. 2022", x="Year", y="Life expectancy (years)",
+       color="Continent") 
+```
 
 
-:::{.exercise}
 
+### Ribbon plot
 
-
-### Use facetting
-
-Use the `iris` dataset which is built into R.
-
+This plot shows the median (line) and IQR (shaded area) in all available years:
 
 ```{r, echo=F}
-iris %>%
-  ggplot(aes(Sepal.Length, Petal.Length)) +
-  geom_point()  +
-  geom_smooth() +
-  facet_grid(~Species)
+development %>%
+  ggplot(aes(year, life_expectancy, fill=continent, color=continent)) +
+  stat_summary(geom="ribbon", fun.data = median_iqr, alpha=.2, linetype=0) + 
+  stat_summary(geom="line", fun.data=median_iqr) + 
+  theme_minimal() +
+  labs(title = "Life expectancy between 1952 and 2022 (median and IQR)", x="Year", 
+       y="Life expectancy (years)", 
+       fill="Continent", color="Continent") 
 ```
-
-
-1. Try to recreate the plot just above, by adapting the code explained previously.
-
-1. Create a new plot which uses colours to distinguish species and does not use Facets
-
-1. In this example, which plot do you prefer? What influences when facets are more useful the just
-   using colour?
-
-
-`r hide("Show answer")`
-
-There's no right answer here, but for this example I prefer the coloured plot to the faceted one.
-The reason is that there are only 3 species in this dataset, and the points for each don't overlap
-much. This means it is easy to distinguish them, even in the combined plot. But, if there were
-_many_ different species it might be helpful to use facets instead.
-
-Our decisions should be driven by what we are trying to communicate with the plot. What was the
-research question that motivated us to draw it?
-
-`r unhide()`
-
-1. Try replacing `facet_grid(~continent)` with `facet_grid(continent~.)`. What happens?
-
-1. With the `development` example from above, try replacing `facet_grid` with
-   `facet_wrap(~continent)`. What happens?
-
-1. To see more facetting examples, see
-   [the `ggplot` cookbook documentation](<http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/>).
-
-
-:::
-
-
-
-
-# Spit and polish
-
-`ggplot` is great at setting sensible defaults for most things (axes, colours etc). When exploring your data these defaults typically suffice. But for publication you will need to polish your plots, perhaps including:
-
--   Label your plot axes
--   Add lines or text
--   Change plot colours etc
--   Saving to a pdf or other output format
-
-## Labelling axes {#labellingaxes}
-
-By default, `ggplot` uses variable names and the values in your data to label plots. Sometimes these
-are abbreviations, or otherwise need changing.
-
-To relabel axes we simply add the `labs(...)` function to an existing plot:
-
-```{r}
-mtcars %>% ggplot(aes(wt, mpg, colour=factor(cyl))) +
-  geom_point() +
-  labs(x="Weight (1000s of lbs)", 
-       y="Fuel economy (miles per gallon)", 
-       color="Cylinders")
-```
-
-:::{.exercise}
-
-Try adding axis labels to one of your existing plots.
-
-:::
-
-
-
-## Adding lines
-
-Sometimes it can be helpful to add lines to a plot: for example to show a clinically meaningful
-cutoff, or the mean of a sample.
-
-
-For example, let's say we want to make a box plot of weight lost in the `funimagery` dataset, but add a line at zero to provide a reference point for readers. We can achieve this like so:
-
-
-```{r}
-funimagery %>% 
-  ggplot(aes(intervention, weight_lost_end_trt)) + 
-  geom_hline(yintercept = 0, linetype="dotted") + 
-  geom_boxplot() 
-  
-```
-
-
-**Explanation of the code** This time we have added `geom_hline` which draws a
-**h**orizontal line. The `yintercept` is the place on the y axis where our line should cross (i.e. zero). If we had wanted a vertical line (e.g. on a density plot or histogram) we would have used `geom_vline(xintercept=?)` instead of `geom_hline`.
-
-
-**Explanation of the output**: We now have a boxplot with a horizontal line at zero. This makes it easy for readers to compare positions in the plot with this meaningful value which represents "no change".
-
-
-
-## Saving plots to a file
-
-So far we have created plots in the RStudio web interface. This is fine when working interactively,
-but sometimes you need to save the plot to a file (e.g. to send to a journal).
-
-The `ggsave` function lets us do this.
-
-The first step is to make a plot, and save it (give it a name, like `myfunkyplot`).
-
-```{r, echo=F, include=F}
-set.seed(1234)
-```
-
-```{r}
-myfunkyplot <- fuel  %>% 
-  ggplot(aes(weight, mpg, color=factor(cyl))) + 
-  geom_point()
-```
-
-**Explanation**: We used the assignment operator `<-` to save our plot to a new name
-(`myfunkyplot`). This means that when we run the code RStudio won't generate any output immediately,
-so we don't see the plot yet.
-
----
-
-Next, we use `ggsave` to save the plot to a particular file:
-
-```{r}
-ggsave('myfunkyplot.pdf', myfunkyplot, width=8, height=4)
-```
-
-You can see the output of the `ggsave` command by downloading the file from the files directory of your RStudio window. It will end up in the same place as your R script.
-
 
 
 
 :::{.exercise}
 
-Try the following with plots you have already made:
+1. Create a table of the strengths and weaknesses of each plot, like so:
 
-1. Add axis labels
-2. Add a horizontal line to a scatter plot at a fixed value (e.g. at zero, or some other score).
-3. If your plot uses colour, change the label of the color legend
-4. Save a copy of this plot to a `png` file, and also to a `pdf` and download these files to your local computer.
-
-:::
-
-
-
-
-
-
-# 'Real world' tasks
-
-
-
-:::{.exercise}
-
-1. Use the `fuel` data. Make two plots which show the relationship between engine size and power. In the first, use colour to distinguish cars with different numbers of gears. In the second use facets to make the same distinction. 
-
-1. Which do you think is more helpful and why?
-
-
-:::
-
-
-
-:::{.exercise}
-
-
-1. Is there a relationship between age and weight-lost in the `funimagery` data? Make a plot to explore this.
-
-2. Is the pattern consistent between genders and intervention groups? Which additional plots are most helpful to check this?
-
-
-```{r, include=F, echo=F}
-psydata::fuel %>% 
-  ggplot(aes(engine_size, power, color=factor(gear))) + 
-  geom_point()
-```
-
-
-:::
-
-
-
-
-:::{.exercise}
-
-@bae2018ptsd reported findings on somatisation and PTSD in children who had been abused. From the abstract:
-
-
->Purpose. Somatization is a major post-traumatic symptom in sexually abused children. Thus, the present study aimed to determine the relationship between post-traumatic stress disorder (PTSD) symptoms and somatization, and between intelligence and somatization in child sexual abuse victims and to elucidate whether type of abuse had an effect on the relationship between PTSD symptoms and somatization.
-
->Methods. This study evaluated the somatizations (Child Behavioral Checklist/6–18 [CBCL]), PTSD symptoms (Trauma Symptom Checklist for Children [TSCC]), and intelligence levels of 63 sexually abused children. Correlation and regression analyses were performed to predict somatization based on PTSD symptoms, intelligence, age, and type of sexual abuse, and to find moderating effect of type of abuse on the effect of PTSD symptom on somatization.
-
->Results. PTSD symptoms (β = 0.471, p = 0.001) and intelligence (β = 0.327, p = 0.021) were associated with somatization. Type of abuse was not, by itself, correlated with somatization (β = 0.158, p = 0.281), but it did have a moderating effect on the effect of PTSD symptoms on somatization (Type of abuse*PTSD symptoms, β = -0.299, p = 0.047). PTSD symptoms were associated with somatization only among those who experienced the molestation type of abuse.
-
->Conclusions. Somatization in sexually abused children was influenced by the severity of PTSD symptoms and intelligence, and the effect of the PTSD symptoms on somatization was moderated by type of abuse. Specifically, the rape type of abuse may attenuate the effect of post-traumatic symptoms on somatization.
-
-
-1. Using the `bae2018` dataset (in `psydata`) reproduce the figure below, but using color instead of different point shapes and line-types to represent the types of abuse. Don't worry about the added text for now.  You will find that the slopes on your plot don't extend all the way across the figure — this doesn't matter either.
-
-2. Use the tips in the *spit and polish* section to label your plot and save a copy as a pdf.
-
-
-
-![](images/bae-fig-1.png)
-
-
-
-```{r, echo=F, include=F}
-bae2018 %>% 
-  ggplot(aes(tscc_pts, cbcl_som, color=type_of_abuse)) + 
-  geom_point(position = position_jitter()) + geom_smooth(method="lm", se=F)
+```{r, echo=F}
+tibble(Plot=c("Animated boxplot", "Boxplot", "Line graph", "..."), Strengths="...", Weaknesses="...") %>% 
+  pander::pander()
 ```
 
 
 
+2. Think of some ***questions*** that can be answered from these data? For example:
+
+  - *Which continent changed most between 1952 and 2002?*
+  - *Which continent has the most/least variability in life expectancy?*
+  - *Which continents became more/less homogeneous over this period?*
+
+  And so on... Make a list of at least 5 or 6 questions which someone might want to know the answer to.
+
+
+3. Which plots are most effective in answering each of your questions?
+
+
+4. Imagine you were a journalist writing a story with the title *"Asia sees fastest rise in life expectancy since WW2"*.  Can you think of any reasons to prefer the line graph over the boxplot?
+
+
 :::
 
 
 
 
-# Extension exercises
-
-[Extension exercises to supplement this worksheet are available here](visualisation-extensions.html)
 
 
-
-
-<!-- 
-
-# For the PPT Slides 
-
--->
-
-
-```{r, echo=F, include=F, eval=F}
-# for slides
-development %>% sample_n(10)
-
-development %>% 
-  ggplot(aes(year, life_expectancy)) + 
-  geom_point()
-
-
-development %>% 
-  ggplot(aes(year, life_expectancy)) + 
-  geom_point(alpha=.2)
-
-
-development %>% 
-  ggplot(aes(year, life_expectancy)) + 
-  geom_point(position=position_jitter()) 
-
-
-development %>% 
-  ggplot(aes(year, life_expectancy)) + 
-  geom_point(position=position_jitter()) + 
-  geom_smooth()
-
-
-# adding layers
-development %>% 
-  ggplot(aes(year, life_expectancy, color=continent)) + 
-  geom_point() + 
-  geom_smooth()
-
-
-development %>% 
-  ggplot(aes(year, life_expectancy, color=continent)) + 
-  geom_point(position=position_jitter()) + 
-  geom_smooth()
-
-development %>% 
-  ggplot(aes(year, life_expectancy)) + 
-  geom_point(position=position_jitter(), alpha=.5) + 
-  geom_smooth()
-
-development %>% 
-  ggplot(aes(year, life_expectancy, color=continent)) + 
-  geom_point(position=position_jitter(), alpha=.6, ) +  
-  geom_smooth(se=F) + theme_minimal() + scale_color_discrete("")
-
-
-
-
-# rosling worked example
-
-development %>%
-  ggplot(aes(gdp_per_capita, life_expectancy)) + geom_point() 
-
-
-development %>%
-  filter(year==2002) %>% 
-  ggplot(aes(gdp_per_capita, life_expectancy)) + geom_point() 
-
-
-
-development %>%
-  filter(year==2002) %>% 
-  ggplot(aes(gdp_per_capita, life_expectancy, size=population/1000000)) + geom_point() 
-
-development %>%
-  filter(year==2002) %>% 
-  ggplot(aes(gdp_per_capita/1000, life_expectancy, color=continent, size=population/1000000)) + geom_point() +
-  scale_x_log10() 
-
-
-development %>%
-  filter(year==2007|year==1952)  %>%
-  ggplot(aes(gdp_per_capita/1000, life_expectancy, size=population/1000000, color=continent)) + geom_point() +
-  scale_x_log10() + scale_size("Population (millions)") + scale_color_discrete("") +
-  facet_wrap(~year) + labs(x="GDP Per Capita (thousands)", y='Life expectancy')
-
-
-
-```
-
-
-
-
-# References
+<!-- # References -->
