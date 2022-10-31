@@ -1,5 +1,5 @@
 ---
-title: Data Visualisation
+title: Data Visualisation 1
 author: 'Ben Whalley'
 date: "October 2022"
 bibliography: [references.bib]
@@ -16,6 +16,9 @@ editor_options:
 
 ```{r, include=F}
 source('_first_chunk.R')
+knitr::opts_chunk$set(
+  cache = T
+)
 ```
 
 ![](images/rosling.png){width="66%"}
@@ -27,9 +30,7 @@ In the session we watched Hans Rosling's "200 countries and 200 years in 4 minut
 (hopefully) agreed is something to aspire to. Combined with his enthusiastic presentation, the
 visualisations in this clip support a clear narrative and help us understand a complex dataset.
 
-<iframe width="640" height="360" src="//www.youtube.com/embed/jbkSRLYSojo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-
-</iframe>
+`r embed_youtube("jbkSRLYSojo")`
 
 The plot he builds is interesting because it uses many different visual attributes (aesthetics)
 to express features in the data, including:
@@ -58,9 +59,9 @@ save the file make sure it has the extension `.rmd`, so call it `datavis.rmd` fo
 
 Use this new `.rmd` file to save your work during this session.
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ek9rFSAq3QU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+`r embed_youtube("Ek9rFSAq3QU")`
 
-</iframe>
+
 :::
 
 
@@ -78,7 +79,8 @@ scale](https://blog.datawrapper.de/weeklychart-logscale/) for the x-axis.
 rosling1 <- development %>%
   filter(year==2002)  %>%
   ggplot(aes(gdp_per_capita, life_expectancy, size=population/1000000, color=continent)) + geom_point() +
-  scale_x_log10() + scale_size("Population (millions)") + scale_color_discrete("")
+  scale_x_log10() + scale_size("Population (millions)") + scale_color_discrete("") + 
+  labs(x="GDP Per Capita", y="Life expectancy")
 rosling1
 ```
 
@@ -146,10 +148,13 @@ We could also use:
 Additionally, we will control the scale of the axes in the plot to improve the presentation of the data.
 
 
+
+
 ::: exercise
+
 Rosling's plot looked something like this:
 
-```{r, include=T, echo=F, message=F, error=F}
+```{r, include=T, echo=F, message=F, error=F, fig.width=5, fig.height=4}
 rosling1 +
   labs(size="Population (millions) ", color="", x="Log GDP Per Capita", y="Life expectancy (years)") +
   ggtitle("World life expectancy and incomes in 2002")
@@ -184,6 +189,13 @@ Some hints:
     What data do we need to select for *this* plot?
 -   The part which reads `scale_log_10()` is explained in more detail below
 -   The part which reads `labs(...)` is [explained below](#labellingaxes).
+
+
+Video hints:
+
+`r embed_youtube("U_RZzDEgM-Y")`
+
+
 :::
 
 
@@ -200,14 +212,14 @@ by adding together commands which have the prefix "`geom_`".
 
 As we have already seen, `geom_point()` is used to create a scatter plot:
 
-```{r echo=F}
+```{r echo=F, fig.width=3, fig.height=2.5}
 fuel %>% 
   ggplot(aes(weight, mpg)) + geom_point()
 ```
 
 To add additional layers to this plot, we can add extra `geom_<NAME>` functions. For example, `geom_smooth` is used to overlay a smooth line to any x/y plot:
 
-```{r}
+```{r, fig.width=3, fig.height=2.5}
 fuel %>% 
   ggplot(aes(weight, mpg)) + 
   geom_point() +
@@ -217,7 +229,7 @@ fuel %>%
 **Explanation of the command**: We added `+ geom_smooth()` to our previous plot. This means we now
 have two geometries added to the same plot: `geom_point` and `geom_smooth`.
 
-**Explanation of the output**: The plot shown is the same as the previous scatterplot, but now has a smooth blue line overlaid. This represents the local-average of `mpg`, for each level of `weight`. There is also a grey-shaded area, which represents the standard error of the local average (again there will be more on this later in the course.
+**Explanation of the output**: The plot shown is the same as the previous scatterplot, but now has a smooth blue line overlaid. This represents the local-average of `mpg`, for each level of `weight`. There is also a grey-shaded area, which represents the standard error of the local average (again there will be more on this later in the course).
 
 
 ----------
@@ -227,17 +239,17 @@ We could add other layers to the plot with other `geom_` functions.
 
 For example, we could calculate the average `mpg` and weight of all cars in the dataset and overlay that as a horizontal or vertical line:
 
-```{r}
+```{r, fig.width=3, fig.height=2.5}
+med_mpg <- fuel %>% summarise(median(mpg)) %>% pull(1)
+
 fuel %>% 
   ggplot(aes(weight, mpg)) + 
   geom_point() +
   geom_smooth() + 
-  geom_hline(yintercept = median(fuel$mpg), color="red") 
-
+  geom_hline(yintercept = med_mpg, color="red") 
 ```
 
-***Explanation of the code*** We added `geom_hline` and `geom_vline` functions to 
-our existing plot. We set the `yintercept` option to the median of `mpg`, and this defines the height of the line. We added `color="red"` to make these added lines distinctive.
+***Explanation of the code*** First we calculate the median of `mpg` using summarise. Then we use the `pull(1)` command for the first  time. This selects the first column of data (containing our median) and returns only that. That is, it returns only a number, or a list of numbers, rather than the whole dataframe. Then We added `geom_hline` and `geom_vline` functions to our existing plot. We set the `yintercept` option to the stored `med_mpg` value, and this defines the height of the line. We added `color="red"` to make these added lines distinctive.
 
 ***Explanation of the output*** The plot is the same as before, but now has a red line marked at the mean of the `mpg` column. The red line is on top of the other plot elements because we added this line at the end of our plotting code.
 
@@ -255,12 +267,15 @@ our existing plot. We set the `yintercept` option to the median of `mpg`, and th
 
 `r hide("Show the plot and code")`
 
-```{r, echo=T}
+```{r, echo=T, fig.width=3, fig.height=2.5}
+
+med_anx <- mentalh %>% summarise(median(anxiety_score)) %>% pull(1)
+
 mentalh %>% 
   ggplot(aes(screen_time, anxiety_score, color=education)) + 
   geom_point() + 
   geom_smooth(se=F) + 
-  geom_hline(yintercept = mean(mentalh$anxiety_score))
+  geom_hline(yintercept = med_anx)
 ```
 
 `r unhide()`
@@ -280,7 +295,7 @@ If we re-plot the development data using the default settings in ggplot you migh
 
 In particular, the *placement* of the points looks quite different:
 
-```{r, echo=F, fig.width=4, fig.height=2}
+```{r, echo=F, fig.width=5, fig.height=3}
 a <- development %>%
   ggplot(aes(gdp_per_capita, life_expectancy, color=continent)) +
   geom_point(alpha=.5) + 
@@ -314,12 +329,13 @@ We can recognise the log scale by looking at the markings on the x axis:
 - In the original plot, each marker represents a value *10 times larger* than the previous. So, 1000, 10,0000 and 100,000 (the values shown are in [scientific notation](https://www.calculatorsoup.com/calculators/math/scientific-notation-converter.php), so `1e+03` means 1000).
 
 
----------
+
+## Skewed distributions
 
 
 Another way to see why this helps is to plot the distribution of incomes:
 
-```{r, fig.width=3, fig.height=1.5}
+```{r, fig.width=4, fig.height=2}
 development %>% 
   ggplot(aes(gdp_per_capita)) + 
   geom_histogram()
@@ -334,7 +350,7 @@ are much, much larger (i.e. > $100,000). This is quite typical of incomes data.
 
 We can then add `scale_x_log10()` to the same plot:
 
-```{r}
+```{r, fig.width=4, fig.height=2}
 development %>% 
   ggplot(aes(gdp_per_capita)) + 
   geom_histogram() + 
@@ -354,7 +370,7 @@ log scale. Another common example of 'non-normal' data are those from reaction t
 
 For example:
 
-```{r rt1}
+```{r rt1, fig.width=4, fig.height=2}
 rtdata <- read_csv('https://raw.githubusercontent.com/lindeloev/shiny-rt/master/mrt_data.csv')
 
 rtdata %>% 
@@ -362,7 +378,7 @@ rtdata %>%
   geom_histogram()
 ```
 
-***Explanation of the code*** The line with `read_csv` takes a web address (URL) and reads a 'comma separated values' data file from it. The next part makes a histogram using the reaction time (RT) data it contains.
+***Explanation of the code*** The line with `read_csv` takes a web address (URL) and reads a 'comma separated values' data file from it. The next part makes a histogram using the reaction time (RT) data it contains. In case it is truncated in the output above, the full url is: [`https://raw.githubusercontent.com/lindeloev/shiny-rt/master/mrt_data.csv`](https://raw.githubusercontent.com/lindeloev/shiny-rt/master/mrt_data.csv)
 
 ***Explanation of the output*** The RT data are strongly skewed. Consequently the median, `r median(rtdata$rt) %>% round(2)`, is lower than the mean value, `r mean(rtdata$rt) %>% round(2)`.
 
@@ -374,7 +390,7 @@ rtdata %>%
 2. Recreate the histogram above (use `geom_histogram`) or a density plot (use `geom_density`)
 3. Add the correct scale function to recreate this plot:
 
-```{r rtlognormplot, echo=F}
+```{r, fig.width=4, fig.height=2, echo=F}
 rtdata %>% 
   ggplot(aes(rt)) + 
   geom_histogram() + 
@@ -415,7 +431,7 @@ rtdata %>%
 
 # Animation!
 
-*This is an advanced exercise and is not required for the course assessment. Skip to the final section
+*This is an optional exercise and is not required for the course assessment. Skip to the final section
 if you are short on time.*
 
 --------
@@ -450,16 +466,26 @@ progress_plot %>% animate()
 :::{.exercise}
 
 
-Try this for yourself. Change the code, using the example above, to animate the following plot
-across all the years in the dataset:
+Try to animate the following plot using data from all the years in the `development` dataset.
+To do this, amend the code below, referring to the example above:
 
-```{r}
+```{r, fig.width=4, fig.height=3}
 development %>%
   filter(year == 1952) %>% 
   ggplot(aes(continent, life_expectancy)) +
   geom_boxplot() +
   labs(title="Year: 1952")
 ```
+
+`r hide("Show a hint only - not the answer")`
+
+You need to:
+
+- Remove the filter
+- Use the `transition_time()` function 
+
+`r unhide()`
+
 
 `r hide("Show what the result should look like")`
 
@@ -507,7 +533,7 @@ Consider the following plots, which include the animation we made above:
 
 ### Animated boxplot
 
-```{r, echo=F}
+```{r, echo=F, fig.height=3, fig.width=4}
 p <- development %>%
   ggplot(aes(continent, life_expectancy)) +
   geom_boxplot() + 
@@ -520,7 +546,7 @@ p %>% animate()
 
 ### Boxplot
 
-```{r, echo=F}
+```{r, echo=F, fig.height=3, fig.width=4}
 development %>%
   filter(year == 1952 | year == 2002) %>% 
   ggplot(aes(factor(year), life_expectancy)) +
@@ -554,7 +580,7 @@ development %>%
 
 This plot shows the median (line) and IQR (shaded area) in all available years:
 
-```{r, echo=F}
+```{r, fig.height=3, fig.width=4}
 development %>%
   ggplot(aes(year, life_expectancy, fill=continent, color=continent)) +
   stat_summary(geom="ribbon", fun.data = median_iqr, alpha=.2, linetype=0) + 
