@@ -15,10 +15,6 @@ source('_first_chunk.R')
 ```
 
 
-
-
-
-
 ![Nothing new under the sun: Mediaeval line plot, circa 1010. Image: [wikimedia](https://commons.wikimedia.org/wiki/File:Clm_14436_ecliptic_diagram.png)](images/Clm_14436_ecliptic_diagram.png)
 
 ----------------
@@ -27,15 +23,154 @@ source('_first_chunk.R')
 
 
 
+# Facets
+
+As we add layers our plots become more complex. We run into trade-offs between information density
+and clarity.
+
+To give one example, this plot shows life expectancies for each country in the development data,
+plotted by year:
+  
 ```{r}
-
-bmi %>% 
-  filter(eq5d<1) %>% 
-  ggplot(aes(bmi, eq5d)) + geom_smooth(method=lm) + 
-  # geom_point(alpha=.05, position=position_jitter()) +
-   facet_grid(~cut(age,8))
-
+development %>%
+  ggplot(aes(year, life_expectancy, group=country)) +
+  geom_smooth(se=FALSE)
 ```
+
+**Explanation**: This is another x/y plot. However this time we have not added points, but rather
+smoothed lines (one for each country).
+
+**Explanation of the code**:We have created an x/y plot as before, but this time we only added
+`geom_smooth` (and not `geom_point`), so we can't see the individual datapoints. We have also added
+the text `group=country` which means we see one line per-country in the dataset. Finally, we also
+added `se=FALSE`. This hides the shaded area which `geom_smooth` adds by default.
+
+**Comment on the result**: It's pretty hard to read!
+  
+----------------------------------------------------------------------------------------------------
+  
+To increase the information density, and explore patterns within the data, we might add another
+dimension and aesthetic. The next plot colours the lines by continent:
+  
+```{r}
+development %>%
+  ggplot(aes(year, life_expectancy, colour=continent, group=country)) +
+  geom_smooth(se=FALSE)
+```
+
+However, even with colours added it's still a bit of a mess. We can't see the differences between
+continents easily. 
+
+To clean things up we can use a technique called **facetting**.
+  
+```{r fig.height=3}
+development %>%
+  ggplot(aes(year, life_expectancy, group=country)) +
+  geom_smooth(se=FALSE) +
+  facet_grid(~continent)
+```
+
+**Explanation**: We added the code `+ facet_grid(.~continent)` to our previous plot, and removed the color aesthetic. This made `ggplot` create individual *panels* for each continent.
+Splitting the graph this way makes it somewhat easier to compare the differences *between*
+continents.
+
+
+::: exercise
+
+### Try facetting yourself
+
+Use the `iris` dataset, which is built into R.
+
+```{r, echo=F}
+iris %>%
+  ggplot(aes(Sepal.Length, Petal.Length)) +
+  geom_point()  +
+  geom_smooth() +
+  facet_grid(~Species)
+```
+
+1.  Try to recreate this plot by adapting the code shown above
+
+2.  Create a second plot which uses colours to distinguish species and does not use Facets
+
+3.  In this example, which plot do you prefer? What influences when facets are more useful the just
+using colour?
+  
+
+
+
+`r hide("Show code")`
+
+1.
+
+```{r, echo=T, eval=F}
+iris %>%
+  ggplot(aes(Sepal.Length, Petal.Length)) +
+  geom_point()  +
+  geom_smooth() +
+  facet_grid(~Species)
+```
+
+
+
+2. 
+
+```{r, echo=T, eval=F}
+iris %>%
+  ggplot(aes(Sepal.Length, Petal.Length, color=Species)) +
+  geom_point()  +
+  geom_smooth() 
+```
+
+`r unhide()`
+
+
+
+`r hide("Show discussion/answer")`
+
+There's no single right answer here, but for this example I prefer the coloured plot to the faceted one.
+The reason is that there are only 3 species in this dataset, and the points for each don't overlap
+much. This means it is easy to distinguish them, even in the combined plot. 
+
+However, if there were *many* different species it might be helpful to use facets instead.
+
+Our decisions should be driven by what we are trying to communicate with the plot. What was the
+research question that motivated us to draw it?
+  
+`r unhide()`
+
+
+:::
+  
+  
+  
+:::{.exercise}
+
+### Adjusting the facets
+
+In the explanation above, we saw this plot:
+  
+```{r}
+development %>%
+  ggplot(aes(year, life_expectancy, group=country)) +
+  geom_smooth(se=FALSE) +
+  facet_grid(~continent)
+```
+
+
+
+Re-run the plot and make the following adaptations:
+  
+1.  Try replacing `facet_grid(~continent)` with `facet_grid(continent~.)`. What happens?
+  
+2.  Try replacing `facet_grid` with
+`facet_wrap(~continent)`. What happens?
+  
+3.  If you have time, to see more faceting examples, see [the `ggplot` cookbook documentation](http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/). 
+Try to re-create some of these examples.
+
+
+:::
 
 
 
@@ -54,6 +189,7 @@ expdata <- expand.grid(Condition=LETTERS[1:3], stimuli=1:4, p=1:20) %>%
   mutate(RT = -200+rnorm(n(), 25 + 5*as.numeric(Condition=="A") + -4*as.numeric(stimuli==1), 6)^2, stimuli=factor(stimuli, labels=paste0("S", 1:4)))
 write_csv(expdata, 'data/expdata.csv')
 expdata <- read_csv('data/expdata.csv')
+
 expdata %>%
   ggplot(aes(Condition, RT)) +
   stat_summary(geom='bar', fun.data=mean_se) +
@@ -69,7 +205,8 @@ A better choice is (almost always) to use a boxplot:
 
 ```{r}
 expdata  %>%
-  ggplot(aes(x=stimuli, y=RT)) + geom_boxplot()
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_boxplot()
 ```
 
 **Explanation**: We used `Condition`, a category, as our x axis, and reaction times as the y axis.
@@ -82,26 +219,73 @@ into the console) or use the [wikipedia page here](https://en.wikipedia.org/wiki
 
 :::
 
+
+
+### Loading data over the internet
+
+So far we have always used data from the `psydata` package. However, we can also
+load data from files or over the internet using the `read_csv()` function. This is an example:
+
+```{r}
+expdata <- read_csv('https://gist.githubusercontent.com/benwhalley/f94baf447612e2434b181739dbba27df/raw/43df26022fff68f49918c795f27d7352dc0d3425/expdata.csv')
+
+expdata %>% glimpse
+```
+
+***Explanation***: The part which starts `expdata <- read_csv('https://...` loads a CSV (data)
+file over the internet, and stores it in the variable called `expdata`. We then use `glimpse` to 
+check the data
+
+
 :::{.exercise}
 
-Load the (simulated) dataset called `expdata.csv`.
+Load the (simulated) dataset from this url: [https://gist.githubusercontent.com/benwhalley/f94baf447612e2434b181739dbba27df/raw/43df26022fff68f49918c795f27d7352dc0d3425/expdata.csv](https://gist.githubusercontent.com/benwhalley/f94baf447612e2434b181739dbba27df/raw/43df26022fff68f49918c795f27d7352dc0d3425/expdata.csv) (note that this URL is very long — make sure you copy the whole of it).
 
-Either download the file and upload to your Rstudio project directory, or read it directly from this url: <https://gist.githubusercontent.com/benwhalley/f94baf447612e2434b181739dbba27df/raw/43df26022fff68f49918c795f27d7352dc0d3425/expdata.csv>
 
 -   Recreate the boxplot above
 -   Use a facet to recreate the plot you saw above, combining both `Condition` and `Stimuli`
 
+
+`r hide('Show the desired plot')`
+
+```{r, echo=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_boxplot() +
+  facet_wrap(~Condition)
+```
+
+`r unhide()``
+
+
+
+
+`r hide('Show the code')`
+
+
+```{r, echo=T, eval=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_boxplot() +
+  facet_wrap(~Condition)
+```
+
+`r unhide()``
+
+
 :::
 
 
-## Other data summary layers
 
-If you _really_ need to plot the mean and standard error of different categories, ggplot has the
-`stat_summary` command:
+## Other data summaries
+
+If you _really_ need to plot the mean and standard error or standard deviations of 
+different categories, ggplot also has the `stat_summary` command:
 
 ```{r}
 expdata %>%
-  ggplot(aes(Condition, RT)) + stat_summary()
+  ggplot(aes(Condition, RT)) + 
+  stat_summary()
 ```
 
 **Explanation**: We used `Condition` and `RT` as our x and y axes, as before. This time we added
@@ -110,23 +294,168 @@ measure of variability) in each group, using a **point-range plot**. This is bet
 because it avoids a known bias in how we read them. You can ignore the warning about
 `No summary function supplied, defaulting to mean_se()` for now.
 
-:::{.exercise}
 
-As an extension exercise:
+:::{.exercise}
 
 -   Adapt your facetted boxplot from above to show the mean and standard error instead
 -   Can you combine both boxplot and summary in a single plot?
+
+
+
+`r hide('Show the desired plots')`
+
+
+```{r, echo=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  stat_summary() +
+  facet_wrap(~Condition)
+```
+
+Or, combined:
+
+```{r, echo=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_boxplot() +
+  stat_summary(color="blue") +
+  facet_wrap(~Condition)
+```
+
+
+
+`r unhide()`
+
+
+
+
+`r hide('Show the code')`
+
+
+```{r, echo=T, eval=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  stat_summary() +
+  facet_wrap(~Condition)
+```
+
+Or, combined:
+
+```{r, echo=T, eval=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_boxplot() +
+  stat_summary(color="blue") +
+  facet_wrap(~Condition)
+```
+
+
+
+`r unhide()`
+
+
+
+
 
 :::
 
 
 
 
+## Decisions about grouping
+
+Consider the following two plots. Both present the same data on the incomes of men and 
+women who are either blind or normally sighted:
+
+```{r, fig.height=2.5, fig.width=5, echo=F}
+earnings$blind <- recode(earnings$blind, !!!c("yes"="Blind", no="Normally sighted"))
+
+A <- earnings  %>%
+  ggplot(aes(x=gender, y=income/1000)) + 
+  facet_wrap(~blind) + 
+  stat_summary() + ggtitle("Figure A")+
+  labs(y = "Income (£ 1000)", x="Gender")
+
+B <- earnings  %>%
+  ggplot(aes(x=blind, y=income/1000)) + 
+  facet_wrap(~gender) + 
+  stat_summary() + ggtitle("Figure B") + 
+  labs(y = "Income (£ 1000)", x="Vision")
+
+gridExtra::grid.arrange(A, B, nrow=1)
+
+```
+
+
+
+:::{.exercise}
+
+
+1. Which plot do you prefer, and why?
+
+
+`r hide("Show discussion")`
+
+I don't have a strong overall preference between the plots, but I think plot A is probabably
+more useful. My reasoning is that in this plot we can see that:
+
+1. Men are paid more 
+2. Blind people are paid less
+3. The gender-pay gap appears to be larger for blind people
+
+I think that third point is slightly harder to read in plot B.
+
+The idea to take away is that grouping the data in the plot in different ways can make it easier or more difficult to identify different patterns.
+
+
+`r unhide()`
+
+
+:::
 
 
 
 
-# Real world plotting
+:::{.exercise}
+
+
+1. Re-organise the plot below to make it easier to see which level of education 
+has the highest gender pay gap.
+
+```{r}
+earnings  %>%
+  ggplot(aes(x=education, y=income/1000)) + 
+  facet_grid(~gender) + 
+  stat_summary() +
+  labs(y = "Income (£ 1000)", x="Gender")
+```
+
+
+`r hide('Show answer')`
+
+```{r}
+earnings  %>%
+  ggplot(aes(x=gender, y=income/1000)) + 
+  facet_grid(~education) + 
+  stat_summary() +
+  scale_y_log10() +
+  labs(y = "Income (£ 1000)", x="Gender")
+```
+
+`r unhide()`
+
+
+
+2. Try adding `scale_y_log10()` to your updated plot. How does this change the impression you have of the data?
+Which plot is the most truthful?
+
+
+:::
+
+
+
+
+# Data-vis practice
 
 
 ```{r, include=F}
@@ -135,58 +464,46 @@ library(webex)
 knitr::opts_chunk$set(cache=T)
 ```
 
-So far we have learned about `ggplot` and worked through lots of examples. You might have noticed
-though: we focused mostly on the technique and didn't really think about what the data meant, or what the plots were trying to communicate.
-
-In reality, given a dataset, you will need to work creatively to explore patterns and communicate results. Your decisions will be informed by:
-
--   Your research questions
--   Prior knowledge about the domain
--   Prior knowledge about the research design and the data collection process
--   What your learn about the data as you work (this is an interative process)
-
----
-
-In these exercises we are going to work through a series of examples. Each time we will start with a
-scenario which describes the domain and data collection, and some research questions we may have
-had.
-
-You should work in pairs (if possible) to:
-
--   Explore the dataset
--   Develop one or two plots which illustrate key features of the data
-
-We will then join to form larger groups online to share findings, and justify decisions made.
-
-
-
-
 
 ::: {.exercise}
 
+
 ### Scenario 1: Secret agent
 
-You are a MI6 agent, and have been sent a mystery dataset by one of your spies. She said it contains
+![](images/bond-q.png){width=50%}
+
+You are an MI6 agent, and have been sent a mystery dataset by one of your spies. She said it contains
 highly important information which will be of great interest to your superiors. 
 
-Use your ggplot wizardry to recover this classified information.
+1. Use your ggplot wizardry (and techniques we have covered today) to recover this classified information 
+and present it in a single graphic for Q.
 
-```{r, include=F}
+---
 
-dino <- read_tsv('data/DatasaurusDozen.tsv')
+You can load the data using a new command, `read_csv()`. This command accepts either the name
+of a file, or a URL that the data is stored on the web.
 
-dino %>%
-  rename(group=dataset) %>%
-  mutate(group = as.numeric(factor(group))) %>%
-  write_csv('data/mystery.csv')
 
-df <- read_csv('data/mystery.csv')
+The file URL is: [https://gist.githubusercontent.com/benwhalley/2103941f0c2ac0449247f59fe9c976b6/raw/4630367728610f0a9937d71eeac6fb511065ee46/mystery.csv](https://gist.githubusercontent.com/benwhalley/2103941f0c2ac0449247f59fe9c976b6/raw/4630367728610f0a9937d71eeac6fb511065ee46/mystery.csv)
 
-df  %>%  ggplot(aes(x, y )) + geom_point() + facet_wrap(~group)
+To load the data, you might write:
 
+```{r}
+mystery <- read_csv('https://gist.githubusercontent.com/benwhalley/2103941f0c2ac0449247f59fe9c976b6/raw/4630367728610f0a9937d71eeac6fb511065ee46/mystery.csv')
+
+mystery %>% glimpse
 ```
 
-The data are available to download here: [data/mystery.csv](data/mystery.csv)
+
+
+
+```{r, include=F, echo=F}
+
+mystery <- read_csv('https://gist.githubusercontent.com/benwhalley/2103941f0c2ac0449247f59fe9c976b6/raw/4630367728610f0a9937d71eeac6fb511065ee46/mystery.csv')
+
+mystery  %>%  ggplot(aes(x, y )) + geom_point() + facet_wrap(~category)
+
+```
 
 
 :::
@@ -209,7 +526,7 @@ recording the:
 -   Number of students accepted
 -   The percentage students of each gender who were accepted in each department
 
-A summary of these data are available at this link: [data/berkley.csv](data/berkley.csv).
+A summary of these data are available at this link: [Berkley applications data](https://raw.githubusercontent.com/benwhalley/datafluency/master/website/data/berkley.csv)
 
 Your job is to:
 
@@ -221,12 +538,24 @@ Techniques/commands you might want to use:
 
 -   `filter`
 -   `group_by` and `summarise`
--   `stat_summary` to plot means and standard errors or deviations
--   `facet_wrap(~VARNAME)` to split a plot by a categorical variable
+-   `stat_summary` 
+-   `facet_wrap()` or `facet_grid()`
+
+
+`r hide('Show how to load the data')`
+
+
+```{r}
+berkley <- read_csv('https://raw.githubusercontent.com/benwhalley/datafluency/master/website/data/berkley.csv')
+berkley %>% glimpse
+```
+
+`r unhide()`
 
 
 
-```{r, include=F, echo=F}
+
+```{r, include=F, echo=F, eval=F}
 # don't re-run... probs added to this file by hand
 # expand.grid(gender=c("Male", "Female"), department=LETTERS[1:6]) %>% mutate(p.admitted=NA, n.applicants=NA) %>% write_csv('data/berkley-setup.csv')
 
@@ -246,41 +575,80 @@ berkley %>% write_csv('data/berkley.csv')
 berkley <- read_csv('data/berkley.csv')
 ```
 
-```{r, include=F, echo=F}
-berkley %>%
+
+
+`r hide("Show some examples of plots that would help us decide")`
+
+
+This plot suggests a paradox: Although more men applied and were admitted, the proportion of
+male applicants who were successful was actually lower than for women:
+
+```{r, echo=F, fig.height=2, fig.width=5}
+A <- berkley %>%
+  ggplot(aes(gender, n.applicants)) +
+  stat_summary() + ggtitle("A")
+
+B <- berkley %>%
   ggplot(aes(gender, n.admitted)) +
-  stat_summary()
-```
+  stat_summary() + ggtitle("B")
 
-```{r, include=F, echo=F}
-berkley  %>%
+
+C <- berkley %>%
   ggplot(aes(gender, percent.admitted)) +
-  stat_summary()
+  stat_summary() + ggtitle("C")
+
+gridExtra::grid.arrange(A, B, C, nrow=1)
 ```
 
-```{r, include=F, echo=F}
-berkley %>%
-  ggplot(aes(gender, n.applicants, group=department)) +
+
+Breaking the data down by-department reveals what is happening:
+
+
+```{r, include=T, echo=F, fig.height=2, fig.width=5}
+berkley %>% 
+  pivot_longer(c(n.admitted, percent.admitted)) %>% 
+  ggplot(aes(gender, value, color=name, group=name)) +
   stat_summary(fun.data=mean_se) +
   stat_summary(geom="line", fun.data=mean_se) +
-  facet_grid(~department)
+  scale_y_log10() +
+  facet_grid(~department) + labs(x="", y="N")
 ```
 
-```{r, include=F, echo=F, fig.height=2}
-berkley %>%
-  ggplot(aes(gender, n.admitted, group=department)) +
+
+Note that you don't (yet) know how to produce the plot above.
+We will cover this in the next sessions, but for now you could
+make two individual plots, like so:
+
+
+
+```{r, include=T, echo=F}
+C <- berkley %>% 
+  ggplot(aes(gender, n.admitted, group=1)) +
   stat_summary(fun.data=mean_se) +
   stat_summary(geom="line", fun.data=mean_se) +
-  facet_grid(~department)
+  facet_grid(~department)  + ggtitle("C")
+D <- berkley %>% 
+  ggplot(aes(gender, percent.admitted, group=1)) +
+  stat_summary(fun.data=mean_se) +
+  stat_summary(geom="line", fun.data=mean_se) +
+  facet_grid(~department)  + ggtitle("D")
+gridExtra::grid.arrange(C,D, nrow=2)
 ```
 
-```{r, include=F, echo=F}
-berkley %>%
-  ggplot(aes(gender, percent.admitted, group=department)) +
-  stat_summary(fun.data=mean_se) +
-  stat_summary(geom="line", fun.data=mean_se) +
-  facet_grid(~department)
-```
+`r unhide()`
+
+
+
+`r hide("Show discussion")`
+
+
+This is an example of Simpson's paradox. You can read more about the case here: http://corysimon.github.io/articles/simpsons-paradox/
+
+
+`r unhide()`
+
 
 
 :::
+
+
