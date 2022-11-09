@@ -1,5 +1,5 @@
 ---
-title: Data Visualisation
+title: Data Visualisation 2
 author: 'Ben Whalley'
 # date: "September 2020"
 # bibliography: [references.bib]
@@ -20,6 +20,8 @@ source('_first_chunk.R')
 ----------------
 
 
+
+> If you haven't already completed the [first data vis worksheet](visualisation1.html), do that now.
 
 
 
@@ -233,7 +235,7 @@ expdata %>% glimpse
 ```
 
 ***Explanation***: The part which starts `expdata <- read_csv('https://...` loads a CSV (data)
-file over the internet, and stores it in the variable called `expdata`. We then use `glimpse` to 
+file over the internet, and stores it in the variable called `expdata`. You can click [this link](https://gist.githubusercontent.com/benwhalley/f94baf447612e2434b181739dbba27df/raw/43df26022fff68f49918c795f27d7352dc0d3425/expdata.csv) to see the raw data. We then use `glimpse` to 
 check the data
 
 
@@ -255,7 +257,7 @@ expdata  %>%
   facet_wrap(~Condition)
 ```
 
-`r unhide()``
+`r unhide()`
 
 
 
@@ -270,7 +272,7 @@ expdata  %>%
   facet_wrap(~Condition)
 ```
 
-`r unhide()``
+`r unhide()`
 
 
 :::
@@ -298,8 +300,6 @@ because it avoids a known bias in how we read them. You can ignore the warning a
 :::{.exercise}
 
 -   Adapt your facetted boxplot from above to show the mean and standard error instead
--   Can you combine both boxplot and summary in a single plot?
-
 
 
 `r hide('Show the desired plots')`
@@ -309,16 +309,6 @@ because it avoids a known bias in how we read them. You can ignore the warning a
 expdata  %>%
   ggplot(aes(x=stimuli, y=RT)) + 
   stat_summary() +
-  facet_wrap(~Condition)
-```
-
-Or, combined:
-
-```{r, echo=F}
-expdata  %>%
-  ggplot(aes(x=stimuli, y=RT)) + 
-  geom_boxplot() +
-  stat_summary(color="blue") +
   facet_wrap(~Condition)
 ```
 
@@ -339,23 +329,57 @@ expdata  %>%
   facet_wrap(~Condition)
 ```
 
-Or, combined:
-
-```{r, echo=T, eval=F}
-expdata  %>%
-  ggplot(aes(x=stimuli, y=RT)) + 
-  geom_boxplot() +
-  stat_summary(color="blue") +
-  facet_wrap(~Condition)
-```
-
 
 
 `r unhide()`
 
 
+:::
 
 
+
+## Multiple summary layers
+
+A ["violin plot"](https://en.wikipedia.org/wiki/Violin_plot) is a cross between a boxplot and a density plot.
+
+They are simple ot make in `ggplot`; we can simply replace `geom_boxplot()` with `geom_violin()`:
+
+```{r}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_violin() +
+  facet_wrap(~Condition)
+```
+
+
+However many authors find it helpful to *overlay* additional summaries like the mean and standard error
+of a variable. For example:
+
+```{r, echo=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_violin() +
+  stat_summary() +
+  facet_wrap(~Condition)
+```
+
+:::{.exercise}
+
+Make a new plot, based on the code above, which combines `geom_violin()` with 
+`stat_summary()`
+
+
+`r hide("Show code")`
+
+```{r, echo=T, eval=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_violin() +
+  stat_summary() +
+  facet_wrap(~Condition)
+```
+
+`r unhide()`
 
 :::
 
@@ -403,9 +427,9 @@ more useful. My reasoning is that in this plot we can see that:
 2. Blind people are paid less
 3. The gender-pay gap appears to be larger for blind people
 
-I think that third point is slightly harder to read in plot B.
+I think that third point is slightly harder to read/understand from plot B.
 
-The idea to take away is that grouping the data in the plot in different ways can make it easier or more difficult to identify different patterns.
+*The idea to take-away is that grouping the data in the plot in different ways can make it easier or more difficult to identify different patterns.*
 
 
 `r unhide()`
@@ -415,11 +439,10 @@ The idea to take away is that grouping the data in the plot in different ways ca
 
 
 
-
 :::{.exercise}
 
 
-1. Re-organise the plot below to make it easier to see which level of education 
+1. Re-organize the plot below to make it easier to see which level of education 
 has the highest gender pay gap.
 
 ```{r}
@@ -429,9 +452,37 @@ earnings  %>%
   stat_summary() +
   labs(y = "Income (£ 1000)", x="Gender")
 ```
+`r hide('Show hint')`
+
+To reorganise the panels, you will need to amend the variables used to facet the plot.
+
+`r unhide()`
 
 
 `r hide('Show answer')`
+
+```{r}
+earnings  %>%
+  ggplot(aes(x=gender, y=income/1000)) + 
+  facet_grid(~education) + 
+  stat_summary() +
+  labs(y = "Income (£ 1000)", x="Gender")
+```
+
+`r unhide()`
+
+
+
+2. Try adding `scale_y_log10()` to your updated plot. How does this change the impression you have of the data?
+Which plot is the most "truthful"?
+
+
+
+`r hide('Show answer')`
+
+By adding a log scale to the gender pay gaps appear to be more equal across different education
+categories.
+
 
 ```{r}
 earnings  %>%
@@ -446,8 +497,17 @@ earnings  %>%
 
 
 
-2. Try adding `scale_y_log10()` to your updated plot. How does this change the impression you have of the data?
-Which plot is the most truthful?
+`r hide('Show discussion')`
+
+Either plot can be considered more or less 'truthful', depending on your perspective:
+
+- If you believe a £2000 pay gap is the same for people earning around £20,000 as it is for those earning £100,000 then the first plot is more helpful. We can see there that largest pay gaps are among the most educated and so highest-earning.
+
+- If we consider that £2000 means less to those earning very high incomes, then the second plot is more helpful. This plot shows that, relative to total income, the size of the pay gap is pretty consistent across education categories.
+
+
+`r unhide()`
+
 
 
 :::
@@ -455,7 +515,7 @@ Which plot is the most truthful?
 
 
 
-# Data-vis practice
+# More data-vis practice
 
 
 ```{r, include=F}
@@ -482,7 +542,6 @@ and present it in a single graphic for Q.
 
 You can load the data using a new command, `read_csv()`. This command accepts either the name
 of a file, or a URL that the data is stored on the web.
-
 
 The file URL is: [https://gist.githubusercontent.com/benwhalley/2103941f0c2ac0449247f59fe9c976b6/raw/4630367728610f0a9937d71eeac6fb511065ee46/mystery.csv](https://gist.githubusercontent.com/benwhalley/2103941f0c2ac0449247f59fe9c976b6/raw/4630367728610f0a9937d71eeac6fb511065ee46/mystery.csv)
 
