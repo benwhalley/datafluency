@@ -195,8 +195,8 @@ expdata <- read_csv('data/expdata.csv')
 expdata %>%
   ggplot(aes(Condition, RT)) +
   stat_summary(geom='bar', fun.data=mean_se) +
-  stat_summary(geom="errorbar", width=.2, fun.data=mean_se) + facet_wrap(~paste("Stimuli", stimuli))
-
+  stat_summary(geom="errorbar", width=.2, fun.data=mean_se) + 
+  facet_wrap(~paste("Stimuli", stimuli))
 ```
 
 However, there is evidence that readers often misinterpret bar plots. Specifically, the problem is
@@ -445,7 +445,7 @@ I think that third point is slightly harder to read/understand from plot B.
 1. Re-organize the plot below to make it easier to see which level of education 
 has the highest gender pay gap.
 
-```{r}
+```{r, fig.height=2.5, fig.width=5}
 earnings  %>%
   ggplot(aes(x=education, y=income/1000)) + 
   facet_grid(~gender) + 
@@ -461,7 +461,7 @@ To reorganise the panels, you will need to amend the variables used to facet the
 
 `r hide('Show answer')`
 
-```{r}
+```{r, fig.height=2.5, fig.width=5}
 earnings  %>%
   ggplot(aes(x=gender, y=income/1000)) + 
   facet_grid(~education) + 
@@ -506,6 +506,39 @@ Either plot can be considered more or less 'truthful', depending on your perspec
 - If we consider that £2000 means less to those earning very high incomes, then the second plot is more helpful. This plot shows that, relative to total income, the size of the pay gap is pretty consistent across education categories.
 
 
+However the elephant in the room is that income has a very skewed distribution:
+
+```{r}
+earnings %>% 
+  ggplot(aes(income)) + geom_density()
+```
+
+This means that medians for men/women are very different to the means, and 
+the median gender pay gap is different to the mean gender pay gap:
+
+```{r}
+earnings  %>%
+  group_by(blind, gender) %>% 
+  summarise(m=mean(income)) %>% 
+  group_by(blind) %>% 
+  summarise(diff(m)) %>% 
+  set_names(c("Vision", "Mean pay gap (£)")) %>% 
+  pander()
+
+earnings  %>%
+  group_by(blind, gender) %>% 
+  summarise(m=median(income)) %>% 
+  group_by(blind) %>% 
+  summarise(diff(m)) %>% 
+  set_names(c("Vision", "Median pay gap (£)")) %>% 
+  pander()
+```
+
+
+The moral here is that different summaries of the data tell different
+stories: We should explore our data thoroughly, and avoid jumping to conclusions!
+
+
 `r unhide()`
 
 
@@ -515,7 +548,7 @@ Either plot can be considered more or less 'truthful', depending on your perspec
 
 
 
-# More data-vis practice
+# More practice
 
 
 ```{r, include=F}
