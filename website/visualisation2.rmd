@@ -523,7 +523,7 @@ earnings  %>%
   group_by(blind) %>% 
   summarise(diff(m)) %>% 
   set_names(c("Vision", "Mean pay gap (£)")) %>% 
-  pander()
+  pander::pander()
 
 earnings  %>%
   group_by(blind, gender) %>% 
@@ -531,7 +531,7 @@ earnings  %>%
   group_by(blind) %>% 
   summarise(diff(m)) %>% 
   set_names(c("Vision", "Median pay gap (£)")) %>% 
-  pander()
+  pander::pander()
 ```
 
 
