@@ -623,6 +623,21 @@ tibble(Plot=c("Animated boxplot", "Boxplot", "Line graph", "..."), Strengths="..
 
 
 
+# Check your knowledge
+
+
+1. What does `.Rmd` stand for (what type of file is it)?
+1. Give three examples of visual 'aesthetics' in which can be adjusted in `ggplot`
+1. Which is correct: `labs(x=VARIABLE_NAME)` or `labs(x="Variable name")`. Why is this?
+1. What symbol do we use to add a `geom_point()` layer to a plot? Is it `%>%` or `+`?
+1. What value do we need to set for a `geom_hline()` layer when adding it to a plot?
+1. Explain an advantage of using a log-scale plot for income data? Give an example of another type of data, common in psychology, where a log scale might also be useful.
+1. What sort of plots would allow us to check if a distribution is skewed?
+
+
+
+
+
 
 
 

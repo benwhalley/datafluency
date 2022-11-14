@@ -744,3 +744,19 @@ This is an example of Simpson's paradox. You can read more about the case here: 
 :::
 
 
+
+# Check your knowledge
+
+1. What is a facet?
+1. When might we use facets in our work?
+1. What is the difference between `facet_wrap` and `facet_grid`?
+1. What statistics does a boxplot show?
+1. What type of plot does `stat_summary()` make by default?
+1. What is the default statistic presented by `stat_summary`?
+1. How can we decide between different types of plots when visualising data?
+
+
+
+
+
+
