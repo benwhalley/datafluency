@@ -392,7 +392,8 @@ Consider the following two plots. Both present the same data on the incomes of m
 women who are either blind or normally sighted:
 
 ```{r, fig.height=2.5, fig.width=5, echo=F}
-earnings$blind <- recode(earnings$blind, !!!c("yes"="Blind", no="Normally sighted"))
+earnings$blind <- recode(earnings$blind, !!!c("yes"="Blind", "no"="Normally sighted"))
+
 
 A <- earnings  %>%
   ggplot(aes(x=gender, y=income/1000)) + 

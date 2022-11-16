@@ -5,8 +5,6 @@ date: "October 2022"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
-output:
-  webex::html_clean
 editor_options: 
   markdown: 
     wrap: 100

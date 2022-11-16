@@ -1,12 +1,10 @@
 ---
-title: 'Data wrangling'
+title: 'Data wrangling 1'
 author: 'Ben Whalley'
 date: "November 2021"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
-output:
-  webex::html_clean
 ---
 
 
@@ -56,9 +54,6 @@ Today we will cover three additional techniques which are important when working
 Make a new `rmd` file in your datafluency directory, called `data-wrangling.rmd` and record your work in this for the next 2 sessions.
 
 :::
-
-
-
 
 
 
@@ -149,19 +144,15 @@ It's often called **"row per observation"** data.
 
 
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/rbuskzmCPd0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+![Another term used is `melting` the data img: [TrueWarrior](https://www.reddit.com/r/gifs/comments/ppam4/ice_cream_melting_and_remelting/)](https://i.imgur.com/UBGhu.gif)
 
 
 > Pivoting is where you take a long data file (lots of rows, few columns) and make it wider. Or where you take a wide data file (lots of columns, few rows) and make it longer. 
 
-We can convert from wide to long using the `pivot_longer()` function. 
 
+`r embed_youtube("rbuskzmCPd0")`
 
-![Another term used is `melting` the data img: [TrueWarrior](https://www.reddit.com/r/gifs/comments/ppam4/ice_cream_melting_and_remelting/)](https://i.imgur.com/UBGhu.gif)
-
----
-
+We can convert from wide to long using the `pivot_longer()` function, as shown in the video:
 
 To see why the function is called 'pivot_**longer**', imagine trying to reshape just the first two rows of the attitude dataset:
 
@@ -284,7 +275,6 @@ attitude %>%
 
 
 
-
 # Pivoting to make summary tables
 
 Imagine we want a table of the mean score for each question in the attitude dataset. 
@@ -316,6 +306,62 @@ Combine the `pivot_longer`, `group_by` and `summarise` commands (in that order) 
 
 
 
+:::{.exercise}
+
+We might also want to produce summary statistics per-participant.
+
+Using the commands shown above (and remembering to make 
+a new column to store the participant number with `row_number()`), reproduce this table:
+
+```{r, echo=F}
+attitude %>% 
+  mutate(person = row_number()) %>% 
+  filter(person < 6) %>% 
+  pivot_longer(-person) %>% 
+  group_by(person) %>% 
+  summarise(mean(value)) %>% 
+  pander()
+```
+
+
+`r hide("Show some hints")`
+
+To make the table you will need to use the following functions, in roughly this order:
+
+- mutate
+- filter
+- pivot_longer
+- group_by
+- summarise
+- pander
+
+`r unhide()`
+
+
+
+`r hide("Show the code")`
+
+```{r, eval=F, echo=T}
+attitude %>% 
+  mutate(person = row_number()) %>% 
+  filter(person < 6) %>% 
+  pivot_longer(-person) %>% 
+  group_by(person) %>% 
+  summarise(mean(value)) %>% 
+  pander()
+```
+
+
+`r unhide()`
+
+
+:::
+
+
+
+
+
+
 # Pivoting wider
 
 Sometimes we have the opposite problem: We have long data, but want it in wide format. For example,
@@ -339,10 +385,12 @@ development %>%
 **Instead of making the data longer, now we want to `pivot_wider`.**
 
 
-As we saw before, the `development` data is a fairly long format. There are multiple rows per-country
+The `development` data is a fairly long format. There are multiple rows per-country
 corresponding to different years.
 
-Let's say we want to _compare_ GDP in different years. We first need to select the data we want --- country, year and GDP, and for the years after 1990:
+We want to _compare_ GDP in different _years_. 
+
+We first need to select the data we want --- `country`, `year` and `GDP`, for the years after 1990:
 
 ```{r, message=F, warning=F}
 development1990s <- development %>%
@@ -350,15 +398,20 @@ development1990s <- development %>%
   filter(year >= 1990)
 ```
 
-Then we `pivot_wider()`:
+
+Then we can `pivot_wider()`:
 
 ```{r}
 development1990s %>%
-  pivot_wider(names_from = year, values_from = gdp_per_capita) %>% 
+  pivot_wider(
+    names_from = year, 
+    values_from = gdp_per_capita
+  ) %>% 
   head()
 ```
 
 **Explanation of the command and output**: 
+
 - We started with multiple rows per country, corresponding to years. 
 - We used `pivot_wider` with `names_from = year` to create new columns for each year in the data. 
 - We used `values_from=gdp_per_capita` to tell `pivot_longer` to use the GDP numbers to populate the table.
@@ -368,12 +421,15 @@ development1990s %>%
 
 :::{.exercise}
 
+Use the `funimagery` dataset in `psydata` and perform the following:
 
-- use `select` to make a dataset with `intervention` and each of the `kg1-3` columns from `funimagery`
+- use `select` to make a dataset with `intervention` and each of the `kg1` to `kg3` columns
 - Use `pivot_longer`, `group_by` and `summarise` to calculate the average weight of participants at each timepoint
-- Adapt the `group_by` function to calculate the mean at each timepoint for each group separately
-- Add `pivot_wider` to the end of your code to create a separate column for each group. When you finish your data should look like this:
+- Adapt the `group_by` function to calculate the mean at each timepoint *for each group separately*
+- Add `pivot_wider` to the end of your code to create a separate column for each group. 
 
+
+When you finish your data should look like this:
 
 ```{r, echo=F}
 funimagery %>% 
@@ -386,27 +442,20 @@ funimagery %>%
 
 
 
-```{r, include=F}
-funimagery %>% 
-  select(intervention, kg1, kg2, kg3) %>% 
-  pivot_longer(-intervention) %>% 
-  group_by(name) %>% 
-  summarise(mean(value))
+`r hide("Show the code")`
 
-funimagery %>% 
-  select(intervention, kg1, kg2, kg3) %>% 
-  pivot_longer(-intervention) %>% 
-  group_by(name, intervention) %>% 
-  summarise(mean(value))
-
+```{r, echo=T, eval=F}
 funimagery %>% 
   select(intervention, kg1, kg2, kg3) %>% 
   pivot_longer(-intervention) %>% 
   group_by(name, intervention) %>% 
   summarise(M=mean(value)) %>% 
   pivot_wider(names_from=intervention, values_from=M)
-
 ```
+
+
+`r unhide()`
+
 
 
 :::
@@ -414,87 +463,54 @@ funimagery %>%
 
 
 
-# Extensions
+# Using RMarkdown
 
 
-## Factor labels
+Watch this video on making tables and knitting your RMarkdown document.
 
-Sometimes you will find data where a categorical variable has been stored as a number.
-
-One example is the `wii_rt` dataset, in `psydata`:
-
-```{r}
-wii_rt %>% 
-  select(gender) %>% 
-  glimpse
-```
-
-
-This can be a problem: Here it's not obvious from the data whether `1` or `2` refers to men/women.
-
-To add descriptive labels, we can convert the columns to a `factor`:
-
-```{r}
-wii_rt %>% 
-  mutate(gender=factor(gender, levels=c(1,2), labels=c("Female", "Male"))) %>%
-  glimpse
-```
-
-**Explanation of the code**:
-- We use mutate to change the `gender` column
-- We use `factor` to convert `gender` to a factor
-- `levels=c(1,2)` tells R what values to expect in the data
-- `labels=c("Female", "Male")` says what labels to give the values (use the same order as the `levels`)
-- This means we label `1` as `Female` and `2` is `Male`
+`r embed_youtube('XM7nxHIGeJU')`
 
 
 
 :::{.exercise}
 
-- Table 1 of @blomkvist2017reference tells us that there were 22 men aged under 30 years in this sample. 
-- Use `filter()` and `group_by()` to check whether `1` or `2` refers to male in this dataset
-- Adapt the code above and create a copy of the `wii_rt` dataset where `gender` is stored as a factor with the correct labels.
+Create an RMarkdown document (if you haven't already) to save your work from today's session.
 
-
-`r hide("Show how")`
-
-```{r}
-wii_rt %>% 
-  filter(age_years<30) %>% 
-  group_by(gender) %>% 
-  count
-
-# men == 1 not 2!
-
-wii_rt %>% 
-  mutate(gender=factor(gender, levels=c(1,2), labels=c("Male", "Female"))) %>%
-  glimpse
-```
-
-`r unhide()`
-
+- Knit this document to HTML format, and as a PDF.
+- Try opening the HTML document in Word.
 
 :::
 
 
 
-## Using Markdown
+
+This video shows how to control the output in an RMarkdown document:
+
+`r embed_youtube('GGghELcv-As')`
+
+
+:::{.exercise}
+
+- Try using the `echo` and `results` chunk options in your RMarkdown document. Knit each time, and note the changes.
+
+
+- Make a figure using ggplot. Change the `fig.width` and `fig.height` values to note the change to the output.
+
+
+:::
+
 
 
 
 :::{#tenminmarkdown .exercise}
 
-
-As you progress, start to use markdown syntax to format your `rmd` files. 
-
-For example, you should use the `#` symbol to denote headings (the `#` means something different in the non-code chunk parts of an `rmd` file).
-
-These are useful resources:
+Check these resources:
 
 - [Markdown 'cheatsheet'](https://commonmark.org/help/)
 - Do the '10 minute markdown' tutorial here: <https://commonmark.org/help/tutorial/>
 
+
+Try using some of the markdown formatting to structure your own document. Knit the document as you make changes and note the results.
+
 :::
 
-
-If you have time, try further [extension exercises here](data-wrangling-extensions.html).
