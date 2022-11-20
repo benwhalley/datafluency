@@ -185,7 +185,7 @@ The change works like like this:
 You might have spotted a problem though: We don't have a record of which participant was which in the `attitude`
 dataset.
 
-This is because the mapping to participants was implicit: **each row was a different participant, but participant numbers was not actually recorded in the file**.
+This is because the mapping to participants was implicit: **each row was a different participant, but participant number was not actually recorded in the file**.
 
 
 We can create an explicit participant identifier by adding a new column. For this we use the `mutate` and `row_number()` functions:
