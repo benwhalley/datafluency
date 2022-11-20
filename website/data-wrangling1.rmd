@@ -172,7 +172,7 @@ attitude %>%
 **Explanation of the command**: 
 - We selected a subset of columns and rows. 
 - Then we used `pivot_longer(everything())` to make this into long form data.
-- The `everything()` part tells R to merge values from all of the columns into a single new column called `value`, and to keep track of the original variable name in a new column called `name`)
+- The `everything()` part tells R to merge values from all of the columns into a single new column called `value`, and to keep track of the original variable name in a new column called `name`.
 
 
 The change works like like this:
