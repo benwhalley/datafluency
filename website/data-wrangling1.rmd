@@ -225,7 +225,8 @@ attitude_with_person %>%
   head()
 ```
 
-**Explanation of the command and output**: 
+**Explanation of the command and output**:
+
 - Here, we still use `pivot_longer` but this time we put `-person` between the parentheses. 
 - The minus sign, `-`, means *don't include this variable*, so `-person` ends up meaning  *include all columns except `person`*, which is what we wanted. 
 - The output now retains the `person` column, but pivots the other variables. 
