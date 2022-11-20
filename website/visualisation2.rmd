@@ -342,7 +342,7 @@ expdata  %>%
 
 A ["violin plot"](https://en.wikipedia.org/wiki/Violin_plot) is a cross between a boxplot and a density plot.
 
-They are simple ot make in `ggplot`; we can simply replace `geom_boxplot()` with `geom_violin()`:
+They are simple to make in `ggplot`; we can simply replace `geom_boxplot()` with `geom_violin()`:
 
 ```{r}
 expdata  %>%
