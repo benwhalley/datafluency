@@ -319,8 +319,7 @@ attitude %>%
   filter(person < 6) %>% 
   pivot_longer(-person) %>% 
   group_by(person) %>% 
-  summarise(mean(value)) %>% 
-  pander()
+  summarise(mean(value))
 ```
 
 
