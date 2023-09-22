@@ -1,3 +1,4 @@
+website/*.html
 .DS_Store
 .Rproj.user
 assessment-draft/*
