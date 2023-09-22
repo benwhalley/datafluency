@@ -43,13 +43,13 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 # rebuild docs into /docs which is where github serves them from
 rmarkdown::render('index.Rmd', output_dir = "../docs")
 
-rmarkdown::render('visualisation1.rmd', output_dir = "../docs")
-rmarkdown::render('visualisation2.rmd', output_dir = "../docs")
-
-rmarkdown::render('data-wrangling1.rmd', output_dir = "../docs")
-rmarkdown::render('data-wrangling2.rmd', output_dir = "../docs")
-
-rmarkdown::render('real-data-practical.rmd', output_dir = "../docs")
+# rmarkdown::render('visualisation1.rmd', output_dir = "../docs")
+# rmarkdown::render('visualisation2.rmd', output_dir = "../docs")
+# 
+# rmarkdown::render('data-wrangling1.rmd', output_dir = "../docs")
+# rmarkdown::render('data-wrangling2.rmd', output_dir = "../docs")
+# 
+# rmarkdown::render('real-data-practical.rmd', output_dir = "../docs")
 
 # rmarkdown::render('teacher-notes.rmd', output_dir = "../docs")
 # rmarkdown::render('how-to-use-worksheets.rmd', output_dir = "../docs")
@@ -82,81 +82,30 @@ you in good stead in your future careers.
 
 # Sessions and worksheets
 
-### Pre-requisite 
-
-- The short [LifesavR course](http://benwhalley.github.io/lifesavR/).
-
-- Session 1: [Getting started](http://benwhalley.github.io/lifesavR/session-1.html)
-- Session 2: [Working with R](http://benwhalley.github.io/lifesavR/session-2.html)
-- Session 3:  [Grouped data](http://benwhalley.github.io/lifesavR/session-3.html)
-- Session 4:  [Describing patterns, answering questions](http://benwhalley.github.io/lifesavR/session-4.html)
-- Session 5:  [Quantifying evidence](http://benwhalley.github.io/lifesavR/session-5.html)
-
-<br>
-
-- Pass the lifesavR multiple choice test
+### Part 1: Learning R
 
 
+We will use short [LifesavR course](http://benwhalley.github.io/lifesavR/). We cover these 5 'worksheets' in 4 sessions, with a little independent study.
+
+- Session 1: [Getting started](http://benwhalley.github.io/lifesavR/session-1.html) and [Working with R](http://benwhalley.github.io/lifesavR/session-2.html)
+- Session 2:  [Grouped data](http://benwhalley.github.io/lifesavR/session-3.html)
+- Session 3:  [Describing patterns, answering questions](http://benwhalley.github.io/lifesavR/session-4.html)
+- Session 4:  [Quantifying evidence](http://benwhalley.github.io/lifesavR/session-5.html)
 
 
+### Part 2: Data handling and visualisation 
 
-### Data handling and visualisation 
-
-- [Data visualisation 1](visualisation1.html)
-- [Data visualisation 2](visualisation2.html)
-- [Data wrangling 1](data-wrangling1.html)
-- [Data wrangling 2](data-wrangling2.html)
+- Session 5: Data visualisation 1
+- Session 6:  Data visualisation 2
+- Session 7:  Data wrangling 1
 
 
-<!-- - [Data wrangling 1](data-wrangling1.html)  -->
+<!-- - [Data visualisation 1](visualisation1.html) -->
 <!-- - [Data visualisation 2](visualisation2.html) -->
-<!-- - [Data wrangling 2](data-wrangling2.html)  -->
+<!-- - [Data wrangling 1](data-wrangling.html) -->
 
-<!-- - [Working with real data (practical)](real-data-practical.html) -->
+The data analysis and visualisation assessment then follows.
 
-<!-- ([extensions](visualisation-extensions.html)) -->
-
-<!-- 
-
-# wrangling1
-pivot_longer
-factor labels
-knitting
-
-
-# wrangling2
-recoding
-separate
-extension=joining
-
-# "real data"
-making tables
-alpha
-more facets
-jitter
-controlling axis limits
-
-
--->
-
-
-
-
-
-*First assessment*
-
-
-### Data analysis and modelling
-
-- Simple regression
-- Multiple regression (1)
-- Anova: '2x2 between subjects'
-- Multiple regression (2)
-- Multiple regression (3)
-- Anova: 'repeat measures'
-- Effect size and clinically significant change
-
-*Second assessment*
 
 
 
@@ -165,8 +114,6 @@ controlling axis limits
 
 - [How to use these worksheets](how-to-use-worksheets.html)
 - ['Cheat sheets'/quick references](https://plymouthpsychology.github.io/cheatR/)
-
-
 
 
 
@@ -188,7 +135,7 @@ In this module we do cover specific skills, but these are embedded within a broa
 
 # Format of the sessions
 
-We have 17 workshops, plus 17 support sessions which work as follows:
+We have 7 workshops, which work as follows:
 
 -   We avoid extended lectures. This doesn't work well with this subject matter.
 -   The focus is on learning by doing (this is more like cooking than chemisty).
