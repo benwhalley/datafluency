@@ -1,7 +1,7 @@
 ---
-title: Data Visualisation 1
+title: Data Visualisation
 author: 'Ben Whalley'
-date: "October 2022"
+date: "Oct. 2023"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
@@ -14,12 +14,9 @@ editor_options:
 
 ```{r, include=F}
 source('_first_chunk.R')
-knitr::opts_chunk$set(
-  cache = T
-)
+library(gifski)
 ```
 
-![](images/rosling.png){width="66%"}
 
 
 # Inspiration
@@ -50,7 +47,7 @@ audience.
 ::: exercise
 
 Use the 'files pane' in RStudio to make a new folder on the RStudio server to save your work.
-Call this `datafluency2022`.
+Call this `datafluency202_x_`.
 
 Inside this new folder, make a new RMarkdown file (use the 'file' menu and choose 'new'). When you
 save the file make sure it has the extension `.rmd`, so call it `datavis.rmd` for example.
@@ -68,7 +65,7 @@ Use this new `.rmd` file to save your work during this session.
 # Recreate the Rosling plot
 
 *"Multi-dimensional plotting"* sounds fancy, but it just means linking different visual features of
-a plot to columns in the dataset.
+a plot to multiple columns in a dataset.
 
 In the example, Rosling's plot is appealing and informative because it adds multiple dimensions, and uses a special [logarithmic
 scale](https://blog.datawrapper.de/weeklychart-logscale/) for the x-axis.
@@ -137,14 +134,17 @@ There are 4 visual features (aesthetics) of plots we will use in this session:
 
 We could also use:
 
+-    the `fill` colour of shaded areas
 -   `shape` (of points)
+-    the `size` of text, points or lines
 -   `linetype` (of added lines, i.e. dotted/patterned or solid)
+-    transparency (called `alpha`) of the features of a plot
 
-
+(If interested, ask ChatGPT how to add these aesthetics to your plots).
 
 <br><br>
-Additionally, we will control the scale of the axes in the plot to improve the presentation of the data.
 
+Additionally, we will control the scale of the axes in the plot to improve the presentation of the data.
 
 
 
@@ -186,18 +186,14 @@ Some hints:
     that `filter` [selects particular rows from the data](https://plymouthpsychology.github.io/cheatR/lifesavr_cheatsheet.html#filtering-datasets), so we can use it to restrict what is shown in the plot.
     What data do we need to select for *this* plot?
 -   The part which reads `scale_log_10()` is explained in more detail below
--   The part which reads `labs(...)` is [explained below](#labellingaxes).
+-   The part which reads `labs(...)` sets the axis labels (ask ChatGPT about it)
 
 
 Video hints:
 
 `r embed_youtube("U_RZzDEgM-Y")`
 
-
 :::
-
-
-
 
 
 
@@ -429,11 +425,11 @@ rtdata %>%
 
 # Animation!
 
-*This is an optional exercise and is not required for the course assessment. Skip to the final section
-if you are short on time.*
+*This is an entirely optional exercise. It is not required for the course assessment and is included only becasue
+students asked how to make animations similar to the one shown in the Rosling video. 
+Skip to the next section if you are short on time.*
 
 --------
-
 
 The `gganimate` package allows us to create animations using ggplot. The package has good documentation here: https://gganimate.com.
 
@@ -449,15 +445,22 @@ dimension, animating the plot.
 We need to save the resulting plot in a variable, and then send that to the `animate` function. 
 Here we use a variable  called `progress_plot`.
 
-```{r}
+```{r, cache=F}
 progress_plot <- development %>%
   ggplot(aes(gdp_per_capita, life_expectancy, color=continent)) +
   geom_point() +
   scale_x_log10() +  
   transition_time(year)
-
-progress_plot %>% animate()
 ```
+
+```{r, eval=F, echo=T}
+animate(progress_plot,   nframes = 50)
+```
+
+```{r, echo=F, include=T}
+animate(progress_plot,  renderer = gifski_renderer(), nframes = 50)
+```
+
 
 
 
@@ -487,14 +490,14 @@ You need to:
 
 `r hide("Show what the result should look like")`
 
-```{r, echo=F}
+```{r, echo=F, cache=T}
 p <- development %>%
   ggplot(aes(continent, life_expectancy)) +
   geom_boxplot() + 
   labs(title = "Year: {frame_time}") + 
   transition_time(year)
 
-p %>% animate()
+p %>% animate(renderer = gifski_renderer(), nframes = 50)
 ```
 
 `r unhide()`
@@ -502,7 +505,7 @@ p %>% animate()
 
 `r hide("Show the code")`
 
-```{r, eval=F, echo=T}
+```{r, eval=F, echo=T, cache=T}
 library(tidyverse)
 library(psydata)
 library(gganimate)
@@ -526,12 +529,23 @@ p %>% animate()
 
 *Note: you do not need to have completed the extension exercise using animation to engage with this activity.*
 
-Consider the following plots, which include the animation we made above:
+
+In this section you don't need to make any plots yourself: The task is to consider 
+a range of different ways of plotting similar data and to think about which plots
+are best suited to a range of different tasks.
+
+Consider the following plots:
+
+- An animated boxplot
+- Standard boxplot
+- Line graph
+- Ribbon plot
 
 
-### Animated boxplot
 
-```{r, echo=F, fig.height=3, fig.width=4}
+#### Animated boxplot
+
+```{r, echo=F, fig.height=3, fig.width=4, cache=T}
 p <- development %>%
   ggplot(aes(continent, life_expectancy)) +
   geom_boxplot() + 
@@ -542,7 +556,7 @@ p %>% animate()
 ```
 
 
-### Boxplot
+#### Boxplot
 
 ```{r, echo=F, fig.height=3, fig.width=4}
 development %>%
@@ -554,7 +568,7 @@ development %>%
 ```
 
 
-### Line graph
+#### Line graph
 
 This plot shows the median life expectancy in 1952 and 2002.
 
@@ -574,11 +588,11 @@ development %>%
 
 
 
-### Ribbon plot
+#### Ribbon plot
 
 This plot shows the median (line) and IQR (shaded area) in all available years:
 
-```{r, fig.height=3, fig.width=4}
+```{r, echo=F, fig.height=3, fig.width=4}
 development %>%
   ggplot(aes(year, life_expectancy, fill=continent, color=continent)) +
   stat_summary(geom="ribbon", fun.data = median_iqr, alpha=.2, linetype=0) + 
@@ -593,36 +607,564 @@ development %>%
 
 :::{.exercise}
 
-1. Create a table of the strengths and weaknesses of each plot, like so:
+1. Make a table of the strengths and weaknesses of each plot, like so:
 
 ```{r, echo=F}
 tibble(Plot=c("Animated boxplot", "Boxplot", "Line graph", "..."), Strengths="...", Weaknesses="...") %>% 
   pander::pander()
 ```
 
+(on paper/in your notes is fine)
 
 
 2. Think of some ***questions*** that can be answered from these data? For example:
 
   - *Which continent changed most between 1952 and 2002?*
-  - *Which continent has the most/least variability in life expectancy?*
-  - *Which continents became more/less homogeneous over this period?*
+  - *Which continent has the most variability in life expectancy?*
+  
 
-  And so on... Make a list of at least 5 or 6 questions which someone might want to know the answer to.
-
-
-3. Which plots are most effective in answering each of your questions?
+Your questions might consider factors such as change, rates of change, comparisons between high/low performing countries, heterogeneity/homogeneity among countries, and so on.  Make a list of at least 5 or 6 questions which someone might want to know the answer to.
 
 
-4. Imagine you were a journalist writing a story with the title *"Asia sees fastest rise in life expectancy since WW2"*.  Can you think of any reasons to prefer the line graph over the boxplot?
+3. Which plots are most effective in answering each of your questions? Can you identify trade-offs between different plot types?
+
+
+4. Imagine you were a journalist writing a story with the title *"Asia sees fastest rise in life expectancy since WW2"*.  Why might you prefer the line graph over the boxplot? What are the pros and cons of the line plot compared with the ribbon plot?
 
 
 :::
 
 
 
-# Check your knowledge
 
+
+# Facets
+
+As we add layers or visual aesthetics (e.g. colours, shapes, lines) our plots become more complex. 
+We may run into trade-offs between information density and clarity.
+
+To give one example, this plot shows life expectancies for each country in the development data,
+plotted by year:
+  
+```{r}
+development %>%
+  ggplot(aes(year, life_expectancy, group=country)) +
+  geom_smooth(se=FALSE)
+```
+
+**Explanation**: This is another x/y plot. However this time we have not added points, but rather
+smoothed lines (one for each country).
+
+**Explanation of the code**:We have created an x/y plot as before, but this time we only added
+`geom_smooth` (and not `geom_point`), so we can't see the individual datapoints. We have also added
+the text `group=country` which means we see one line per-country in the dataset. Finally, we also
+added `se=FALSE`. This hides the shaded area which `geom_smooth` adds by default.
+
+**Comment on the result**: It's pretty hard to distinguish different countries or make sense of anything!
+  
+----------------------------------------------------------------------------------------------------
+  
+To increase the information density, and explore patterns within the data, we might add another
+dimension and aesthetic. The next plot colours each line by continent:
+  
+```{r}
+development %>%
+  ggplot(aes(year, life_expectancy, colour=continent, group=country)) +
+  geom_smooth(se=FALSE)
+```
+
+However, even with colours added it's still a bit of a mess. We can't see the differences between
+continents very easily. 
+
+To clean things up we can use a technique called **faceting**.
+  
+```{r fig.height=3}
+development %>%
+  ggplot(aes(year, life_expectancy, group=country)) +
+  geom_smooth(se=FALSE) +
+  facet_grid(~continent)
+```
+
+**Explanation**: We added the code `+ facet_grid(.~continent)` to our previous plot, and removed the color aesthetic. This made `ggplot` create individual *panels* for each continent.
+Splitting the graph this way makes it somewhat easier to compare the differences *between*
+continents.
+
+
+::: exercise
+
+### Try facetting yourself
+
+Use the `iris` dataset, which is built into R.
+
+```{r, echo=F}
+iris %>%
+  ggplot(aes(Sepal.Length, Petal.Length)) +
+  geom_point()  +
+  geom_smooth() +
+  facet_grid(~Species)
+```
+
+1.  Try to recreate this plot by adapting the code shown for the `development` dataset above
+
+2.  Create a second plot which uses colours to distinguish species and does not use Facets
+
+3.  Which plot do you prefer — faceted or coloured? What might influence when facets 
+are more useful than just using colour?
+  
+
+
+
+`r hide("Show code")`
+
+1.
+
+```{r, echo=T, eval=F}
+iris %>%
+  ggplot(aes(Sepal.Length, Petal.Length)) +
+  geom_point()  +
+  geom_smooth() +
+  facet_grid(~Species)
+```
+
+
+
+2. 
+
+```{r, echo=T, eval=F}
+iris %>%
+  ggplot(aes(Sepal.Length, Petal.Length, color=Species)) +
+  geom_point()  +
+  geom_smooth() 
+```
+
+`r unhide()`
+
+
+
+`r hide("Show discussion/answer")`
+
+There's no single right answer here, but for this example I prefer the coloured plot to the faceted one.
+The reason is that there are only 3 species in this dataset, and the points for each don't overlap
+much. This means it is easy to distinguish them, even in the combined plot. 
+
+However, if there were *many* different species it might be helpful to use facets instead.
+
+Our decisions should be driven by what we are trying to communicate with the plot. What was the
+research question that motivated us to draw it?
+  
+`r unhide()`
+
+
+:::
+  
+  
+  
+:::{.exercise}
+
+
+### Adjusting facets
+
+In the explanation above, we saw this plot:
+  
+```{r}
+development %>%
+  ggplot(aes(year, life_expectancy, group=country)) +
+  geom_smooth(se=FALSE) +
+  facet_grid(~continent)
+```
+
+
+
+Re-run the plot and make the following adaptations:
+  
+1.  Try replacing `facet_grid(~continent)` with `facet_grid(continent~.)`. What happens?
+  
+2.  Try replacing `facet_grid` with
+`facet_wrap(~continent)`. What happens?
+  
+3.  If you have time (as an extension exercise), you can see more faceting examples in [the `ggplot` cookbook documentation](http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/). 
+Try to re-create some of these examples.
+
+
+:::
+
+
+
+
+# Comparing categories
+
+In the examples above we have been plotting continuous variables (and adding colours etc). We've
+used density, scatter and smoothed line plots to do this.
+
+Another common requirement is to use plots to *compare* summary statistics for different *groups* or
+*categories.* 
+
+For example, the classic plot in a psychology journal looks something like this:
+
+```{r, echo=F, width=6, height=3}
+set.seed(1234)
+expdata <- expand.grid(Condition=c("Low", "Med", "High"), stimuli=1:4, p=1:20) %>%
+  mutate(RT = -200+rnorm(n(), 25 + 5*as.numeric(Condition=="A") + -4*as.numeric(stimuli==1), 6)^2, stimuli=factor(stimuli, labels=factor(paste0("Stimulus ", 1:4)))) 
+write_csv(expdata, 'data/expdata.csv')
+expdata <- read_csv('data/expdata.csv')
+
+expdata %>%
+  ggplot(aes(Condition, RT)) +
+  stat_summary(geom='bar', fun.data=mean_se, width=.8, fill="white", color="black") +
+  stat_summary(geom="errorbar", width=.2, fun.data=mean_se) + 
+  facet_wrap(~stimuli, nrow=1) + theme_minimal() +
+  ylab("Reaction time (ms)") 
+```
+
+However, there is evidence that readers often misinterpret bar plots. Specifically, the problem is
+that [we perceive values _within_ the bar area as more _likely_ than those just above, even though
+this is not in fact the case](https://link.springer.com/article/10.3758/s13423-012-0247-5).
+
+Often, a better choice is to use a [boxplot](https://en.wikipedia.org/wiki/Box_plot):
+
+
+```{r}
+expdata  %>%
+  ggplot(aes(x=Condition, y=RT)) + 
+  geom_boxplot() + 
+  xlab("") +
+  ylab("Reaction time (ms)") + 
+  theme_minimal()
+```
+
+**Explanation**: We used `Condition` (a category) as our x-axis, and reaction times as the y axis.
+We used `geom_boxplot` to show a boxplot. We haven't yet split the plot by stimulus (we'll do this below). 
+The `theme_minimal()` function
+simplifies the appearance of the plot and removes the background color.
+
+
+:::{.tip}
+
+If you're not familiar with boxplots, there are more details in the help files (type `?geom_boxplot`
+into the console) or use the [wikipedia page here](https://en.wikipedia.org/wiki/Box_plot)
+
+:::
+
+
+
+### Loading data over the internet
+
+So far we have always used data from the `psydata` package. However, we can also
+load data from files or over the internet using the `read_csv()` function. This is an example:
+
+
+<!-- 
+https://gist.githubusercontent.com/benwhalley/7bcc2b9c2f37ddd604c5a5e02cc689cd/raw/cdedea83725ee8d5d19597469fc4d09d6467d1cc/expdata2.csv
+-->
+
+```{r}
+expdata <- read_csv('https://t.ly/yzUO1')
+expdata %>% glimpse
+```
+
+***Explanation***: The part which starts `expdata <- read_csv('https://...` loads a CSV (data)
+file over the internet, and stores it in the variable called `expdata`. You can click [this link](https://gist.githubusercontent.com/benwhalley/f94baf447612e2434b181739dbba27df/raw/43df26022fff68f49918c795f27d7352dc0d3425/expdata.csv) to see the raw data. We then use `glimpse` to 
+check the data
+
+
+:::{.exercise}
+
+Load the (simulated) dataset from this url: [https://t.ly/yzUO1](https://t.ly/yzUO1) (note that this URL is a shortcut and redirects to the full url, which is actally <https://gist.githubusercontent.com/benwhalley/7bcc[...]61cc/expdata2.csv>. We shortened the link to make it easier to copy and paste). 
+
+
+-   Recreate the boxplot above
+-   Use a facet to recreate the plot you saw above, enabling comparisons across `Stimuli` (on the x axis) and `Condition`.
+
+
+`r hide('Show the desired plot')`
+
+```{r, echo=F}
+expdata  %>%
+  ggplot(aes(x=Condition, y=RT)) + 
+  geom_boxplot() + 
+  xlab("") +
+  ylab("Reaction time (ms)") +
+  facet_wrap(~stimuli, nrow=1) + 
+  theme_minimal() 
+```
+
+`r unhide()`
+
+
+
+
+`r hide('Show the code')`
+
+
+```{r, echo=T, eval=F}
+expdata <- read_csv('https://t.ly/yzUO1')
+expdata  %>%
+  ggplot(aes(x=Condition, y=RT)) + 
+  geom_boxplot() + 
+  xlab("") +
+  ylab("Reaction time (ms)") +
+  facet_wrap(~stimuli, nrow=1) + 
+  theme_minimal() 
+```
+
+`r unhide()`
+
+
+:::
+
+
+
+
+## Bar plots and  other plots of summary data
+
+If you wanted to plot the mean and standard error or standard deviations of 
+different categories, ggplot also has the `stat_summary` command:
+
+```{r}
+expdata %>%
+  ggplot(aes(Condition, RT)) + 
+  stat_summary()
+```
+
+**Explanation**: We used `Condition` and `RT` as our x and y axes, as before. This time we added
+`stat_summary()` instead of `geom_boxplot()`. By default this plots the mean and standard error (a
+measure of variability) in each group, using a **point-range plot**. This is better than a bar chart
+because it avoids a known bias in how we read them. 
+
+You can ignore the warning about `No summary function supplied, defaulting to mean_se()` for now (or ask ChatGPT to explain it and how to get rid of it if it bothers you).
+
+
+:::{.exercise}
+
+Adapt your faceted boxplot from above to show the mean and standard error instead
+
+`r hide('Show the desired plots')`
+
+
+```{r, echo=F}
+expdata  %>%
+  ggplot(aes(x=Condition, y=RT)) + 
+  stat_summary() + 
+  xlab("") +
+  ylab("Reaction time (ms)") +
+  facet_wrap(~stimuli, nrow=1) + 
+  theme_minimal() 
+```
+
+
+
+`r unhide()`
+
+
+
+
+`r hide('Show the code')`
+
+```{r, echo=T, eval=F}
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  stat_summary() +
+  facet_wrap(~Condition)
+```
+
+`r unhide()`
+
+:::
+
+
+
+#### Making bar plots
+
+Although they are not recommended, `stat_summary` is a convenient way to produce bar plots.
+
+```{r}
+expdata %>%
+  ggplot(aes(Condition, RT)) + 
+  stat_summary(geom="bar")
+```
+
+
+And you can combine multiple calls to `stat_summary` to get a bar chat with error bars on top:
+
+```{r}
+expdata %>%
+  ggplot(aes(Condition, RT)) + 
+  stat_summary(geom="bar") +
+  # narrower width looks neater
+  stat_summary(geom="errorbar", width=.2) +  
+  theme_minimal()
+```
+
+
+
+
+
+## Decisions about grouping
+
+Consider the following two plots. Both present the same data on the incomes of men and 
+women who are either blind or normally sighted:
+
+```{r, fig.height=3, fig.width=6, echo=F}
+earnings$blind <- recode(earnings$blind, !!!c("yes"="Blind", "no"="Normally sighted"))
+
+
+A <- earnings  %>%
+  ggplot(aes(x=gender, y=income/1000)) + 
+  facet_wrap(~blind) + 
+  stat_summary() + ggtitle("Figure A")+
+  labs(y = "Income (£ 1000)", x="Gender")
+
+B <- earnings  %>%
+  ggplot(aes(x=blind, y=income/1000)) + 
+  facet_wrap(~gender) + 
+  stat_summary() + ggtitle("Figure B") + 
+  labs(y = "Income (£ 1000)", x="Vision")
+
+gridExtra::grid.arrange(A, B, nrow=1)
+
+```
+
+
+
+:::{.exercise}
+
+
+1. Which plot do you prefer, and why?
+
+`r hide("Show discussion")`
+
+I don't have a strong preference between the plots, but I think plot A is probably
+more useful. My reasoning is that in this plot we can see that:
+
+1. Men are paid more 
+2. Blind people are paid less
+3. The gender-pay gap appears to be larger for blind people
+
+I think that third point is interesting but slightly harder to read/understand from plot B, 
+and so I would choose plot A.
+
+*The idea to take-away is that grouping the data in the plot in different ways can make it easier or more difficult to identify different patterns.*
+
+
+`r unhide()`
+
+
+:::
+
+
+
+:::{.exercise}
+
+
+1. Re-organize the plot below to make it easier to see which level of education 
+has the highest gender pay gap.
+
+```{r, fig.height=3, fig.width=6}
+earnings  %>%
+  ggplot(aes(x=education, y=income/1000)) + 
+  facet_grid(~gender) + 
+  stat_summary() +
+  labs(y = "Income (£1000)", x="Gender")
+```
+`r hide('Show hint')`
+
+To reorganise the panels, you will need to amend the variables used to facet the plot.
+
+`r unhide()`
+
+
+`r hide('Show answer')`
+
+```{r, fig.height=3, fig.width=6}
+earnings  %>%
+  ggplot(aes(x=gender, y=income/1000)) + 
+  facet_grid(~education) + 
+  stat_summary() +
+  labs(y = "Income (£ 1000)", x="Gender")
+```
+
+`r unhide()`
+
+
+
+2. Try adding `scale_y_log10()` to your updated plot. How does this change the impression you have of the data?
+Which plot is the most "truthful"?
+
+
+
+`r hide('Show answer')`
+
+By adding a log scale to the gender pay gaps appear to be more equal across different education
+categories.
+
+
+```{r}
+earnings  %>%
+  ggplot(aes(x=gender, y=income/1000)) + 
+  facet_grid(~education) + 
+  stat_summary() +
+  scale_y_log10() +
+  labs(y = "Income (£ 1000)", x="Gender")
+```
+
+`r unhide()`
+
+
+
+`r hide('Show discussion')`
+
+Either plot can be considered more or less 'truthful', depending on your perspective:
+
+- If you believe a £2000 pay gap is the same for people earning around £20,000 as it is for those earning £100,000 then the first plot is more helpful. We can see there that largest pay gaps are among the most educated and so highest-earning.
+
+- If we consider that £2000 means less to those earning very high incomes, then the second plot is more helpful. This plot shows that, relative to total income, the size of the pay gap is pretty consistent across education categories.
+
+
+However the elephant in the room is that income has a very skewed distribution:
+
+```{r}
+earnings %>% 
+  ggplot(aes(income)) + geom_density()
+```
+
+This means that medians for men/women are very different to the means, and 
+the median gender pay gap is different to the mean gender pay gap:
+
+```{r}
+earnings  %>%
+  group_by(blind, gender) %>% 
+  summarise(m=mean(income)) %>% 
+  group_by(blind) %>% 
+  summarise(diff(m)) %>% 
+  set_names(c("Vision", "Mean pay gap (£)")) %>% 
+  pander::pander()
+
+earnings  %>%
+  group_by(blind, gender) %>% 
+  summarise(m=median(income)) %>% 
+  group_by(blind) %>% 
+  summarise(diff(m)) %>% 
+  set_names(c("Vision", "Median pay gap (£)")) %>% 
+  pander::pander()
+```
+
+
+The moral here is that different summaries of the data tell different
+stories: We should explore our data thoroughly, and avoid jumping to conclusions!
+
+
+`r unhide()`
+
+
+
+:::
+
+
+
+
+
+
+# Check your knowledge
 
 1. What does `.Rmd` stand for (what type of file is it)?
 1. Give three examples of visual 'aesthetics' in which can be adjusted in `ggplot`
@@ -631,9 +1173,11 @@ tibble(Plot=c("Animated boxplot", "Boxplot", "Line graph", "..."), Strengths="..
 1. What value do we need to set for a `geom_hline()` layer when adding it to a plot?
 1. Explain an advantage of using a log-scale plot for income data? Give an example of another type of data, common in psychology, where a log scale might also be useful.
 1. What sort of plots would allow us to check if a distribution is skewed?
-
-
-
+1. What effect does `scale_y_log10` have on large vs small values?
+1. What is a facet?
+1. When might we use facets in our work?
+1. What is the difference between `facet_wrap` and `facet_grid`?
+1. When choosing variables to use as facets or the x-axis, what principle should guide us?
 
 
 

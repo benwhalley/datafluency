@@ -18,9 +18,10 @@ source('_first_chunk.R')
 
 ```{r, include=F, echo=F}
 knitr::opts_chunk$set(echo = TRUE,
-  collapse=TRUE,
+  collapse=F,
   comment=NA,
-  cache = TRUE,
+  cache = F,
+  include=T,
   message=FALSE)
 ```
 
@@ -43,13 +44,8 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 # rebuild docs into /docs which is where github serves them from
 rmarkdown::render('index.Rmd', output_dir = "../docs")
 
-# rmarkdown::render('visualisation1.rmd', output_dir = "../docs")
-# rmarkdown::render('visualisation2.rmd', output_dir = "../docs")
-# 
-# rmarkdown::render('data-wrangling1.rmd', output_dir = "../docs")
-# rmarkdown::render('data-wrangling2.rmd', output_dir = "../docs")
-# 
-# rmarkdown::render('real-data-practical.rmd', output_dir = "../docs")
+rmarkdown::render('visualisation1.rmd', output_dir = "../docs")
+rmarkdown::render('data-wrangling1.rmd', output_dir = "../docs")
 
 # rmarkdown::render('teacher-notes.rmd', output_dir = "../docs")
 # rmarkdown::render('how-to-use-worksheets.rmd', output_dir = "../docs")
@@ -95,12 +91,13 @@ We will use short [LifesavR course](http://benwhalley.github.io/lifesavR/). We c
 
 ### Part 2: Data handling and visualisation 
 
-- Session 5: Data visualisation 1
-- Session 6:  Data visualisation 2
-- Session 7:  Data wrangling 1
+- Session 5: [Data visualisation](visualisation1.html)
+- Session 6:  Data wrangling
+<!-- - Session 6:  [Data wrangling](data-wrangling1.html) -->
+- Session 7:  Assessment support
 
 
-<!-- - [Data visualisation 1](visualisation1.html) -->
+<!-- -  -->
 <!-- - [Data visualisation 2](visualisation2.html) -->
 <!-- - [Data wrangling 1](data-wrangling.html) -->
 
