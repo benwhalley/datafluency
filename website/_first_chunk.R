@@ -10,12 +10,12 @@ library(psydata)
 
 knitr::opts_chunk$set(
   echo = TRUE,
-  collapse = F,
+  collapse = FALSE,
   comment = NA,
-  cache = FALSE,
-  message = FALSE
+  message = FALSE,
+  include=T
 )
-options(dplyr.summarise.inform = FALSE)
+# options(dplyr.summarise.inform = FALSE)
 
 makermds <- function(video_data){
   identifier <- video_data$identifier

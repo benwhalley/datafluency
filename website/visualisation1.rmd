@@ -56,9 +56,7 @@ Use this new `.rmd` file to save your work during this session.
 
 `r embed_youtube("Ek9rFSAq3QU")`
 
-
 :::
-
 
 
 

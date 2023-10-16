@@ -20,7 +20,6 @@ source('_first_chunk.R')
 knitr::opts_chunk$set(echo = TRUE,
   collapse=F,
   comment=NA,
-  cache = F,
   include=T,
   message=FALSE)
 ```
@@ -92,8 +91,7 @@ We will use short [LifesavR course](http://benwhalley.github.io/lifesavR/). We c
 ### Part 2: Data handling and visualisation 
 
 - Session 5: [Data visualisation](visualisation1.html)
-- Session 6:  Data wrangling
-<!-- - Session 6:  [Data wrangling](data-wrangling1.html) -->
+- Session 6:  [Data wrangling](data-wrangling1.html)
 - Session 7:  Assessment support
 
 
