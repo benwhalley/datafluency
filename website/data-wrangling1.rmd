@@ -649,7 +649,7 @@ sweets %>% write_csv('data/sweets.csv')
 
 The file `sweets.csv` contains a small number of example rows of data exported from an online survey.
 
-The file is at: <https://t.ly/H9sDJ>
+The file is at: <https://is.gd/axenun>
 
 
 <!-- https://gist.githubusercontent.com/benwhalley/620fd04c6671cfb9d64d2b7e7ed18ba2/raw/f9e32801758cb07985fd9ef0e020ff89d4f8a1b3/sweets.csv -->
@@ -659,7 +659,7 @@ We can look at the first few rows of the data, using the `glimpse` command:
 
 
 ```{r}
-sweets <- read_csv('https://t.ly/H9sDJ')
+sweets <- read_csv('https://is.gd/axenun')
 sweets %>% glimpse()
 ```
 
@@ -667,7 +667,7 @@ sweets %>% glimpse()
 :::{.exercise}
 
 
-- Import the sweets data as shown above from: <https://t.ly/H9sDJ>
+- Import the sweets data as shown above from: <https://is.gd/axenun>
 
 - Save it to a new variable called `sweets`
 
@@ -1139,7 +1139,7 @@ But as a guide, here's how I might solve this problem with ChatGPT as an assista
 I use these command to output some information about the data, in a format that's easy to copy into ChatGPT.
 
 ```{r, eval=F}
-sweets <- read_csv('https://t.ly/H9sDJ')
+sweets <- read_csv('https://is.gd/axenun')
 
 # lists the column names
 sweets %>% names()
@@ -1184,7 +1184,7 @@ In this example, ChatGPT provided the following code:
 library(tidyverse)
 
 # Load the sweets dataset (assuming it's already loaded)
-sweets <- read_csv('https://t.ly/H9sDJ')
+sweets <- read_csv('https://is.gd/axenun')
 
 # Recode the text responses into numeric variables
 sweets <- sweets %>%
@@ -1251,7 +1251,7 @@ productive in the long run. Think of LLMs as your assustant rather than your rep
 
 :::{.exercise}
 
-Use this example dataset: <https://t.ly/_Tcjo>
+Use this example dataset: <https://is.gd/ayinof>
 
 - Read in the data.
 - Rename the long column names to something short, and without spaces
@@ -1269,10 +1269,11 @@ Use this example dataset: <https://t.ly/_Tcjo>
 sleep <- readxl::read_xlsx('data/sleep.xlsx')
 sleep %>% write_csv('data/sleep.csv')
 # https://gist.github.com/benwhalley/d5c168565ca770ff99b51442115f4e56
+# https://is.gd/ayinof
 ```
 
 ```{r}
-sleep <- read_csv('https://t.ly/_Tcjo')
+sleep <- read_csv('https://is.gd/ayinof')
 
 # used to check what response values are in each question
 sleep %>% 
