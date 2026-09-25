@@ -1,7 +1,7 @@
 ---
 title: Data Visualisation
 author: 'Ben Whalley'
-date: "Oct. 2023"
+date: "September 2026"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
@@ -126,15 +126,16 @@ As a reminder: `ggplot` uses the term **aesthetics** to refer to different dimen
 
 There are 4 visual features (aesthetics) of plots we will use in this session:
 
--   `x` and `y` axes
+-   the `x` axis
+-   the `y` axis
 -   `colour`
--   `size` (of a point, or thickness of a line)
+-   `size` (of points)
 
 We could also use:
 
 -    the `fill` colour of shaded areas
 -   `shape` (of points)
--    the `size` of text, points or lines
+-   `linewidth` (the thickness of lines)
 -   `linetype` (of added lines, i.e. dotted/patterned or solid)
 -    transparency (called `alpha`) of the features of a plot
 
@@ -229,7 +230,7 @@ have two geometries added to the same plot: `geom_point` and `geom_smooth`.
 
 We could add other layers to the plot with other `geom_` functions.
 
-For example, we could calculate the average `mpg` and weight of all cars in the dataset and overlay that as a horizontal or vertical line:
+For example, we could calculate the median `mpg` of all cars in the dataset and overlay that as a horizontal line:
 
 ```{r, fig.width=3, fig.height=2.5}
 med_mpg <- fuel %>% summarise(median(mpg)) %>% pull(1)
@@ -241,9 +242,9 @@ fuel %>%
   geom_hline(yintercept = med_mpg, color="red") 
 ```
 
-***Explanation of the code*** First we calculate the median of `mpg` using summarise. Then we use the `pull(1)` command for the first  time. This selects the first column of data (containing our median) and returns only that. That is, it returns only a number, or a list of numbers, rather than the whole dataframe. Then We added `geom_hline` and `geom_vline` functions to our existing plot. We set the `yintercept` option to the stored `med_mpg` value, and this defines the height of the line. We added `color="red"` to make these added lines distinctive.
+***Explanation of the code*** First we calculate the median of `mpg` using summarise. Then we use the `pull(1)` command for the first  time. This selects the first column of data (containing our median) and returns only that. That is, it returns only a number, or a list of numbers, rather than the whole dataframe. Then we added the `geom_hline` function to our existing plot. We set the `yintercept` option to the stored `med_mpg` value, and this defines the height of the line. We added `color="red"` to make the added line distinctive.
 
-***Explanation of the output*** The plot is the same as before, but now has a red line marked at the mean of the `mpg` column. The red line is on top of the other plot elements because we added this line at the end of our plotting code.
+***Explanation of the output*** The plot is the same as before, but now has a red line marked at the median of the `mpg` column. The red line is on top of the other plot elements because we added this line at the end of our plotting code.
 
 ::: exercise
 
@@ -255,7 +256,7 @@ fuel %>%
 
 3.  Colour the plot, using the `education` variable.
 
-4. Add a horizontal line to the plot, with the `yintercept` set to the average anxiety score.
+4. Add a horizontal line to the plot, with the `yintercept` set to the median anxiety score.
 
 `r hide("Show the plot and code")`
 
@@ -318,7 +319,7 @@ uses a **log scale***.
 We can recognise the log scale by looking at the markings on the x axis: 
 
 - In the left hand panel the markings go up by 30,000 each time. 
-- In the original plot, each marker represents a value *10 times larger* than the previous. So, 1000, 10,0000 and 100,000 (the values shown are in [scientific notation](https://www.calculatorsoup.com/calculators/math/scientific-notation-converter.php), so `1e+03` means 1000).
+- In the original plot, each marker represents a value *10 times larger* than the previous. So, 1000, 10,000 and 100,000 (the values shown are in [scientific notation](https://www.calculatorsoup.com/calculators/math/scientific-notation-converter.php), so `1e+03` means 1000).
 
 
 
@@ -351,7 +352,7 @@ development %>%
 
 ***Explanation of the code*** We make another, histogram this time adding `scale_x_log10()`.
 
-***Explanation of the output*** The plot changes, and the distribution is less skewed. We can see that the scale markers are again in scientific notation, and the gaps between points of the scale are not equal: each point on the scale is 10 times larger than the previous one (1000, 10,000, 100,0000), stretching out the values across the x axis and reducing the skew.
+***Explanation of the output*** The plot changes, and the distribution is less skewed. We can see that the scale markers are again in scientific notation, and the gaps between points of the scale are not equal: each point on the scale is 10 times larger than the previous one (1000, 10,000, 100,000), stretching out the values across the x axis and reducing the skew.
 
 
 
@@ -415,7 +416,7 @@ rtdata %>%
 
 
 
-`r unhide()``
+`r unhide()`
 
 :::
 
@@ -423,7 +424,7 @@ rtdata %>%
 
 # Animation!
 
-*This is an entirely optional exercise. It is not required for the course assessment and is included only becasue
+*This is an entirely optional exercise. It is not required for the course assessment and is included only because
 students asked how to make animations similar to the one shown in the Rosling video. 
 Skip to the next section if you are short on time.*
 
@@ -436,6 +437,16 @@ As an example we can load the package:
 ```{r}
 library(gganimate)
 ```
+
+:::{.tip}
+`gganimate` is already installed on the school's RStudio server. If you are using R on your own
+computer and see the error `there is no package called 'gganimate'`, install it (and `gifski`,
+which it uses to make the animated GIF) by running this once in the **Console**:
+
+```{r, eval=F}
+install.packages(c("gganimate", "gifski"))
+```
+:::
 
 And then adapt our previous ggplot by adding `transition_time(year)`. This adds `year` as a time-based
 dimension, animating the plot.
@@ -488,7 +499,7 @@ You need to:
 
 `r hide("Show what the result should look like")`
 
-```{r, echo=F, cache=T}
+```{r, echo=F}
 p <- development %>%
   ggplot(aes(continent, life_expectancy)) +
   geom_boxplot() + 
@@ -503,7 +514,7 @@ p %>% animate(renderer = gifski_renderer(), nframes = 50)
 
 `r hide("Show the code")`
 
-```{r, eval=F, echo=T, cache=T}
+```{r, eval=F, echo=T}
 library(tidyverse)
 library(psydata)
 library(gganimate)
@@ -516,6 +527,9 @@ p <- development %>%
 
 p %>% animate()
 ```
+
+The text `{frame_time}` inside the title is replaced by the year currently shown in each frame of
+the animation.
 
 `r unhide()`
 
@@ -561,7 +575,7 @@ development %>%
   filter(year == 1952 | year == 2002) %>% 
   ggplot(aes(factor(year), life_expectancy)) +
   geom_boxplot() + 
-  labs(title = "Life expectancy 1952 vs. 2022", x="Year", y="Life expectancy (years)") +
+  labs(title = "Life expectancy 1952 vs. 2002", x="Year", y="Life expectancy (years)") +
   facet_grid(~continent)
 ```
 
@@ -580,7 +594,7 @@ development %>%
   stat_summary(fun.data = median_iqr, geom="point") + 
   theme_minimal() +
   stat_summary(geom="line", fun.data=median_iqr) + 
-  labs(title = "Life expectancy 1952 vs. 2022", x="Year", y="Life expectancy (years)",
+  labs(title = "Life expectancy 1952 vs. 2002", x="Year", y="Life expectancy (years)",
        color="Continent") 
 ```
 
@@ -596,7 +610,7 @@ development %>%
   stat_summary(geom="ribbon", fun.data = median_iqr, alpha=.2, linetype=0) + 
   stat_summary(geom="line", fun.data=median_iqr) + 
   theme_minimal() +
-  labs(title = "Life expectancy between 1952 and 2022 (median and IQR)", x="Year", 
+  labs(title = "Life expectancy between 1952 and 2007 (median and IQR)", x="Year", 
        y="Life expectancy (years)", 
        fill="Continent", color="Continent") 
 ```
@@ -650,15 +664,12 @@ development %>%
   geom_smooth(se=FALSE)
 ```
 
-**Explanation**: This is another x/y plot. However this time we have not added points, but rather
-smoothed lines (one for each country).
-
-**Explanation of the code**:We have created an x/y plot as before, but this time we only added
+**Explanation of the code**: We have created an x/y plot as before, but this time we only added
 `geom_smooth` (and not `geom_point`), so we can't see the individual datapoints. We have also added
 the text `group=country` which means we see one line per-country in the dataset. Finally, we also
 added `se=FALSE`. This hides the shaded area which `geom_smooth` adds by default.
 
-**Comment on the result**: It's pretty hard to distinguish different countries or make sense of anything!
+**Explanation of the output**: We see smoothed lines (one for each country) rather than points. It's pretty hard to distinguish different countries or make sense of anything!
   
 ----------------------------------------------------------------------------------------------------
   
@@ -683,7 +694,7 @@ development %>%
   facet_grid(~continent)
 ```
 
-**Explanation**: We added the code `+ facet_grid(.~continent)` to our previous plot, and removed the color aesthetic. This made `ggplot` create individual *panels* for each continent.
+**Explanation**: We added the code `+ facet_grid(~continent)` to our previous plot, and removed the color aesthetic. This made `ggplot` create individual *panels* for each continent.
 Splitting the graph this way makes it somewhat easier to compare the differences *between*
 continents.
 
@@ -791,20 +802,25 @@ Try to re-create some of these examples.
 
 # Comparing categories
 
-In the examples above we have been plotting continuous variables (and adding colours etc). We've
-used density, scatter and smoothed line plots to do this.
+In the examples above we have mostly been plotting continuous variables (and adding colours etc),
+using histograms, scatter plots and smoothed lines.
 
 Another common requirement is to use plots to *compare* summary statistics for different *groups* or
 *categories.* 
 
 For example, the classic plot in a psychology journal looks something like this:
 
-```{r, echo=F, width=6, height=3}
+```{r, echo=F, fig.width=6, fig.height=3}
+# simulated RTs: a shifted log-normal distribution (always positive, right-skewed)
 set.seed(1234)
-expdata <- expand.grid(Condition=c("Low", "Med", "High"), stimuli=1:4, p=1:20) %>%
-  mutate(RT = -200+rnorm(n(), 25 + 5*as.numeric(Condition=="A") + -4*as.numeric(stimuli==1), 6)^2, stimuli=factor(stimuli, labels=factor(paste0("Stimulus ", 1:4)))) 
+expdata <- expand_grid(Condition=c("Low", "Med", "High"), stimuli=1:4, p=1:20) %>%
+  mutate(
+    Condition = factor(Condition, levels=c("Low", "Med", "High")),
+    RT = round(150 + exp(rnorm(n(), log(220) + .1*as.numeric(Condition) - .25*(stimuli==1), .5))),
+    stimuli = paste("Stimulus", stimuli))
 write_csv(expdata, 'data/expdata.csv')
-expdata <- read_csv('data/expdata.csv')
+expdata <- read_csv('data/expdata.csv') %>%
+  mutate(Condition = fct_relevel(Condition, "Low", "Med", "High"))
 
 expdata %>%
   ggplot(aes(Condition, RT)) +
@@ -851,27 +867,35 @@ So far we have always used data from the `psydata` package. However, we can also
 load data from files or over the internet using the `read_csv()` function. This is an example:
 
 
-<!-- 
-https://gist.githubusercontent.com/benwhalley/7bcc2b9c2f37ddd604c5a5e02cc689cd/raw/cdedea83725ee8d5d19597469fc4d09d6467d1cc/expdata2.csv
--->
+```{r, echo=F}
+expdata <- read_csv('data/expdata.csv') %>%
+  mutate(Condition = fct_relevel(Condition, "Low", "Med", "High"))
+```
 
-```{r}
-expdata <- read_csv('https://t.ly/yzUO1')
+```{r, eval=F, echo=T}
+expdata <- read_csv('https://benwhalley.github.io/datafluency/data/expdata.csv') %>%
+  mutate(Condition = fct_relevel(Condition, "Low", "Med", "High"))
+expdata %>% glimpse
+```
+
+```{r, echo=F}
 expdata %>% glimpse
 ```
 
 ***Explanation***: The part which starts `expdata <- read_csv('https://...` loads a CSV (data)
-file over the internet, and stores it in the variable called `expdata`. You can click [this link](https://gist.githubusercontent.com/benwhalley/f94baf447612e2434b181739dbba27df/raw/43df26022fff68f49918c795f27d7352dc0d3425/expdata.csv) to see the raw data. We then use `glimpse` to 
-check the data
+file over the internet, and stores it in the variable called `expdata`. You can click [this link](https://benwhalley.github.io/datafluency/data/expdata.csv) to see the raw data.
+The `mutate(Condition = fct_relevel(...))` line sets the order of the `Condition` categories
+(otherwise R sorts them alphabetically: High, Low, Med), so plots show Low, Med, High from left to right.
+We then use `glimpse` to check the data.
 
 
 :::{.exercise}
 
-Load the (simulated) dataset from this url: [https://t.ly/yzUO1](https://t.ly/yzUO1) (note that this URL is a shortcut and redirects to the full url, which is actally <https://gist.githubusercontent.com/benwhalley/7bcc[...]61cc/expdata2.csv>. We shortened the link to make it easier to copy and paste). 
+Load the (simulated) dataset from this url: <https://benwhalley.github.io/datafluency/data/expdata.csv> (remember to set the order of the `Condition` categories, as shown above).
 
 
 -   Recreate the boxplot above
--   Use a facet to recreate the plot you saw above, enabling comparisons across `Stimuli` (on the x axis) and `Condition`.
+-   Use a facet to recreate the plot you saw at the start of this section, enabling comparisons across `Condition` (on the x axis) and `stimuli` (in separate panels).
 
 
 `r hide('Show the desired plot')`
@@ -895,7 +919,9 @@ expdata  %>%
 
 
 ```{r, echo=T, eval=F}
-expdata <- read_csv('https://t.ly/yzUO1')
+expdata <- read_csv('https://benwhalley.github.io/datafluency/data/expdata.csv') %>%
+  mutate(Condition = fct_relevel(Condition, "Low", "Med", "High"))
+
 expdata  %>%
   ggplot(aes(x=Condition, y=RT)) + 
   geom_boxplot() + 
@@ -929,7 +955,8 @@ expdata %>%
 measure of variability) in each group, using a **point-range plot**. This is better than a bar chart
 because it avoids a known bias in how we read them. 
 
-You can ignore the warning about `No summary function supplied, defaulting to mean_se()` for now (or ask ChatGPT to explain it and how to get rid of it if it bothers you).
+When you run this in RStudio you will see the message `No summary function supplied, defaulting to mean_se()`.
+This is not an error: it just tells you that ggplot is plotting the mean and standard error (`mean_se`) for each group.
 
 
 :::{.exercise}
@@ -960,9 +987,12 @@ expdata  %>%
 
 ```{r, echo=T, eval=F}
 expdata  %>%
-  ggplot(aes(x=stimuli, y=RT)) + 
+  ggplot(aes(x=Condition, y=RT)) + 
   stat_summary() +
-  facet_wrap(~Condition)
+  xlab("") +
+  ylab("Reaction time (ms)") +
+  facet_wrap(~stimuli, nrow=1) + 
+  theme_minimal()
 ```
 
 `r unhide()`
@@ -982,7 +1012,7 @@ expdata %>%
 ```
 
 
-And you can combine multiple calls to `stat_summary` to get a bar chat with error bars on top:
+And you can combine multiple calls to `stat_summary` to get a bar chart with error bars on top:
 
 ```{r}
 expdata %>%
@@ -999,7 +1029,7 @@ expdata %>%
 
 ## Decisions about grouping
 
-Consider the following two plots. Both present the same data on the incomes of men and 
+Consider the following two plots. Both present the same data (from a US survey, so incomes are in dollars) on the incomes of men and 
 women who are either blind or normally sighted:
 
 ```{r, fig.height=3, fig.width=6, echo=F}
@@ -1010,13 +1040,13 @@ A <- earnings  %>%
   ggplot(aes(x=gender, y=income/1000)) + 
   facet_wrap(~blind) + 
   stat_summary() + ggtitle("Figure A")+
-  labs(y = "Income (£ 1000)", x="Gender")
+  labs(y = "Income ($1000)", x="Gender")
 
 B <- earnings  %>%
   ggplot(aes(x=blind, y=income/1000)) + 
   facet_wrap(~gender) + 
   stat_summary() + ggtitle("Figure B") + 
-  labs(y = "Income (£ 1000)", x="Vision")
+  labs(y = "Income ($1000)", x="Vision")
 
 gridExtra::grid.arrange(A, B, nrow=1)
 
@@ -1041,6 +1071,11 @@ more useful. My reasoning is that in this plot we can see that:
 I think that third point is interesting but slightly harder to read/understand from plot B, 
 and so I would choose plot A.
 
+However, we should be cautious about point 3: only 26 people in the dataset are blind (10 women
+and 16 men), so the means for this group are very uncertain (note the wide error bars). The
+conclusion is also not robust: if we compare *medians* rather than means, the pay gap is actually
+*smaller* for blind people (see the discussion of skewed incomes below).
+
 *The idea to take-away is that grouping the data in the plot in different ways can make it easier or more difficult to identify different patterns.*
 
 
@@ -1062,7 +1097,7 @@ earnings  %>%
   ggplot(aes(x=education, y=income/1000)) + 
   facet_grid(~gender) + 
   stat_summary() +
-  labs(y = "Income (£1000)", x="Gender")
+  labs(y = "Income ($1000)", x="Education")
 ```
 `r hide('Show hint')`
 
@@ -1078,7 +1113,7 @@ earnings  %>%
   ggplot(aes(x=gender, y=income/1000)) + 
   facet_grid(~education) + 
   stat_summary() +
-  labs(y = "Income (£ 1000)", x="Gender")
+  labs(y = "Income ($1000)", x="Gender")
 ```
 
 `r unhide()`
@@ -1092,7 +1127,7 @@ Which plot is the most "truthful"?
 
 `r hide('Show answer')`
 
-By adding a log scale to the gender pay gaps appear to be more equal across different education
+When we add a log scale, the gender pay gaps appear more similar across the different education
 categories.
 
 
@@ -1102,7 +1137,7 @@ earnings  %>%
   facet_grid(~education) + 
   stat_summary() +
   scale_y_log10() +
-  labs(y = "Income (£ 1000)", x="Gender")
+  labs(y = "Income ($1000)", x="Gender")
 ```
 
 `r unhide()`
@@ -1113,9 +1148,9 @@ earnings  %>%
 
 Either plot can be considered more or less 'truthful', depending on your perspective:
 
-- If you believe a £2000 pay gap is the same for people earning around £20,000 as it is for those earning £100,000 then the first plot is more helpful. We can see there that largest pay gaps are among the most educated and so highest-earning.
+- If you believe a \$2000 pay gap is the same for people earning around \$20,000 as it is for those earning \$100,000 then the first plot is more helpful. We can see there that largest pay gaps are among the most educated and so highest-earning.
 
-- If we consider that £2000 means less to those earning very high incomes, then the second plot is more helpful. This plot shows that, relative to total income, the size of the pay gap is pretty consistent across education categories.
+- If we consider that \$2000 means less to those earning very high incomes, then the second plot is more helpful. This plot shows that, relative to total income, the size of the pay gap is pretty consistent across education categories.
 
 
 However the elephant in the room is that income has a very skewed distribution:
@@ -1134,7 +1169,7 @@ earnings  %>%
   summarise(m=mean(income)) %>% 
   group_by(blind) %>% 
   summarise(diff(m)) %>% 
-  set_names(c("Vision", "Mean pay gap (£)")) %>% 
+  set_names(c("Vision", "Mean pay gap ($)")) %>% 
   pander::pander()
 
 earnings  %>%
@@ -1142,7 +1177,7 @@ earnings  %>%
   summarise(m=median(income)) %>% 
   group_by(blind) %>% 
   summarise(diff(m)) %>% 
-  set_names(c("Vision", "Median pay gap (£)")) %>% 
+  set_names(c("Vision", "Median pay gap ($)")) %>% 
   pander::pander()
 ```
 

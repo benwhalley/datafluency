@@ -1,7 +1,7 @@
 ---
 title: 'Data wrangling'
 author: 'Ben Whalley'
-date: "October 2023"
+date: "September 2026"
 bibliography: [references.bib]
 biblio-style: apa6
 link-citations: yes
@@ -20,7 +20,8 @@ source('_first_chunk.R')
 > Most time in data analysis is spent 'tidying up' data: getting it into a suitable format to get
 > started. Data scientists have a particular definition of _tidy_: Tidy datasets are "easy to
 > manipulate, model and visualize, and have a specific structure: each variable is a column, each
-> observation is a row" [@wickham_tidy_2014].
+> observation is a row" [@wickham_tidy_2014]. A third rule usually completes the definition: each
+> value has its own cell.
 
 > It's often not convenient for humans to _enter_ data in a tidy way, so untidy data is probably
 > more common than tidy data in the wild. But doing good, reproducible science demands that we
@@ -31,7 +32,7 @@ source('_first_chunk.R')
 
 # Overview
 
-In the [lifesavR worksheets](http://benwhalley.github.io/lifesavR/)  we used various commands from the `tidyverse`, like `filter` and `group_by`. 
+In the [lifesavR worksheets](https://benwhalley.github.io/lifesavR/)  we used various commands from the `tidyverse`, like `filter` and `group_by`. 
 
 If you want to recap these commands you could use [the cheatsheet](https://plymouthpsychology.github.io/cheatR/lifesavr_cheatsheet.html), especially
 the part on groups and summaries.
@@ -43,7 +44,8 @@ the part on groups and summaries.
 Today we will cover three additional techniques which are important when working with real datasets:
 
 1. 'Pivoting' or reshaping data from long to wide formats (or the reverse)
-2. Adding meaningful labels to categorical variables
+2. Separating 'untidy' columns which contain more than one piece of information
+3. Recoding text responses (e.g. from questionnaires) into numeric values
 
 
 
@@ -59,7 +61,7 @@ Make a new `rmd` file in your datafluency directory, called `data-wrangling.rmd`
 
 # Selecting columns
 
-The `fuel` data also contains variables for weight and power.
+As well as fuel economy (`mpg`), the `fuel` dataset contains variables for the weight and power of each car.
 
 We can select just these columns and save them to a smaller dataframe like this:
 
@@ -74,13 +76,14 @@ carperformance <- fuel %>%
 - On the far left we have the name of the new variable which we will create: `carperformance`.
 - We can tell this will be a new variable because the `<-` symbol is just to the right, pointing at
 it.
-- To see what `carperformance` contains, look to the right of the `<-`. We pipe the `fuel` data to the `select` command, which selects the`mpg`,`weight`, and`power` columns.
+- To see what `carperformance` contains, look to the right of the `<-`. We pipe the `fuel` data to the `select` command, which selects the `mpg`, `weight`, and `power` columns.
+- Finally, `head()` keeps only the first 6 rows, so `carperformance` is a small preview rather than a full copy of the data.
 
 #### Explanation of the result
 
-When running the command you won't see any output --- but a new object was created called `carperformance` which contained copies of the columns from `fuel` we selected.
+When running the command you won't see any output --- but a new object was created called `carperformance` which contained copies of the columns from `fuel` we selected (for the first 6 rows only).
 
-We can see the first few rows of our new smaller dataframe like this:
+We can see what our new smaller dataframe contains by typing its name, or piping it to `head()` (which shows up to the first 6 rows):
 
 ```{r, include=T}
 carperformance %>% head() 
@@ -108,7 +111,7 @@ If you used SPSS to do a _t_-test or ANOVA during your undergraduate degree, you
 data in **wide** format. 
 
 In wide format, each row represents the _observations from a single
-participant_. Each measurement for a given participant are stored in separate columns. 
+participant_. Each measurement for a given participant is stored in separate columns. 
 
 This is often called **row per subject** data. An example is the built in `attitude` dataset:
 
@@ -128,7 +131,7 @@ Let's say we want a single plot of all these variables, something like this:
 ```{r echo=F, message=F, warning=F}
 attitude %>%
   pivot_longer(everything()) %>% 
-  mutate(name=Hmisc::capitalize(as.character(name))) %>%
+  mutate(name=str_to_sentence(name)) %>%
   ggplot(aes(name, value)) +
   geom_boxplot() +
   labs(x="Measure", y="Score")
@@ -167,12 +170,13 @@ attitude %>%
 ```
 
 **Explanation of the command**: 
-- We selected a subset of columns and rows. 
+- We used `head(2)` to select just the first two rows. 
 - Then we used `pivot_longer(everything())` to make this into long form data.
-- The `everything()` part tells R to merge values from all of the columns into a single new column called `value`, and to keep track of the original variable name in a new column called `name`.
+- The `everything()` part tells R to pivot *all* of the columns.
+- By default, `pivot_longer` puts the values into a single new column called `value`, and keeps track of the original variable name in a new column called `name`.
 
 
-The change works like like this:
+The change works like this:
 
 ![Converting from wide format to long format](images/data_wide2Long_attitude.png)
 
@@ -242,7 +246,7 @@ Use some tidyverse commands you already know (e.g. `select`), plus `pivot_longer
 attitude %>%
   select(rating, complaints, learning) %>%
   pivot_longer(everything()) %>% 
-  mutate(variable=Hmisc::capitalize(as.character(name))) %>%
+  mutate(variable=str_to_sentence(name)) %>%
   ggplot(aes(variable, value)) +
   geom_boxplot() +
   labs(x="Measure", y="Score")
@@ -417,7 +421,7 @@ development1990s %>%
 
 - We started with multiple rows per country, corresponding to years. 
 - We used `pivot_wider` with `names_from = year` to create new columns for each year in the data. 
-- We used `values_from=gdp_per_capita` to tell `pivot_longer` to use the GDP numbers to populate the table.
+- We used `values_from=gdp_per_capita` to tell `pivot_wider` to use the GDP numbers to populate the table.
 - The resulting table helps us compare years within countries, or between countries, for a given year.
 
 
@@ -461,6 +465,8 @@ funimagery %>%
 
 `r unhide()`
 
+
+> When you run this code you may see a message like `summarise() has grouped output by 'name'`. This is just for information and can safely be ignored.
 
 
 :::
@@ -511,13 +517,13 @@ on the x axis.
 
 The `separate` command separates a single character column (`name`) into multiple columns.
 Rather than have a column with labels of the form 'time_1', it can create two columns, with labels
-'time' and '1' in each.
+'time' and '1' in each. Adding `convert = TRUE` tells R to convert the new columns to numbers where it can.
 
 ```{r}
 # convert to long form; extract the `time` as a new numeric column
 longrepeatmeasuresdata <- repeatmeasuresdata %>%
   pivot_longer(starts_with("time")) %>%
-  separate(name, into = c("variable", "time"))
+  separate(name, into = c("variable", "time"), convert = TRUE)
 
 longrepeatmeasuresdata %>% head %>% 
   pander()
@@ -528,7 +534,7 @@ Now the data are in long format, we can plot the points over time:
 
 ```{r}
 longrepeatmeasuresdata %>%
-  sample_n(30) %>%
+  slice_sample(n = 30) %>%
   ggplot(aes(x=time, y=value)) +
   geom_point()
 ```
@@ -541,14 +547,21 @@ In the example above, `separate` split data like `"time_1"`, `"time_2"` etc into
 
 Q: How did it know to use the underscore (`_`) to split the data?
 
-A: The default is to split on anything which is not a letter or number. So `_` or a space, or `,` would all work.
+A: By default, `separate` splits wherever it finds a character which is not a letter or number. So `_`, a space, or `,` would all work.
 
 
-Sometimes though we need to tell R explicitly what to use to sepatate the values.
+Sometimes though we need to tell R explicitly what to use to separate the values.
 
 If we had a column of email addresses we could split `ben.whalley@plymouth.ac.uk` into the username (e.g. `ben.whalley`) and domain name (`plymouth.ac.uk`) using the `@` symbol.
 
 To do this we just write `sep="@"` when we use separate.
+
+
+:::{.tip}
+
+Newer versions of `tidyr` also include `separate_wider_delim()`, which does the same job but always requires you to say explicitly what to split on (e.g. `separate_wider_delim(name, delim = "_", names = c("variable", "time"))`). You may see this in other people's code; `separate` still works fine for everything in this worksheet.
+
+:::
 
 
 :::{.exercise}
@@ -583,7 +596,7 @@ messy_exp %>%
 :::{.exercise}
 
 
-1. This file contains sample contact and address data for 100 people: <https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv>
+1. This file contains (made-up) sample contact and address data for 99 people: <https://benwhalley.github.io/datafluency/data/100-contacts.csv>
 
 
   - Read the data into R (you can either use the URL above directly inside the `read_csv()` function, or download then re-upload the data to the server to do this)
@@ -600,10 +613,15 @@ messy_exp %>%
 
 `r hide("Show workings")`
 
-```{r}
+```{r, eval=F}
 # read the data directly from the URL
-contacts <- read_csv('https://letterhub.com/wp-content/uploads/2018/03/100-contacts.csv') %>% 
+contacts <- read_csv('https://benwhalley.github.io/datafluency/data/100-contacts.csv') %>% 
   separate(email, into=c("user", "domain"), sep ="@")  # uses the @ symbol as a separator
+```
+
+```{r, include=F}
+contacts <- read_csv('data/100-contacts.csv') %>% 
+  separate(email, into=c("user", "domain"), sep ="@")
 ```
 
 ```{r}
@@ -736,7 +754,7 @@ So for this example:
 sweets %>%
   rename(
     like_sweets = `How much do you like sweets?`,
-    like_chocolate = `How much do you like chocolate`,
+    like_chocolate = `How much do you like chocolate`
   )
 ```
 
@@ -750,7 +768,7 @@ You should create a new variable to save the renamed dataset (with a descriptive
 # create a new variable containing the renamed dataset
 sweets.renamed <- sweets %>%
   rename(
-    like_sweets = `How much do you like sweets?`,
+    like_sweets = `How much do you like sweets?`
 )
 ```
 
@@ -841,6 +859,8 @@ sweets %>%
   pander()
 ```
 
+Here I used `distinct()`, which is the tidyverse equivalent of `unique()`: both give the same result.
+
 `r unhide()`
 
 :::
@@ -849,9 +869,9 @@ sweets %>%
 
 ### Step 2: Make a mapping variable
 
-We do this by creating what R calles a **named vector**, which is a special kind of list.
+We do this by creating what R calls a **named vector**, which is a special kind of list.
 
-To make a named vector we use the the `c()` function. The letter `c`
+To make a named vector we use the `c()` function. The letter `c`
 here just stands for 'combine' --- i.e. 'combine these things into a list'.
 
 This is a simple example:
@@ -862,7 +882,7 @@ mapping.list <- c("No" = 0, "Yes" = 1)
 ```
 
 
-We could then use this mapping to recode a column of data which contained the words "No" or "Yes
+We could then use this mapping to recode a column of data which contained the words "No" or "Yes".
 
 
 <br>
@@ -919,7 +939,7 @@ We can use our new mapping with the `mutate` and `recode` functions to make a **
 sweets.recoded <-  sweets %>% 
     rename(
       like_sweets = `How much do you like sweets?`,
-      like_chocolate = `How much do you like chocolate`,
+      like_chocolate = `How much do you like chocolate`
     ) %>% 
     # use recode to convert text response using preference.mappings
     mutate(
@@ -944,6 +964,8 @@ sweets.recoded %>% glimpse()
 
 **Watch out for the exclamation marks`!!!`**: In the code above there are
 three exclamation marks, `!!!`, before the mapping; make sure you do the same.
+
+*Note*: `recode` still works, but newer versions of `dplyr` recommend `case_match()` for the same job. You don't need to learn it now, but you may see it in other people's code.
 
 
 `r hide('Optional: Explain the 3 exclamation marks')`
@@ -1012,7 +1034,7 @@ This is one of the trickiest bits of R code we use. I've included an annotated v
 
 - Use this three-step process to create a recoded version of the `like_chocolate` variable.
 
-- Remember to watch the video at the start of this section, or the short version in the green box above, if anything is unclear.
+- Remember to watch the video at the start of this section, or the summary video above, if anything is unclear.
 
 :::
 
@@ -1119,24 +1141,31 @@ sweets.recoded %>%
 
 
 
-# Using ChatGPT to automate things
+# Using AI chatbots to automate things
 
 In the sections above I explained how to tidy up a simple dataset. However
-it turns out many of these tasks are easily solved using ChatGPT.
+it turns out many of these tasks can be solved quickly using AI chatbots (large language models, or LLMs) such as ChatGPT, Claude or Gemini, or the assistants now built into RStudio and Positron.
 
 You now have a choice you didn't have a few years ago:
 
-1. Learn how to do these steps by hand (and sometimes use ChatGPT to automate the work)
-2. Learn just enough to be able to get ChatGPT to write code for you (and hope it's correct)
+1. Learn how to do these steps by hand (and sometimes use an LLM to automate the work)
+2. Learn just enough to be able to get an LLM to write code for you (and hope it's correct)
 
-I would recommend option 1 (at least until LLMs make improvements in code generation) because it will likely be faster, more accurate and will promote your understanding.
+I would recommend option 1 because you need to understand the code to check it is correct, and it will promote your understanding.
 
-But as a guide, here's how I might solve this problem with ChatGPT as an assistant.
+But as a guide, here's how I might solve this problem with ChatGPT as an assistant (other tools work in much the same way).
+
+
+:::{.tip}
+
+**Never paste identifiable or confidential participant data into a chatbot.** Share only column names, a few made-up example rows, or summaries like the ones below, and check your university's guidance on using AI tools with research data.
+
+:::
 
 
 #### Step 1. Show ChatGPT the data
 
-I use these command to output some information about the data, in a format that's easy to copy into ChatGPT.
+I use these commands to output some information about the data, in a format that's easy to copy into ChatGPT.
 
 ```{r, eval=F}
 sweets <- read_csv('https://is.gd/axenun')
@@ -1154,11 +1183,11 @@ sweets %>% count(`How much do you like sweets?`) %>%
 
 
 
-#### Step 2: Ask GPT to recode it for us
+#### Step 2: Ask ChatGPT to recode it for us
 
 This link shows how I asked ChatGPT to recode the `sweets` data:
 
-https://chat.openai.com/share/325b1f77-c68c-417a-8e75-76b05a6b9633
+<https://chatgpt.com/share/325b1f77-c68c-417a-8e75-76b05a6b9633>
 
 <br><br>
 
@@ -1172,7 +1201,7 @@ Note that I:
 
 
 
-#### Step 3: Debug and validate the R code GPT provides
+#### Step 3: Debug and validate the R code ChatGPT provides
 
 
 ![](images/recodewithchatgpt.png)
@@ -1218,9 +1247,26 @@ glimpse(sweets)
 ```
 
 
-Amazingly, this actually works! 
 
-However it's worth saying that it *often* doesn't work on first try, and it is dependent on writing a good prompt to the model, and giving it plenty of information about the data and what you want to achieve.
+This code runs without any errors. **But it is wrong.** Look carefully at the numbers ChatGPT assigned:
+
+- `"I don't like them"` = 0
+- `"I like them"` = 1
+- `"I'm neutral"` = 2
+
+This scores being neutral *higher* than liking sweets. The responses are ordered (don't like < neutral < like), so the numbers should be too. The mapping should have been:
+
+```{r, eval=F}
+"I don't like them" = 0,
+"I'm neutral" = 1,
+"I like them" = 2
+```
+
+If we hadn't checked, we would have calculated averages and summary scores that looked plausible but were meaningless.
+
+**This is the key lesson: code that runs is not necessarily code that is correct.** R will happily do the wrong thing if you ask it to. You must read and check any code an LLM gives you, just as you would check your own.
+
+It's also worth saying that LLM code *often* doesn't work on first try, and it is dependent on writing a good prompt to the model, and giving it plenty of information about the data and what you want to achieve.
 
 Some tips:
 
@@ -1230,19 +1276,19 @@ Some tips:
 - If code doesn't work, ask for explanations or corrections.
 - Break tasks down into smaller steps (ask for less and build up your script).
 - Paste in the code you already have and ask for a completion with one extra step (e.g. something you don't know how to do).
-- If you can afford it, use ChatGPT 4 or try new R-specific LLMs as they are (inevitably) released.
+- Always check the output (e.g. with `glimpse` or `count`) to make sure it has done what you intended.
 
 
 
-Where there are bugs in ChatGPT's code, you can
+Where there are bugs in an LLM's code, you can
 
 - fix these bugs by hand, or
-- run the code, report the errors to ChatGPT and ask it to fix them for you.
+- run the code, report the errors to the LLM and ask it to fix them for you.
 
-The second option has some risks (ChatGPT's code _might_ delete your data, although it's unlikely), and is probably slower. In this instance it took me quite a while to get ChatGPT to fix the simple errors, and this required understanding the code to some degree anyway.
+The second option has some risks (the code _might_ delete or overwrite your data, although it's unlikely), and is often slower. In this instance it took me quite a while to get ChatGPT to fix the simple errors, and this required understanding the code to some degree anyway. And as we saw above, some mistakes don't produce errors at all: you only find them by reading the code.
 
 As I recommend in the lectures, knowing how to use R well enough to fix the small errors introduced is likely to be more
-productive in the long run. Think of LLMs as your assustant rather than your replacement.
+productive in the long run. Think of LLMs as your assistant rather than your replacement.
 
 
 
@@ -1258,7 +1304,7 @@ Use this example dataset: <https://is.gd/ayinof>
 - Recode at least three of the columns with data about sleep quality to be numeric
 - Save the result of this work in a new variable called `sleep.tidy`
 - Pivot the recoded variables and make a boxplot of responses to these questions
-- Create a summary score called `sleep_quality` which is the sum of these recoded questions (use mutate)
+- Create a summary score called `sleep_problems` which is the sum of these recoded questions (use mutate)
 - Create a density plot of this summary score and interpret what you see (describe the pattern in plain English)
 
 
@@ -1283,11 +1329,15 @@ sleep %>%
 sleep %>% 
   select(`My electronic device usage negatively affects my sleep`) %>% 
   unique() %>% paste %>% cat
+
+sleep %>% 
+  select(`My sleep is disturbed by external factors e.g. loud cars, housemates, lights, children...`) %>% 
+  unique() %>% paste %>% cat
 ```
 
 
 ```{r}
-# we will use the same mapping for both questions because they have the same responses
+# we will use the same mapping for all three questions because they have the same responses
 sleep.map <- c("Agree"=2, 
                "Somewhat agree"=1, 
                "Somewhat disagree"=-1, 
@@ -1298,10 +1348,11 @@ sleep.map <- c("Agree"=2,
 
 
 sleep.tidy <- sleep %>% 
-  # now we recode the two text variables (we only need use mutate once though)
+  # now we recode the three text variables (we only need use mutate once though)
   mutate(
     sleep_study = recode(`My sleep is affected by my study commitments`, !!!sleep.map), 
-    sleep_electronic = recode(`My electronic device usage negatively affects my sleep`, !!!sleep.map)
+    sleep_electronic = recode(`My electronic device usage negatively affects my sleep`, !!!sleep.map),
+    sleep_disturbed = recode(`My sleep is disturbed by external factors e.g. loud cars, housemates, lights, children...`, !!!sleep.map)
   )
 
 ```
@@ -1309,27 +1360,27 @@ sleep.tidy <- sleep %>%
 ```{r}
 # now we can pivot longer to make a plot
 sleep.tidy %>% 
-  pivot_longer(c(sleep_study, sleep_electronic)) %>% 
+  pivot_longer(c(sleep_study, sleep_electronic, sleep_disturbed)) %>% 
   ggplot(aes(name, value)) + geom_boxplot()
 ```
 
-And make a summary score combining both questions
+And make a summary score combining the three questions. All three items ask whether something *affects* or *disturbs* sleep, so agreeing means more sleep problems. That's why I've called the score `sleep_problems`: higher scores mean *worse* sleep.
 
 ```{r}
-sleep.tidy.withsumary <- sleep.tidy %>% 
+sleep.tidy.withsummary <- sleep.tidy %>% 
   # and create the summary score
-  mutate(sleep_quality = sleep_study + sleep_electronic ) 
+  mutate(sleep_problems = sleep_study + sleep_electronic + sleep_disturbed) 
   
 # check the result. it looks ok
-sleep.tidy.withsumary %>% glimpse
+sleep.tidy.withsummary %>% glimpse
 ```
 
 
 ```{r}
 # finally, make the requested density plot
 # make the density plot
-sleep.tidy.withsumary %>% 
-  ggplot(aes(sleep_quality)) + 
+sleep.tidy.withsummary %>% 
+  ggplot(aes(sleep_problems)) + 
   geom_density()
 ```
 
@@ -1346,11 +1397,11 @@ sleep.tidy.withsumary %>%
 - What function creates a new column in a dataset?
 - Which function allows you to choose a subset of the columns in a dataset?
 - What does `pivot_longer` do?
-- Why is `pivot_longer` useful when we want to make a faceted plot?
+- Why is `pivot_longer` useful when we want to make a faceted plot? (Think back to the facets we used in the visualisation session.)
 - Why is wide data sometimes more useful than long data?
 - If you have RT data with 10 groups, what tidyverse 'verbs' (functions) would you use to calculate the mean for each group?
 - How can you read data into a dataframe from over the internet?
-- Does `recode` convert from text to numeric, or from numeric to text values?
+- In this worksheet we used `recode` with a mapping variable. What type of values did we start with, and what type did we end up with?
 - Why is it important to recode text variables into numeric values when working with survey or questionnaire data?
 - Why is it important to copy and paste exact values when making a mapping variable for `recode`?
 - When renaming, is it: `rename(oldvarname=newvarname)` or `rename(newvarname=oldvarname)`?

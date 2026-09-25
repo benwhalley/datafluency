@@ -15,12 +15,12 @@ source('_first_chunk.R')
 
 
 
-Throughout this worksheet (and others on the course), you'll see the commands you should type into
+Throughout this worksheet (and others on the course), you'll see the code you should type into
 RStudio inside a grey box, followed by the output you should expect to see in one or more white
 boxes. Any differences in the colour of the text in these boxes can be ignored.
 
-New commands in the worksheets are followed by one or more _explanation_ sections - those are there
-to help you understand how the commands work and how to read the output they produce.
+New functions in the worksheets are followed by one or more _explanation_ sections --- those are there
+to help you understand how the code works and how to read the output they produce.
 
 In some cases there will also be hidden answers or additional explanations. To see these, you can:
 
@@ -36,7 +36,7 @@ In other places you will see sections in blue, like this:
 
 :::{.exercise}
 
-These sections are exercises for you to complete. The are the most important sections in the
+These sections are exercises for you to complete. They are the most important sections in the
 worksheet, and you should always work through all of these problems.
 
 :::
@@ -53,7 +53,7 @@ blue:
 Other questions might ask you to make calculations. For these the text box acts like a mini
 calculator. Try typing `1000 * 1024` into this box: `r fitb(answer=1000*1024, num=TRUE)`
 
-[Why do we use `*` and not $\times$?](#compoperators)).
+[Why do we use `*` and not $\times$?](#compoperators)
 
 :::{#compoperators .sidenote}
 

@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE,
 ```{r buildall, include=F, warning=F, message=F, echo=F, eval=F}
 ## This file is for staff to use to re-build the web pages to support the teaching sessions.
 ##
-## Pushing docs/ triggers github to publish changes to https://benwhalley.github.io/lifesavR/
+## Pushing docs/ triggers github to publish changes to https://benwhalley.github.io/datafluency/
 ## In RStudio use 'Run' not 'Source' to execute this script
 ##
 ## WARNING: Requires a TeX environment suitable for rendering some special characters as HTML
@@ -41,13 +41,20 @@ knitr::opts_chunk$set(echo = TRUE,
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # rebuild docs into /docs which is where github serves them from
-rmarkdown::render('index.Rmd', output_dir = "../docs")
+# render next to the source, then move the html into docs/: rendering with output_dir
+# makes pandoc miss gganimate's GIFs, which are silently left out of the page
+build <- function(f) {
+  out <- rmarkdown::render(f)
+  file.rename(out, file.path("../docs", basename(out)))
+}
 
-rmarkdown::render('visualisation1.rmd', output_dir = "../docs")
-rmarkdown::render('data-wrangling1.rmd', output_dir = "../docs")
+build('index.rmd')
 
-# rmarkdown::render('teacher-notes.rmd', output_dir = "../docs")
-# rmarkdown::render('how-to-use-worksheets.rmd', output_dir = "../docs")
+build('visualisation1.rmd')
+build('data-wrangling1.rmd')
+
+# build('teacher-notes.rmd')
+build('how-to-use-worksheets.rmd')
 
 
 
@@ -80,12 +87,12 @@ you in good stead in your future careers.
 ### Part 1: Learning R
 
 
-We will use short [LifesavR course](http://benwhalley.github.io/lifesavR/). We cover these 5 'worksheets' in 4 sessions, with a little independent study.
+We will use the short [lifesavR course](https://benwhalley.github.io/lifesavR/). We cover these 5 worksheets in 4 sessions, with a little independent study.
 
-- Session 1: [Getting started](http://benwhalley.github.io/lifesavR/session-1.html) and [Working with R](http://benwhalley.github.io/lifesavR/session-2.html)
-- Session 2:  [Grouped data](http://benwhalley.github.io/lifesavR/session-3.html)
-- Session 3:  [Describing patterns, answering questions](http://benwhalley.github.io/lifesavR/session-4.html)
-- Session 4:  [Quantifying evidence](http://benwhalley.github.io/lifesavR/session-5.html)
+- Session 1: [Getting started](https://benwhalley.github.io/lifesavR/session-1.html) and [Working with R](https://benwhalley.github.io/lifesavR/session-2.html)
+- Session 2:  [Grouped data](https://benwhalley.github.io/lifesavR/session-3.html)
+- Session 3:  [Describing patterns, answering questions](https://benwhalley.github.io/lifesavR/session-4.html)
+- Session 4:  [Quantifying evidence](https://benwhalley.github.io/lifesavR/session-5.html)
 
 
 ### Part 2: Data handling and visualisation 
@@ -115,25 +122,25 @@ The data analysis and visualisation assessment then follows.
 # Approach
 
 Psychology students often learn statistics through a "bag of tricks"
-approach. Workshops might teach how to "do an Anova", or "how run a multiple
+approach. Workshops might teach how to "do an Anova", or "how to run a multiple
 regression". Or you might be given a checklist of things to do when analysing
 data of a particular type, but without any bigger picture of what we are
 trying to achieve when we collect and analyse data.
 
 To provide a common thread to our teaching, research methods modules at Plymouth
 adopt the model for the work of data scientists proposed by
-[Wickham, 2017](http://r4ds.had.co.nz/introduction.html) (see figure):
+[Wickham et al., 2023](https://r4ds.hadley.nz/intro.html) (see figure):
 
 ![Wickham's model of a data science workflow](images/data-science.png)
 
-In this module we do cover specific skills, but these are embedded within a broader approach to working with data, and integrate it into your own research.
+In this module we do cover specific skills, but these are embedded within a broader approach to working with data, and you will learn to integrate them into your own research.
 
 # Format of the sessions
 
 We have 7 workshops, which work as follows:
 
 -   We avoid extended lectures. This doesn't work well with this subject matter.
--   The focus is on learning by doing (this is more like cooking than chemisty).
+-   The focus is on learning by doing (this is more like cooking than chemistry).
 -   In the first hour of each session we will (often) work together.
 -   In the second hour your work will be self-paced, or in pairs or small
     groups.
@@ -146,7 +153,7 @@ We have 7 workshops, which work as follows:
 
 ## The most important thing of all
 
-The most important thing of all is to **practice**. These materials provide lots of practice tasks. You **NEED** to work through them all to be able to pass the course effectively.
+The most important thing of all is to **practise**. These materials provide lots of practice tasks. You **need** to work through them all to pass the module.
 
 
 
@@ -165,12 +172,12 @@ and make suggestions/improvements.
 
 Throughout the module we use R for data processing and analysis.
 
-If you are taking this course at Plymouth University, the easiest way to run the
-code examples here is to the school's RStudio Server.
+If you are taking this course at the University of Plymouth, the easiest way to run the
+code examples here is to use the school's RStudio Server.
 
--   [Login to your account on the server here](https://rstudio.plymouth.ac.uk)
+-   [Log in to your account on the server here](https://psyrstudio.plymouth.ac.uk)
 -   To get an account on the server, or reset a password,
-    [contact the Psychology technical office](http://www.psy.plymouth.ac.uk/home/)
+    [contact the Psychology technical office](http://www.psy.plymouth.ac.uk/)
 
 
 

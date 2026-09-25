@@ -15,6 +15,14 @@ source('_first_chunk.R')
 ```
 
 
+
+
+```{r}
+XXX NEED TO ADD stat_summary(geom="bar") and position="dodge" to this worksheet for the assessment
+```
+
+
+
 ![Nothing new under the sun: Mediaeval line plot, circa 1010. Image: [wikimedia](https://commons.wikimedia.org/wiki/File:Clm_14436_ecliptic_diagram.png)](images/Clm_14436_ecliptic_diagram.png)
 
 ----------------
@@ -25,156 +33,147 @@ source('_first_chunk.R')
 
 
 
-# Facets
 
-As we add layers our plots become more complex. We run into trade-offs between information density
-and clarity.
+# Animation!
 
-To give one example, this plot shows life expectancies for each country in the development data,
-plotted by year:
-  
+*This is an optional exercise and is not required for the course assessment. 
+Skip to the final section if you are short on time.*
+
+--------
+
+The `gganimate` package allows us to create animations using ggplot. The package has good documentation here: https://gganimate.com.
+
+As an example we can load the package:
+
 ```{r}
-development %>%
-  ggplot(aes(year, life_expectancy, group=country)) +
-  geom_smooth(se=FALSE)
+library(gganimate)
 ```
 
-**Explanation**: This is another x/y plot. However this time we have not added points, but rather
-smoothed lines (one for each country).
+And then adapt our previous ggplot by adding `transition_time(year)`. This adds `year` as a time-based
+dimension, animating the plot.
 
-**Explanation of the code**:We have created an x/y plot as before, but this time we only added
-`geom_smooth` (and not `geom_point`), so we can't see the individual datapoints. We have also added
-the text `group=country` which means we see one line per-country in the dataset. Finally, we also
-added `se=FALSE`. This hides the shaded area which `geom_smooth` adds by default.
+We need to save the resulting plot in a variable, and then send that to the `animate` function. 
+Here we use a variable  called `progress_plot`.
 
-**Comment on the result**: It's pretty hard to read!
-  
-----------------------------------------------------------------------------------------------------
-  
-To increase the information density, and explore patterns within the data, we might add another
-dimension and aesthetic. The next plot colours the lines by continent:
-  
+```{r, cache=T, cache=T}
+progress_plot <- development %>%
+  ggplot(aes(gdp_per_capita, life_expectancy, color=continent)) +
+  geom_point() +
+  scale_x_log10() +  
+  transition_time(year)
+
+progress_plot %>% animate()
+```
+
+
+
+:::{.exercise}
+
+
+Try to animate the following plot using data from all the years in the `development` dataset.
+To do this, amend the code below, referring to the example above:
+
+```{r, fig.width=4, fig.height=3}
+development %>%
+  filter(year == 1952) %>% 
+  ggplot(aes(continent, life_expectancy)) +
+  geom_boxplot() +
+  labs(title="Year: 1952")
+```
+
+`r hide("Show a hint only - not the answer")`
+
+You need to:
+
+- Remove the filter
+- Use the `transition_time()` function 
+
+`r unhide()`
+
+
+`r hide("Show what the result should look like")`
+
+```{r, echo=F, cache=T}
+p <- development %>%
+  ggplot(aes(continent, life_expectancy)) +
+  geom_boxplot() + 
+  labs(title = "Year: {frame_time}") + 
+  transition_time(year)
+
+p %>% animate()
+```
+
+`r unhide()`
+
+
+`r hide("Show the code")`
+
+```{r, eval=F, echo=T, cache=T}
+library(tidyverse)
+library(psydata)
+library(gganimate)
+
+p <- development %>%
+  ggplot(aes(continent, life_expectancy)) +
+  geom_boxplot() + 
+  labs(title = "Year: {frame_time}") + 
+  transition_time(year)
+
+p %>% animate()
+```
+
+`r unhide()`
+
+:::
+
+
+
+
+
+## Multiple summary layers
+
+A ["violin plot"](https://en.wikipedia.org/wiki/Violin_plot) is a cross between a boxplot and a density plot.
+
+They are simple to make in `ggplot`; we can simply replace `geom_boxplot()` with `geom_violin()`:
+
 ```{r}
-development %>%
-  ggplot(aes(year, life_expectancy, colour=continent, group=country)) +
-  geom_smooth(se=FALSE)
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_violin() +
+  facet_wrap(~Condition)
 ```
 
-However, even with colours added it's still a bit of a mess. We can't see the differences between
-continents easily. 
 
-To clean things up we can use a technique called **facetting**.
-  
-```{r fig.height=3}
-development %>%
-  ggplot(aes(year, life_expectancy, group=country)) +
-  geom_smooth(se=FALSE) +
-  facet_grid(~continent)
-```
-
-**Explanation**: We added the code `+ facet_grid(.~continent)` to our previous plot, and removed the color aesthetic. This made `ggplot` create individual *panels* for each continent.
-Splitting the graph this way makes it somewhat easier to compare the differences *between*
-continents.
-
-
-::: exercise
-
-### Try facetting yourself
-
-Use the `iris` dataset, which is built into R.
+However many authors find it helpful to *overlay* additional summaries like the mean and standard error
+of a variable. For example:
 
 ```{r, echo=F}
-iris %>%
-  ggplot(aes(Sepal.Length, Petal.Length)) +
-  geom_point()  +
-  geom_smooth() +
-  facet_grid(~Species)
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_violin() +
+  stat_summary() +
+  facet_wrap(~Condition)
 ```
 
-1.  Try to recreate this plot by adapting the code shown above
+:::{.exercise}
 
-2.  Create a second plot which uses colours to distinguish species and does not use Facets
-
-3.  In this example, which plot do you prefer? What influences when facets are more useful the just
-using colour?
-  
-
+Make a new plot, based on the code above, which combines `geom_violin()` with 
+`stat_summary()`
 
 
 `r hide("Show code")`
 
-1.
-
 ```{r, echo=T, eval=F}
-iris %>%
-  ggplot(aes(Sepal.Length, Petal.Length)) +
-  geom_point()  +
-  geom_smooth() +
-  facet_grid(~Species)
-```
-
-
-
-2. 
-
-```{r, echo=T, eval=F}
-iris %>%
-  ggplot(aes(Sepal.Length, Petal.Length, color=Species)) +
-  geom_point()  +
-  geom_smooth() 
+expdata  %>%
+  ggplot(aes(x=stimuli, y=RT)) + 
+  geom_violin() +
+  stat_summary() +
+  facet_wrap(~Condition)
 ```
 
 `r unhide()`
 
-
-
-`r hide("Show discussion/answer")`
-
-There's no single right answer here, but for this example I prefer the coloured plot to the faceted one.
-The reason is that there are only 3 species in this dataset, and the points for each don't overlap
-much. This means it is easy to distinguish them, even in the combined plot. 
-
-However, if there were *many* different species it might be helpful to use facets instead.
-
-Our decisions should be driven by what we are trying to communicate with the plot. What was the
-research question that motivated us to draw it?
-  
-`r unhide()`
-
-
 :::
-  
-  
-  
-:::{.exercise}
-
-### Adjusting the facets
-
-In the explanation above, we saw this plot:
-  
-```{r}
-development %>%
-  ggplot(aes(year, life_expectancy, group=country)) +
-  geom_smooth(se=FALSE) +
-  facet_grid(~continent)
-```
-
-
-
-Re-run the plot and make the following adaptations:
-  
-1.  Try replacing `facet_grid(~continent)` with `facet_grid(continent~.)`. What happens?
-  
-2.  Try replacing `facet_grid` with
-`facet_wrap(~continent)`. What happens?
-  
-3.  If you have time, to see more faceting examples, see [the `ggplot` cookbook documentation](http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/). 
-Try to re-create some of these examples.
-
-
-:::
-
-
 
 
 # Comparing categories

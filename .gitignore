@@ -68,3 +68,12 @@ slides-handouts alias
 website/data/NHS Partnership Trust Patient and Carers Survey Experiences of COVID.csv
 slides-handouts/2019/*
 slides-handouts/2020/*
+
+# large slide decks (212MB) are kept locally, not in the repo
+slides-handouts/
+# unused draft worksheets
+website/data wrangling unused.Rmd
+website/visualisation_UNUSED.Rmd
+website/visualisation_TOADD.Rmd
+# *.md is ignored above; keep the TODO list
+!TODO.md

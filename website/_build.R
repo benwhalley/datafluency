@@ -1,6 +1,6 @@
 ## This file is for staff to use to re-build the web pages to support the teaching sessions.
 ##
-## Pushing docs/ triggers github to publish changes to https://benwhalley.github.io/lifesavR/
+## Pushing docs/ triggers github to publish changes to https://benwhalley.github.io/datafluency/
 ## In RStudio use 'Run' not 'Source' to execute this script
 ##
 ## WARNING: Requires a TeX environment suitable for rendering some special characters as HTML
@@ -12,19 +12,26 @@
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # rebuild docs into /docs which is where github serves them from
-rmarkdown::render('index.rmd', output_dir = "../docs")
-rmarkdown::render('visualisation1.rmd', output_dir = "../docs")
-rmarkdown::render('visualisation-extensions.rmd', output_dir = "../docs")
+# render next to the source, then move the html into docs/: rendering with output_dir
+# makes pandoc miss gganimate's GIFs, which are silently left out of the page
+build <- function(f) {
+  out <- rmarkdown::render(f)
+  file.rename(out, file.path("../docs", basename(out)))
+}
 
-rmarkdown::render('data-wrangling1.rmd', output_dir = "../docs")
-rmarkdown::render('data-wrangling-extensions.rmd', output_dir = "../docs")
-rmarkdown::render('data-wrangling2.rmd', output_dir = "../docs")
+build('index.rmd')
+build('visualisation1.rmd')
+build('visualisation-extensions.rmd')
+
+build('data-wrangling1.rmd')
+build('data-wrangling-extensions.rmd')
+build('data-wrangling2.rmd')
 
 
-#rmarkdown::render('visualisation2.rmd', output_dir = "../docs")
-rmarkdown::render('real-data-practical.rmd', output_dir = "../docs")
+#build('visualisation2.rmd')
+build('real-data-practical.rmd')
 
-rmarkdown::render('teacher-notes.rmd', output_dir = "../docs")
-rmarkdown::render('how-to-use-worksheets.rmd', output_dir = "../docs")
+build('teacher-notes.rmd')
+build('how-to-use-worksheets.rmd')
 
 
